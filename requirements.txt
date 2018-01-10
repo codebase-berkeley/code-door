@@ -1,5 +1,6 @@
 certifi==2017.11.5
 chardet==3.0.4
+dj-database-url==0.4.2
 Django==1.11.5
 django-extensions==1.9.6
 gunicorn==19.7.1

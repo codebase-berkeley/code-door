@@ -2,6 +2,7 @@
 ''' THESE SETTINGS ARE NOT PRODUCTION READY '''
 # -----------------------------------------------
 
+import dj_database_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -67,16 +68,8 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 if os.environ.get('production', False):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd7noi37clt4ta4',
-            'USER': 'btyorbyceptrdc',
-            'PASSWORD': '73e99fd07f10bb3213760fabcff198760f2b27d1941c568cc44bd14f4544512c',
-            'HOST': 'ec2-54-235-81-176.compute-1.amazonaws.com',
-            'PORT': '5432',
-        }
-    }
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
 else:
     DATABASES = {
         'default': {
