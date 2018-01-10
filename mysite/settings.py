@@ -1,7 +1,6 @@
 # -----------------------------------------------
 ''' THESE SETTINGS ARE NOT PRODUCTION READY '''
 # -----------------------------------------------
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
