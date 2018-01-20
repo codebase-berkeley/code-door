@@ -63,20 +63,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# Use sqlite db by default
+# Use sqlite db just to start: delete from here: -------------------
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+# ------------------------ to here when you reach that part of the guide
+
+''' Here is the DATABASE code for setting up Postgres
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'postgres',
+            'USER': 'postgres',
+            'PASSWORD': 'pass',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        } 
+'''
 
 # if in production get the heroku creds
 if os.environ.get('production', False):
     db_from_env = dj_database_url.config()
     DATABASES['default'].update(db_from_env)
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
