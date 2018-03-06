@@ -82,6 +82,7 @@ DATABASES = {
             'HOST': '127.0.0.1',
             'PORT': '5432',
         } 
+    }
 '''
 
 # if in production get the heroku creds
