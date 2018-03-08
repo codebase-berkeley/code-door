@@ -18,7 +18,7 @@ SECRET_KEY = '&o^(0i4^pc$t2k6v5hqr91!((ic)wph2f@7%)pqwv*y55p=t50'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*'] # Fix later
+ALLOWED_HOSTS = ['*']  # Fix later
 
 
 # Application definition
@@ -63,27 +63,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
-# Use sqlite db just to start: delete from here: -------------------
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'Body#513!',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
-# ------------------------ to here when you reach that part of the guide
-
-''' Here is the DATABASE code for setting up Postgres
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': 'Body#513!',
-            'HOST': '127.0.0.1',
-            'PORT': '5432',
-        } 
-    }
-'''
 
 # if in production get the heroku creds
 if os.environ.get('production', False):
