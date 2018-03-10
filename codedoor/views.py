@@ -6,13 +6,16 @@ def hello(request):
 	return render(request, 'codedoor/hello.html', {'name': 'Brian'})
 
 def createprofile(request):
-    render(request, 'codedoor/createprofile.html')
     input_name = request.POST['name']
     input_profile_pic = request.POST['profile_pic']
     input_graduation_year = request.POST['graduation_year']
     input_current_job = request.POST['current_job']
     input_linkedin = request.POST['linkedin']
     input_resume = request.POST['resume']
+    return render(request, 'codedoor/createprofile.html')
+
+def profilecreated(request):
+    return render(request, 'codedoor/profilecreated.html')
     profile = Profile(name = input_name, profile_pic = input_profile_pic,
 					  graduation_year = input_graduation_year, current_job = input_current_job,
 					  linkedin = input_linkedin, resume = input_resume)
