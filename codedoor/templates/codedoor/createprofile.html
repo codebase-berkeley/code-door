@@ -1,0 +1,18 @@
+{% extends 'codedoor/base.html' %}
+{% block content %}
+<form action="/createprofile" method="POST">
+    name:<br>
+    <input type="text" name="name"><br>
+    profile_pic:<br>
+    <input type="image" name="profile_pic"><br>
+    graduation_year:<br>
+    <input type="number" name="graduation_year"><br>
+    current_job:<br>
+    <input type="text" name="current_job"><br>
+    linkedin:<br>
+    <input type="url" name="linkedin"><br>
+    resume:<br>
+    <input type="file" name="resume"><br>
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
