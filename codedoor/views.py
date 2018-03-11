@@ -28,4 +28,6 @@ def view_company(request, pk):
 
 
 def edit_company(request, pk):
-	return render(request, "codedoor/viewcompany.html", {"company": company})
+	company = Company.objects.get(pk=pk)
+
+	return render(request, "codedoor/editcompany.html", {"company": company})

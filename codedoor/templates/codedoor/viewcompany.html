@@ -7,5 +7,7 @@
     <p>
       {{company.structure}}
     </p>
+    <a class="btn btn-default" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
+
 
 {% endblock %}
