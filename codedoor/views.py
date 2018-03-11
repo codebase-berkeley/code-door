@@ -20,9 +20,11 @@ def create_company(request):
 	else:
 		return render(request, "codedoor/createcompany.html")
 
+
 def view_company(request, pk):
 	company = Company.objects.get(pk=pk)
 	return render(request, "codedoor/viewcompany.html", {"company": company})
+
 
 def edit_company(request, pk):
 	return render(request, "codedoor/viewcompany.html", {"company": company})
