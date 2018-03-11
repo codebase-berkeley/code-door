@@ -1,10 +1,13 @@
 from django.contrib.auth import views as auth_views
 from django.conf.urls import url
+from django.urls import path
 
 import codedoor.views as views
 
 app_name='codedoor'
 
 urlpatterns = [
-	url(r'^hello', views.hello, name='hello'),
+	path('createcompany', views.create_company),
+	path('viewcompany/<int:pk>', views.view_company),
+	path('editcompany/<int:pk>', views.edit_company),
 ]
