@@ -4,8 +4,9 @@
 <h2>{{company.name}}</h2>
     <h3>{{ company.industry }}</h3>
     <em>{{ company.website }}</em>
-    <p>
-      {{company.structure}}
-    </p>
+    <img src="/media/{{company.logo}}" />
+    <p>{{company.structure}}</p>
+    <a class="btn btn-default" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
+
 
 {% endblock %}

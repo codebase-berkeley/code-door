@@ -1,16 +1,16 @@
 {% extends 'codedoor/base.html' %}
 {% block content %}
-	<h1> Create company </h1>
-	<form action="createcompany" method="POST" enctype="multipart/form-data">
+	<h1> Edit Company </h1>
+	<form action="" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		Company name <br>
-		<input type="text" name="name"><br>
+		<input type="text" name="name" value={{company.name}}><br>
 		Industry <br>
-		<input type="text" name="industry"><br>
+		<input type="text" name="industry" value={{company.industry}}><br>
 		Website <br>
-		<input type="url" name="website"><br>
+		<input type="url" name="website" value={{company.website}}><br>
 		Logo <br>
-		<input type="file" name="logo"><br>
+		<input type="file" name="logo" value={{company.logo}}><br>
 		Type of company <br>
 		<input type="radio" name="structure" value="Startup"> Startup <br>
 		<input type="radio" name="structure" value="Boutique"> Boutique <br>
