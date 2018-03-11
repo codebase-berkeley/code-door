@@ -1,6 +1,6 @@
 {% extends 'codedoor/base.html' %}
 {% block content %}
-<form action="/codedoor/profilecreated" method="POST">
+<form action="/codedoor/createprofile" method="POST">{% csrf_token %}
     Full Name:<br>
     <input type="text" name="name"><br>
     Profile Picture:<br>
