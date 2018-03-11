@@ -2,7 +2,7 @@
 <head></head>
 <body>
 	<h1> Create company </h1>
-	<form action="createcompany" method="POST">
+	<form action="createcompany" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
 		Company name <br>
 		<input type="text" name="name"><br>
