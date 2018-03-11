@@ -8,6 +8,6 @@ app_name='codedoor'
 
 urlpatterns = [
 	path('createcompany', views.create_company),
-	path('viewcompany/<int:pk>', views.view_company),
+	path('viewcompany/<int:pk>', views.view_company, name="viewcompany"),
 	path('editcompany/<int:pk>', views.edit_company),
 ]

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from .models import Company
 
 def hello(request):
@@ -16,7 +17,7 @@ def create_company(request):
 		company = Company(name=name, industry=industry, website=website, logo=logo, structure=structure)
 		company.save()
 
-		return HttpResponse("Created" + name)
+		return redirect('viewcompany/' + str(company.pk))
 	else:
 		return render(request, "codedoor/createcompany.html")
 
