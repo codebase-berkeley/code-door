@@ -3,9 +3,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import Company
 
-def hello(request):
-	return render(request, 'codedoor/hello.html', {'name': 'Brian'})
-
 def create_company(request):
 	if request.method == "POST":
 		name = request.POST["name"]
@@ -29,5 +26,15 @@ def view_company(request, pk):
 
 def edit_company(request, pk):
 	company = Company.objects.get(pk=pk)
+	if request.method == "POST":
+		company.name = request.POST["name"]
+		company.industry = request.POST["industry"]
+		company.website = request.POST["website"]
+		company.logo = request.POST["logo"]
+		company.structure = request.POST["structure"]
+
+		company.save()
+
+		return redirect('viewcompany/' + str(company.pk))
 
 	return render(request, "codedoor/editcompany.html", {"company": company})

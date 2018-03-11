@@ -2,7 +2,7 @@
 {% block content %}
 
 	<h1> Edit Company </h1>
-	<form action="createcompany" method="POST">
+	<form action="codedoor/editcompany" method="POST">
 		{% csrf_token %}
 		Company name <br>
 		<input type="text" name="name" value={{company.name}}><br>
