@@ -1,5 +1,10 @@
 {% extends 'codedoor/base.html' %}
 {% block content %}
+<html>
+<link rel="stylesheet" href="create.css">
+<h1>
+    Create Profile
+</h1>
 <form action="/codedoor/createprofile" method="POST">{% csrf_token %}
     Full Name:<br>
     <input type="text" name="name"><br>
@@ -15,4 +20,5 @@
     <input type="file" name="resume"><br>
     <input type="submit" value="Submit">
 </form>
+</html>
 {% endblock %}
