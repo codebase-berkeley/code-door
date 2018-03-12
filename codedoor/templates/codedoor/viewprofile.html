@@ -1,4 +1,23 @@
 {% extends 'codedoor/base.html' %}
 {% block content %}
-
+<h2>{{ profile.name }}</h2>
+<!--
+<div>
+    <img src="">
+</div>
+-->
+<div>
+    <p> {{ profile.graduation_year }} </p>
+</div>
+<div>
+    <p> {{ profile.current_job }} </p>
+</div>
+<div>
+   <a href={{ profile.linkedin }}> LinkedIn </a>
+</div>
+<!--
+<div>
+    <a href={{ profile.resume }}> Resume </a>
+</div>
+-->
 {% endblock %}

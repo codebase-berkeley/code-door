@@ -2,11 +2,13 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Profile
 
+
 def hello(request):
-	return render(request, 'codedoor/hello.html', {'name': 'Brian'})
+    return render(request, 'codedoor/hello.html', {'name': 'Brian'})
+
 
 def createprofile(request):
-    if (request.method == "GET"):
+    if request.method == "GET":
         return render(request, 'codedoor/createprofile.html')
     else:
         input_name = request.POST['name']
@@ -21,10 +23,11 @@ def createprofile(request):
         profile.save()
         return HttpResponse("Profile successfully created!")
 
-def viewprofile(request):
-    return render(request, 'codedoor/viewprofile.html')
+
+def viewprofile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    return render(request, 'codedoor/viewprofile.html', {"profile": profile})
 
 
 def editprofile(request):
     return render(request, 'codedoor/editprofile.html')
-
