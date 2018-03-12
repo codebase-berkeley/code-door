@@ -2,20 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import Company
-from django.core.files.storage import FileSystemStorage
 
 
 def create_company(request):
-    if request.method == "POST" and request.FILES["logo"]:
+    if request.method == "POST":
         name = request.POST["name"]
         industry = request.POST["industry"]
         website = request.POST["website"]
-        myfile = request.FILES["logo"]
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
+        logo = request.POST["logo"]
         structure = request.POST["structure"]
 
-        company = Company(name=name, industry=industry, website=website, logo=myfile, structure=structure)
+        company = Company(name=name, industry=industry, website=website, logo=logo, structure=structure)
         company.save()
 
         return redirect('viewcompany/' + str(company.pk))
@@ -34,11 +31,6 @@ def edit_company(request, pk):
         company.name = request.POST["name"]
         company.industry = request.POST["industry"]
         company.website = request.POST["website"]
-        myfile = request.FILES["logo"]
-        fs = FileSystemStorage()
-        filename = fs.save(myfile.name, myfile)
-        company.logo = myfile
-        # company.logo = request.POST["logo"]
         company.structure = request.POST["structure"]
 
         company.save()

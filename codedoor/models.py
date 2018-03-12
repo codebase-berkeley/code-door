@@ -10,8 +10,7 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     industry = models.CharField(max_length=100)
     website = models.URLField(null=True, blank=True)
-    # Made changes here 
-    logo = models.ImageField(upload_to="logos/",null=True, blank=True)
+    logo = models.ImageField(null=True, blank=True)
     structure = models.CharField(max_length=100, choices=STRUCTURES)
 
     def __str__(self):
