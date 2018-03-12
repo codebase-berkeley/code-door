@@ -16,10 +16,10 @@ def createprofile(request):
         input_graduation_year = request.POST['graduation_year']
         input_current_job = request.POST['current_job']
         input_linkedin = request.POST['linkedin']
-        input_resume = request.POST['resume']
+        # input_resume = request.POST['resume']
         profile = Profile(name=input_name,
                           graduation_year=input_graduation_year, current_job=input_current_job,
-                          linkedin=input_linkedin, resume=input_resume)
+                          linkedin=input_linkedin)
         profile.save()
         return HttpResponse("Profile successfully created!")
 
@@ -29,5 +29,28 @@ def viewprofile(request, pk):
     return render(request, 'codedoor/viewprofile.html', {"profile": profile})
 
 
-def editprofile(request):
-    return render(request, 'codedoor/editprofile.html')
+def editprofile(request, pk):
+    profile = Profile.objects.get(id=pk)
+    if request.method == "GET":
+        return render(request, 'codedoor/editprofile.html', {"profile": profile})
+    else:
+        profile.name = request.POST['name']
+        # input_profile_pic = request.POST['profile_pic']
+        profile.graduation_year = request.POST['graduation_year']
+        profile.current_job = request.POST['current_job']
+        profile.linkedin = request.POST['linkedin']
+        # input_resume = request.POST['resume']
+        profile.save()
+        return HttpResponse("Profile successfully updated.")
+
+
+def edit(request):
+    profile = Profile.objects.get(pk=int(request.POST['pk']))
+    profile.name = request.POST['name']
+    # input_profile_pic = request.POST['profile_pic']
+    profile.graduation_year = request.POST['graduation_year']
+    profile.current_job = request.POST['current_job']
+    profile.linkedin = request.POST['linkedin']
+    # input_resume = request.POST['resume']
+    profile.save()
+    return HttpResponse("Profile successfully updated.")

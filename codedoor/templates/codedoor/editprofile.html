@@ -1,0 +1,25 @@
+{% extends 'codedoor/base.html' %}
+{% block content %}
+{{ profile.id }}
+<form action="/codedoor/eprofile" method="POST">{% csrf_token %}
+    <input type="hidden" name="pk" value="{{ profile.id }}">
+
+    Full Name:<br>
+    <input type="text" name="name" value={{ profile.name }}><br>
+    <!--
+    Profile Picture:<br>
+    <input type="image" name="profile_pic"><br>
+    -->
+    Graduation Year:<br>
+    <input type="number" name="graduation_year" value={{ profile.graduation_year}}><br>
+    Current Job:<br>
+    <input type="text" name="current_job" value={{ profile.current_job}}><br>
+    LinkedIn:<br>
+    <input type="url" name="linkedin" value={{ profile.linkedin}}><br>
+    <!--
+    Resume:<br>
+    <input type="file" name="resume"><br>
+    -->
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}
