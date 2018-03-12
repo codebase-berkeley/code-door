@@ -1,0 +1,10 @@
+<form action="/codedoor/creatingquestion" method="POST">
+	{% csrf_token %} 
+  Question:<br>
+  <input type="text" name="question" value="Question here"><br>
+  Applicant Answer:<br>
+  <input type="text" name="applicant answer" value="Your answer"><br>
+  Company Answer:<br>
+  <input type="text" name="company answer" value="Their answer"><br><br>
+  <input type="submit" value="Submit">
+</form>
