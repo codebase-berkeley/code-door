@@ -26,17 +26,22 @@ def editQPage(request, pk):
     question = q.question
     aa = q.applicant_answer
     ca = q.actual_answer
-    return render(request, 'codedoor/editQuestion.html', {"question": question, "applicant_answer": aa, "comp_answer": ca, "pk": pk})
+    return render(request, 'codedoor/editQuestion.html', {"question": question, "applicant_answer": aa, "comp_answer": ca, "pk": pk, "link": "/codedoor/editingquestion/" + str(pk)})
 
 def editQ(request, pk):
     # pk = int(pk)
-    pk = 12
-    q = Queston.objects.get(pk=pk)
+    q = Question.objects.get(pk=pk)
     if request.method == 'POST':
         q.question = request.POST['question']
         q.actual_answer = request.POST['company answer']
-        a.applicant_answer = request.POST['applicant answer']
+        q.applicant_answer = request.POST['applicant answer']
         q.save()
     return HttpResponse("Congrats! Here's your edited question: " + q.__str__())
 
+def viewQ(request, pk):
+    q = Question.objects.get(pk=pk)
+    return render(request, "codedoor/viewQuestion.html", {"q": q})
 
+def listQ(request):
+    questions = Question.objects.order_by("-pk")
+    return render(request, 'codedoor/viewQuestions.html', {"questions": questions})
