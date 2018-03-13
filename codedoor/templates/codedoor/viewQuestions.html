@@ -1,0 +1,19 @@
+{% extends 'codedoor/base.html' %}
+{% block content %}
+    <h2>Questions</h2>
+    {% if questions %}
+        <div class="questList">
+        {% for q in questions %}
+            <div class="post">
+                <p>{{ q.question }}</p>
+                <h2>Applicant answer</h2>
+                <p>{{ q.applicant_answer }}</p>
+                <h2>Company answer</h2>
+                <p>{{ q.actual_answer }}</p>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No questions yet!</p>
+    {% endif %}
+{% endblock %}
