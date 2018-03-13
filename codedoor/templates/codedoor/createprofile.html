@@ -8,16 +8,20 @@
 <form action="/codedoor/createprofile" method="POST">{% csrf_token %}
     Full Name:<br>
     <input type="text" name="name"><br>
+    <!--
     Profile Picture:<br>
     <input type="image" name="profile_pic"><br>
+    -->
     Graduation Year:<br>
     <input type="number" name="graduation_year"><br>
     Current Job:<br>
     <input type="text" name="current_job"><br>
     LinkedIn:<br>
     <input type="url" name="linkedin"><br>
+    <!--
     Resume:<br>
     <input type="file" name="resume"><br>
+    -->
     <input type="submit" value="Submit">
 </form>
 </html>

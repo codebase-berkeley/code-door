@@ -9,7 +9,7 @@ app_name = 'codedoor'
 urlpatterns = [
     url(r'^hello', views.hello, name='hello'),
     url(r'^createprofile', views.createprofile, name='createprofile'),
-    # url(r'^viewprofile', views.viewprofile, name='viewprofile'),
-    url(r'^editprofile', views.editprofile, name='editprofile'),
     path('viewprofile/<int:pk>', views.viewprofile, name='viewprofile'),
+    path('editprofile/<int:pk>', views.editprofile, name='editprofile'),
+    path('eprofile', views.edit, name='edit'),
 ]

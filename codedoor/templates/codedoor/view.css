@@ -1,0 +1,12 @@
+body{
+    display: inline-block;
+    font-family: verdana;
+}
+
+div{
+    display: inline-block;
+}
+
+.link {
+    text-decoration: none;
+}

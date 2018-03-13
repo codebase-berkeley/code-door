@@ -1,23 +1,70 @@
 {% extends 'codedoor/base.html' %}
 {% block content %}
-<h2>{{ profile.name }}</h2>
-<!--
-<div>
-    <img src="">
-</div>
--->
-<div>
-    <p> {{ profile.graduation_year }} </p>
-</div>
-<div>
-    <p> {{ profile.current_job }} </p>
-</div>
-<div>
-   <a href={{ profile.linkedin }}> LinkedIn </a>
-</div>
-<!--
-<div>
-    <a href={{ profile.resume }}> Resume </a>
-</div>
--->
-{% endblock %}
+<html>
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="view.css">
+</head>
+<body>
+    <div class="left">
+        <p>
+            <img src="templates/codedoor/images/profpic.jpg" width="400px" height="400px">
+        </p>
+        <p>
+            <a href="/codedoor/editprofile" class = "link"><!--add pk?-->
+            edit profile
+            </a>
+        </p>
+    </div>
+    <div class="right">
+        <div id = "imgs">
+            <p>
+               <img src="/images/linkicon.png" width="30px" height="30px">
+            </p>
+            <p>
+                <img src="/images/linkedinlogo.png" width="30px" height="30px">
+            </p>
+            <p>
+                <img src="/images/emailicon.png" width="30px" height="30px">
+            </p>
+            <p>
+                <img src="/images/cvicon.png" width="30px" height="30px">
+            </p>
+
+        </div>
+
+        <h2>
+            {{ profile.name }}
+        </h2>
+        <div id="subname">
+            <p>
+                {{ profile.current_job }}
+            </p>
+            <p>
+                Class of {{ profile.graduation_year }}
+            </p>
+        </div>
+        <div id="info">
+            <!--{{ profile.website }}-->
+            <p>
+                lausophia.github.io
+            </p>
+            <p>
+                <a href = {{ profile.linkedin }} class = "link">
+                    {{ profile.linkedin }}
+                </a>
+            </p>
+            <!--{{profile.email}}-->
+            <p>
+                sophialau@berkeley.edu
+            </p>
+            <!--<a href={{ profile.resume }}>-->
+            <p>
+                resume.pdf <!--</a>-->
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock content %}
