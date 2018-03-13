@@ -1,10 +1,25 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+
 <form action="/codedoor/creatingquestion" method="POST">
-	{% csrf_token %} 
-  Question:<br>
-  <input type="text" name="question" value="Question here"><br>
-  Applicant Answer:<br>
-  <input type="text" name="applicant answer" value="Your answer"><br>
-  Company Answer:<br>
-  <input type="text" name="company answer" value="Their answer"><br><br>
-  <input type="submit" value="Submit">
+    {% csrf_token %}
+    <div class="entry">
+        <h4>Question:</h4><br>
+        <textarea name="question" placeholder="Question here"></textarea><br>
+    </div>
+    <div class="entry">
+        <h4>Applicant Answer:</h4><br>
+        <textarea name="applicant answer" placeholder="Your answer"></textarea><br>
+    </div>
+    <div class="entry">
+        <h4>Company Answer:</h4><br>
+        <textarea name="company answer" placeholder="Company answer"></textarea><br><br>
+    </div>
+    <div class="entry">
+        <button type="submit">Submit</button>
+    </div>
 </form>
+
+{% endblock content %}
