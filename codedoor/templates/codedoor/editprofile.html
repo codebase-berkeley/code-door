@@ -1,25 +1,52 @@
 {% extends 'codedoor/base.html' %}
-{% block content %}
-{{ profile.id }}
-<form action="/codedoor/eprofile" method="POST">{% csrf_token %}
-    <input type="hidden" name="pk" value="{{ profile.id }}">
+{% load static %}
 
-    Full Name:<br>
-    <input type="text" name="name" value={{ profile.name }}><br>
+{% block content %}
+<html>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/editprofile.css' %}">
+<h1>
+    Edit Profile: {{ profile.name }}
+</h1>
+<form action="/codedoor/eprofile" method="POST"> {% csrf_token %}
+    <input type="hidden" name="pk" value="{{ profile.id }}">
+    <div class="entry">
+        Full Name:
+        <input type="text" name="name" value={{ profile.name }} required>
+    </div>
     <!--
-    Profile Picture:<br>
-    <input type="image" name="profile_pic"><br>
+    <div class="entry">
+        Profile Picture:
+        <input type="image" name="profile_pic">
+    </div>
     -->
-    Graduation Year:<br>
-    <input type="number" name="graduation_year" value={{ profile.graduation_year}}><br>
-    Current Job:<br>
-    <input type="text" name="current_job" value={{ profile.current_job}}><br>
-    LinkedIn:<br>
-    <input type="url" name="linkedin" value={{ profile.linkedin}}><br>
+    <div class="entry">
+        Graduation Year:
+        <input type="number" name="graduation_year" value={{ profile.graduation_year}} required>
+    </div>
     <!--
-    Resume:<br>
-    <input type="file" name="resume"><br>
+    <div class="entry">
+        Email:
+        <input type = "text" name="email" value="{{  profile.email }} required">
+    </div>
     -->
-    <input type="submit" value="Submit">
+    <div class="entry">
+        Current Job:
+        <input type="text" name="current_job" value={{ profile.current_job}}>
+    </div>
+    <div class="entry">
+        LinkedIn:
+        <input type = "text" name = "linkedin" value={{ profile.linkedin}}>
+    </div>
+    <!--
+    <div class="entry">
+        Resume:
+        <input type="file" name="resume">
+    </div>
+    -->
+    <div id="submit">
+        <input type="submit" value="Save Changes">
+    </div>
 </form>
+</html>
 {% endblock %}

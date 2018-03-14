@@ -1,12 +1,61 @@
-body {
-    display: inline-block;
-    font-family: verdana;
+body{
+    font-family: roboto;
+    padding: 80px;
+    margin: auto;
+    width: 90%;
+
 }
 
-div{
-    display: inline-block;
-}
-
-.link {
+a {
     text-decoration: none;
+    color: black;
+}
+
+.block{
+    display: inline-block;
+    padding: 23px 10px 0px 23px;
+
+
+}
+
+body #edit-profile{
+    font-style: italic;
+    font-weight: 100;
+    font-size: 80%;
+    color: rgba (47, 128, 237, 1);
+    line-height: 0.1;
+    padding: 0px 0px 10px 23px;
+}
+
+
+
+#name{
+    font-weight: 1000;
+    font-size: 200%;
+    line-height: 0.3;
+}
+
+#job{
+    font-style: italic;
+    font-weight: lighter;
+    font-size: 100%;
+    line-height:0.4;
+}
+
+#classof{
+    font-weight: 100;
+    font-size: 90%;
+    line-height: 0.4;
+}
+
+
+
+div#info{
+    font-weight: 300;
+    font-size: 90%;
+    line-height: 2.5;
+}
+
+#icon{
+    padding = 5px;
 }

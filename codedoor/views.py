@@ -16,6 +16,10 @@ def createprofile(request):
         input_graduation_year = request.POST['graduation_year']
         input_current_job = request.POST['current_job']
         input_linkedin = request.POST['linkedin']
+        if "http://" not in input_linkedin and "https://" not in input_linkedin:
+            input_linkedin = "http://" + input_linkedin
+
+
         # input_resume = request.POST['resume']
         profile = Profile(name=input_name,
                           graduation_year=input_graduation_year, current_job=input_current_job,
@@ -38,7 +42,11 @@ def editprofile(request, pk):
         # input_profile_pic = request.POST['profile_pic']
         profile.graduation_year = request.POST['graduation_year']
         profile.current_job = request.POST['current_job']
-        profile.linkedin = request.POST['linkedin']
+        input_linkedin = request.POST['linkedin']
+        if "http://" not in input_linkedin and "https://" not in input_linkedin:
+            input_linkedin = "http://" + input_linkedin
+        profile.linkedin = input_linkedin
+
         # input_resume = request.POST['resume']
         profile.save()
         return HttpResponse("Profile successfully updated.")
@@ -50,7 +58,10 @@ def edit(request):
     # input_profile_pic = request.POST['profile_pic']
     profile.graduation_year = request.POST['graduation_year']
     profile.current_job = request.POST['current_job']
-    profile.linkedin = request.POST['linkedin']
+    input_linkedin = request.POST['linkedin']
+    if "http://" not in input_linkedin and "https://" not in input_linkedin:
+        input_linkedin = "http://" + input_linkedin
+    profile.linkedin = input_linkedin
     # input_resume = request.POST['resume']
     profile.save()
     return HttpResponse("Profile successfully updated.")
