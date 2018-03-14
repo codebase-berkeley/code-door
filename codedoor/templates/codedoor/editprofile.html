@@ -12,7 +12,7 @@
     <input type="hidden" name="pk" value="{{ profile.id }}">
     <div class="entry">
         Full Name:
-        <input type="text" name="name" value={{ profile.name }}>
+        <input type="text" name="name" value={{ profile.name }} required>
     </div>
     <!--
     <div class="entry">
@@ -22,15 +22,22 @@
     -->
     <div class="entry">
         Graduation Year:
-        <input type="number" name="graduation_year" value={{ profile.graduation_year}}>
+        <input type="number" name="graduation_year" value={{ profile.graduation_year}} required>
     </div>
+    <!--
+    <div class="entry">
+        Email:
+        <input type = "text" name="email" value="{{  profile.email }} required">
+    </div>
+    -->
     <div class="entry">
         Current Job:
         <input type="text" name="current_job" value={{ profile.current_job}}>
     </div>
     <div class="entry">
         LinkedIn:
-        <input type="url" name="linkedin" value={{ profile.linkedin}}>
+        <input type = "text" name = "linkedin" value={{ profile.linkedin}}>
+    </div>
     </div>
     <!--
     <div class="entry">
