@@ -1,28 +1,45 @@
 {% extends 'codedoor/base.html' %}
+{% load static %}
+
 {% block content %}
 <html>
-<link rel="stylesheet" href="create.css">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/createprofile.css' %}">
 <h1>
     Create Profile
 </h1>
-<form action="/codedoor/createprofile" method="POST">{% csrf_token %}
-    Full Name:<br>
-    <input type="text" name="name"><br>
+<form action="/codedoor/createprofile" method="POST"> {% csrf_token %}
+    <div class="entry">
+        Full Name:
+        <input type="text" name="name">
+    </div>
     <!--
-    Profile Picture:<br>
-    <input type="image" name="profile_pic"><br>
+    <div class="entry">
+        Profile Picture:
+        <input type="image" name="profile_pic">
+    </div>
     -->
-    Graduation Year:<br>
-    <input type="number" name="graduation_year"><br>
-    Current Job:<br>
-    <input type="text" name="current_job"><br>
-    LinkedIn:<br>
-    <input type="url" name="linkedin"><br>
+    <div class="entry">
+        Graduation Year:
+        <input type="number" name="graduation_year">
+    </div>
+    <div class="entry">
+        Current Job:
+        <input type="text" name="current_job">
+    </div>
+    <div class="entry">
+        LinkedIn:
+        <input type="url" name="linkedin">
+    </div>
     <!--
-    Resume:<br>
-    <input type="file" name="resume"><br>
+    <div class="entry">
+        Resume:
+        <input type="file" name="resume">
+    </div>
     -->
-    <input type="submit" value="Submit">
+    <div id="submit">
+        <input type="submit" value="Submit">
+    </div>
 </form>
 </html>
 {% endblock %}
