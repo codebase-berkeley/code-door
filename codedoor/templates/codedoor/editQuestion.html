@@ -3,9 +3,11 @@
 
 {% block content %}
 
+<head>
+  <link rel="stylesheet" href="{% static 'css/edit.css' %}">
+</head>
 <form action={{link}} method="POST">
     {% csrf_token %}
-    <h1>Edit Your Question</h1><br>
     <div class="entry">
         <h4>Question:</h4><br>
         <textarea name="question">{{question}}</textarea><br>
