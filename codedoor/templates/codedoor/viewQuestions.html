@@ -1,15 +1,21 @@
 {% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
 {% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
     <h2>Questions</h2>
     {% if questions %}
         <div class="questList">
         {% for q in questions %}
             <div class="post">
+                <h4 class="blue-text">Question</h4>
                 <p>{{ q.question }}</p>
-                <h2>Applicant answer</h2>
+                <h4 class="blue-text">Applicant answer</h4>
                 <p>{{ q.applicant_answer }}</p>
-                <h2>Company answer</h2>
+                <h4 class="blue-text">Company answer</h4>
                 <p>{{ q.actual_answer }}</p>
+                <br><br>
             </div>
         {% endfor %}
         </div>

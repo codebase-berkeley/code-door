@@ -3,6 +3,9 @@
 
 {% block content %}
 
+<head>
+  <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
 <form action="/codedoor/creatingquestion" method="POST">
     {% csrf_token %}
     <div class="entry">
@@ -18,7 +21,7 @@
         <textarea name="company answer" placeholder="Company answer"></textarea><br><br>
     </div>
     <div class="entry">
-        <button type="submit">Submit</button>
+        <button type="submit" class="big">Submit</button>
     </div>
 </form>
 
