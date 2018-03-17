@@ -1,0 +1,29 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+<div class="centered">
+	<h1> Edit Company </h1>
+	<form action="" method="POST">
+		{% csrf_token %}
+		Company name <br>
+		<input type="text" name="name" value={{company.name}}><br>
+		Industry <br>
+		<input type="text" name="industry" value={{company.industry}}><br>
+		Website <br>
+		<input type="url" name="website" value={{company.website}}><br>
+		<p> Current type: {{company.structure}} </p>
+		Type of company <br>
+		<input type="radio" name="structure" checked="false" value="Startup"> Startup <br>
+		<input type="radio" name="structure" checked="false" value="Boutique"> Boutique <br>
+		<input type="radio" name="structure" checked="false" value="Medium"> Medium <br>
+		<input type="radio" name="structure" checked="false" value="Small"> Small <br>
+		<input type="radio" name="structure" checked="false" value="Large"> Large <br>
+
+		<br>
+		<input type="submit" value="Submit">
+	</form>
+</div>
+
+{% endblock %}
+
+<script src="{% static '/js/editcompany.js' %}"></script>
