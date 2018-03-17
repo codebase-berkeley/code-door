@@ -1,0 +1,22 @@
+.nav {
+    height: 140px;
+
+}
+.nav > .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.nav-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
