@@ -11,5 +11,4 @@ urlpatterns = [
     url(r'^createprofile', views.createprofile, name='createprofile'),
     path('viewprofile/<int:pk>', views.viewprofile, name='viewprofile'),
     path('editprofile/<int:pk>', views.editprofile, name='editprofile'),
-    path('eprofile', views.edit, name='edit'),
 ]

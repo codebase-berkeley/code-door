@@ -8,11 +8,10 @@
 <h1>
     Edit Profile: {{ profile.name }}
 </h1>
-<form action="/codedoor/eprofile" method="POST"> {% csrf_token %}
-    <input type="hidden" name="pk" value="{{ profile.id }}">
+<form action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
     <div class="entry">
         Full Name:
-        <input type="text" name="name" value={{ profile.name }} required>
+        <input type="text" name="name" value="{{ profile.name }}" required>
     </div>
     <!--
     <div class="entry">
@@ -22,7 +21,7 @@
     -->
     <div class="entry">
         Graduation Year:
-        <input type="number" name="graduation_year" value={{ profile.graduation_year}} required>
+        <input type="number" name="graduation_year" value="{{ profile.graduation_year }}" required>
     </div>
     <!--
     <div class="entry">
@@ -32,11 +31,11 @@
     -->
     <div class="entry">
         Current Job:
-        <input type="text" name="current_job" value={{ profile.current_job}}>
+        <input type="text" name="current_job" value="{{ profile.current_job }}">
     </div>
     <div class="entry">
         LinkedIn:
-        <input type = "text" name = "linkedin" value={{ profile.linkedin}}>
+        <input type = "text" name = "linkedin" value="{{ profile.linkedin }}">
     </div>
     <!--
     <div class="entry">
