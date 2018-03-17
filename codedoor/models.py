@@ -56,6 +56,7 @@ class Review(models.Model):
     rating = models.DecimalField(decimal_places=2, max_digits=10)
     recommend = models.BooleanField()
     review = models.TextField()
+    title = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
         return "{}'s review of {}".format(self.reviewer.name,
