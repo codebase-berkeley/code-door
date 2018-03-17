@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Company(models.Model):
     STRUCTURES = (("Startup", "Startup"),
                   ("Boutique", "Boutique"),
