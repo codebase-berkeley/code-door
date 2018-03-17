@@ -1,0 +1,68 @@
+@font-face {
+    font-family: Roboto;
+    src: url(google.com/design/spec/resources/roboto-noto-fonts.html);
+}
+
+h4, p {
+    font-family: Roboto, Helvetica, sans-serif;
+}
+
+button.big {
+    background-color: #008489; /* Teal */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+button.small {
+    background-color: #008489; /* Teal */
+    border: none;
+    color: white;
+    padding: 10px 27px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+textarea {
+    width: 70%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+}
+
+div.entry {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+div#applicantAnswer {
+    display: none;
+}
+
+div#companyAnswer {
+    display: none;
+}
+
+div.post {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+h4.blue-text {
+    color: #008489;
+}
