@@ -7,11 +7,8 @@ import codedoor.views as views
 app_name='codedoor'
 
 urlpatterns = [
-    url(r'^hello', views.hello, name='hello'),
-    path('createquestion', views.createQPage, name="createQuestion"),
-    path('creatingquestion', views.createQ, name="creatingQuestion"),
-    path('editingquestion/<int:pk>', views.editQ, name="editingQuestion"),
-    path('editquestion/<int:pk>', views.editQPage, name="editQueston"),
-    path('viewquestion/<int:pk>', views.viewQ, name="viewQuestion"),
-    path('listquestions', views.listQ, name="listQuestion"),
+    path('createquestion', views.create_question, name="create_question"),
+    path('editquestion/<int:pk>', views.edit_question, name="edit_question"),
+    path('viewquestion/<int:pk>', views.view_question, name="view_question"),
+    path('listquestions', views.list_questions, name="list_questions"),
 ]
