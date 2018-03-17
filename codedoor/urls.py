@@ -4,10 +4,13 @@ from django.urls import path
 
 import codedoor.views as views
 
-app_name='codedoor'
+app_name = 'codedoor'
 
 urlpatterns = [
-	path('createcompany', views.create_company, name="createcompany"),
-	path('viewcompany/<int:pk>', views.view_company, name="viewcompany"),
-	path('editcompany/<int:pk>', views.edit_company, name="editcompany"),
+    url('createprofile', views.createprofile, name='createprofile'),
+    path('viewprofile/<int:pk>', views.viewprofile, name='viewprofile'),
+    path('editprofile/<int:pk>', views.editprofile, name='editprofile'),
+    path('createcompany', views.create_company, name="createcompany"),
+    path('viewcompany/<int:pk>', views.view_company, name="viewcompany"),
+    path('editcompany/<int:pk>', views.edit_company, name="editcompany"),
 ]
