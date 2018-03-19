@@ -19,7 +19,6 @@ def create_review(request):
         try:
             company = Company.objects.get(pk=request.POST["company"])
             reviewer = Profile.objects.get(pk=request.POST["reviewer"])
-            name=request.POST["reviewer"]
             rating = request.POST["rating"]
             recommend = request.POST["recommend"]
             review = request.POST["review"]
@@ -46,15 +45,21 @@ def edit_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     if request.method == "POST":
         try:
-            review.name = request.POST["name"]
-            review.industry = request.POST["industry"]
-            review.website = request.POST["website"]
-            review.structure = request.POST["structure"]
+            company = Company.objects.get(pk=request.POST["company"])
+            reviewer = Profile.objects.get(pk=request.POST["reviewer"])
+            review.company = company
+            review.reviewer = reviewer
+            review.rating = request.POST["rating"]
+            review.recommend = request.POST["recommend"]
+            review.review = request.POST["review"]
+            review.title = request.POST["title"]
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly!")
 
         review.save()
 
         return redirect('/codedoor/viewreview/' + str(review.pk))
-
-    return render(request, "codedoor/editreview.html", {"review": review})
+    else:
+        companies = Company.objects.all()
+        reviewers = Profile.objects.all()
+        return render(request, "codedoor/editreview.html", {"review": review, "companies": companies, "reviewers": reviewers})
