@@ -6,6 +6,12 @@
     <p>Website: {{ company.website }}</p>
     <p>Type: {{company.structure}}</p>
     <a class="btn btn-default" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
+    <br>
+    <a class="btn btn-default" href="{% url 'codedoor:createreview' %}">Add Review</a>
+    {% for review in reviews %}
+      <br>
+        <a class="btn btn-default" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+    {% endfor %}
 </div>
 
 {% endblock %}

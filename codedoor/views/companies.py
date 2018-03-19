@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from codedoor.models import Company
+from codedoor.models import Company, Review
 
 def create_company(request):
     if request.method == "POST":
@@ -23,7 +23,8 @@ def create_company(request):
 
 def view_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
-    return render(request, "codedoor/viewcompany.html", {"company": company})
+    reviews = Review.objects.filter(company=company)
+    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": reviews})
 
 
 def edit_company(request, pk):
