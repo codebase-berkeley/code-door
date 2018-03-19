@@ -2,23 +2,31 @@
 {% block content %}
   <div class = "centered">
 	<h1> Create Review </h1>
-	<form action="createreview" method="POST" enctype="multipart/form-data">
+	<form action="{% url 'codedoor:createreview' %}" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
-		Logo <br>
-		<input type="file" name="logo" id ="logo1" ><br>
-		Company name <br>
-		<input type="text" name="name"><br>
-		Industry <br>
-		<input type="text" name="industry"><br>
-		Website <br>
-		<input type="url" name="website"><br>
-
-		Type of Review <br>
-		<input type="radio" name="structure" value="Startup"> Startup <br>
-		<input type="radio" name="structure" value="Boutique"> Boutique <br>
-		<input type="radio" name="structure" value="Medium"> Medium <br>
-		<input type="radio" name="structure" value="Small"> Small <br>
-		<input type="radio" name="structure" value="Large"> Large <br>
+    Title <br>
+		<input type="text" name="title"><br>
+		Companies <br>
+      <select name="company">
+        {% for company in companies %}
+            <option value={{company.pk}}>{{company.name}}</option>
+        {% endfor %}
+      </select>
+      <br>
+		Reviewer <br>
+    <select name="reviewer">
+      {% for reviewer in reviewers %}
+          <option value={{reviewer.pk}}>{{reviewer.name}}</option>
+      {% endfor %}
+    </select>
+    <br>
+		Rating <br>
+		<input type="number" name="rating" min="1" max="5" step="0.5"><br>
+		Recommend <br>
+    <input type="radio" name="recommend" value=True>Yes<br>
+    <input type="radio" name="recommend" value=False>No<br><br>
+		Review <br>
+		<textarea type="text" name="review"></textarea>
 		<br>
 		<input type="submit" value="Submit">
 	</form>
