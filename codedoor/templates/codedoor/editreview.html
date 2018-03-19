@@ -2,7 +2,7 @@
 {% block content %}
   <div class = "centered">
 	<h1> Edit Review </h1>
-	<form action="{% url 'codedoor:editreview' %}" method="POST" enctype="multipart/form-data">
+	<form action="{% url 'codedoor:editreview' pk=review.pk %}" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
     Title <br>
 		<input type="text" name="title" value={{review.title}}><br>
