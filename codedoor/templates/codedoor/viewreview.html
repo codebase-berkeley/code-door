@@ -2,6 +2,12 @@
 {% block content %}
 <div class="centered">
     <h2>{{review.title}}</h2>
+    <p>{{review.company.name}}</p>
+    <p>{{review.reviewer.name}}</p>
+    <p>{{review.rating}}</p>
+    <p>{{review.recommend}}</p>
+    <p>{{review.review}}</p>
+
     <a class="btn btn-default" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit</a>
 </div>
 

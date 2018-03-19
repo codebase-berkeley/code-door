@@ -2,18 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Review, Company, Profile
 
-#class Review(models.Model):
-#    company = models.ForeignKey(Company, on_delete=models.CASCADE)
-#    reviewer = models.ForeignKey(Profile, on_delete=models.CASCADE)
-#    rating = models.DecimalField(decimal_places=2, max_digits=10)
-#    recommend = models.BooleanField()
-#    review = models.TextField()
-#    title = models.CharField(max_length=200, null=True, blank=True)
-
-#    def __str__(self):
-#        return "{}'s review of {}".format(self.reviewer.name,
-#                                          self.company.name)
-
 def create_review(request):
     if request.method == "POST":
         try:
