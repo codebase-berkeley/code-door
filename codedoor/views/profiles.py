@@ -26,9 +26,10 @@ def createprofile(request):
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly!") # TODO: message displayed on form
 
-        new_user = User.objects.create_user(username=input_username, password=input_password, email=input_email,
+        user = User.objects.create_user(username=input_username, password=input_password, email=input_email,
                                             first_name=input_first_name, last_name=input_last_name)
-        profile = Profile(user=new_user, graduation_year=input_graduation_year, current_job=input_current_job,
+        user.save()
+        profile = Profile(user=user, graduation_year=input_graduation_year, current_job=input_current_job,
                           linkedin=input_linkedin)
         profile.save()
         return redirect("codedoor:viewprofile", pk=profile.id)
