@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Profile
 
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+
 def createprofile(request):
     if request.method == "GET":
         return render(request, 'codedoor/createprofile.html')
@@ -24,12 +28,12 @@ def createprofile(request):
         profile.save()
         return redirect("codedoor:viewprofile", pk=profile.id)
 
-
+@login_required
 def viewprofile(request, pk):
     profile = get_object_or_404(Profile, id=pk)
     return render(request, 'codedoor/viewprofile.html', {"profile": profile})
 
-
+@login_required
 def editprofile(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
     if request.method == "GET":
@@ -51,3 +55,22 @@ def editprofile(request, pk):
         # input_resume = request.POST['resume']
         profile.save()
         return redirect("codedoor:viewprofile", pk=pk)
+
+def login(request):
+    if request.method == 'POST':
+        uname = request.POST['uname']
+        pwd = request.POST['pwd']
+        user = authenticate(request, username=uname, password=pwd)
+
+        if user is not None:
+            auth_login(request, user)
+            return index(request)
+        else:
+            return render(request, "posts/login.html")
+    else:
+        return render(request, "posts/login.html")
+
+
+def logout(request):
+    auth_logout(request)
+    return render(request, "posts/logout.html")
