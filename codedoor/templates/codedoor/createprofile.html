@@ -8,8 +8,24 @@
 </h1>
 <form action="/codedoor/createprofile" method="POST"> {% csrf_token %}
     <div class="entry">
-        Full Name:
-        <input type="text" name="name" placeholder="e.g. Bob Smith" required>
+        Username:
+        <input type="text" name="username" placeholder="BobSmith123" required>
+    </div>
+    <div class="entry">
+        Password:
+        <input type="text" name="password" placeholder="e.g. Bob Smith" required>
+    </div>
+    <div class="entry">
+        Email:
+        <input type="email" name="email" required>
+    </div>
+    <div class="entry">
+        First Name:
+        <input type="text" name="first_name" placeholder="Bob" required>
+    </div>
+    <div class="entry">
+        Last Name:
+        <input type="text" name="last_name" placeholder="Smith" required>
     </div>
     <!--
     <div class="entry">
