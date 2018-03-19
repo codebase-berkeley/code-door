@@ -6,6 +6,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 
 
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.auth.decorators import login_required
+
 def createprofile(request):
     if request.method == "GET":
         return render(request, 'codedoor/createprofile.html')
@@ -34,12 +38,10 @@ def createprofile(request):
         profile.save()
         return redirect("codedoor:viewprofile", pk=profile.id)
 
-
 @login_required
 def viewprofile(request, pk):
     profile = get_object_or_404(Profile, id=pk)
     return render(request, 'codedoor/viewprofile.html', {"profile": profile})
-
 
 @login_required
 def editprofile(request, pk):
@@ -66,7 +68,6 @@ def editprofile(request, pk):
         profile.save()
         return redirect("codedoor:viewprofile", pk=pk)
 
-
 def login(request):
     if request.method == 'POST':
         uname = request.POST['uname']
@@ -85,3 +86,4 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return render(request, "posts/logout.html")
+
