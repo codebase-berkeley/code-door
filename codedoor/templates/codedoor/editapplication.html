@@ -1,0 +1,46 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+<form action="{% url 'codedoor:edit_application' pk=pk %}" method="POST">
+    {% csrf_token %}
+    <div class="entry">
+        <h4>Description:</h4><br>
+        <textarea name="description">{{description}}</textarea><br>
+    </div>
+    <div class="entry">
+        <h4>Year:</h4><br>
+        <input type="number" name="year" value="{{year}}"><br><br>
+    </div>
+    <div class="entry">
+        <h4>Position:</h4><br>
+        <input name="position" value="{{position}}"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Season:</h4><br>
+        <input type="text" name="season" value="{{season}}"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Received Offer:</h4><br>
+        <input type="checkbox" name="received_offer" checked>Yes</input>
+        <input type="checkbox" name="received_offer">No</input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Offer details:</h4><br>
+        <textarea name="offer_details">{{offer_details}}</textarea><br><br>
+    </div>
+    <div class="entry">
+        <h4>Difficulty:</h4><br>
+        <input type = "number" step="0.1" name="difficulty" value="{{difficulty}}"></input><br><br>
+    </div>
+    <div class="entry">
+        <button type="submit" class="big">Save Changes</button>
+    </div>
+</form>
+
+{% endblock content %}
+

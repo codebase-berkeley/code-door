@@ -30,8 +30,46 @@ def create_application(request):
     else:
         return render(request, 'codedoor/createapplication.html')
 
+
+def edit_application(request, pk):
+    a = get_object_or_404(Application, pk=pk)
+    if request.method == 'POST':
+        try:
+            description = request.POST['description']
+            season = request.POST['season']
+            position = request.POST['position']
+            received_offer = request.POST['received_offer']
+            year = request.POST['year']
+            if(received_offer == "on"):
+                print("in the if")
+                received_offer = True
+            else:
+                print("in the else")
+                received_offer = False
+            offer_details = request.POST['offer_details']
+            difficulty = request.POST['difficulty']
+        except Exception as e:
+            return HttpResponse("You did not fill out the form correctly")
+        a.save()
+        return redirect("codedoor:view_application", pk=a.id)
+    else:
+        return render(request, 'codedoor/editapplication.html',
+                      {
+                          "description": a.description,
+                          "season": a.season,
+                          "position": a.position,
+                          "received_offer": a.received_offer,
+                          "year": a.year,
+                          "offer_details": a.offer_details,
+                          "difficulty": a.difficult,
+                          "pk": pk,
+                          "link": "/codedoor/editapplication/" + str(pk)
+                      })
+
 # 
-#def edit_application(request):
+def view_application(request, pk):
+    a = get_object_or_404(Application, pk=pk)
+    return render(request, "codedoor/viewapplication.html", {"a": a})
 
 
 #company, profiledescription = models.TextField()

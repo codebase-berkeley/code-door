@@ -38,6 +38,10 @@
         <input type = "number" name="difficulty" placeholder="Company answer"></input><br><br>
     </div>
     <div class="entry">
+        <h4>Create Question:</h4><br>
+        <form action="{% url 'codedoor:create_question' params %}"><input type="submit" value="Create"</form><br><br>
+    </div>
+    <div class="entry">
         <button type="submit" class="big">Submit</button>
     </div>
 </form>

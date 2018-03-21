@@ -1,0 +1,37 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <script src="{% static 'js/question.js' %}"></script>
+</head>
+    <div class="question">
+        <h4>Description:</h4><br>
+        <p>{{a.description}}</p><br>
+    </div>
+    <div class="question">
+        <h4>Year:</h4><br>
+        <p>{{a.year}}</p><br><br>
+    </div>
+    <div class="question">
+        <h4>Position:</h4><br>
+        <p>{{a.position}}</p><br><br>
+    </div>
+    <div class="question">
+        <h4>Season:</h4><br>
+        <p>{{a.season}}</p><br><br>
+    </div>
+    <div class="question">
+        <h4>Received Offer:</h4><br>
+        <input type="checkbox" name="received_offer" checked>Yes</input>
+        <input type="checkbox" name="received_offer">No</input><br><br>
+    </div>
+    <div class="question">
+        <h4>Offer details:</h4><br>
+        <p>{{a.offer_details}}</p><br><br>
+    </div>
+    <div class="question">
+        <h4>Difficulty:</h4><br>
+        <p>{{a.question}}</p><br><br>
+    </div>
+{% endblock %}
