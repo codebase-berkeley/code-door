@@ -22,12 +22,17 @@
     </div>
     <div class="entry">
         <h4>Season:</h4><br>
-        <input type="text" name="season" placeholder="Fall, Winter, Spring, Summer"></input><br><br>
+        <select name="season" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
     </div>
     <div class="entry">
         <h4>Received Offer:</h4><br>
-        <input type="checkbox" name="received_offer" placeholder="Yes or No?" checked>Yes</input>
-        <input type="checkbox" name="received_offer">No</input><br><br>
+        <input type="radio" name="received_offer" value="Yes">Yes<br>
+        <input type="radio" name="received_offer" value="No">No<br><br>
     </div>
     <div class="entry">
         <h4>Offer details:</h4><br>
@@ -35,12 +40,9 @@
     </div>
     <div class="entry">
         <h4>Difficulty:</h4><br>
-        <input type = "number" name="difficulty" placeholder="Company answer"></input><br><br>
+        <input type = "number" name="difficulty" placeholder="1-10"></input><br><br>
     </div>
-    <div class="entry">
-        <h4>Create Question:</h4><br>
-        <form action="{% url 'codedoor:create_question' params %}"><input type="submit" value="Create"</form><br><br>
-    </div>
+    
     <div class="entry">
         <button type="submit" class="big">Submit</button>
     </div>

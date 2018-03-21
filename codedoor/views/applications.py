@@ -12,11 +12,11 @@ def create_application(request):
             position = request.POST['position']
             received_offer = request.POST['received_offer']
             year = request.POST['year']
-            if(received_offer == "on"):
-                print("in the if")
+            if(received_offer == "Yes"):
+                print("true")
                 received_offer = True
             else:
-                print("in the else")
+                print("false")
                 received_offer = False
             offer_details = request.POST['offer_details']
             difficulty = request.POST['difficulty']
@@ -35,20 +35,21 @@ def edit_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     if request.method == 'POST':
         try:
-            description = request.POST['description']
-            season = request.POST['season']
-            position = request.POST['position']
+            a.description = request.POST['description']
+            a.season = request.POST['season']
+            a.position = request.POST['position']
             received_offer = request.POST['received_offer']
-            year = request.POST['year']
+            a.year = request.POST['year']
             if(received_offer == "on"):
                 print("in the if")
-                received_offer = True
+                a.received_offer = True
             else:
                 print("in the else")
-                received_offer = False
-            offer_details = request.POST['offer_details']
-            difficulty = request.POST['difficulty']
+                a.received_offer = False
+            a.offer_details = request.POST['offer_details']
+            a.difficulty = request.POST['difficulty']
         except Exception as e:
+            traceback.print_exc()
             return HttpResponse("You did not fill out the form correctly")
         a.save()
         return redirect("codedoor:view_application", pk=a.id)

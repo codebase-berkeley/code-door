@@ -23,8 +23,13 @@
     </div>
     <div class="question">
         <h4>Received Offer:</h4><br>
-        <input type="checkbox" name="received_offer" checked>Yes</input>
-        <input type="checkbox" name="received_offer">No</input><br><br>
+        {% if a.received_offer %}
+        <input type="radio" name="received_offer" value="Yes" checked>Yes<br>
+        <input type="radio" name="received_offer" value="No" disabled>No<br><br>
+        {% else %}
+        <input type="radio" name="received_offer" value="Yes" disabled>Yes<br>
+        <input type="radio" name="received_offer" value="No" checked>No<br><br>
+        {% endif %}
     </div>
     <div class="question">
         <h4>Offer details:</h4><br>

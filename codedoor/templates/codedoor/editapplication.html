@@ -22,12 +22,45 @@
     </div>
     <div class="entry">
         <h4>Season:</h4><br>
-        <input type="text" name="season" value="{{season}}"></input><br><br>
+        {% if season == "Fall" %} 
+        <select name="season" required>
+            <option value="Fall" selected="selected">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
+        {% elif season == "Winter" %} 
+        <select name="season" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter" selected="selected">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
+        {% elif season == "Spring" %} 
+        <select name="season" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring" selected="selected">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
+        {% elif season == "Summer" %} 
+        <select name="season" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer" selected="selected">Summer</option>
+        </select>
+        {% endif %}
     </div>
     <div class="entry">
         <h4>Received Offer:</h4><br>
-        <input type="checkbox" name="received_offer" checked>Yes</input>
-        <input type="checkbox" name="received_offer">No</input><br><br>
+        {% if received_offer %}
+        <input type="radio" name="received_offer" value="Yes" checked>Yes<br>
+        <input type="radio" name="received_offer" value="No">No<br><br>
+        {% else %}
+        <input type="radio" name="received_offer" value="Yes">Yes<br>
+        <input type="radio" name="received_offer" value="No" checked>No<br><br>
+        {% endif %}
     </div>
     <div class="entry">
         <h4>Offer details:</h4><br>
