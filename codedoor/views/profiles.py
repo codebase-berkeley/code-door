@@ -2,13 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Profile
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-
-
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+
 
 def createprofile(request):
     if request.method == "GET":
@@ -38,10 +34,12 @@ def createprofile(request):
         profile.save()
         return redirect("codedoor:viewprofile", pk=profile.id)
 
+
 @login_required
 def viewprofile(request, pk):
     profile = get_object_or_404(Profile, id=pk)
     return render(request, 'codedoor/viewprofile.html', {"profile": profile})
+
 
 @login_required
 def editprofile(request, pk):
@@ -70,6 +68,7 @@ def editprofile(request, pk):
         user.save()
         profile.save()
         return redirect("codedoor:viewprofile", pk=pk)
+
 
 def login(request):
     if request.method == 'POST':
