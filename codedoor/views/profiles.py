@@ -46,13 +46,16 @@ def viewprofile(request, pk):
 @login_required
 def editprofile(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
+    user = profile.user
     if request.method == "GET":
         return render(request, 'codedoor/editprofile.html', {"profile": profile})
     else:
         try:
-            profile.User.email = request.POST['email']
-            profile.User.first_name = request.POST['first_name']
-            profile.User.last_name = request.POST['last_name']
+            profile.user.email = request.POST['email']
+            profile.user.first_name = request.POST['first_name']
+            profile.user.last_name = request.POST['last_name']
+            profile.user.username = request.POST['username']
+            # profile.user.password = request.POST['password']
             # profile.profile_pic = request.POST['profile_pic']
             profile.graduation_year = request.POST['graduation_year']
             profile.current_job = request.POST['current_job']
@@ -64,7 +67,7 @@ def editprofile(request, pk):
             # profile.resume = request.POST['resume']
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly!")
-
+        user.save()
         profile.save()
         return redirect("codedoor:viewprofile", pk=pk)
 
@@ -77,6 +80,7 @@ def login(request):
         if user is not None:
             auth_login(request, user)
             return viewprofile(request, pk)
+            # unsure about ^^ that return statement; everything else taken directly from slides
         else:
             return render(request, "posts/login.html")
     else:
