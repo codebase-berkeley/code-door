@@ -2,18 +2,18 @@
 {% load static %}
 {% block content %}
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static 'css/createprofile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 <h1>
     Create Profile
 </h1>
 <form action="{% url "codebase:login" %}" method="POST"> {% csrf_token %}
     <div class="entry">
         Username:
-        <input type="text" name="username" placeholder="BobSmith123" required>
+        <input type="text" name="uname" placeholder="BobSmith123" required>
     </div>
     <div class="entry">
         Password:
-        <input type="text" name="password" placeholder="e.g. Bob Smith" required>
+        <input type="text" name="pwd" placeholder="e.g. Bob Smith" required>
     </div>
 </form>
 {% endblock %}

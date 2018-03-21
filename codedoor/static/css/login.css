@@ -1,0 +1,58 @@
+body {
+    font-family: Roboto;
+}
+
+h1 {
+    margin-top: 80px;
+    margin-left: 80px;
+    font-weight: bold;
+    color: Black;
+}
+
+form {
+    width: 30%;
+    margin: 50px auto;
+}
+
+.entry {
+    font-style: italic;
+    margin-top: 40px;
+}
+
+.entry input {
+    margin-left: 20px;
+    border-radius: 2px;
+    padding: 6px 6px;
+    border: 1px solid #cccccc;
+    outline: none;
+}
+
+.entry input:hover {
+    transition-duration: 0.3s;
+    border: 1px solid #008489;
+}
+
+.entry input:focus {
+    border: 1px solid #008489;
+}
+
+#submit {
+    width: 50%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+#submit input {
+    width: 80%;
+    background-color: #008489;
+    color: White;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    outline: none;
+    font-family: Roboto;
+}
+
+#submit input:hover {
+    transition-duration: 0.3s;
+    background-color: #01959b;
