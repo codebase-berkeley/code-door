@@ -1,0 +1,45 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+<form action="{% url 'codedoor:create_question' %}" method="POST">
+    {% csrf_token %}
+    <div class="entry">
+        <h4>Description:</h4><br>
+        <textarea name="Description" placeholder="Description of application"></textarea><br>
+    </div>
+    <div class="entry">
+        <h4>Year:</h4><br>
+        <input type="number" name="applicant answer" placeholder="Your answer"></input><br>
+    </div>
+    <div class="entry">
+        <h4>Position:</h4><br>
+        <input name="Position" placeholder="Position held"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Season:</h4><br>
+        <input type="text" name="received_offer" placeholder="Yes or No?"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Received Offer:</h4><br>
+        <input type="checkbox" name="received_offer" placeholder="Yes or No?"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Offer details:</h4><br>
+        <textarea name="offer details" placeholder="Offer details"></textarea><br><br>
+    </div>
+    <div class="entry">
+        <h4>Difficulty:</h4><br>
+        <input type = "number" name="difficulty" placeholder="Company answer"></input><br><br>
+    </div>
+    <div class="entry">
+        <button type="submit" class="big">Submit</button>
+    </div>
+</form>
+
+{% endblock content %}
+
