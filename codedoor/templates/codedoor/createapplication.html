@@ -6,31 +6,32 @@
 <head>
   <link rel="stylesheet" href="{% static 'css/question.css' %}">
 </head>
-<form action="{% url 'codedoor:create_question' %}" method="POST">
+<form action="{% url 'codedoor:create_application' %}" method="POST">
     {% csrf_token %}
     <div class="entry">
         <h4>Description:</h4><br>
-        <textarea name="Description" placeholder="Description of application"></textarea><br>
+        <textarea name="description" placeholder="Description of application"></textarea><br>
     </div>
     <div class="entry">
         <h4>Year:</h4><br>
-        <input type="number" name="applicant answer" placeholder="Your answer"></input><br>
+        <input type="number" name="year" placeholder="e.g. 2015"></input><br>
     </div>
     <div class="entry">
         <h4>Position:</h4><br>
-        <input name="Position" placeholder="Position held"></input><br><br>
+        <input name="position" placeholder="Position held"></input><br><br>
     </div>
     <div class="entry">
         <h4>Season:</h4><br>
-        <input type="text" name="received_offer" placeholder="Yes or No?"></input><br><br>
+        <input type="text" name="season" placeholder="Fall, Winter, Spring, Summer"></input><br><br>
     </div>
     <div class="entry">
         <h4>Received Offer:</h4><br>
-        <input type="checkbox" name="received_offer" placeholder="Yes or No?"></input><br><br>
+        <input type="checkbox" name="received_offer" placeholder="Yes or No?" checked>Yes</input>
+        <input type="checkbox" name="received_offer">No</input><br><br>
     </div>
     <div class="entry">
         <h4>Offer details:</h4><br>
-        <textarea name="offer details" placeholder="Offer details"></textarea><br><br>
+        <textarea name="offer_details" placeholder="Offer details"></textarea><br><br>
     </div>
     <div class="entry">
         <h4>Difficulty:</h4><br>
