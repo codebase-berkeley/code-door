@@ -1,14 +1,15 @@
 {% extends 'codedoor/base.html' %}
+{% load static %}
 {% block content %}
-<div class="centered">
-    <h2>{{review.title}}</h2>
-    <p>{{review.company.name}}</p>
-    <p>{{review.reviewer.name}}</p>
-    <p>{{review.rating}}</p>
-    <p>{{review.recommend}}</p>
-    <p>{{review.review}}</p>
-
-    <a class="btn btn-default" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit</a>
-</div>
+<link rel="stylesheet" type="text/css" href="{% static 'css/basereview.css' %}">
+    <h2>{{review.title}}</h2><br>
+    <p>Company: {{review.company.name}}</p><br>
+    <p>Reviewer: {{review.reviewer.name}}</p><br>
+    <p>Rating: {{review.rating}}</p><br>
+    <p>Recommend: {{review.recommend}}</p><br>
+    <p> Review: </p>
+    <p>{{review.review}}</p><br>
+    <br>
+    <a id="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit</a>
 
 {% endblock %}

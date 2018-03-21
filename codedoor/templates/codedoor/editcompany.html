@@ -1,17 +1,29 @@
 {% extends 'codedoor/base.html' %}
 {% load static from staticfiles %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/basecompany.css' %}">
 <div class="centered">
-	<h1> Edit Company </h1>
+	<h1> Edit Company Information </h1><br>
 	<form action="{% url 'codedoor:editcompany' pk=company.pk %}" method="POST">
 		{% csrf_token %}
-		Company name <br>
-		<input type="text" name="name" value={{company.name}}><br>
-		Industry <br>
-		<input type="text" name="industry" value={{company.industry}}><br>
-		Website <br>
-		<input type="url" name="website" value={{company.website}}><br>
-		<p> Current type: {{company.structure}} </p>
+		<div class="space">
+			Company name <br>
+			<div class="border-text">
+				<input type="text" name="name" value={{company.name}}>
+			</div>
+		</div><br>
+		<div class="space">
+			Industry <br>
+			<div class="border-text">
+				<input type="text" name="industry" value={{company.industry}}>
+			</div>
+		</div><br>
+		<div class="space">
+			Website <br>
+			<div class="border-text">
+				<input type="url" name="website" value={{company.website}}>
+			</div>
+		</div><br><br>
 		Type of company <br>
 		<input type="radio" name="structure" checked="false" value="Startup"> Startup <br>
 		<input type="radio" name="structure" checked="false" value="Boutique"> Boutique <br>
@@ -20,7 +32,7 @@
 		<input type="radio" name="structure" checked="false" value="Large"> Large <br>
 
 		<br>
-		<input type="submit" value="Submit">
+		<div id="submit"><input type="submit" value="Submit"></div>
 	</form>
 </div>
 

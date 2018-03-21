@@ -1,17 +1,20 @@
 {% extends 'codedoor/base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/basecompany.css' %}">
 <div class="centered">
-    <h2>{{company.name}}</h2>
-    <p>Industry: {{ company.industry }}</p>
-    <p>Website: {{ company.website }}</p>
-    <p>Type: {{company.structure}}</p>
-    <a class="btn btn-default" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
-    <br>
-    <a class="btn btn-default" href="{% url 'codedoor:createreview' %}">Add Review</a>
+    <h2>{{company.name}}</h2><br>
+    <p>Industry: {{ company.industry }}</p><br>
+    <p>Website: {{ company.website }}</p><br>
+    <p>Type: {{company.structure}}</p><br><br><br>
+    <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
+    <br><br><br>
+    <a class="sub" href="{% url 'codedoor:createreview' %}">Add Review</a><br>
     {% for review in reviews %}
-      <br>
+      <br><br><br>
         <a class="btn btn-default" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
     {% endfor %}
 </div>
 
 {% endblock %}
+
