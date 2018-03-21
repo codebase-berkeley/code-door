@@ -78,15 +78,17 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            return viewprofile(request, pk)
-            # unsure about ^^ that return statement; everything else taken directly from slides
+            if request.POST['next']:
+                return redirect(request.POST['next'])
+            else:
+                return redirect("codedoor:viewprofile", pk=user.profile.id)  # Eventually redirect to home page
         else:
-            return render(request, "posts/login.html")
+            return render(request, "codedoor/login.html")
     else:
-        return render(request, "posts/login.html")
+        return render(request, 'codedoor/login.html', {"next": request.GET['next']})
 
 
 def logout(request):
     auth_logout(request)
-    return render(request, "posts/logout.html")
+    return render(request, 'codedoor/logout.html')
 

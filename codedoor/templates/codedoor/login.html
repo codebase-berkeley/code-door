@@ -6,7 +6,8 @@
 <h1>
     Create Profile
 </h1>
-<form action="{% url "codebase:login" %}" method="POST"> {% csrf_token %}
+<form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
+    <input type="hidden" next= {{ next }}>
     <div class="entry">
         Username:
         <input type="text" name="uname" placeholder="BobSmith123" required>
@@ -14,6 +15,9 @@
     <div class="entry">
         Password:
         <input type="text" name="pwd" placeholder="e.g. Bob Smith" required>
+    </div>
+    <div class="entry">
+        <button type="submit">Login</button>
     </div>
 </form>
 {% endblock %}
