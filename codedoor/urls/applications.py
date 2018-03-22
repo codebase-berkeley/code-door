@@ -9,4 +9,3 @@ urlpatterns = [
     path('editapplication/<int:pk>', views.edit_application, name="edit_application"),
     path('viewapplication/<int:pk>', views.view_application, name="view_application"),
 ]
-
