@@ -9,20 +9,12 @@
 <form action="{% url 'codedoor:create_application' %}" method="POST">
     {% csrf_token %}
     <div class="entry">
-        <h4>Description:</h4><br>
-        <textarea name="description" placeholder="Description of application"></textarea><br>
-    </div>
-    <div class="entry">
-        <h4>Year:</h4><br>
-        <input type="number" name="year" placeholder="e.g. 2015"></input><br>
-    </div>
-    <div class="entry">
         <h4>Position:</h4><br>
-        <input name="position" placeholder="Position held"></input><br><br>
+        <input name="position" placeholder="Job title" class="text"></input><br><br>
     </div>
     <div class="entry">
         <h4>Season:</h4><br>
-        <select name="season" required>
+        <select name="season" class="seasons-menu" required>
             <option value="Fall">Fall</option>
             <option value="Winter">Winter</option>
             <option value="Spring">Spring</option>
@@ -30,18 +22,27 @@
         </select>
     </div>
     <div class="entry">
+        <h4>Year:</h4><br>
+        <input type="number" name="year" placeholder="e.g. 2015" class="select-num"></input><br>
+    </div>
+    <div class="entry">
+        <h4>Difficulty:</h4><br>
+        <input type = "number" name="difficulty" placeholder="1-10" class="select-num"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Description:</h4><br>
+        <textarea name="description" placeholder="Description of application"></textarea><br>
+    </div>
+    <div class="entry">
         <h4>Received Offer:</h4><br>
-        <input type="radio" name="received_offer" value="Yes">Yes<br>
-        <input type="radio" name="received_offer" value="No">No<br><br>
+        <p><input type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
+        <p><input type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
     </div>
     <div class="entry">
         <h4>Offer details:</h4><br>
         <textarea name="offer_details" placeholder="Offer details"></textarea><br><br>
     </div>
-    <div class="entry">
-        <h4>Difficulty:</h4><br>
-        <input type = "number" name="difficulty" placeholder="1-10"></input><br><br>
-    </div>
+    
     <div class="entry">
       <a href="createquestion"><button type="button" class="small">Create Question</button></a>
     </div>

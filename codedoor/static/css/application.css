@@ -11,7 +11,7 @@ button.big {
 }
 
 button.small {
-  background-color: #008489; /* Teal */
+  background-color: #FF9B71; /* Orange */
   border: none;
   color: white;
   padding: 10px 27px;
@@ -26,6 +26,26 @@ textarea {
   width: 70%;
   height: 150px;
   padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+input.text {
+  width: 40%;
+  height: 35px;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+input.select-num {
+  width: 10%;
+  height: 35px;
+  padding: 15px 10px;
   box-sizing: border-box;
   border: 2px solid #ccc;
   border-radius: 4px;
@@ -82,16 +102,6 @@ div.post {
   margin-left: 20px;
 }
 
-h4.blue-text {
-  color: #008489;
-}
-
-#red-square{
-    width:20px;
-    height:20px;
-    background:red;
-}
-
 rect.red-rect {
   fill: #F45B69; /* Reddish */
 }
@@ -101,7 +111,7 @@ rect.teal-rect {
 }
 
 rect.orange-rect {
-  fill:#FF9B71; /* Orange */
+  fill: #FF9B71; /* Orange */
 }
 
 h2.company-name {
@@ -113,4 +123,9 @@ h2.company-name {
   font-family: 'Roboto';
   color: #7F7F7F;
   margin-left: 20px;
+}
+
+.seasons-menu {
+  height: 30px;
+  width: 10%;
 }
