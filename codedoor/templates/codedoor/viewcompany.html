@@ -1,20 +1,32 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/basecompany.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
 <div class="centered">
-    <h2>{{company.name}}</h2><br>
-    <p>Industry: {{ company.industry }}</p><br>
-    <p>Website: {{ company.website }}</p><br>
-    <p>Type: {{company.structure}}</p><br><br><br>
+
+  <div class="companyportion">
+    <img src="{% static 'images/temp.png' %}" id='logo' width="150px" height="150px" />
+
+    <div class='sub1'><h1>{{company.name}}</h1>
+        <p>{{ company.industry }}, {{company.structure}}</p><br>
+      <img src="{% static 'images/linklogo.png' %}" class='logo' width="20px" height="20px" /> <span>{{company.website}}</span>
+      <img src="{% static 'images/locationlogo.png' %}" class='logo' width="20px" height="20px" /> <span>Mountain View</span>
+
+    </div>
+  </div>
+  <P>Reviews:</p>
+<hr id= "break">
+
+{% for review in reviews %}
+
+    <a class="button" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+{% endfor %}
+<hr id= "break">
+<br>
     <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
     <br><br><br>
     <a class="sub" href="{% url 'codedoor:createreview' %}">Add Review</a><br>
-    {% for review in reviews %}
-      <br><br><br>
-        <a class="btn btn-default" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
-    {% endfor %}
+
 </div>
 
 {% endblock %}
-
