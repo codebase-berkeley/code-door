@@ -89,3 +89,43 @@ textarea {
     padding: 10px 20px;
     outline: none;
 }
+
+.companyportion {
+    position: relative ;
+    top:10%;
+    left:5%;
+    padding-bottom: 2%;
+
+
+
+}
+.sub{
+  display:inline-block;
+  position: relative;
+  top:-40px;
+}
+.logo {
+   display: inline;
+}
+#break{
+  height:3px;
+  background-color: #01959b;
+  position:relative;
+  left:5%;
+  width:90%;
+
+}
+h2 {
+text-decoration-color: #01959b;
+
+}
+h2 span { font-size:16px; }
+.reviewportion{
+  position: relative;
+  left:5%;
+  padding-top: 5%;
+}
+#tabi {
+  position: relative;
+  left:2.5%;
+}
