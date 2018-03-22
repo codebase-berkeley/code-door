@@ -43,6 +43,8 @@ def viewprofile(request, pk):
 
 @login_required
 def editprofile(request, pk):
+    if not request.user.profile.id == pk:
+        return redirect("codedoor:viewprofile", pk=pk)  # where to redirect the wrong user trying to edit
     profile = get_object_or_404(Profile, pk=pk)
     user = profile.user
     if request.method == "GET":
@@ -78,14 +80,17 @@ def login(request):
 
         if user is not None:
             auth_login(request, user)
-            if request.POST['next']:
-                return redirect(request.POST['next'])
+            if request.POST.get('next'):
+                return redirect(request.POST.get('next'))
             else:
                 return redirect("codedoor:viewprofile", pk=user.profile.id)  # Eventually redirect to home page
         else:
             return render(request, "codedoor/login.html")
     else:
-        return render(request, 'codedoor/login.html', {"next": request.GET['next']})
+        if not request.GET:
+            return render(request, 'codedoor/login.html')
+        else:
+            return render(request, 'codedoor/login.html', {"next": request.GET['next']})
 
 
 def logout(request):

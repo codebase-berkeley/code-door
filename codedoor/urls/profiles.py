@@ -5,7 +5,7 @@ from django.urls import path
 import codedoor.views as views
 
 urlpatterns = [
-    path('createprofile/', views.createprofile, name='createprofile'),
+    path('createprofile', views.createprofile, name='createprofile'),
     path('viewprofile/<int:pk>', views.viewprofile, name='viewprofile'),
     path('editprofile/<int:pk>', views.editprofile, name='editprofile'),
     path('login/', views.login, name="login"),
