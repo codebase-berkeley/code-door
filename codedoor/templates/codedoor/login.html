@@ -4,7 +4,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 <h1>
-    Create Profile
+    Login
 </h1>
 <form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
     <input type="hidden" next= {{ next }}>
@@ -23,5 +23,10 @@
     <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id=44822465026.334128598816">
         <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
     </a>
+    {% if failed %}
+        <div id="failed">
+            <p> LOGIN ATTEMPT FAILED. </p>
+        </div>
+    {% endif %}
 </form>
 {% endblock %}
