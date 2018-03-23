@@ -4,7 +4,7 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 <h1>
-    Create Profile
+    Login
 </h1>
 <form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
     <input type="hidden" next= {{ next }}>
@@ -19,5 +19,10 @@
     <div class="entry">
         <button type="submit">Login</button>
     </div>
+    {% if failed %}
+        <div id="failed">
+            <p> LOGIN ATTEMPT FAILED. </p>
+        </div>
+    {% endif %}
 </form>
 {% endblock %}
