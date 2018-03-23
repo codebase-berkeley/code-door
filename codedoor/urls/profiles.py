@@ -10,4 +10,6 @@ urlpatterns = [
     path('editprofile/<int:pk>', views.editprofile, name='editprofile'),
     path('login/', views.login, name="login"),
     path('logout/', views.logout, name='logout'),
+    path('slack_callback/', views.slack_callback, name='slack_callback'),
+    path('slack_info/', views.slack_info, name='slack_info')
 ]

@@ -1,9 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from codedoor.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+import requests
+from requests.auth import HTTPBasicAuth
+
+import urllib
+import base64
 
 
 def createprofile(request):
@@ -96,4 +102,31 @@ def login(request):
 def logout(request):
     auth_logout(request)
     return render(request, 'codedoor/logout.html')
+
+
+def slack_info(request):
+    params = slack_callback(request)
+    url = "https://slack.com/oauth/authorize?" + urllib.parse.urlencode(params)
+    return redirect(url)
+
+
+def slack_callback(request):
+    client_id = "44822465026.334128598816"
+    client_secret = "7387eabf2e73804cf8492e6025c89326"
+
+    if request.method == 'GET':
+        code = request.GET.get('code')
+        get_token_url = "https://slack.com/api/oauth.access?client_id={}&client_secret={}&code={}".format(client_id, client_secret, code)
+        r = requests.post(get_token_url,
+                          auth=HTTPBasicAuth(client_id, client_secret),
+                          headers={"content-type": "application/x-www-form-urlencoded"},
+                          params={"code": code, "grant_type": "authorization_code",
+                                  "redirect_uri": "http://localhost:8000/codedoor/slack_callback"})
+        access_token = r.json()['access_token']
+
+        get_activity_url = "https://slack.com/api/users.identity"
+        r = requests.post(get_activity_url,
+                          headers={"Authorization": "Bearer " + access_token})
+
+        return JsonResponse(r.json())
 
