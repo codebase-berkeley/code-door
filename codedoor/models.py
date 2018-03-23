@@ -23,7 +23,6 @@ class Company(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # name = models.CharField(max_length=100)
     profile_pic = models.URLField(null=True, blank=True)
     graduation_year = models.IntegerField()
     current_job = models.CharField(null=True, blank=True, max_length=1000)
