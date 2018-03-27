@@ -7,10 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 import requests
 from requests.auth import HTTPBasicAuth
-
+import boto3
 import urllib
 import base64
 
+profile_pic_bucket = 'codedoor-profile-pics'
 
 def createprofile(request):
     if request.method == "GET":
@@ -22,7 +23,7 @@ def createprofile(request):
             input_email = request.POST['email']
             input_first_name = request.POST['first_name']
             input_last_name = request.POST['last_name']
-            # input_profile_pic = request.POST['profile_pic']
+            input_profile_pic = request.POST['profile_pic']
             input_graduation_year = request.POST['graduation_year']
             input_current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
@@ -33,10 +34,15 @@ def createprofile(request):
             return HttpResponse("You did not fill out the form correctly!") # TODO: message displayed on form
 
         user = User.objects.create_user(username=input_username, password=input_password, email=input_email,
-                                            first_name=input_first_name, last_name=input_last_name)
+                                        first_name=input_first_name, last_name=input_last_name)
+        profile = Profile(user=user, graduation_year=input_graduation_year,
+                          current_job=input_current_job, linkedin=input_linkedin)
         user.save()
-        profile = Profile(user=user, graduation_year=input_graduation_year, current_job=input_current_job,
-                          linkedin=input_linkedin)
+        profile.save()
+        s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
+        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic)
+        url = "http://s3.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
+        profile.profile_pic = url
         profile.save()
         return redirect("codedoor:viewprofile", pk=profile.id)
 
