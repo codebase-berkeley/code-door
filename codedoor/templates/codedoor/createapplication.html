@@ -5,7 +5,7 @@
 
 <head>
   <link rel="stylesheet" href="{% static 'css/application.css' %}">
-  <script src="{% static 'js/application.js' %}"></script>
+  <script type="text/javascript"></script>
 </head>
 <form id="create_app_form" action="{% url 'codedoor:create_application' %}" method="POST" onsubmit="event.preventDefault(); validateForm();">
     {% csrf_token %}
@@ -52,7 +52,5 @@
         <button type="submit" class="big">Submit</button>
     </div>
 </form>
-
-<script type="text/javascript"></script>
 {% endblock content %}
 
