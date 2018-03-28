@@ -1,0 +1,60 @@
+{% extends 'codedoor/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/basereview.css' %}">
+  <div class = "centered">
+  <h1> Edit your Review </h1>
+  <div id="form">
+    <form action="{% url 'codedoor:createreview' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="space">
+        Review Title <br>
+        <div class="border">
+          <div id="title">
+            <input type="text" name="title" value={{review.title}}>
+          </div>
+        </div>
+      </div><br>
+      <div class="space">
+        Companies <br>
+        <div class="border">
+          <select name="company" class="select-style">
+            {% for company in companies %}
+                <option value={{company.pk}}>{{company.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div><br>
+      <div class="space">Reviewer <br>
+        <div class="border">
+          <select name="reviewer" class="select-style">
+            {% for reviewer in reviewers %}
+                <option value={{reviewer.pk}}>{{reviewer.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div><br>
+      <div class="space">
+        Rating <br>
+        <div class="border">
+          <div id="number">
+            <input type="number" name="rating" min="1" max="5" step="0.5" value={{review.rating}}>
+          </div>
+        </div>
+      </div><br>
+      <div class="space">Recommend
+        <div class="border">
+          <span><input type="radio" name="recommend" value=True>  Yes</span>
+          <span><input type="radio" name="recommend" value=False>  No</span><br>
+        </div>
+      </div><br>
+      <div class="space">Review <br>
+        <div class="border">
+          <textarea type="text" name="review">{{review.review}}</textarea>
+        </div>
+      </div><br>
+      <div id="submit"><input type="submit" value="Submit Review"></div>
+    </form>
+  </div>
+
+{% endblock %}
