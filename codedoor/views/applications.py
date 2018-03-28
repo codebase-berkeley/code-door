@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Profile, Company, Question, Application
+from django.core.paginator import Paginator
 import traceback
 
 def create_application(request):
@@ -66,17 +67,16 @@ def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     return render(request, "codedoor/viewapplication.html", {"a": a})
 
-def list_applications(request, pk):
-    applications = Application.objects.filter(company=pk)
-    applications.order_by("-pk")
-    return render(request, "codedoor/listapplications.html", {"applications": applications})
-
-
-#company, profiledescription = models.TextField()
-    # year = models.IntegerField()
-    #season = models.CharField(max_length=100, choices=SEASONS)
-    #position = models.CharField(max_length=500)
-    #received_offer = models.BooleanField()
-    #offer_details = models.TextField(null=True, blank=True)
-    #difficult = models.DecimalField(decimal_places=2, max_digits=10)
+def list_applications(request, pk, pg=1):
+    applications = Application.objects.filter(company=pk).order_by("-pk")
+    paginator = Paginator(applications, 5) 
+    page = request.GET.get('page', 1)
+    try:
+        applications_list = paginator.page(page)
+    except PageNotAnInteger:
+        applications_list = paginator.page(1)
+    except EmptyPage:
+        applications_list = paginator.page(paginator.num_pages)
+        
+    return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
