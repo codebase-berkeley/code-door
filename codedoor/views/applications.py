@@ -66,6 +66,11 @@ def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     return render(request, "codedoor/viewapplication.html", {"a": a})
 
+def list_applications(request, pk):
+    applications = Application.objects.filter(company=pk)
+    applications.order_by("-pk")
+    return render(request, "codedoor/listapplications.html", {"applications": applications})
+
 
 #company, profiledescription = models.TextField()
     # year = models.IntegerField()
