@@ -6,12 +6,29 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/editprofile.css' %}">
 <h1>
-    Edit Profile: {{ profile.name }}
+    Edit Profile: {{ profile.user.get_full_name }}
 </h1>
 <form action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
+     <div class="entry">
+        Username:
+        <input type="text" name="username" value = {{ profile.user.username }} required>
+    </div>
+     <!--<div class="entry">-->
+        <!--Password:-->
+        <!--<input type="text" name="password" value = {{ profile.user.password }} required>-->
+    <!--</div>-->
+    <!--should we be allowing this functionality? profile.user.password is an ugly hashcode of the PW atm-->
+     <div class="entry">
+        Email:
+        <input type="email" name="email" value = {{ profile.user.email }} required>
+    </div>
     <div class="entry">
-        Full Name:
-        <input type="text" name="name" value="{{ profile.name }}" required>
+        First Name:
+        <input type="text" name="first_name" value="{{ profile.user.first_name }}" required>
+    </div>
+    <div class="entry">
+        Last Name:
+        <input type="text" name="last_name" value="{{ profile.user.last_name }}" required>
     </div>
     <!--
     <div class="entry">
