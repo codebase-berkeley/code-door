@@ -1,13 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Review, Company, Profile
-<<<<<<< HEAD
-
-=======
 from django.contrib.auth.decorators import login_required
 
 @login_required
->>>>>>> 02d4e518d0341d74e
 def create_review(request):
     if request.method == "POST":
         try:
@@ -29,20 +25,12 @@ def create_review(request):
         reviewers = Profile.objects.all()
         return render(request, "codedoor/createreview.html", {"companies": companies, "reviewers": reviewers})
 
-<<<<<<< HEAD
-
-=======
 @login_required
->>>>>>> 02d4e518d0341d74e
 def view_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     return render(request, "codedoor/viewreview.html", {"review": review})
 
-<<<<<<< HEAD
-
-=======
 @login_required
->>>>>>> 02d4e518d0341d74e
 def edit_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     if request.method == "POST":

@@ -2,36 +2,6 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
-<<<<<<< HEAD
-<div class="centered">
-
-  <div class="companyportion">
-    <img src="{% static 'images/temp.png' %}" id='logo' width="150px" height="150px" />
-
-    <div class='sub1'><h1>{{company.name}}</h1>
-        <p>{{ company.industry }}, {{company.structure}}</p><br>
-      <img src="{% static 'images/linklogo.png' %}" class='logo' width="20px" height="20px" /> <span>{{company.website}}</span>
-      <img src="{% static 'images/locationlogo.png' %}" class='logo' width="20px" height="20px" /> <span>Mountain View</span>
-
-    </div>
-  </div>
-  <P>Reviews:</p>
-<hr id= "break">
-
-{% for review in reviews %}
-
-    <a class="button" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
-{% endfor %}
-<hr id= "break">
-<br>
-    <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
-    <br><br><br>
-    <a class="sub" href="{% url 'codedoor:createreview' %}">Add Review</a><br>
-
-</div>
-=======
->>>>>>> 02d4e518d0341d74e
-
   <div class="companyportion">
     <img src="{% static 'images/temp.png' %}" id='logo' width="150px" height="150px" />
 
@@ -42,7 +12,7 @@
 
     </div>
   </div>
-  
+
   <hr id="break">
   <div id="nav">
     <a href="#" class="nav_items" id="active_item">Reviews</a>
@@ -85,7 +55,7 @@
     <br><br><br>
         <a class="sub" href="{% url 'codedoor:createreview' %}">Add Review</a>
         <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit Company Info</a>
-        
+
     <br>
   </div>
 {% endblock %}
