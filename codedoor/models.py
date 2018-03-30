@@ -73,7 +73,7 @@ class Review(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return "{}'s review of {}".format(self.reviewer.name,
+        return "{}'s review of {}".format(self.reviewer.user,
                                           self.company.name)
 
 

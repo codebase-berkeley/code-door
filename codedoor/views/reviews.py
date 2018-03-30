@@ -7,8 +7,9 @@ from django.contrib.auth.decorators import login_required
 def create_review(request):
     if request.method == "POST":
         try:
+            print(request.user)
             company = Company.objects.get(pk=request.POST["company"])
-            reviewer = Profile.objects.get(pk=request.POST["reviewer"])
+            reviewer = Profile.objects.get(user=request.user)
             rating = request.POST["rating"]
             recommend = request.POST["recommend"]
             review = request.POST["review"]
@@ -22,8 +23,8 @@ def create_review(request):
         return redirect('viewreview/' + str(review.pk))
     else:
         companies = Company.objects.all()
-        reviewers = Profile.objects.all()
-        return render(request, "codedoor/createreview.html", {"companies": companies, "reviewers": reviewers})
+        reviewer = request.user
+        return render(request, "codedoor/createreview.html", {"companies": companies, "reviewer": reviewer})
 
 @login_required
 def view_review(request, pk):
