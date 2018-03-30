@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from codedoor.models import Review, Company, Profile
 from django.contrib.auth.decorators import login_required
 
-@login_required
+#@login_required
 def create_review(request):
     if request.method == "POST":
         try:
@@ -25,12 +25,12 @@ def create_review(request):
         reviewers = Profile.objects.all()
         return render(request, "codedoor/createreview.html", {"companies": companies, "reviewers": reviewers})
 
-@login_required
+#@login_required
 def view_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     return render(request, "codedoor/viewreview.html", {"review": review})
 
-@login_required
+#@login_required
 def edit_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     if request.method == "POST":
