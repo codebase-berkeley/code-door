@@ -2,6 +2,8 @@
 {% load static from staticfiles %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany.css' %}">
+<script src="{% static 'js/createcompany_validation.js' %}">
+</script>
 <div class="centered">
 	<h1> Edit Company Information </h1><br>
 	<form action="{% url 'codedoor:editcompany' pk=company.pk %}" method="POST">
@@ -9,28 +11,35 @@
 		<div class="space">
 			Company name <br>
 			<div class="border-text">
-				<input type="text" name="name" value={{company.name}}>
+				<input type="text" name="name" value={{company.name}} id="name">
 			</div>
+			<p class="error" id="name-error">
+      </p>
 		</div><br>
 		<div class="space">
 			Industry <br>
 			<div class="border-text">
-				<input type="text" name="industry" value={{company.industry}}>
+				<input type="text" name="industry" value={{company.industry}} id="industry">
 			</div>
+			<p class="error" id="industry-error">
+      </p>
 		</div><br>
 		<div class="space">
 			Website <br>
 			<div class="border-text">
-				<input type="url" name="website" value={{company.website}}>
+				<input type="url" name="website" value={{company.website}} id="website">
 			</div>
+			<p class="error" id="website-error">
+      </p>
 		</div><br><br>
 		Type of company <br>
-		<input type="radio" name="structure" checked="false" value="Startup"> Startup <br>
-		<input type="radio" name="structure" checked="false" value="Boutique"> Boutique <br>
-		<input type="radio" name="structure" checked="false" value="Medium"> Medium <br>
-		<input type="radio" name="structure" checked="false" value="Small"> Small <br>
-		<input type="radio" name="structure" checked="false" value="Large"> Large <br>
-
+		<input type="radio" name="structure" checked="false" value="Startup" id="startup"> Startup <br>
+		<input type="radio" name="structure" checked="false" value="Boutique" id=boutique> Boutique <br>
+		<input type="radio" name="structure" checked="false" value="Small" id="small"> Small <br>
+		<input type="radio" name="structure" checked="false" value="Medium" id="medium"> Medium <br>
+		<input type="radio" name="structure" checked="false" value="Large" id="large"> Large <br>
+		<p class="error" id="type-error">
+		</p>
 		<br>
 		<div id="submit"><input type="submit" value="Submit"></div>
 	</form>
