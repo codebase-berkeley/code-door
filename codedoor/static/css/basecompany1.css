@@ -139,3 +139,8 @@ ul li {
   padding: 8px 16px;
   border: 1px solid #ddd;
 }
+
+#recommend {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
