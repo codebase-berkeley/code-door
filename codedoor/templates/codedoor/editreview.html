@@ -18,10 +18,15 @@
       <div class="space">
         Companies <br>
         <div class="border">
-          <select name="company" class="select-style">
+          <select name="company" class="select-style" >
+            <option selected={{review.company.pk}}>{{review.company.name}}</option>
             {% for company in companies %}
+                {%if company.pk != review.company.pk %}
                 <option value={{company.pk}}>{{company.name}}</option>
+                {% endif %}
             {% endfor %}
+
+
           </select>
         </div>
       </div><br>
