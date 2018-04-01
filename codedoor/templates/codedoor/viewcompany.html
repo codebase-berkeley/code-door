@@ -28,19 +28,19 @@
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
                 style="fill:#01959b" />
-                </svg> Recommends 
+                </svg> Recommends
               </span>
             {% else %}
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
                 style="fill:#ff4d4d" />
-                </svg> Doesn't Recommend 
+                </svg> Doesn't Recommend
               </span>
             {% endif %}
           </div>
           <span>Rating: {{review.rating}}</span>
-        
+
         <p>{{review.review}}</p><br><br>
     {% endfor %}
 
