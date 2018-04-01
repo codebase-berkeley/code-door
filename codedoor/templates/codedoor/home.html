@@ -1,0 +1,82 @@
+{% extends 'codedoor/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
+
+  <div class="indent">
+    <h1> Codor </h1>
+    <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
+    <div id="searchbar">
+    <input type="text" placeholder="Try Google"></div>
+  </div>
+
+
+  <div class="indent">
+    <h3>Recent Activity</h3>
+    <h2>Company Reviews</h2>
+  </div>
+  <hr id="break">
+</br>
+  <div id="reviews">
+    {% for review in reviews %}
+        <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+        <span>-{{review.company}}</span><br>
+        <p> by {{review.reviewer.user}}</p>
+        <div id="recommend">
+          {% if review.recommend %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg> Recommends
+              </span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg> Doesn't Recommend
+              </span>
+            {% endif %}
+          </div>
+          <p>Rating: {{review.rating}}</p>
+
+        <p>{{review.review}}</p><br><br>
+    {% endfor %}
+
+    <!-- Source: Vitor Freitas -->
+    {% if reviews.has_other_pages %}
+      <ul class="pagination">
+        {% if reviews.has_previous %}
+          <li class="clickable"><a href="?page={{ reviews.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in reviews.paginator.page_range %}
+          {% if reviews.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if reviews.has_next %}
+          <li><a href="?page={{ reviews.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+
+
+
+
+
+    <br>
+  </div>
+  <br>
+  <div class="indent">
+
+    <h2>Interviews</h2>
+  </div>
+  <hr id="break">
+{% endblock %}
