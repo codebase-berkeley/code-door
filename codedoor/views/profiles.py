@@ -10,6 +10,7 @@ from requests.auth import HTTPBasicAuth
 import boto3
 import urllib
 import base64
+from api_keys import s3_access_keys
 
 profile_pic_bucket = 'codedoor-profile-pics'
 
@@ -23,7 +24,7 @@ def createprofile(request):
             input_email = request.POST['email']
             input_first_name = request.POST['first_name']
             input_last_name = request.POST['last_name']
-            input_profile_pic = request.POST['profile_pic']
+            input_profile_pic = request.FILES['profile_pic'].read()
             input_graduation_year = request.POST['graduation_year']
             input_current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
@@ -39,9 +40,10 @@ def createprofile(request):
                           current_job=input_current_job, linkedin=input_linkedin)
         user.save()
         profile.save()
-        s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ContentType="image/jpeg")
-        url = "http://s3.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
+        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+                            aws_secret_access_key=s3_access_keys["secret"])
+        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
+        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
         profile.profile_pic = url
         profile.save()
         return redirect("codedoor:viewprofile", pk=profile.id)
