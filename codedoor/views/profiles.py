@@ -40,7 +40,7 @@ def createprofile(request):
         user.save()
         profile.save()
         s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic)
+        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ContentType="image/jpeg")
         url = "http://s3.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
         profile.profile_pic = url
         profile.save()
