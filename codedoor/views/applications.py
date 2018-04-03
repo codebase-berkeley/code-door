@@ -6,7 +6,6 @@ import traceback
 
 def create_application(request,companypk,profilepk):
     if request.method == 'POST':
-        print(companypk,profilepk, "HERREEEE")
         try:
             description = request.POST['description']
             season = request.POST['season']
