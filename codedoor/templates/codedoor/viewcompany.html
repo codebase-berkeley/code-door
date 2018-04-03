@@ -32,6 +32,7 @@
     <br><br><br>
         <a class="sub" href="#">Add Review</a> <!-- change url to codedoor:createreview later -->
         <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit Company Info</a>
+        <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=company.pk profilepk=1 %}">Add Application</a>
         
     <br>
   </div>

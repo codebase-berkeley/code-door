@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="{% static 'css/application.css' %}">
   <script src="{% static 'js/application.js' %}"></script>
 </head>
-<form id="create_app_form" action="{% url 'codedoor:create_application' %}" method="POST" onsubmit=" validateForm();">
+<form id="create_app_form" action="{% url 'codedoor:create_application_filled' companypk=companypk profilepk=profilepk %}" method="POST" onsubmit=" validateForm();">
     {% csrf_token %}
     <div class="entry">
       <h4>Position:</h4><br>

@@ -4,8 +4,9 @@ from codedoor.models import Profile, Company, Question, Application
 from django.core.paginator import Paginator
 import traceback
 
-def create_application(request):
+def create_application(request,companypk,profilepk):
     if request.method == 'POST':
+        print(companypk,profilepk, "HERREEEE")
         try:
             description = request.POST['description']
             season = request.POST['season']
@@ -21,11 +22,11 @@ def create_application(request):
         except Exception as e:
             traceback.print_exc()
             return HttpResponse("You did not fill out the form correctly")
-        a = Application(company=Company.objects.get(pk=1), profile=Profile.objects.get(pk=1), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
+        a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
         return redirect("codedoor:view_application", pk=a.id)
     else:
-        return render(request, 'codedoor/createapplication.html')
+        return render(request, 'codedoor/createapplication.html', {"companypk": companypk, "profilepk": profilepk})
 
 
 def edit_application(request, pk):
