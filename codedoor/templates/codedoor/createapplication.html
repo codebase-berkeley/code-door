@@ -12,7 +12,7 @@
     <div class="entry">
       <h4>Position:</h4><br>
       <p id="error0"></p>
-      <input id="position" name="position" placeholder="Job title" class="text"></input><br>
+      <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
     </div>
     <div class="entry">
       <h4>Season:</h4><br>
@@ -28,17 +28,17 @@
     <div class="entry">
       <h4>Year:</h4><br>
       <p id="error2" class="error"></p>
-      <input id="year" type="number" name="year" placeholder="e.g. 2015" class="select-num"></input><br>
+      <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
     </div>
     <div class="entry">
       <h4>Difficulty:</h4><br>
       <p id="error3" class="error"></p>
-      <input type="number" name="difficulty" placeholder="1-10" class="select-num"></input><br>
+      <input type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
     </div>
     <div class="entry">
       <h4>Description:</h4><br>
       <p id="error4" class="error"></p>
-      <textarea name="description" placeholder="Description of application"></textarea><br>
+      <textarea name="description" placeholder="Description of application" required></textarea><br>
     </div>
     <div class="entry">
       <h4>Received Offer:</h4><br>

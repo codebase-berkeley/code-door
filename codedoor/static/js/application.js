@@ -4,7 +4,6 @@ function validateForm() {
   if (position == "") {
     event.preventDefault();
     document.getElementById("error0").innerHTML="Enter a valid position";
-    document.getElementById("error0").classList.add("error"); //this line doesn't work???
     valid = false;
   } 
   var season = document.forms["create_app_form"]["season"].value;
@@ -13,18 +12,19 @@ function validateForm() {
     document.getElementById("error1").innerHTML="Select a season";
     valid = false;
   } 
-  var year = document.forms["create_app_form"]["year"].value;
-  if (year == "" || !Number.isInteger(year)) {
-    event.preventDefault();
-    document.getElementById("error2").innerHTML="Enter a valid year";
-    valid = false;
-  } 
-  var difficulty = document.forms["create_app_form"]["difficulty"].value;
-  if (difficulty == "" || !Number.isInteger(difficulty) || difficulty > 10 || difficulty < 1) {
-    event.preventDefault();
-    document.getElementById("error3").innerHTML="Enter a valid difficulty";
-    valid = false;
-  } 
+  // var year = document.forms["create_app_form"]["year"].value;
+  // if (year === NaN) {
+  //   event.preventDefault();
+  //   document.getElementById("error2").innerHTML="Enter a valid year";
+  //   valid = false;
+  // } 
+  // var difficulty = document.forms["create_app_form"]["difficulty"].value;
+  // if (difficulty == "" || !Number.isInteger(difficulty) || difficulty > 10 || difficulty < 1) {
+  //   event.preventDefault();
+  //   console.log("the difficulty is invalid.");
+  //   document.getElementById("error3").innerHTML="Enter a valid difficulty";
+  //   valid = false;
+  // } 
   var description = document.forms["create_app_form"]["description"].value;
   if (description == "") {
     event.preventDefault();
@@ -47,3 +47,12 @@ function validateForm() {
   }
   return valid;
 }
+
+// var season = document.forms["create_app_form"]["season"];
+// season.addEventListener("select", function (event) {
+//   if (season === "--Select--") {
+//     season.setCustomValidity("I expect an e-mail, darling!");
+//   } else {
+//     season.setCustomValidity("");
+//   }
+// });
