@@ -47,8 +47,14 @@
       </div><br>
       <div class="space">Recommend
         <div class="border">
-          <span><input type="radio" name="recommend" value=True>  Yes</span>
-          <span><input type="radio" name="recommend" value=False>  No</span><br>
+          {% if review.recommend %}
+            <span><input type="radio" name="recommend" value=True checked>  Yes</span><br>
+            <span><input type="radio" name="recommend" value=False>  No</span><br>
+          {% else %}
+            <span><input type="radio" name="recommend" value=True>  Yes</span>
+            <span><input type="radio" name="recommend" value=False checked>  No</span><br>
+          {% endif %}
+
         </div>
       </div><br>
       <div class="space">Review <br>
