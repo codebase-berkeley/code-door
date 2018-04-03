@@ -129,11 +129,9 @@ h2.company-name {
   height: 30px;
   width: 10%;
 }
-<<<<<<< HEAD
 
 .error {
   font-size: 10px;
-  color: red; /*lighter red*/
+  color: #F45B69; /*reddish*/
 }
-=======
->>>>>>> a6d9e7f124928d1162baac2b38afef244077f0e5
+
