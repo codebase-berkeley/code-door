@@ -50,7 +50,7 @@ class Application(models.Model):
     difficult = models.DecimalField(decimal_places=2, max_digits=10)
 
     def __str__(self):
-        return "{}'s application to {}".format(self.profile.name,
+        return "{}'s application to {}".format(str(self.profile),
                                                self.company.name)
 
 
