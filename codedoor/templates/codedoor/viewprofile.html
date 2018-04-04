@@ -1,11 +1,15 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
+<<<<<<< HEAD
 <html>
+=======
+>>>>>>> c16ebfbafb01656e730eab4554447671c436eec6
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href={% static "css/view.css" %}>
 </head>
+<<<<<<< HEAD
 <body>
     <div class="block">
         <img src={% static 'images/profpic.jpg' %} width="300px" height="300px">
@@ -60,4 +64,55 @@
 </body>
 </html>
 
+=======
+<div class="block">
+    <img src={% static 'images/profpic.jpg' %} width="300px" height="300px">
+</div>
+<div class="block">
+     <div>
+         <p id = "name">
+             {{ profile.user.get_full_name }}
+         </p>
+         <p id = "job">
+             {{ profile.current_job }}
+         </p>
+         <p id = "classof">
+             Class of {{ profile.graduation_year }}
+         </p>
+    </div>
+
+    <div id="info">
+        <!--{{ profile.website }}-->
+        <p>
+            <a href = "https://lausophia.github.io">
+                <img src= {% static 'images/linkicon.png' %} width="30px" height="30px">
+                lausophia.github.io
+            </a>
+        </p>
+        <p>
+            <a href = {{ profile.linkedin }}>
+                <img src={% static 'images/linkedinlogo.png' %} width="30px" height="30px">
+                {{ profile.linkedin }}
+            </a>
+        </p>
+        <!--{{profile.email}}-->
+        <p>
+            <a href = "mailto:sophialau@berkeley.edu">
+                <img src={% static 'images/emailicon.png' %} width="30px" height="30px">
+                sophialau@berkeley.edu
+            </a>
+        </p>
+        <!--<a href={{ profile.resume }}>-->
+        <p>
+            <img src={% static 'images/cvicon.png' %} width="30px" height="30px">
+            resume.pdf <!--</a>-->
+        </p>
+    </div>
+</div>
+<p id = "edit-profile">
+    <a href="/codedoor/editprofile/{{ profile.id }}"><!--add pk?-->
+    (edit profile)
+    </a>
+</p>
+>>>>>>> c16ebfbafb01656e730eab4554447671c436eec6
 {% endblock content %}
