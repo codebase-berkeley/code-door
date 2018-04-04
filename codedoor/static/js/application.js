@@ -1,30 +1,11 @@
 function validateForm() {
   var position = document.forms["create_app_form"]["position"].value;
-  var valid = true; //change to false if it doesn't pass any of these validations
+  var valid = true; //change to false if it doesn't pass any one of these validations
   if (position == "") {
     event.preventDefault();
     document.getElementById("error0").innerHTML="Enter a valid position";
     valid = false;
   } 
-  var season = document.forms["create_app_form"]["season"].value;
-  if (season == "Select") {
-    event.preventDefault();
-    document.getElementById("error1").innerHTML="Select a season";
-    valid = false;
-  } 
-  // var year = document.forms["create_app_form"]["year"].value;
-  // if (year === NaN) {
-  //   event.preventDefault();
-  //   document.getElementById("error2").innerHTML="Enter a valid year";
-  //   valid = false;
-  // } 
-  // var difficulty = document.forms["create_app_form"]["difficulty"].value;
-  // if (difficulty == "" || !Number.isInteger(difficulty) || difficulty > 10 || difficulty < 1) {
-  //   event.preventDefault();
-  //   console.log("the difficulty is invalid.");
-  //   document.getElementById("error3").innerHTML="Enter a valid difficulty";
-  //   valid = false;
-  // } 
   var description = document.forms["create_app_form"]["description"].value;
   if (description == "") {
     event.preventDefault();
