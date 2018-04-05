@@ -10,10 +10,9 @@ from requests.auth import HTTPBasicAuth
 import boto3
 import urllib
 import base64
+from api_keys import s3_access_keys
 
 profile_pic_bucket = 'codedoor-profile-pics'
-AWS_ACCESS_KEY_ID = 'AKIAJRQH2L2KUUIQB5CA'
-AWS_SECRET_ACCESS_KEY = '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'
 
 def createprofile(request):
     if request.method == "GET":
@@ -25,7 +24,7 @@ def createprofile(request):
             input_email = request.POST['email']
             input_first_name = request.POST['first_name']
             input_last_name = request.POST['last_name']
-            input_profile_pic = request.POST['profile_pic']
+            input_profile_pic = request.FILES['profile_pic'].read()
             input_graduation_year = request.POST['graduation_year']
             input_current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
@@ -33,7 +32,7 @@ def createprofile(request):
                 input_linkedin = "http://" + input_linkedin
             # input_resume = request.POST['resume']
         except Exception as e:
-            return HttpResponse("You did not fill out the form correctly!") # TODO: message displayed on form
+            return HttpResponse("You did not fill out the form correctly!")  # TODO: message displayed on form
 
         user = User.objects.create_user(username=input_username, password=input_password, email=input_email,
                                         first_name=input_first_name, last_name=input_last_name)
@@ -41,13 +40,38 @@ def createprofile(request):
                           current_job=input_current_job, linkedin=input_linkedin)
         user.save()
         profile.save()
-        s3 = boto3.resource('s3', aws_access_key_id=AWS_ACCESS_KEY_ID, aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic)
-        url = "http://s3.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
+        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+                            aws_secret_access_key=s3_access_keys["secret"])
+        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
+        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
         profile.profile_pic = url
         profile.save()
         return redirect("codedoor:viewprofile", pk=profile.id)
 
+
+def finishprofile(request):
+    if request.method == "GET":
+        return render(request, 'codedoor/finishprofile.html')
+    else:
+        try:
+            # not sure how to extract these the info commented before from the slack API to save as a user
+            # input_username = request.POST['username']
+            # input_password = request.POST['password']
+            input_email = request.POST['email']
+            input_first_name = request.POST['name']
+            # input_last_name = request.POST['last_name']
+            # input_profile_pic = request.POST['profile_pic']
+            input_graduation_year = request.POST['graduation_year']
+            input_current_job = request.POST['current_job']
+            input_linkedin = request.POST['linkedin']
+            if "http://" not in input_linkedin and "https://" not in input_linkedin:
+                input_linkedin = "http://" + input_linkedin
+            # input_resume = request.POST['resume']
+        except Exception as e:
+            return HttpResponse("You did not fill out the form correctly!")  # TODO: message displayed on form
+
+        user = User.objects.create_user(username=input_username, password=input_password, email=input_email,
+                                        first_name=input_first_name, last_name=input_last_name)
 
 @login_required
 def viewprofile(request, pk):
@@ -115,6 +139,13 @@ def logout(request):
 def slack_info(request):
     params = slack_callback(request)
     url = "https://slack.com/oauth/authorize?" + urllib.parse.urlencode(params)
+    # insert if/else statement
+    # if user is already in database, return redirect(url)
+    # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
+    print("hdjfsiljdf")
+    profile = authenticate(params["user"]["id"])
+    if profile is None:
+        return render(request, 'codedoor/finishprofile.html', {"name": params["user"]["name"], "email": params["user"]["email"]})
     return redirect(url)
 
 
@@ -124,12 +155,15 @@ def slack_callback(request):
 
     if request.method == 'GET':
         code = request.GET.get('code')
-        get_token_url = "https://slack.com/api/oauth.access?client_id={}&client_secret={}&code={}".format(client_id, client_secret, code)
+        get_token_url = "https://slack.com/api/oauth.access?client_id={}&client_secret={}&code={}".format(client_id,
+                                                                                                          client_secret,
+                                                                                                          code)
         r = requests.post(get_token_url,
                           auth=HTTPBasicAuth(client_id, client_secret),
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code",
-                                  "redirect_uri": "http://localhost:8000/codedoor/slack_callback"})
+                                  "redirect_uri": "http://localhost:8000/codedoor/slack_info"})
+        print(r.json())
         access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
@@ -137,4 +171,3 @@ def slack_callback(request):
                           headers={"Authorization": "Bearer " + access_token})
 
         return JsonResponse(r.json())
-
