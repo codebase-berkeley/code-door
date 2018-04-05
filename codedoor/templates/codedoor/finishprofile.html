@@ -1,0 +1,43 @@
+{% extends 'codedoor/base.html' %}
+{% load static %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/createprofile.css' %}">
+<h1>
+    Finish Profile
+</h1>
+<form action="/codedoor/finishprofile" method="POST"> {% csrf_token %}
+    <div class="entry">
+        Graduation Year:
+        <input type="number" name="graduation_year" placeholder="e.g. 2020" required>
+    </div>
+    <div class="entry">
+        Full Name:
+        <input type="text" name="name" placeholder= {{ name }} required>
+    </div>
+
+    <div class="entry">
+        Email:
+        <input type = "text" name="email" placeholder= {{ email }} required>
+    </div>
+
+    <div class="entry">
+        Current Job:
+        <input type="text" name="current_job" placeholder="e.g. Member at Codebase">
+    </div>
+    <div class="entry">
+        LinkedIn:
+        <!--<input type="url"  name="linkedin" value = "https://">-->
+        <input type = "text" name = "linkedin" placeholder="e.g. www.google.com">
+    </div>
+    <!--
+    <div class="entry">
+        Resume:
+        <input type="file" name="resume">
+    </div>
+    -->
+    <div id="submit">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+{% endblock %}
