@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from codedoor.models import Question, Application
 
 def create_question(request):
+    print("IN THE CREATE QUESTION FUNCTION")
     if request.method == 'POST':
         try:
             question = request.POST['question']
