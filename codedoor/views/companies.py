@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from codedoor.models import Company
+from codedoor.models import Company, Review
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def create_company(request):
     if request.method == "POST":
         try:
@@ -20,12 +23,22 @@ def create_company(request):
     else:
         return render(request, "codedoor/createcompany.html")
 
-
+@login_required
 def view_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
-    return render(request, "codedoor/viewcompany.html", {"company": company})
+    reviews = Review.objects.filter(company=company)
+    paginator = Paginator(reviews, 5)
+    page = request.GET.get('page', 1)
+    try:
+        review_list = paginator.page(page)
+    except PageNotAnInteger:
+        review_list = paginator.page(1)
+    except EmptyPage:
+        review_list = paginator.page(paginator.num_pages)
 
+    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list})
 
+@login_required
 def edit_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
     if request.method == "POST":
