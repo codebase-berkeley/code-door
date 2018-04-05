@@ -23,8 +23,11 @@
         Companies <br>
         <div class="border">
           <select name="company" class="select-style">
+                  <option value={{currentcompany.pk}} selected>{{currentcompany.name}}</option>
             {% for company in companies %}
-                <option value={{company.pk}}>{{company.name}}</option>
+                {% if company.pk != review.company.pk %}
+                  <option value={{company.pk}}>{{company.name}}</option>
+                {% endif %}
             {% endfor %}
           </select>
         </div>

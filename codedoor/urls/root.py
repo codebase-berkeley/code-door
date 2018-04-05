@@ -5,5 +5,5 @@ from django.urls import path
 import codedoor.views as views
 
 urlpatterns = [
-    path('home', views.home, name='home'),
+    path('home', views.home, name="home"),
 ]
