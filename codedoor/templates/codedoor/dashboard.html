@@ -1,0 +1,84 @@
+{% extends 'codedoor/viewapplication.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+<body>
+  <h1>Dashboard</h1>
+  <h2>Applications</h2>
+  {% for a in applications %}
+    {% if a.pk < 3 %}
+      <div class="entry">
+        <table>
+          <tr>
+            <td rowspan="3" width="7%"><img src="/static/images/airbnb.gif" alt="Company logo" width="100" height="100"></td>
+            <td width="93%">
+              <h2 class="company-name">{{ a.company }}</h2>
+              <span class="applicant-name">{{ a.profile }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><span class="info job-position">{{a.position}}</span> 
+              <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><span class="info colorful-boxy">
+                {% if a.received_offer %}
+                  <svg width="15" height="15">
+                    <rect width="15" height="15" class="teal-rect" />
+                    Sorry, your browser does not support inline SVG.
+                  </svg>&nbsp;&nbsp;Received Offer
+                {% else %}
+                  <svg width="15" height="15">
+                    <rect width="15" height="15" class="red-rect"/>
+                    Sorry, your browser does not support inline SVG.
+                  </svg>&nbsp;&nbsp;No Offer
+                {% endif %}
+              </span>
+              <span class="info colorful-boxy">
+                {% if a.difficult > 7 %}
+                  <svg width="15" height="15">
+                    <rect width="15" height="15" class="red-rect" />
+                    Sorry, your browser does not support inline SVG.
+                  </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+                {% elif a.difficult < 4%}
+                  <svg width="15" height="15">
+                    <rect width="15" height="15" class="teal-rect" />
+                    Sorry, your browser does not support inline SVG.
+                  </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+                {% else %}
+                  <svg width="15" height="15">
+                    <rect width="15" height="15" class="orange-rect" />
+                    Sorry, your browser does not support inline SVG.
+                  </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+                {% endif %}
+              </span></p>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <h4>Description:</h4>
+              <p>{{a.description}}</p>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <h4>Offer details:</h4>
+              <p>{{a.offer_details}}</p>
+            </td>
+          </tr>
+        </table>
+      </div>
+    {% endif %}
+  {% endfor %}
+  <a href=""
+</body>
+
+{% endblock content %}
