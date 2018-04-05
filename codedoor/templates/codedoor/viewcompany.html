@@ -1,5 +1,4 @@
 {% extends 'codedoor/base.html' %}
-<<<<<<< HEAD
 {% load static %}
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
@@ -37,15 +36,4 @@
         
     <br>
   </div>
-=======
-{% block content %}
-<div class="centered">
-    <h2>{{company.name}}</h2>
-    <p>Industry: {{ company.industry }}</p>
-    <p>Website: {{ company.website }}</p>
-    <p>Type: {{company.structure}}</p>
-    <a class="btn btn-default" href="{% url 'codedoor:editcompany' pk=company.pk  %}">Edit</a>
-</div>
-
->>>>>>> c16ebfbafb01656e730eab4554447671c436eec6
 {% endblock %}
