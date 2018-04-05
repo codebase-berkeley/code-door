@@ -57,8 +57,8 @@ def finishprofile(request):
             # not sure how to extract these the info commented before from the slack API to save as a user
             # input_username = request.POST['username']
             # input_password = request.POST['password']
-            # input_email = request.POST['email']
-            # input_first_name = request.POST['first_name']
+            input_email = request.POST['email']
+            input_first_name = request.POST['name']
             # input_last_name = request.POST['last_name']
             # input_profile_pic = request.POST['profile_pic']
             input_graduation_year = request.POST['graduation_year']
@@ -142,6 +142,9 @@ def slack_info(request):
     # insert if/else statement
     # if user is already in database, return redirect(url)
     # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
+    profile = get_object_or_404(Profile, pk =params["user"]["id"])
+    if !profile:
+            return render(request, 'codedoor/finishprofile.html', {"name": params["user"]["name"], "email": params["email"]})
     return redirect(url)
 
 
