@@ -142,9 +142,10 @@ def slack_info(request):
     # insert if/else statement
     # if user is already in database, return redirect(url)
     # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
-    profile = get_object_or_404(Profile, pk =params["user"]["id"])
-    if !profile:
-            return render(request, 'codedoor/finishprofile.html', {"name": params["user"]["name"], "email": params["email"]})
+    print("hdjfsiljdf")
+    profile = authenticate(params["user"]["id"])
+    if profile is None:
+        return render(request, 'codedoor/finishprofile.html', {"name": params["user"]["name"], "email": params["user"]["email"]})
     return redirect(url)
 
 
@@ -161,7 +162,8 @@ def slack_callback(request):
                           auth=HTTPBasicAuth(client_id, client_secret),
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code",
-                                  "redirect_uri": "http://localhost:8000/codedoor/slack_callback"})
+                                  "redirect_uri": "http://localhost:8000/codedoor/slack_info"})
+        print(r.json())
         access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
