@@ -1,16 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Profile, Company, Question, Application
-<<<<<<< HEAD
 from django.core.paginator import Paginator
 import traceback
 
 def create_application(request,companypk,profilepk):
-=======
-import traceback
-
-def create_application(request):
->>>>>>> c16ebfbafb01656e730eab4554447671c436eec6
     if request.method == 'POST':
         try:
             description = request.POST['description']
@@ -27,20 +21,11 @@ def create_application(request):
         except Exception as e:
             traceback.print_exc()
             return HttpResponse("You did not fill out the form correctly")
-<<<<<<< HEAD
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
         return redirect("codedoor:view_application", pk=a.id)
     else:
         return render(request, 'codedoor/createapplication.html', {"companypk": companypk, "profilepk": profilepk})
-=======
-        a = Application(company=Company.objects.get(pk=1), profile=Profile.objects.get(pk=1), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
-        a.save()
-        return redirect("codedoor:view_application", pk=a.id)
-    else:
-        return render(request, 'codedoor/createapplication.html')
->>>>>>> c16ebfbafb01656e730eab4554447671c436eec6
-
 
 def edit_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
@@ -81,7 +66,6 @@ def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     return render(request, "codedoor/viewapplication.html", {"a": a})
 
-<<<<<<< HEAD
 def list_applications(request, pk, pg=1):
     applications = Application.objects.filter(company=pk).order_by("-pk")
     paginator = Paginator(applications, 5) 
@@ -94,14 +78,4 @@ def list_applications(request, pk, pg=1):
         applications_list = paginator.page(paginator.num_pages)
         
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
-=======
-
-#company, profiledescription = models.TextField()
-    # year = models.IntegerField()
-    #season = models.CharField(max_length=100, choices=SEASONS)
-    #position = models.CharField(max_length=500)
-    #received_offer = models.BooleanField()
-    #offer_details = models.TextField(null=True, blank=True)
-    #difficult = models.DecimalField(decimal_places=2, max_digits=10)
->>>>>>> c16ebfbafb01656e730eab4554447671c436eec6
 
