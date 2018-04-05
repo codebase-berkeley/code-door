@@ -1,0 +1,137 @@
+button.big {
+  background-color: #008489; /* Teal */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+button.small {
+  background-color: #FF9B71; /* Orange */
+  border: none;
+  color: white;
+  padding: 10px 27px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+textarea {
+  width: 70%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+input.text {
+  width: 40%;
+  height: 35px;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+input.select-num {
+  width: 10%;
+  height: 35px;
+  padding: 15px 10px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}
+
+td {
+  height: auto;
+  padding: 7px 10px;
+  vertical-align: center;
+}
+
+img {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+span.info {
+  margin-right: 20px;
+}
+
+span.job-position {
+  color: #008489; /* Teal */
+  font-size: 16px;
+}
+
+span.job-season {
+  font-size: 14px;
+}
+
+span.colorful-boxy {
+  font-size: 14px;
+}
+
+div.entry {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+div#applicantAnswer {
+  display: none;
+}
+
+div#companyAnswer {
+  display: none;
+}
+
+div.post {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+rect.red-rect {
+  fill: #F45B69; /* Reddish */
+}
+
+rect.teal-rect {
+  fill: #008489; /* Teal */
+}
+
+rect.orange-rect {
+  fill: #FF9B71; /* Orange */
+}
+
+h2.company-name {
+  display: inline-block;
+}
+
+.applicant-name {
+  font-size: 12px;
+  font-family: 'Roboto';
+  color: #7F7F7F;
+  margin-left: 20px;
+}
+
+.seasons-menu {
+  height: 30px;
+  width: 10%;
+}
+
+.error {
+  font-size: 10px;
+  color: #F45B69; /*reddish*/
+}
+

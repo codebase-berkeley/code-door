@@ -1,3 +1,4 @@
+
 body{
     font-family: roboto;
     padding: 80px;
@@ -14,9 +15,6 @@ a {
 .block{
     display: inline-block;
     padding: 23px 10px 0px 23px;
-    color: black
-
-
 }
 
 body #edit-profile{
@@ -29,27 +27,23 @@ body #edit-profile{
 }
 
 
-
 #name{
     font-weight: 1000;
     font-size: 200%;
-    line-height: 2;
-    color: black;
+    line-height: 0.3;
 }
 
 #job{
     font-style: italic;
     font-weight: lighter;
     font-size: 100%;
-    line-height:1.6;
-    color: black;
+    line-height:0.4;
 }
 
 #classof{
     font-weight: 100;
     font-size: 90%;
-    line-height: 2;
-    color: black;
+    line-height: 0.4;
 }
 
 
@@ -57,7 +51,7 @@ body #edit-profile{
 div#info{
     font-weight: 300;
     font-size: 90%;
-    line-height: 3.8;
+    line-height: 2.5;
 }
 
 #icon{

@@ -1,0 +1,58 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+    <h2>Applications</h2>
+    {% for a in page %}
+        <div class="post">
+            <h4 class="blue-text">Company</h4>
+            <p>{{ a.company }}</p>
+            <h4 class="blue-text">Profile</h4>
+            <p>{{ a.profile }}</p>
+            <h4 class="blue-text">Description</h4>
+            <p>{{ a.description }}</p>
+            <h4 class="blue-text">Year</h4>
+            <p>{{ a.year }}</p>
+            <h4 class="blue-text">Season</h4>
+            <p>{{ a.season }}</p>
+            <h4 class="blue-text">position</h4>
+            <p>{{ a.description }}</p>
+            <h4 class="blue-text">Received offer?</h4>
+            <p>{{ a.received_offer }}</p>
+            <h4 class="blue-text">Offer details</h4>
+            <p>{{ a.offer_details }}</p>
+            <h4 class="blue-text">Difficulty</h4>
+            <p>{{ a.difficult }}</p>
+            <br><br>
+        </div>
+    {% endfor %}
+
+
+    {% if page.has_other_pages %}
+      <ul class="pagination">
+        {% if page.has_previous %}
+          <li class="clickable"><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in page.paginator.page_range %}
+          {% if page.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page.has_next %}
+          <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+  
+
+
+
+{% endblock %}

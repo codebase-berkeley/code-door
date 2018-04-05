@@ -70,7 +70,7 @@
     <br><br><br>
         <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
         <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
-
+         <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=company.pk profilepk=1 %}">Add Application</a>
     <br>
   </div>
 {% endblock %}
