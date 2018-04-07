@@ -86,7 +86,15 @@
     {% for a in applications %}
     <table>
       <tr>
-        <td rowspan="3" width="7%"><img src="/static/images/airbnb.gif" alt="Company logo" width="100" height="100"></td>
+        {% if a.company.logo.url != null %}
+          <td rowspan="3" width="7%">
+            <img src="{{ a.company.logo.url }}" alt="Company logo" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+          </td>
+        {% endif %}
         <td width="93%">
           <h2 class="company-name">{{ a.company }}</h2>
           <span class="applicant-name">{{ a.profile }}</span>
