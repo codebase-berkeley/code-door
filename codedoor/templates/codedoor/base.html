@@ -18,7 +18,9 @@
 				</a>
 			</div>
 			<div class="nav-item">
-				<img src="{% static 'images/profpic_circle.png' %}" />
+				<a href="{% url 'codedoor:viewprofile' pk=current_profile.pk %}">
+					<img id="profile-pic" src="{{ current_profile.profile_pic }}" width="58px" height="58px" />
+				</a>
 			</div>
 		</div>
 	</div>

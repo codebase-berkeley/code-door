@@ -9,10 +9,14 @@ import requests
 from requests.auth import HTTPBasicAuth
 import boto3
 import urllib
-import base64
 from api_keys import s3_access_keys
 
 profile_pic_bucket = 'codedoor-profile-pics'
+
+
+def get_current_profile(request):
+    return request.user.profile
+
 
 def createprofile(request):
     if request.method == "GET":
@@ -76,7 +80,8 @@ def finishprofile(request):
 @login_required
 def viewprofile(request, pk):
     profile = get_object_or_404(Profile, id=pk)
-    return render(request, 'codedoor/viewprofile.html', {"profile": profile})
+    current_profile = get_current_profile(request)
+    return render(request, 'codedoor/viewprofile.html', {"profile": profile, "current_profile": current_profile})
 
 
 @login_required
@@ -85,8 +90,9 @@ def editprofile(request, pk):
         return redirect("codedoor:viewprofile", pk=pk)  # where to redirect the wrong user trying to edit
     profile = get_object_or_404(Profile, pk=pk)
     user = profile.user
+    current_profile = get_current_profile(request)
     if request.method == "GET":
-        return render(request, 'codedoor/editprofile.html', {"profile": profile})
+        return render(request, 'codedoor/editprofile.html', {"profile": profile, "current_profile": current_profile})
     else:
         try:
             profile.user.email = request.POST['email']
