@@ -11,16 +11,24 @@ from django.contrib.auth.decorators import login_required
 
 def home(request):
     reviews = Review.objects.all().order_by('-id')[:6]
-    applications = Application.objects.all()
-    paginator = Paginator(reviews, 3)
+    applications = Application.objects.all().order_by('-id')[:6]
+    paginator_1 = Paginator(reviews, 3)
+    paginator_2 = Paginator(applications, 3)
     page = request.GET.get('page', 1)
     try:
-        review_list = paginator.page(page)
+        review_list = paginator_1.page(page)
     except PageNotAnInteger:
-        review_list = paginator.page(1)
+        review_list = paginator_1.page(1)
     except EmptyPage:
-        review_list = paginator.page(paginator.num_pages)
+        review_list = paginator_1.page(paginator_1.num_pages)
+
+    try:
+        application_list = paginator_2.page(page)
+    except PageNotAnInteger:
+        application_list = paginator_2.page(1)
+    except EmptyPage:
+        application_list = paginator_2.page(paginator_2.num_pages)
 
 
-    return render(request, "codedoor/home.html", {"reviews": review_list, "applications": applications})
+    return render(request, "codedoor/home.html", {"reviews": review_list, "applications": application_list})
 
