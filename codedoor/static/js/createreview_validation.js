@@ -24,7 +24,7 @@ function validate() {
     }
     if (!rating) {
       display_error.innerHTML += 'You must provide a rating <br>';
-      rating_error.innerHTML = 'You must provide a rating!!';
+      rating_error.innerHTML = 'You must provide a rating';
       event.preventDefault();
     } else {
       rating_error.innerHTML = '';

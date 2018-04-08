@@ -1,3 +1,14 @@
+#codor {
+  font-size: 25px;
+  font-color: #008489;
+}
+
+#subtitle {
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 #form {
   margin-top: 20px;
 }

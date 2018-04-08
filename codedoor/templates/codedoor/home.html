@@ -4,15 +4,15 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
 
   <div class="indent">
-    <h1> Codor </h1>
+    <h1 id="codor"> Codor </h1>
     <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
     <div id="searchbar">
     <input type="text" placeholder="Try Google"></div>
-  </div>
+  </div><br>
 
 
   <div class="indent">
-    <h3>Recent Activity</h3>
+    <h3>Recent Activity</h3><br>
     <h2>Company Reviews</h2>
   </div>
   <hr id="break">
@@ -67,7 +67,7 @@
       </ul>
     {% endif %}
 
-
+    <a class="sub" href="{% url 'codedoor:createreview' %}">Add Review</a>
 
 
 
