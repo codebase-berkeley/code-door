@@ -6,19 +6,25 @@
 <h1>
     Finish Profile
 </h1>
-<form action="/codedoor/finishprofile" method="POST"> {% csrf_token %}
+<form action="/codedoor/finishprofile/" method="POST"> {% csrf_token %}
     <div class="entry">
         Graduation Year:
         <input type="number" name="graduation_year" placeholder="e.g. 2020" required>
     </div>
     <div class="entry">
-        Full Name:
-        <input type="text" name="name" placeholder= {{ name }} required>
+        <input type="hidden" name="id" value= {{ id }} required>
     </div>
-
     <div class="entry">
-        Email:
-        <input type = "text" name="email" placeholder= {{ email }} required>
+        <input type="hidden" name="first_name" value= {{ first_name }} required>
+    </div>
+    <div class="entry">
+        <input type="hidden" name = "last_name" value = {{ last_name }} required>
+    </div>
+    <div class="entry">
+        <input type="hidden" name = "profile_pic" value = {{ pic }}>
+    </div>
+    <div class="entry">
+        <input type = "hidden" name="email" value = {{ email }} required>
     </div>
 
     <div class="entry">
