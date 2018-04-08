@@ -8,10 +8,20 @@
   <div class="entry">
     <table>
       <tr>
-        <td rowspan="3" width="7%"><img src="/static/images/airbnb.gif" alt="Company logo"></td>
+        {% if a.company.logo.url != null %}
+          <td rowspan="3" width="7%">
+            <img src="{{ a.company.logo.url }}" alt="Company logo" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+          </td>
+        {% endif %}
         <td width="93%">
-          <h2 class="company-name">Airbnb</h2>
-          <span class="applicant-name">Anonymous</span>
+          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+            <h2 class="link-text">{{ a.company }}</h2>
+          </a>
+          <span class="applicant-name">{{ a.profile }}</span>
         </td>
       </tr>
       <tr>
@@ -24,33 +34,43 @@
         <td>
           <p><span class="info colorful-boxy">
             {% if a.received_offer %}
-              <svg width="15" height="15">
-                <rect width="15" height="15" class="teal-rect" />
-                Sorry, your browser does not support inline SVG.
-              </svg>&nbsp;&nbsp;Received Offer
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg> Received Offer
+              </span>
             {% else %}
-              <svg width="15" height="15">
-                <rect width="15" height="15" class="red-rect"/>
-                Sorry, your browser does not support inline SVG.
-              </svg>&nbsp;&nbsp;No Offer
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg> No Offer
+              </span>
             {% endif %}
           </span>
           <span class="info colorful-boxy">
             {% if a.difficult > 7 %}
-              <svg width="15" height="15">
-                <rect width="15" height="15" class="red-rect" />
-                Sorry, your browser does not support inline SVG.
-              </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-            {% elif a.difficult < 4%}
-              <svg width="15" height="15">
-                <rect width="15" height="15" class="teal-rect" />
-                Sorry, your browser does not support inline SVG.
-              </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" /> 
+                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+              </span>
+            {% elif a.difficult < 4 %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+              </span>
             {% else %}
-              <svg width="15" height="15">
-                <rect width="15" height="15" class="orange-rect" />
-                Sorry, your browser does not support inline SVG.
-              </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#FF9B71;" />
+                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+              </span>
             {% endif %}
           </span></p>
         </td>

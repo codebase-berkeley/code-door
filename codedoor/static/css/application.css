@@ -114,10 +114,6 @@ rect.orange-rect {
   fill: #FF9B71; /* Orange */
 }
 
-h2.company-name {
-  display: inline-block;
-}
-
 .sub {
     background-color: #008489;
     color: White;

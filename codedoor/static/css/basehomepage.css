@@ -210,5 +210,5 @@ button.tiny-teal {
 
 .link-text {
   color: #01959b; /* Teal */
-  font-size: 12px;
+  display: inline-block;
 }
