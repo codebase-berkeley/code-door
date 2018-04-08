@@ -149,3 +149,8 @@ p.description_small_text {
   word-wrap: break-word;
   white-space: pre-line;
 }
+
+.link-text {
+  color: #01959b; /* Teal */
+  display: inline-block;
+}
