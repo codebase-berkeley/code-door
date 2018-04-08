@@ -61,7 +61,7 @@
           {% if reviews.number == i %}
             <li class="active">{{ i }}</li>
           {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            <a href="?page={{ i }}"><li>{{ i }}</li></a>
           {% endif %}
         {% endfor %}
         {% if reviews.has_next %}
@@ -107,7 +107,7 @@
       </tr>
       <tr>
         <td>
-          <p><span class="info job-position">{{a.position}}</span> 
+          <p><span class="info job-position">{{a.position}}</span>
           <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
         </td>
       </tr>
@@ -135,7 +135,7 @@
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" /> 
+                style="fill:#ff4d4d" />
                 </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
               </span>
             {% elif a.difficult < 4 %}
