@@ -101,7 +101,9 @@
           </td>
         {% endif %}
         <td width="93%">
-          <h2 class="company-name">{{ a.company }}</h2>
+          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+            <h2 class="link-text">{{ a.company }}</h2>
+          </a>
           <span class="applicant-name">{{ a.profile }}</span>
         </td>
       </tr>
@@ -160,10 +162,7 @@
         <td></td>
         <td>
           <h4>Description:</h4>
-          <div>
-            <p class="description_small_text">{{a.description}}</p>
-            <a href="{% url 'codedoor:view_application' pk=a.pk %}"><p class="link-text">See More &raquo;</p></a>
-          </div>
+          <p class="description_small_text">{{a.description}}</p>
         </td>
       </tr>
     </table>
