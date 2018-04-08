@@ -20,3 +20,6 @@
     align-items: center;
     justify-content: flex-end;
 }
+#profile-pic {
+    border-radius: 50%;
+}

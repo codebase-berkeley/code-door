@@ -9,10 +9,10 @@ import requests
 from requests.auth import HTTPBasicAuth
 import boto3
 import urllib
-import base64
 from api_keys import s3_access_keys
 
 profile_pic_bucket = 'codedoor-profile-pics'
+
 
 def createprofile(request):
     if request.method == "GET":
