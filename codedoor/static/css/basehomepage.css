@@ -1,3 +1,32 @@
+#codor {
+  font-size: 40px;
+  color: #008489;
+}
+
+#searchtype {
+  width: 83%;
+  height: 35px;
+  font-size: 15px;
+}
+
+#search {
+  float: right;
+}
+
+#searchbar {
+  width: 80%;
+  height: 3%;
+  margin-top: 10px;
+  padding: 15px 15px;
+  box-shadow: 5px 5px 5px grey;
+}
+
+#subtitle {
+  font-size: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #form {
   margin-top: 20px;
 }
@@ -144,9 +173,42 @@ ul li {
   margin-top: 5px;
   margin-bottom: 5px;
 }
+
 #searchbar{
     width: 90%;
     height: 3%;
     box-shadow: 2px 2px;
+}
 
+.inline-block {
+  display:inline-block;
+}
+
+button.small-teal {
+  background-color: #01959b; /* Teal */
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+button.tiny-teal {
+  background-color: #01959b; /* Teal */
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+.link-text {
+  color: #01959b; /* Teal */
+  font-size: 12px;
 }

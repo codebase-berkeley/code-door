@@ -16,7 +16,7 @@
   <hr id="break">
   <div id="nav">
     <a href="#" class="nav_items" id="active_item">Reviews</a>
-    <a href="#" class="nav_items">Application</a>
+    <a href="{% url 'codedoor:listapplications' pk=company.pk %}" class="nav_items">Applications</a>
     <a href="#" class="nav_items">People</a>
   </div>
   <div id="reviews">
@@ -70,7 +70,7 @@
     <br><br><br>
         <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
         <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
-         <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=company.pk profilepk=1 %}">Add Application</a>
+         <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=company.pk %}">Add Application</a>
     <br>
   </div>
 {% endblock %}
