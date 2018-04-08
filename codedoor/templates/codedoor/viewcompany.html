@@ -16,7 +16,7 @@
   <hr id="break">
   <div id="nav">
     <a href="#" class="nav_items" id="active_item">Reviews</a>
-    <a href="#" class="nav_items">Application</a>
+    <a href="{% url 'codedoor:listapplications' pk=company.pk %}" class="nav_items">Applications</a>
     <a href="#" class="nav_items">People</a>
   </div>
   <div id="reviews">

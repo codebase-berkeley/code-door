@@ -118,6 +118,16 @@ h2.company-name {
   display: inline-block;
 }
 
+.sub {
+    background-color: #008489;
+    color: White;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    outline: none;
+
+}
+
 .applicant-name {
   font-size: 12px;
   font-family: 'Roboto';
