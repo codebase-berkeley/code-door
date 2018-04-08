@@ -122,7 +122,7 @@
           {% if reviews.number == i %}
             <li class="active">{{ i }}</li>
           {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            <a href="?page={{ i }}"><li>{{ i }}</li></a>
           {% endif %}
         {% endfor %}
         {% if reviews.has_next %}
@@ -162,13 +162,15 @@
           </td>
         {% endif %}
         <td width="93%">
-          <h2 class="company-name">{{ a.company }}</h2>
+          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+            <h2 class="link-text">{{ a.company }}</h2>
+          </a>
           <span class="applicant-name">{{ a.profile }}</span>
         </td>
       </tr>
       <tr>
         <td>
-          <p><span class="info job-position">{{a.position}}</span> 
+          <p><span class="info job-position">{{a.position}}</span>
           <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
         </td>
       </tr>
@@ -196,7 +198,7 @@
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" /> 
+                style="fill:#ff4d4d" />
                 </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
               </span>
             {% elif a.difficult < 4 %}
@@ -221,10 +223,7 @@
         <td></td>
         <td>
           <h4>Description:</h4>
-          <div>
-            <p class="description_small_text">{{a.description}}</p>
-            <a href="{% url 'codedoor:view_application' pk=a.pk %}"><p class="link-text">See More &raquo;</p></a>
-          </div>
+          <p class="description_small_text">{{a.description}}</p>
         </td>
       </tr>
     </table>
