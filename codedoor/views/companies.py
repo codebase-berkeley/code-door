@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from codedoor.models import Company, Review
+from codedoor.models import Company, Review, Profile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
@@ -26,6 +26,7 @@ def create_company(request):
 @login_required
 def view_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
+    profile = get_object_or_404(Profile, pk=request.user.profile.pk)
     reviews = Review.objects.filter(company=company)
     paginator = Paginator(reviews, 5)
     page = request.GET.get('page', 1)
@@ -36,7 +37,7 @@ def view_company(request, pk):
     except EmptyPage:
         review_list = paginator.page(paginator.num_pages)
 
-    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list})
+    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile}) 
 
 @login_required
 def edit_company(request, pk):

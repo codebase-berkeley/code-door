@@ -7,12 +7,21 @@
   <link rel="stylesheet" href="{% static 'css/application.css' %}">
   <script src="{% static 'js/application.js' %}"></script>
 </head>
-<form id="create_app_form" action="{% url 'codedoor:create_application_filled' companypk=companypk %}" method="POST" onsubmit=" validateForm();">
+<form id="create_app_form" action="{% url 'codedoor:create_application' %}" method="POST" onsubmit=" validateForm();">
     {% csrf_token %}
     <div class="entry">
       <h4>Position:</h4><br>
       <p id="error0"></p>
       <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
+    </div>
+    <div class="entry">
+      <h4>Company:</h4><br>
+      <p id="error1" class="error"></p>
+      <select id="company" name="company" class="menu" required>
+        {% for entry in companies %}
+          <option value="{{ entry.id }}">{{ entry.name }}</option>
+        {% endfor %}
+      </select>
     </div>
     <div class="entry">
       <h4>Season:</h4><br>
