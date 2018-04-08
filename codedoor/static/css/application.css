@@ -114,10 +114,6 @@ rect.orange-rect {
   fill: #FF9B71; /* Orange */
 }
 
-h2.company-name {
-  display: inline-block;
-}
-
 .sub {
     background-color: #008489;
     color: White;
@@ -152,4 +148,9 @@ p.description_small_text {
   overflow:hidden;
   word-wrap: break-word;
   white-space: pre-line;
+}
+
+.link-text {
+  color: #01959b; /* Teal */
+  display: inline-block;
 }
