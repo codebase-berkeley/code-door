@@ -15,7 +15,7 @@ function validate() {
     var display_error = document.getElementById('display-error');
     display_error.innerHTML = '';
 
-    if (!title) {
+    if (!title || title.trim().length == 0 || title === 'None') {
       display_error.innerHTML += 'You must provide a title <br>';
       title_error.innerHTML = 'You must provide a title';
       event.preventDefault();
@@ -23,13 +23,13 @@ function validate() {
       title_error.innerHTML = '';
     }
     if (!rating) {
-      display_error.innerHTML += 'You must provide a rating <br>';
+      display_error.innerHTML += 'You must provide a rating<br>';
       rating_error.innerHTML = 'You must provide a rating';
       event.preventDefault();
     } else {
       rating_error.innerHTML = '';
     }
-    if (!review) {
+    if (!review || review.trim().length == 0 || review === 'None') {
       display_error.innerHTML += 'You must provide a review <br>';
       review_error.innerHTML = 'You must provide a review';
       event.preventDefault();
