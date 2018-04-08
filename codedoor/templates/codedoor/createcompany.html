@@ -8,6 +8,7 @@
 	<h1> Create company </h1><br>
 	<form action="{% url 'codedoor:createcompany' %}" method="POST" enctype="multipart/form-data">
 		{% csrf_token %}
+		<p class="error" id="display-error"></p>
 		<div class="space">
 			Logo <br>
 			<div class="border">
