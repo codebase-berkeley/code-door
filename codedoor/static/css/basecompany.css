@@ -6,18 +6,6 @@
     width: 40%;
 }
 
-.error-border-input {
-  border: 1px solid red;
-}
-
-#display-error-show {
-  background-color: #ffa5a5;
-  color: #c94646;
-  padding: 5px;
-  margin-bottom: 5px;
-  width: 40%;
-}
-
 #form {
   margin-top: 20px;
 }

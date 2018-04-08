@@ -12,26 +12,32 @@ function validate() {
     var rating_error = document.getElementById('rating-error');
     var review_error = document.getElementById('review-error');
     var recommend_error = document.getElementById('recommend-error');
+    var display_error = document.getElementById('display-error');
+    display_error.innerHTML = '';
 
     if (!title) {
+      display_error.innerHTML += 'You must provide a title <br>';
       title_error.innerHTML = 'You must provide a title';
       event.preventDefault();
     } else {
       title_error.innerHTML = '';
     }
     if (!rating) {
-      rating_error.innerHTML = 'You must provide a rating';
+      display_error.innerHTML += 'You must provide a rating <br>';
+      rating_error.innerHTML = 'You must provide a rating!!';
       event.preventDefault();
     } else {
       rating_error.innerHTML = '';
     }
     if (!review) {
+      display_error.innerHTML += 'You must provide a review <br>';
       review_error.innerHTML = 'You must provide a review';
       event.preventDefault();
     } else {
       review_error.innerHTML = '';
     }
     if (!yes && !no) {
+      display_error.innerHTML += 'You must provide a recommendation <br>';
       recommend_error.innerHTML = 'You must provide a recommendation';
       event.preventDefault();
     } else {

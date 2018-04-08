@@ -9,6 +9,7 @@
   <div id="form">
   	<form action="{% url 'codedoor:createreview' %}" method="POST" enctype="multipart/form-data">
   		{% csrf_token %}
+      <p class="error" id="display-error"></p>
       <div class="space">
         Review Title <br>
         <div class="border">
