@@ -46,6 +46,8 @@ def createprofile(request):
         url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
         profile.profile_pic = url
         profile.save()
+        user = authenticate(request, username=input_username, password=input_password)
+        auth_login(request, user)
         return redirect("codedoor:viewprofile", pk=profile.id)
 
 
@@ -121,7 +123,7 @@ def login(request):
             if request.POST.get('next'):
                 return redirect(request.POST.get('next'))
             else:
-                return redirect("codedoor:viewprofile", pk=user.profile.id)  # Eventually redirect to home page
+                return redirect("codedoor:home")
         else:
             return render(request, "codedoor/login.html", {"failed": True})
     else:
