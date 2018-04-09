@@ -1,7 +1,12 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
+  <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
+</head>
+<body>
   <div class="companyportion">
     <img src="{% static 'images/temp.png' %}" id='logo' width="150px" height="150px" />
 
@@ -15,10 +20,12 @@
 
   <hr id="break">
   <div id="nav">
-    <a href="#" class="nav_items" id="active_item">Reviews</a>
-    <a href="{% url 'codedoor:listapplications' pk=company.pk %}" class="nav_items">Applications</a>
-    <a href="#" class="nav_items">People</a>
+    <p onclick="showReviews()" id="reviews_tab" class="active_item nav_items">Reviews</p>
+    <p onclick="showApplications()" id="applications_tab" class="nav_items">Applications</p>
+    <a href="#" id="people_tab" class="nav_items">People</a>
   </div>
+
+
   <div id="reviews">
     {% for review in reviews %}
         <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a><br>
@@ -66,11 +73,123 @@
         {% endif %}
       </ul>
     {% endif %}
+  </div>
 
+
+  <div id="applications">
+    {% for a in applications %}
+    <table>
+      <tr>
+        {% if a.company.logo.url != null %}
+          <td rowspan="3" width="7%">
+            <img src="{{ a.company.logo.url }}" alt="Company logo" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+          </td>
+        {% endif %}
+        <td width="93%">
+          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+            <h2 class="link-text">{{ a.company }}</h2>
+          </a>
+          <span class="applicant-name">{{ a.profile }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info job-position">{{a.position}}</span> 
+          <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info colorful-boxy">
+            {% if a.received_offer %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg> Received Offer
+              </span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg> No Offer
+              </span>
+            {% endif %}
+          </span>
+          <span class="info colorful-boxy">
+            {% if a.difficult > 7 %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" /> 
+                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+              </span>
+            {% elif a.difficult < 4 %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+              </span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#FF9B71;" />
+                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+              </span>
+            {% endif %}
+          </span></p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <h4>Description:</h4>
+          <p class="description_small_text">{{a.description}}</p>
+        </td>
+      </tr>
+    </table>
+    <br>
+    {% endfor %}
+
+    <!-- Source: Vitor Freitas -->
+    {% if applications.has_other_pages %}
+      <ul class="pagination">
+        {% if applications.has_previous %}
+          <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in applications.paginator.page_range %}
+          {% if applications.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if applications.has_next %}
+          <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+    <br>
+  </div>
+
+
+  <div>
     <br><br><br>
         <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
         <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
          <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=company.pk %}">Add Application</a>
     <br>
   </div>
+</body>
 {% endblock %}

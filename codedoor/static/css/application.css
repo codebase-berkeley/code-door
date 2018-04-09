@@ -154,3 +154,15 @@ p.description_small_text {
   color: #01959b; /* Teal */
   display: inline-block;
 }
+
+#reviews {
+  display: block;
+  position: relative;
+  left:5%;
+}
+
+#applications {
+  display: none;
+  position: relative;
+  left:5%;
+}

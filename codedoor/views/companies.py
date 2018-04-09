@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from codedoor.models import Company, Review, Profile
+from codedoor.models import Company, Review, Profile, Application
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
@@ -28,16 +28,24 @@ def view_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
     reviews = Review.objects.filter(company=company)
-    paginator = Paginator(reviews, 5)
+    applications = Application.objects.filter(company=company)
+    paginator1 = Paginator(reviews, 5)
+    paginator2 = Paginator(applications, 5)
     page = request.GET.get('page', 1)
     try:
-        review_list = paginator.page(page)
+        review_list = paginator1.page(page)
     except PageNotAnInteger:
-        review_list = paginator.page(1)
+        review_list = paginator1.page(1)
     except EmptyPage:
-        review_list = paginator.page(paginator.num_pages)
+        review_list = paginator1.page(paginator1.num_pages)
+    try:
+        application_list = paginator2.page(page)
+    except PageNotAnInteger:
+        application_list = paginator2.page(1)
+    except EmptyPage:
+        application_list = paginator2.page(paginator2.num_pages)
 
-    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile}) 
+    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "applications":application_list}) 
 
 @login_required
 def edit_company(request, pk):
