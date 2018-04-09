@@ -30,20 +30,17 @@ body #edit-profile{
 #name{
     font-weight: 1000;
     font-size: 200%;
-    line-height: 0.3;
 }
 
 #job{
     font-style: italic;
     font-weight: lighter;
     font-size: 100%;
-    line-height:0.4;
 }
 
 #classof{
     font-weight: 100;
     font-size: 90%;
-    line-height: 0.4;
 }
 
 

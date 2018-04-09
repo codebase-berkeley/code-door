@@ -28,7 +28,7 @@ def createprofile(request):
             input_graduation_year = request.POST['graduation_year']
             input_current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
-            if "http://" not in input_linkedin and "https://" not in input_linkedin:
+            if "http://" not in input_linkedin and "https://" not in input_linkedin and input_linkedin:
                 input_linkedin = "http://" + input_linkedin
             # input_resume = request.POST['resume']
         except Exception as e:
@@ -109,7 +109,7 @@ def editprofile(request, pk):
             profile.graduation_year = request.POST['graduation_year']
             profile.current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
-            if "http://" not in input_linkedin and "https://" not in input_linkedin:
+            if "http://" not in input_linkedin and "https://" not in input_linkedin and input_linkedin:
                 input_linkedin = "http://" + input_linkedin
             profile.linkedin = input_linkedin
             # profile.resume = request.POST['resume']
