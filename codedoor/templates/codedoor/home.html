@@ -32,7 +32,7 @@
     {% for review in reviews %}
     <table>
       <tr>
-        {% if review.company.logo.url != null %}
+        {% if review.company.logo != null %}
           <td rowspan="3" width="7%">
             <img src="{{ review.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
@@ -50,7 +50,7 @@
       </tr>
       <tr>
         <td>
-          {% if review.company.logo.url != null %}
+          {% if review.company.logo != null %}
             <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
           {% else %}
             <p></p>
@@ -184,13 +184,13 @@
     {% for a in applications %}
     <table>
       <tr>
-        {% if a.company.logo.url != null %}
+        {% if a.company.logo != null %}
           <td rowspan="3" width="7%">
-            <img src="{{ a.company.logo.url }}" alt="Company logo" width="100" height="100">
+            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
         {% endif %}
         <td width="93%">
