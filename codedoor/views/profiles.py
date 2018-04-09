@@ -66,7 +66,7 @@ def finishprofile(request):
             input_graduation_year = request.POST['graduation_year']
             input_current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
-            if "http://" not in input_linkedin and "https://" not in input_linkedin:
+            if "http://" not in input_linkedin and "https://" not in input_linkedin and input_linkedin:
                 input_linkedin = "http://" + input_linkedin
             # input_resume = request.POST['resume']
 

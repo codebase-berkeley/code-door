@@ -6,7 +6,7 @@
 <h1>
     Finish Profile
 </h1>
-<form action="/codedoor/finishprofile/" method="POST"> {% csrf_token %}
+<form enctype="multipart/form-data" action="/codedoor/finishprofile/" method="POST"> {% csrf_token %}
     <div class="entry">
         Graduation Year:
         <input type="number" name="graduation_year" placeholder="e.g. 2020" required>
