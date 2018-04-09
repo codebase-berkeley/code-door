@@ -25,7 +25,7 @@
     <a href="#" id="people_tab" class="nav_items">People</a>
   </div>
 
-
+<div id="bottom-half">
   <div id="reviews">
     {% for review in reviews %}
         <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a><br>
@@ -192,4 +192,5 @@
     <br>
   </div>
 </body>
+</div>
 {% endblock %}

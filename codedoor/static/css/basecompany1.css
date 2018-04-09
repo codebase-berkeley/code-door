@@ -115,3 +115,7 @@ span {
   background-position: center;
   background-size: cover;
 }
+
+#bottom-half {
+  padding-left: 5%;
+}
