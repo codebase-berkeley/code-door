@@ -9,19 +9,11 @@
     Edit Profile: {{ profile.user.get_full_name }}
 </h1>
 <form action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
-     <div class="entry">
-        Username:
-        <input type="text" name="username" value = {{ profile.user.username }} required>
-    </div>
      <!--<div class="entry">-->
         <!--Password:-->
         <!--<input type="text" name="password" value = {{ profile.user.password }} required>-->
     <!--</div>-->
     <!--should we be allowing this functionality? profile.user.password is an ugly hashcode of the PW atm-->
-     <div class="entry">
-        Email:
-        <input type="email" name="email" value = {{ profile.user.email }} required>
-    </div>
     <div class="entry">
         First Name:
         <input type="text" name="first_name" value="{{ profile.user.first_name }}" required>

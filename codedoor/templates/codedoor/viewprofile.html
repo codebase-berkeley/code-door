@@ -4,17 +4,9 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href={% static "css/view.css" %}>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/view.css' %}">
 </head>
 <body>
-    {% if request.user.profile == profile %}
-    <div class="block">
-        <a class="sub" href="{% url 'codedoor:create_application' %}">Add Application</a>
-    </div>
-    <br>
-    {% endif %}
-    <div class="block">
-        <img src="{{ profile.profile_pic }}" width="300px" height="300px">
     </div>
     <div class="block">
          <div>

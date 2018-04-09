@@ -1,7 +1,6 @@
-{% extends 'codedoor/base.html' %}
 {% load static %}
-{% block content %}
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/logout.css' %}">
 <h1>
     You have successfully logged out!
@@ -9,5 +8,3 @@
     <div class = "login">
         <a href="{% url 'codedoor:login' %}"> Login </a>
     </div>
-
-{% endblock %}
