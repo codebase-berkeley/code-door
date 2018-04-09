@@ -1,23 +1,19 @@
-{% extends 'codedoor/base.html' %}
+
 {% load static %}
-{% block content %}
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/createprofile.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 <h1>
     Create Profile
 </h1>
 <form enctype="multipart/form-data" action="/codedoor/createprofile" method="POST"> {% csrf_token %}
     <div class="entry">
-        Username:
-        <input type="text" name="username" placeholder="BobSmith123" required>
+        Email:
+        <input type="email" name="email" placeholder = "bobsmith@gmail.com" required>
     </div>
     <div class="entry">
         Password:
         <input type="password" name="password" placeholder="e.g. Bob Smith" required>
-    </div>
-    <div class="entry">
-        Email:
-        <input type="email" name="email" placeholder = "bobsmith@gmail.com" required>
     </div>
     <div class="entry">
         First Name:
@@ -54,4 +50,3 @@
         <input type="submit" value="Submit">
     </div>
 </form>
-{% endblock %}

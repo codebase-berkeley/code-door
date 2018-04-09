@@ -1,8 +1,8 @@
-{% extends 'codedoor/base.html' %}
+
 {% load static %}
-{% block content %}
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/createprofile.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 <h1>
     Finish Profile
 </h1>
@@ -10,10 +10,6 @@
     <div class="entry">
         Graduation Year:
         <input type="number" name="graduation_year" placeholder="e.g. 2020" required>
-    </div>
-    <div class="entry">
-        <input type="hidden" name="id" value= {{ id }} required>
-    </div>
     <div class="entry">
         <input type="hidden" name="first_name" value= {{ first_name }} required>
     </div>
@@ -46,4 +42,4 @@
         <input type="submit" value="Submit">
     </div>
 </form>
-{% endblock %}
+

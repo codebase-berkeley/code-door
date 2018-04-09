@@ -9,7 +9,7 @@
 <form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
     <input type="hidden" next= {{ next }}>
     <div class="entry">
-        Username:
+        Email:
         <input type="text" name="uname" placeholder="BobSmith123" required>
     </div>
     <div class="entry">

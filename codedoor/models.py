@@ -24,7 +24,7 @@ class Company(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.URLField(null=True, blank=True)
-    graduation_year = models.IntegerField(null=True, blank=True)
+    graduation_year = models.IntegerField()
     current_job = models.CharField(null=True, blank=True, max_length=1000)
     linkedin = models.URLField(null=True, blank=True)
     resume = models.FileField(null=True, blank=True)
@@ -33,23 +33,15 @@ class Profile(models.Model):
         return self.user.get_full_name()
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
+#@receiver(post_save, sender=User)
+#def create_user_profile(sender, instance, created, **kwargs):
+#    if created:
+#        Profile.objects.create(user=instance)
 
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
-class SlackProfile(models.Model):
-    slack_id = models.CharField(blank=True, max_length=1000, primary_key=True)
-    prim_key = models.IntegerField(blank=True, null=True)
-
-    def __str__(self):
-        return self.slack_id
+#@receiver(post_save, sender=User)
+#def save_user_profile(sender, instance, **kwargs):
+#    instance.profile.save()
 
 
 class Application(models.Model):

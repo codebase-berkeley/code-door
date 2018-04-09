@@ -1,16 +1,15 @@
 from django.contrib.auth.backends import ModelBackend
-from codedoor.models import User, SlackProfile
+from codedoor.models import User
 
 
 class PasswordlessAuthBackend(ModelBackend):
     """Log in to Django without providing a password.
 
     """
-    def authenticate(self, slack_id=None):
+    def authenticate(self, username=None):
         try:
-            personal_key = SlackProfile.objects.get(pk=slack_id).prim_key
-            return User.objects.get(pk=personal_key)
-        except SlackProfile.DoesNotExist:
+            return User.objects.get(username=username)
+        except User.DoesNotExist:
             return None
 
     def get_user(self, user_id):

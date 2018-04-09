@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
-from codedoor.models import Profile, SlackProfile
+from codedoor.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
@@ -19,7 +19,7 @@ def createprofile(request):
         return render(request, 'codedoor/createprofile.html')
     else:
         try:
-            input_username = request.POST['username']
+            input_username = request.POST['email']
             input_password = request.POST['password']
             input_email = request.POST['email']
             input_first_name = request.POST['first_name']
@@ -47,6 +47,8 @@ def createprofile(request):
         url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
         profile.profile_pic = url
         profile.save()
+        user = authenticate(request, username=input_username, password=input_password)
+        auth_login(request, user)
         return redirect("codedoor:viewprofile", pk=profile.id)
 
 
@@ -56,7 +58,7 @@ def finishprofile(request):
     else:
         try:
             # not sure how to extract these the info commented before from the slack API to save as a user
-            input_id = request.POST['id']
+            input_id = request.POST['email']
             input_email = request.POST['email']
             input_first_name = request.POST['first_name']
             input_last_name = request.POST['last_name']
@@ -76,11 +78,13 @@ def finishprofile(request):
         profile = Profile(user=user, graduation_year=input_graduation_year,
                           current_job=input_current_job, linkedin=input_linkedin)
         user.save()
-        slack_login = SlackProfile(slack_id=input_id, prim_key=user.profile.id)
-        slack_login.save()
-        user.profile.profile_pic = input_profile_pic
-        user.save()
-        return redirect("codedoor:viewprofile", pk=user.profile.id)
+        profile.save()
+        profile.profile_pic = input_profile_pic
+        profile.save()
+        user = authenticate(request, username=input_id)
+        auth_login(request, user)
+        return redirect("codedoor:viewprofile", pk=profile.id)  # Eventually redirect to home page
+
 
 @login_required
 def viewprofile(request, pk):
@@ -90,7 +94,7 @@ def viewprofile(request, pk):
 
 @login_required
 def editprofile(request, pk):
-    if not request.user.profile.id == Profile.objects.get(pk=pk):
+    if not request.user.profile.id == pk:
         return redirect("codedoor:viewprofile", pk=request.user.profile.id)  # where to redirect the wrong user trying to edit
     profile = get_object_or_404(Profile, pk=pk)
     user = profile.user
@@ -98,15 +102,12 @@ def editprofile(request, pk):
         return render(request, 'codedoor/editprofile.html', {"profile": profile})
     else:
         try:
-            profile.user.email = request.POST['email']
             profile.user.first_name = request.POST['first_name']
             profile.user.last_name = request.POST['last_name']
-            profile.user.username = request.POST['username']
             # profile.user.password = request.POST['password']
             # profile.profile_pic = request.POST['profile_pic']
             profile.graduation_year = request.POST['graduation_year']
             profile.current_job = request.POST['current_job']
-            print(profile.current_job)
             input_linkedin = request.POST['linkedin']
             if "http://" not in input_linkedin and "https://" not in input_linkedin:
                 input_linkedin = "http://" + input_linkedin
@@ -147,18 +148,18 @@ def logout(request):
 
 def slack_info(request):
     params = slack_callback(request)
-    url = "https://slack.com/oauth/authorize?" + urllib.parse.urlencode(params)
     # insert if/else statement
     # if user is already in database, return redirect(url)
     # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
-    profile = authenticate(params["user"]["id"])
-    if profile is None:
+    user = authenticate(params["user"]["email"])
+    if user is None:
         print("Profile is None")
         first_name, last_name = params["user"]['name'].split(" ")
-        return render(request, 'codedoor/finishprofile.html', {"id": params['user']['id'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
+        return render(request, 'codedoor/finishprofile.html', {"id": params['user']['email'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
     else:
         print("nani the fuck")
-        return redirect(url)
+        auth_login(request, user)
+        return redirect("codedoor:viewprofile", pk=user.profile.id)
 
 
 def slack_callback(request):
@@ -180,5 +181,4 @@ def slack_callback(request):
         get_activity_url = "https://slack.com/api/users.identity"
         r = requests.post(get_activity_url,
                           headers={"Authorization": "Bearer " + access_token})
-        print(r.json())
         return r.json()
