@@ -62,7 +62,7 @@ def finishprofile(request):
             input_email = request.POST['email']
             input_first_name = request.POST['first_name']
             input_last_name = request.POST['last_name']
-            input_profile_pic = request.POST['profile_pic']
+            input_profile_pic = request.FILES['profile_pic'].read()
             input_graduation_year = request.POST['graduation_year']
             input_current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
@@ -79,7 +79,11 @@ def finishprofile(request):
                           current_job=input_current_job, linkedin=input_linkedin)
         user.save()
         profile.save()
-        #profile.profile_pic = input_profile_pic
+        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+                            aws_secret_access_key=s3_access_keys["secret"])
+        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
+        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
+        profile.profile_pic = url
         profile.save()
         user = authenticate(request, username=input_id)
         auth_login(request, user)
