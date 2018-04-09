@@ -33,11 +33,18 @@
       </p>
 		</div><br><br>
 		Type of company <br>
-		<input type="radio" name="structure" checked="false" value="Startup" id="startup"> Startup <br>
-		<input type="radio" name="structure" checked="false" value="Boutique" id=boutique> Boutique <br>
+
+		{% for x in type %}
+			{% if x != company.structure %}
+				<input type="radio" name="structure" value= "{{x}}" id="{{x}}" > {{x}} <br>
+			{% else %}
+				<input type="radio" name="structure" value="{{company.structure}}" id="{{company.structure}}" checked> {{company.structure}} <br>
+			{% endif %}
+		{% endfor %}
+		<!-- <input type="radio" name="structure" checked="false" value="Boutique" id=boutique> Boutique <br>
 		<input type="radio" name="structure" checked="false" value="Small" id="small"> Small <br>
 		<input type="radio" name="structure" checked="false" value="Medium" id="medium"> Medium <br>
-		<input type="radio" name="structure" checked="false" value="Large" id="large"> Large <br>
+		<input type="radio" name="structure" checked="false" value="Large" id="large"> Large <br> -->
 		<p class="error" id="type-error">
 		</p>
 		<br>
