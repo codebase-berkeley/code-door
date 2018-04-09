@@ -13,7 +13,7 @@ def create_question(request, pk):
 
         q = Question(application=Application.objects.get(pk=pk), question=question, applicant_answer=app_answer, actual_answer=comp_answer)
         q.save()
-        return redirect("codedoor:view_question", pk=q.id)
+        return redirect("codedoor:view_application", pk=pk)
     else:
         return render(request, 'codedoor/createQuestion.html', {"pk": pk})
 
