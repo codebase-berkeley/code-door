@@ -5,7 +5,6 @@
 <script src="{% static 'js/createcompany_validation.js' %}">
 </script>
 <div class="centered">
-	<h1> IS DIS UPDATING</h1>
 	<h1> Edit Company Information </h1><br>
 	<form action="{% url 'codedoor:editcompany' pk=company.pk %}" method="POST">
 		{% csrf_token %}
