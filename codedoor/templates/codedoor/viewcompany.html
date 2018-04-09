@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="companyportion">
-    <!-- <img src="{% company.logo %}" id='logo' width="150px" height="150px" /> -->
+    <img src="{{ company.logo }}" id='logo' width="150px" height="150px" />
 
     <div class='sub1'><h1>{{company.name}}</h1><br>
       <p>{{ company.industry }}, {{company.structure}}</p><br>
@@ -82,11 +82,11 @@
       <tr>
         {% if a.company.logo.url != null %}
           <td rowspan="3" width="7%">
-            <img src="{{ a.company.logo.url }}" alt="Company logo" width="100" height="100">
+            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
         {% endif %}
         <td width="93%">
@@ -98,7 +98,7 @@
       </tr>
       <tr>
         <td>
-          <p><span class="info job-position">{{a.position}}</span> 
+          <p><span class="info job-position">{{a.position}}</span>
           <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
         </td>
       </tr>
@@ -126,7 +126,7 @@
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" /> 
+                style="fill:#ff4d4d" />
                 </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
               </span>
             {% elif a.difficult < 4 %}
@@ -193,4 +193,3 @@
   </div>
 </body>
 {% endblock %}
-
