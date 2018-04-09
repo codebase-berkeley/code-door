@@ -5,7 +5,7 @@
   <div class = "centered">
   <h1> Edit your Review </h1>
   <div id="form">
-    <form action="{% url 'codedoor:createreview' %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'codedoor:editreview' pk=review.pk %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="space">
         Review Title <br>
@@ -32,7 +32,7 @@
         <div class="border">
           <select name="reviewer" class="select-style">
             {% for reviewer in reviewers %}
-                <option value={{reviewer.pk}}>{{reviewer.name}}</option>
+                <option value={{reviewer.pk}}>{{reviewer.user}}</option>
             {% endfor %}
           </select>
         </div>
