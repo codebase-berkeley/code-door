@@ -34,11 +34,11 @@
       <tr>
         {% if review.company.logo.url != null %}
           <td rowspan="3" width="7%">
-            <img src="{{ review.company.logo.url }}" alt="Company logo" width="100" height="100">
+            <img src="{{ review.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+            <img src="{{ review.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
         {% endif %}
         <td width="93%">

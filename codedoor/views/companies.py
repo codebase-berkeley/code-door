@@ -3,6 +3,11 @@ from django.http import HttpResponse
 from codedoor.models import Company, Review, Profile, Application
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+import boto3
+from api_keys import s3_access_keys
+
+company_logos_bucket = 'codedoor-company-logos'
+
 
 @login_required
 def create_company(request):
@@ -11,12 +16,18 @@ def create_company(request):
             name = request.POST["name"]
             industry = request.POST["industry"]
             website = request.POST["website"]
-            logo = request.FILES["logo"]
+            logo = request.FILES["logo"].read()
             structure = request.POST["structure"]
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly!")
 
-        company = Company(name=name, industry=industry, website=website, logo=logo, structure=structure)
+        company = Company(name=name, industry=industry, website=website, structure=structure)
+        company.save()
+        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+                            aws_secret_access_key=s3_access_keys["secret"])
+        s3.Bucket(company_logos_bucket).put_object(Key=str(company.id), Body=logo, ACL='public-read')
+        url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
+        company.logo = url
         company.save()
 
         return redirect('viewcompany/' + str(company.pk))
