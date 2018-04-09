@@ -56,11 +56,12 @@ def view_company(request, pk):
     except EmptyPage:
         application_list = paginator2.page(paginator2.num_pages)
 
-    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "applications":application_list}) 
+    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "applications":application_list})
 
 @login_required
 def edit_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
+    type =  ["Startup","Boutique","Small","Medium","Large"]
     if request.method == "POST":
         try:
             company.name = request.POST["name"]
@@ -74,4 +75,4 @@ def edit_company(request, pk):
 
         return redirect('/codedoor/viewcompany/' + str(company.pk))
 
-    return render(request, "codedoor/editcompany.html", {"company": company})
+    return render(request, "codedoor/editcompany.html", {"company": company, "type": type })
