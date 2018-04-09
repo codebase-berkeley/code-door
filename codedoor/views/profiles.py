@@ -79,7 +79,7 @@ def finishprofile(request):
                           current_job=input_current_job, linkedin=input_linkedin)
         user.save()
         profile.save()
-        profile.profile_pic = input_profile_pic
+        #profile.profile_pic = input_profile_pic
         profile.save()
         user = authenticate(request, username=input_id)
         auth_login(request, user)
