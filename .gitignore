@@ -115,3 +115,6 @@ media
 .DS_Store
 
 api_keys.py
+
+pip-selfcheck.json
+pyvenv.cfg

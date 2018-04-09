@@ -93,7 +93,8 @@ def edit_application(request, pk):
 
 def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
-    return render(request, "codedoor/viewapplication.html", {"a": a})
+    profile = get_object_or_404(Profile, id=a.profile.pk)
+    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile})
 
 
 def list_applications(request, pk, pg=1):
