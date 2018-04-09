@@ -79,11 +79,6 @@ span {
 
 }
 
-#reviews {
-    position: relative;
-    left:5%;
-}
-
 #reviewtitle {
     color: #01959b;
 }
@@ -105,6 +100,7 @@ span {
     font-size: 20px;
     padding-right: 8%;
     font-weight: bold;
+    display: inline;
 }
 
 .nav_items:hover {
@@ -112,6 +108,6 @@ span {
     color: #016265;
 }
 
-#active_item {
+.active_item {
     color: black;
 }
