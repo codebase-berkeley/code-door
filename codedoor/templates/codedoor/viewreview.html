@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/basereview1.css' %}">
 
     <div class="companyportion">
-      <img src="{% static 'images/temp.png' %}" id='logo' width="150px" height="150px" />
+      <img src="{{ review.company.logo }}" id='logo' width="150px" height="150px" />
 
       <div class='sub'><h1>{{review.company.name}}</h1><br>
         <img src="{% static 'images/linklogo.png' %}" class='logo' width="20px" height="20px" /> <span>{{review.company.website}}</span>
@@ -14,7 +14,7 @@
 <hr id= "break">
 
   <div class="reviewportion">
-        <h2>"{{review.title}}"<span>- {{review.reviewer.name}}</span></h2>
+        <h2>{{review.title}}<span>- {{review.reviewer.user}}</span></h2>
 
       <br>
     <p>Rating: {{review.rating}}</p><br>

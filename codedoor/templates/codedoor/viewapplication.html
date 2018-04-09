@@ -3,6 +3,7 @@
 {% block content %}
 <head>
     <link rel="stylesheet" href="{% static 'css/application.css' %}">
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
 </head>
 <body>
   <div class="entry">
@@ -95,6 +96,25 @@
           <a class="sub" href="{% url 'codedoor:create_question' pk=a.pk %}">Create Question</a>
           <a class="sub" href="{% url 'codedoor:edit_application' pk=a.pk %}">Edit Application</a>
         {% endif %}
+    <br><br><br>
+    <h2>Questions</h2>
+    {% if questions %}
+        <div class="questList">
+        {% for q in questions %}
+            <div class="post">
+                <h4 class="blue-text">Question</h4>
+                <p>{{ q.question }}</p>
+                <h4 class="blue-text">Applicant answer</h4>
+                <p>{{ q.applicant_answer }}</p>
+                <h4 class="blue-text">Company answer</h4>
+                <p>{{ q.actual_answer }}</p>
+                <br><br>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No questions yet!</p>
+    {% endif %}
   </div>
 
 </body>
