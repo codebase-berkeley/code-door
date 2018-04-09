@@ -15,26 +15,32 @@ function validate() {
     var industry_error = document.getElementById('industry-error');
     var website_error = document.getElementById('website-error');
     var type_error = document.getElementById('type-error');
+    var display_error = document.getElementById('display-error');
+    display_error.innerHTML = '';
 
-    if (!name) {
+    if (!name || name === 'None' || name.trim().length == 0) {
+      display_error.innerHTML += 'You must provide a company name <br>';
       name_error.innerHTML = 'You must provide a company name';
       event.preventDefault();
     } else {
       name_error.innerHTML = '';
     }
-    if (!industry) {
+    if (!industry || industry === 'None' || industry.trim().length == 0) {
+      display_error.innerHTML += 'You must provide an industry name <br>';
       industry_error.innerHTML = 'You must provide an industry name';
       event.preventDefault();
     } else {
       industry_error.innerHTML = '';
     }
     if (!website) {
+      display_error.innerHTML += 'You must provide a company website <br>';
       website_error.innerHTML = 'You must provide a company website';
       event.preventDefault();
     } else {
       website_error.innerHTML = '';
     }
     if (!startup && !boutique && !small && !medium && !large) {
+      display_error.innerHTML += 'You must provide a company type <br>';
       type_error.innerHTML = 'You must provide a company type';
       event.preventDefault();
     } else {

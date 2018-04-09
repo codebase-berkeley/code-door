@@ -1,4 +1,10 @@
-
+.error {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    color: #c94646;
+    width: 40%;
+}
 
 /* Review css */
 

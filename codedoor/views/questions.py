@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Question, Application
 
-def create_question(request):
+def create_question(request, pk):
     if request.method == 'POST':
         try:
             question = request.POST['question']
@@ -11,11 +11,11 @@ def create_question(request):
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly")
 
-        q = Question(application=Application.objects.get(pk=1), question=question, applicant_answer=app_answer, actual_answer=comp_answer)
+        q = Question(application=Application.objects.get(pk=pk), question=question, applicant_answer=app_answer, actual_answer=comp_answer)
         q.save()
-        return redirect("codedoor:view_question", pk=q.id)
+        return redirect("codedoor:view_application", pk=pk)
     else:
-        return render(request, 'codedoor/createQuestion.html')
+        return render(request, 'codedoor/createQuestion.html', {"pk": pk})
 
 def edit_question(request, pk):
     q = get_object_or_404(Question, pk=pk)

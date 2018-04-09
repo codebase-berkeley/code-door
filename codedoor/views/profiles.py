@@ -181,4 +181,6 @@ def slack_callback(request):
         get_activity_url = "https://slack.com/api/users.identity"
         r = requests.post(get_activity_url,
                           headers={"Authorization": "Bearer " + access_token})
+        
         return r.json()
+

@@ -7,7 +7,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/view.css' %}">
 </head>
 <body>
-    <div class="block" id="profile-pic" style="background-image: url('{{ profile.profile_pic }}');">
     </div>
     <div class="block">
          <div>
@@ -55,7 +54,6 @@
             (edit profile)
             </a>
         </p>
-        <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=1 profilepk=profile.pk  %}">Add Application</a>
 </body>
 </html>
 {% endblock content %}
