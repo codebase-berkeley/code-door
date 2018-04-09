@@ -106,6 +106,7 @@ span {
 .nav_items:hover {
     transition: 0.3s;
     color: #016265;
+    cursor: pointer;
 }
 
 .active_item {
