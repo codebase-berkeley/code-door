@@ -112,3 +112,7 @@ span {
 .active_item {
     color: black;
 }
+
+#bottom-half {
+    padding-left: 5%;
+}
