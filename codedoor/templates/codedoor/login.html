@@ -1,7 +1,6 @@
-{% extends 'codedoor/base.html' %}
 {% load static %}
-{% block content %}
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 <h1>
     Login
@@ -9,7 +8,7 @@
 <form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
     <input type="hidden" next= {{ next }}>
     <div class="entry">
-        Username:
+        Email:
         <input type="text" name="uname" placeholder="BobSmith123" required>
     </div>
     <div class="entry">
@@ -29,4 +28,3 @@
         </div>
     {% endif %}
 </form>
-{% endblock %}
