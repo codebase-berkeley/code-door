@@ -131,7 +131,7 @@ def login(request):
             if request.POST.get('next'):
                 return redirect(request.POST.get('next'))
             else:
-                return redirect("codedoor:viewprofile", pk=user.profile.id)  # Eventually redirect to home page
+                return redirect("codedoor:home")
         else:
             return render(request, "codedoor/login.html", {"failed": True})
     else:

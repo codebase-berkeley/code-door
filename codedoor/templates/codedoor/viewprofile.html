@@ -4,11 +4,10 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href={% static "css/view.css" %}>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/view.css' %}">
 </head>
 <body>
-    <div class="block">
-        <img src="{{ profile.profile_pic }}" width="300px" height="300px">
+    <div class="block" id="profile-pic" style="background-image: url('{{ profile.profile_pic }}');">
     </div>
     <div class="block">
          <div>

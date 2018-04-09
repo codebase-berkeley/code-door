@@ -19,8 +19,10 @@
 			</div>
 			<div class="nav-item">
 				<a href="{% url 'codedoor:viewprofile' pk=user.profile.pk %}">
-					<img id="profile-pic" src="{{ user.profile.profile_pic }}" width="58px" height="58px" />
+					<div id="profile-circle" style="background-image: url('{{ user.profile.profile_pic }}');">
+					</div>
 				</a>
+				<a id="logout" href="{% url 'codedoor:logout' %}">Logout</a>
 			</div>
 		</div>
 	</div>
