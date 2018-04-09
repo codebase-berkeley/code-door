@@ -15,28 +15,28 @@
     <div class="entry">
         <h4>Season:</h4><br>
         {% if season == "Fall" %} 
-        <select name="season" required>
+        <select name="season" class="menu" required>
             <option value="Fall" selected="selected">Fall</option>
             <option value="Winter">Winter</option>
             <option value="Spring">Spring</option>
             <option value="Summer">Summer</option>
         </select>
         {% elif season == "Winter" %} 
-        <select name="season" class="seasons-menu" required>
+        <select name="season" class="menu" required>
             <option value="Fall">Fall</option>
             <option value="Winter" selected="selected">Winter</option>
             <option value="Spring">Spring</option>
             <option value="Summer">Summer</option>
         </select>
         {% elif season == "Spring" %} 
-        <select name="season" class="seasons-menu" required>
+        <select name="season" class="menu" required>
             <option value="Fall">Fall</option>
             <option value="Winter">Winter</option>
             <option value="Spring" selected="selected">Spring</option>
             <option value="Summer">Summer</option>
         </select>
         {% elif season == "Summer" %} 
-        <select name="season" class="seasons-menu" required>
+        <select name="season" class="menu" required>
             <option value="Fall">Fall</option>
             <option value="Winter">Winter</option>
             <option value="Spring">Spring</option>

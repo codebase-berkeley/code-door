@@ -18,17 +18,49 @@
 
   <div class="indent">
     <h3>Recent Activity</h3><br>
-    <h2>Company Reviews</h2>
+    <h2 class="inline-block">Company Reviews&nbsp;&nbsp;</h2>
+    <a href="{% url 'codedoor:createreview'%}">
+      <button class="inline-block small-teal">Create Review</button>
+    </a>&nbsp;
+    <a href="{% url 'codedoor:createcompany'%}">
+      <button class="inline-block small-teal">Create Company</button>
+    </a>
   </div>
   <hr id="break">
 </br>
-  <div id="reviews">
+<div id="reviews">
     {% for review in reviews %}
-        <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
-        <span>-{{review.company}}</span><br>
-        <p> by {{review.reviewer.user}}</p>
-        <div id="recommend">
-          {% if review.recommend %}
+    <table>
+      <tr>
+        {% if review.company.logo.url != null %}
+          <td rowspan="3" width="7%">
+            <img src="{{ review.company.logo.url }}" alt="Company logo" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+          </td>
+        {% endif %}
+        <td width="93%">
+          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
+            <h2 class="link-text">{{ review.company }}</h2>
+          </a>
+          <span class="applicant-name">{{ review.reviewer }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% if review.company.logo.url != null %}
+            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+          {% else %}
+            <p></p>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info colorful-boxy">
+            {% if review.recommend %}
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
@@ -43,10 +75,71 @@
                 </svg> Doesn't Recommend
               </span>
             {% endif %}
+          </span>
+          <span class="info colorful-boxy">
+            {% if review.rating < 1 %}
+              <span>
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 2 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 3 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 4 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 5 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% else %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+              </span>
+            {% endif %}
+          </span></p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div>
+            <h4>Description:</h4>
+            <p class="description_small_text">{{review.review}}</p>
           </div>
-          <p>Rating: {{review.rating}}</p>
-
-        <p>{{review.review}}</p><br><br>
+        </td>
+      </tr>
+    </table>
+    <br>
     {% endfor %}
 
     <!-- Source: Vitor Freitas -->
@@ -61,7 +154,7 @@
           {% if reviews.number == i %}
             <li class="active">{{ i }}</li>
           {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            <a href="?page={{ i }}"><li>{{ i }}</li></a>
           {% endif %}
         {% endfor %}
         {% if reviews.has_next %}
@@ -72,7 +165,7 @@
       </ul>
     {% endif %}
 
-    <a class="sub" href="{% url 'codedoor:createreview' %}">Add Review</a>
+
 
     <br>
   </div>
@@ -109,7 +202,7 @@
       </tr>
       <tr>
         <td>
-          <p><span class="info job-position">{{a.position}}</span> 
+          <p><span class="info job-position">{{a.position}}</span>
           <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
         </td>
       </tr>
@@ -137,7 +230,7 @@
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" /> 
+                style="fill:#ff4d4d" />
                 </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
               </span>
             {% elif a.difficult < 4 %}

@@ -6,7 +6,7 @@
 <head>
   <link rel="stylesheet" href="{% static 'css/question.css' %}">
 </head>
-<form action="{% url 'codedoor:create_question' %}" method="POST">
+<form action="{% url 'codedoor:create_question' pk=pk%}" method="POST">
     {% csrf_token %}
     <div class="entry">
         <h4>Question:</h4><br>
