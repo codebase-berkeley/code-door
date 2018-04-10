@@ -110,6 +110,33 @@ span {
   color: black;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.active {
+  background-color: #01959b;
+  color: white;
+  border-radius: 5px;
+}
+
+li:hover:not(.active) {
+  display: inline;
+  background-color: #ddd;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+ul li {
+  width: auto;
+  display: inline-block;
+  color: black;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+}
 .company {
   width: 300px;
   height: 300px;
