@@ -10,8 +10,8 @@ from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    reviews = Review.objects.all().order_by('-id')[:6]
-    applications = Application.objects.all().order_by('-id')[:6]
+    reviews = Review.objects.all().order_by('-id')
+    applications = Application.objects.all().order_by('-id')
     paginator_1 = Paginator(reviews, 3)
     paginator_2 = Paginator(applications, 3)
     page = request.GET.get('page', 1)

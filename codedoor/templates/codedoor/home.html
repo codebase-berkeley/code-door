@@ -34,11 +34,11 @@
       <tr>
         {% if review.company.logo != null %}
           <td rowspan="3" width="7%">
-            <div class="company-logo" style="background-image: url('{{review.company.logo}}');" >
+            <img src="{{review.company.logo}}" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
-            <div class="company-logo" style="background-image: url('{{review.company.logo}}');" >
+            <img src="/static/images/temp.png" width="100" height="100">
           </td>
         {% endif %}
         <td width="93%">
@@ -184,13 +184,13 @@
     {% for a in applications %}
     <table>
       <tr>
-        {% if a.company.logo != null %}
+        {% if review.company.logo != null %}
           <td rowspan="3" width="7%">
-            <div class="company-logo" style="background-image: url('{{a.company.logo}}');" >
+            <img src="{{a.company.logo}}" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
-            <div class="company-logo" style="background-image: url('{{a.company.logo}}');" >
+            <img src="/static/images/temp.png" width="100" height="100">
           </td>
         {% endif %}
         <td width="93%">
