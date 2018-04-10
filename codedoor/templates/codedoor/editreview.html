@@ -11,7 +11,7 @@
         Review Title <br>
         <div class="border">
           <div id="title">
-            <input type="text" name="title" value={{review.title}}>
+            <input type="text" name="title" value="{{review.title}}">
           </div>
         </div>
       </div><br>
@@ -24,15 +24,6 @@
                 {% if company.pk != review.company.pk %}
                   <option value={{company.pk}}>{{company.name}}</option>
                 {% endif %}
-            {% endfor %}
-          </select>
-        </div>
-      </div><br>
-      <div class="space">Reviewer <br>
-        <div class="border">
-          <select name="reviewer" class="select-style">
-            {% for reviewer in reviewers %}
-                <option value={{reviewer.pk}}>{{reviewer.user}}</option>
             {% endfor %}
           </select>
         </div>

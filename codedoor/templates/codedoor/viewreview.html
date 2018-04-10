@@ -140,7 +140,11 @@
 
   <div>
     <br><br><br>
+      {% if review.reviewer.user == request.user %}
         <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
+      {% else %}
+        <p></p>
+      {% endif %}
     <br>
   </div>
 </body>

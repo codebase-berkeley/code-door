@@ -60,9 +60,7 @@ def edit_review(request, pk):
     if request.method == "POST":
         try:
             company = Company.objects.get(pk=request.POST["company"])
-            reviewer = Profile.objects.get(pk=request.POST["reviewer"])
             review.company = company
-            review.reviewer = reviewer
             review.rating = request.POST["rating"]
             review.recommend = request.POST["recommend"]
             review.review = request.POST["review"]
@@ -75,5 +73,4 @@ def edit_review(request, pk):
         return redirect('/codedoor/viewreview/' + str(review.pk))
     else:
         companies = Company.objects.all()
-        reviewers = Profile.objects.all()
-        return render(request, "codedoor/editreview.html", {"review": review, "companies": companies, "reviewers": reviewers})
+        return render(request, "codedoor/editreview.html", {"review": review, "companies": companies})
