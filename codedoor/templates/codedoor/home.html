@@ -32,7 +32,7 @@
     {% for review in reviews %}
     <table>
       <tr>
-        {% if review.company.logo != null %}
+        {% if review.company.logo %}
           <td rowspan="3" width="7%">
             <img src="{{review.company.logo}}" width="100" height="100">
           </td>
