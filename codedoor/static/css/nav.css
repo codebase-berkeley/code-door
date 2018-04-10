@@ -20,3 +20,10 @@
     align-items: center;
     justify-content: flex-end;
 }
+#profile-circle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+}

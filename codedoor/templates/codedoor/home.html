@@ -34,11 +34,11 @@
       <tr>
         {% if review.company.logo != null %}
           <td rowspan="3" width="7%">
-            <img src="{{ review.company.logo }}" alt="Company logo" width="100" height="100">
+            <div class="company-logo" style="background-image: url('{{review.company.logo}}');" >
           </td>
         {% else %}
           <td rowspan="3" width="7%">
-            <img src="{{ review.company.logo }}" alt="Company logo" width="100" height="100">
+            <div class="company-logo" style="background-image: url('{{review.company.logo}}');" >
           </td>
         {% endif %}
         <td width="93%">
@@ -186,11 +186,11 @@
       <tr>
         {% if a.company.logo != null %}
           <td rowspan="3" width="7%">
-            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
+            <div class="company-logo" style="background-image: url('{{a.company.logo}}');" >
           </td>
         {% else %}
           <td rowspan="3" width="7%">
-            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
+            <div class="company-logo" style="background-image: url('{{a.company.logo}}');" >
           </td>
         {% endif %}
         <td width="93%">

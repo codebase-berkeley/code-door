@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="companyportion">
-    <img src="{{ company.logo }}" id='logo' width="150px" height="150px" />
+    <div class="company-logo" style="background-image: url('{{company.logo}}');" >
 
     <div class='sub1'><h1>{{company.name}}</h1><br>
       <p>{{ company.industry }}, {{company.structure}}</p><br>
@@ -22,10 +22,10 @@
   <div id="nav">
     <p onclick="showReviews()" id="reviews_tab" class="active_item nav_items">Reviews</p>
     <p onclick="showApplications()" id="applications_tab" class="nav_items">Applications</p>
-    <a href="#" id="people_tab" class="nav_items">People</a>
+    <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
   </div>
 
-
+<div id="bottom-half">
   <div id="reviews">
 
     {% for review in reviews %}
@@ -282,4 +282,5 @@
     <br>
   </div>
 </body>
+</div>
 {% endblock %}

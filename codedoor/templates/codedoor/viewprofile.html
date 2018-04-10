@@ -4,17 +4,10 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href={% static "css/view.css" %}>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/view.css' %}">
 </head>
 <body>
-    {% if request.user.profile == profile %}
-    <div class="block">
-        <a class="sub" href="{% url 'codedoor:create_application' %}">Add Application</a>
-    </div>
-    <br>
-    {% endif %}
-    <div class="block">
-        <img src="{{ profile.profile_pic }}" width="300px" height="300px">
+    <div class="block" id="profile-pic" style="background-image: url('{{ profile.profile_pic }}');">
     </div>
     <div class="block">
          <div>
@@ -31,30 +24,32 @@
 
         <div id="info">
             <!--{{ profile.website }}-->
-            <p>
-                <a href = "https://lausophia.github.io">
-                    <img src= {% static 'images/linkicon.png' %} width="30px" height="30px">
-                    lausophia.github.io
-                </a>
-            </p>
+            <!--<p>-->
+                <!--<a href = "https://lausophia.github.io">-->
+                    <!--<img src= {% static 'images/linkicon.png' %} width="30px" height="30px">-->
+                    <!--lausophia.github.io-->
+                <!--</a>-->
+            <!--</p>-->
+            {% if profile.linkedin %}
             <p>
                 <a href = {{ profile.linkedin }}>
                     <img src={% static 'images/linkedinlogo.png' %} width="30px" height="30px">
                     {{ profile.linkedin }}
                 </a>
             </p>
+            {% endif %}
             <!--{{profile.email}}-->
             <p>
-                <a href = "mailto:sophialau@berkeley.edu">
+                <a href = "mailto:{{ profile.user.email }}">
                     <img src={% static 'images/emailicon.png' %} width="30px" height="30px">
-                    sophialau@berkeley.edu
+                    {{ profile.user.email }}
                 </a>
             </p>
             <!--<a href={{ profile.resume }}>-->
-            <p>
-                <img src={% static 'images/cvicon.png' %} width="30px" height="30px">
-                resume.pdf <!--</a>-->
-            </p>
+            <!--<p>-->
+                <!--<img src={% static 'images/cvicon.png' %} width="30px" height="30px">-->
+                <!--resume.pdf &lt;!&ndash;</a>&ndash;&gt;-->
+            <!--</p>-->
         </div>
     </div>
         <p id = "edit-profile">

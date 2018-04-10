@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def home(request):
     reviews = Review.objects.all().order_by('-id')[:6]
     applications = Application.objects.all().order_by('-id')[:6]
