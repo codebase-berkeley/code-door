@@ -21,3 +21,7 @@ function showApplications() {
     a.style.display = "block";
     r.style.display = "none";
 }
+
+window.addEventListener("load", function() {
+    showReviews();
+})
