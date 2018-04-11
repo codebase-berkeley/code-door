@@ -124,3 +124,8 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 # Security
 LOGIN_REDIRECT_URL = '/codedoor/dashboard/'
 LOGIN_URL = '/codedoor/login/'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'codedoor.PasswordlessAuthBackend.PasswordlessAuthBackend',
+)

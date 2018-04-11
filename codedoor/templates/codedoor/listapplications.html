@@ -1,0 +1,122 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'css/question.css' %}">
+</head>
+    <h2>Applications</h2>
+    {% for a in page %}
+      <table>
+        <tr>
+          {% if a.company.logo != null %}
+            <td rowspan="3" width="7%">
+              <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
+            </td>
+          {% else %}
+            <td rowspan="3" width="7%">
+              <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+            </td>
+          {% endif %}
+          <td width="93%">
+            <a href="{% url 'codedoor:viewcompany' pk=a.company.pk %}">
+              <h2 class="link-text">{{ a.company }}</h2>
+            </a>
+            <span class="applicant-name">{{ a.profile }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><span class="info job-position">{{a.position}}</span> 
+            <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><span class="info colorful-boxy">
+              {% if a.received_offer %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#01959b" />
+                  </svg> Received Offer
+                </span>
+              {% else %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#ff4d4d" />
+                  </svg> No Offer
+                </span>
+              {% endif %}
+            </span>
+            <span class="info colorful-boxy">
+              {% if a.difficult > 7 %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#ff4d4d" /> 
+                  </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+                </span>
+              {% elif a.difficult < 4 %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#01959b" />
+                  </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+                </span>
+              {% else %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#FF9B71;" />
+                  </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+                </span>
+              {% endif %}
+            </span></p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <h4>Description:</h4>
+            <p>{{a.description}}</p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <h4>Offer details:</h4>
+            <p>{{a.offer_details}}</p>
+          </td>
+        </tr>
+      </table>
+      <br>
+    {% endfor %}
+
+
+    {% if page.has_other_pages %}
+      <ul class="pagination">
+        {% if page.has_previous %}
+          <li class="clickable"><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in page.paginator.page_range %}
+          {% if page.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page.has_next %}
+          <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+  
+
+
+
+{% endblock %}

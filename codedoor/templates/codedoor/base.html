@@ -5,16 +5,34 @@
 <head>
 	<title>{% block titletext %} {% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-	{% block externals %} {% endblock %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Anton|Bree+Serif|Julius+Sans+One|Magra" rel="stylesheet">
+
 </head>
 <body>
-	<div class="navbar">
+	<div class="nav">
 		<div class="container">
+			<div class="nav-item">
+				<a href="{% url 'codedoor:home' %}">
+					<img src="{% static 'images/logo.svg' %}" width="41px" height="58px" />
+				</a>
+			</div>
+			<div class="nav-item">
+				{% if user.profile %}
+					<a href="{% url 'codedoor:viewprofile' pk=user.profile.pk %}">
+						<div id="profile-circle" style="background-image: url('{{ user.profile.profile_pic }}');">
+						</div>
+					</a>
+				{% endif %}
+				<a id="logout" href="{% url 'codedoor:logout' %}">Logout</a>
+			</div>
 		</div>
 	</div>
-	<div class="container">
-		{% block content %}
-		{% endblock content %}
+	<div class="content">
+		<div class="container">
+			{% block content %}
+			{% endblock content %}
+		</div>
 	</div>
 </body>
 </html>

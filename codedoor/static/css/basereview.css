@@ -1,0 +1,97 @@
+.error {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    color: #c94646;
+    width: 40%;
+}
+
+/* Review css */
+
+#form {
+    margin-top: 20px;
+}
+
+.space {
+    margin-bottom: 3px;
+}
+
+span {
+    margin: 3px;
+}
+
+#number input {
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    width: 60px;
+    height: 28px;
+    padding: 5px;
+    font-size: 15px;
+    background-color: #f8f8f8;
+}
+
+#title input {
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    width: 500px;
+    height: 28px;
+    padding: 5px;
+    font-size: 15px;
+    background-color: #f8f8f8;
+}
+
+.border {
+    margin-top: 5px;
+}
+
+textarea {
+    background-color: #f8f8f8;
+    font-size: 15px;
+    width: 500px;
+    height: 180px;
+    padding: 5px;
+
+}
+
+.select-style {
+    border: 1px solid #ccc;
+    width: 200px;
+    border-radius: 3px;
+    overflow: hidden;
+    background-color: #f8f8f8;
+    height: 28px;
+    font-size: 15px;
+}
+
+.select-style select {
+    padding: 5px 8px;
+    width: 130%;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+}
+
+/*Idea inspired by Group 1's createprofile.css*/
+#submit input {
+    width: 10%;
+    background-color: #008489;
+    color: White;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 10px;
+    outline: none;
+}
+
+#submit input:hover {
+    transition-duration: 0.3s;
+    background-color: #01959b;
+}
+
+#sub {
+    background-color: #008489;
+    color: White;
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    outline: none;
+}

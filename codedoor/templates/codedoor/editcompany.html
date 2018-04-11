@@ -1,0 +1,57 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/basecompany.css' %}">
+<script src="{% static 'js/createcompany_validation.js' %}">
+</script>
+<div class="centered">
+	<h1> Edit Company Information </h1><br>
+	<form action="{% url 'codedoor:editcompany' pk=company.pk %}" method="POST">
+		{% csrf_token %}
+		<div class="space">
+			Company name <br>
+			<div class="border-text">
+				<input type="text" name="name" value={{company.name}} id="name">
+			</div>
+			<p class="error" id="name-error">
+      </p>
+		</div><br>
+		<div class="space">
+			Industry <br>
+			<div class="border-text">
+				<input type="text" name="industry" value={{company.industry}} id="industry">
+			</div>
+			<p class="error" id="industry-error">
+      </p>
+		</div><br>
+		<div class="space">
+			Website <br>
+			<div class="border-text">
+				<input type="url" name="website" value={{company.website}} id="website">
+			</div>
+			<p class="error" id="website-error">
+      </p>
+		</div><br><br>
+		Type of company <br>
+
+		{% for x in type %}
+			{% if x != company.structure %}
+				<input type="radio" name="structure" value= "{{x}}" id="{{x}}" > {{x}} <br>
+			{% else %}
+				<input type="radio" name="structure" value="{{company.structure}}" id="{{company.structure}}" checked> {{company.structure}} <br>
+			{% endif %}
+		{% endfor %}
+		<!-- <input type="radio" name="structure" checked="false" value="Boutique" id=boutique> Boutique <br>
+		<input type="radio" name="structure" checked="false" value="Small" id="small"> Small <br>
+		<input type="radio" name="structure" checked="false" value="Medium" id="medium"> Medium <br>
+		<input type="radio" name="structure" checked="false" value="Large" id="large"> Large <br> -->
+		<p class="error" id="type-error">
+		</p>
+		<br>
+		<div id="submit"><input type="submit" value="Submit"></div>
+	</form>
+</div>
+
+{% endblock %}
+
+<script src="{% static '/js/editcompany.js' %}"></script>

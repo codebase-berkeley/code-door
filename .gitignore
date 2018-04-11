@@ -81,9 +81,11 @@ celerybeat-schedule
 # Environments
 .env
 .venv
+pyvenv.cfg
 env/
 venv/
 ENV/
+codedoor/bin/
 
 # Spyder project settings
 .spyderproject
@@ -111,3 +113,8 @@ media
 
 *.DS_Store
 .DS_Store
+
+api_keys.py
+
+pip-selfcheck.json
+pyvenv.cfg

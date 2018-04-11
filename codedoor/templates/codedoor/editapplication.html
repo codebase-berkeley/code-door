@@ -1,0 +1,78 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/application.css' %}">
+</head>
+<form action="{% url 'codedoor:edit_application' pk=pk %}" method="POST">
+    {% csrf_token %}
+    <div class="entry">
+        <h4>Position:</h4><br>
+        <input name="position" value="{{position}}" class="text"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Season:</h4><br>
+        {% if season == "Fall" %} 
+        <select name="season" class="menu" required>
+            <option value="Fall" selected="selected">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
+        {% elif season == "Winter" %} 
+        <select name="season" class="menu" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter" selected="selected">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
+        {% elif season == "Spring" %} 
+        <select name="season" class="menu" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring" selected="selected">Spring</option>
+            <option value="Summer">Summer</option>
+        </select>
+        {% elif season == "Summer" %} 
+        <select name="season" class="menu" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer" selected="selected">Summer</option>
+        </select>
+        {% endif %}
+    </div>
+    <div class="entry">
+        <h4>Year:</h4><br>
+        <input type="number" name="year" value="{{year}}" class="select-num"><br><br>
+    </div>    
+    <div class="entry">
+        <h4>Difficulty:</h4><br>
+        <input type = "number" step="0.1" name="difficulty" value="{{difficulty}}" class="select-num"></input><br><br>
+    </div>
+    <div class="entry">
+        <h4>Description:</h4><br>
+        <textarea name="description">{{description}}</textarea><br>
+    </div>
+    <div class="entry">
+        <h4>Received Offer:</h4><br>
+        {% if received_offer %}
+          <p><input type="radio" name="received_offer" value="Yes" checked> Yes</p><br>
+          <p><input type="radio" name="received_offer" value="No"> No</p><br><br>
+        {% else %}
+          <p><input type="radio" name="received_offer" value="Yes"> Yes</p><br>
+          <p><input type="radio" name="received_offer" value="No" checked> No</p><br><br>
+        {% endif %}
+    </div>
+    <div class="entry">
+        <h4>Offer details:</h4><br>
+        <textarea name="offer_details">{{offer_details}}</textarea><br><br>
+    </div>
+    <div class="entry">
+        <button type="submit" class="big">Save Changes</button>
+    </div>
+</form>
+
+{% endblock content %}

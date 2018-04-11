@@ -1,0 +1,64 @@
+{% extends 'codedoor/base.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/basereview.css' %}">
+<script src="{% static 'js/createreview_validation.js' %}">
+</script>
+  <div class = "centered">
+	<h1> Add a Review </h1>
+  <div id="form">
+  	<form action="{% url 'codedoor:createreview' %}" method="POST" enctype="multipart/form-data">
+  		{% csrf_token %}
+      <p class="error" id="display-error"></p>
+      <div class="space">
+        Review Title <br>
+        <div class="border">
+    		  <div id="title">
+            <input type="text" name="title" id="title1">
+          </div>
+          <p class="error" id="title-error">
+          </p>
+        </div>
+      </div><br>
+  		<div class="space">
+        Companies <br>
+        <div class="border">
+          <select name="company" class="select-style">
+            {% for company in companies %}
+                <option value={{company.pk}}>{{company.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <p class="error" id="company-error">
+        </p>
+      </div><br>
+  		  <div class="space">
+        Rating <br>
+        <div class="border">
+          <div id="number">
+    		    <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
+          </div>
+        </div>
+        <p class="error" id="rating-error">
+        </p>
+      </div><br>
+  		<div class="space">Recommend
+        <div class="border">
+          <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
+          <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
+        </div>
+        <p class="error" id="recommend-error">
+        </p>
+      </div><br>
+  		<div class="space">Review <br>
+        <div class="border">
+  		    <textarea type="text" name="review" id="review"></textarea>
+        </div>
+        <p class="error" id="review-error">
+        </p>
+      </div><br>
+  		<div id="submit"><input type="submit" value="Submit Review" onclick="validate()"></div>
+  	</form>
+  </div>
+
+{% endblock %}

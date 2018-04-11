@@ -1,0 +1,62 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/application.css' %}">
+  <script src="{% static 'js/application.js' %}"></script>
+</head>
+<form id="create_app_form" action="{% url 'codedoor:create_application_filled' companypk=companypk %}" method="POST" onsubmit=" validateForm();">
+    {% csrf_token %}
+    <div class="entry">
+      <h4>Position:</h4><br>
+      <p id="error0"></p>
+      <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
+    </div>
+    <div class="entry">
+      <h4>Season:</h4><br>
+      <p id="error1" class="error"></p>
+      <select id="season" name="season" class="menu" required>
+        <option value="Fall">Fall</option>
+        <option value="Winter">Winter</option>
+        <option value="Spring">Spring</option>
+        <option value="Summer">Summer</option>
+      </select>
+    </div>
+    <div class="entry">
+      <h4>Year:</h4><br>
+      <p id="error2" class="error"></p>
+      <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
+    </div>
+    <div class="entry">
+      <h4>Difficulty:</h4><br>
+      <p id="error3" class="error"></p>
+      <input type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
+    </div>
+    <div class="entry">
+      <h4>Description:</h4><br>
+      <p id="error4" class="error"></p>
+      <textarea name="description" placeholder="Description of application" required></textarea><br>
+    </div>
+    <div class="entry">
+      <h4>Received Offer:</h4><br>
+      <p id="error5" class="error"></p>
+      <p><input type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
+      <p><input type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
+    </div>
+    <div class="entry">
+      <h4>Offer details:</h4><br>
+      <p id="error6" class="error"></p>
+      <textarea name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
+    </div>
+    <!-- <div class="entry">
+      <a href="createquestion"><button type="button" class="small">Create Question</button></a>
+    </div> -->
+    <div class="entry">
+      <button type="submit" class="big">Submit</button>
+    </div>
+</form>
+
+<script type="text/javascript"></script>
+{% endblock content %}

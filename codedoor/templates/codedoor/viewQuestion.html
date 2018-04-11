@@ -1,0 +1,28 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <script src="{% static 'js/question.js' %}"></script>
+</head>
+    <div class="entry">
+        <h2>Question</h2>
+        <div class="question">
+            <p>{{ q.question }}</p>
+            <div class="entry">
+                <button onclick="showAAnswer()" class="small">Show Applicant Answer</button>
+                <div id="applicantAnswer">
+                    <h4>Applicant answer</h4>
+                    <p>{{ q.applicant_answer }}</p>
+                </div>
+            </div>
+            <div class="entry">
+                <button onclick="showCAnswer()" class="small">Show Company Answer</button>
+                <div id="companyAnswer">
+                    <h4>Company answer</h4>
+                    <p>{{ q.actual_answer }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

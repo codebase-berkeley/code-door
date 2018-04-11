@@ -1,0 +1,28 @@
+{% extends 'codedoor/base.html' %}
+{% load static from staticfiles %}
+
+{% block content %}
+
+<head>
+  <link rel="stylesheet" href="{% static 'css/edit.css' %}">
+</head>
+<form action="{% url 'codedoor:edit_question' pk=pk %}" method="POST">
+    {% csrf_token %}
+    <div class="entry">
+        <h4>Question:</h4><br>
+        <textarea name="question">{{question}}</textarea><br>
+    </div>
+    <div class="entry">
+        <h4>Applicant Answer:</h4><br>
+        <textarea name="applicant answer">{{applicant_answer}}</textarea><br>
+    </div>
+    <div class="entry">
+        <h4>Company Answer:</h4><br>
+        <textarea name="company answer">{{comp_answer}}</textarea><br><br>
+    </div>
+    <div class="entry">
+        <button type="submit">Save Changes</button>
+    </div>
+</form>
+
+{% endblock content %}

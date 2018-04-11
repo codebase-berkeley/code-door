@@ -1,0 +1,30 @@
+{% load static %}
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+<h1>
+    Login
+</h1>
+<form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
+    <input type="hidden" next= {{ next }}>
+    <div class="entry">
+        Email:
+        <input type="text" name="uname" placeholder="BobSmith123" required>
+    </div>
+    <div class="entry">
+        Password:
+        <input type="password" name="pwd" placeholder="e.g. Bob Smith" required>
+    </div>
+    <div class="entry">
+        <button type="submit">Login</button>
+    </div>
+
+    <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id=44822465026.334128598816">
+        <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
+    </a>
+    {% if failed %}
+        <div id="failed">
+            <p> LOGIN ATTEMPT FAILED. </p>
+        </div>
+    {% endif %}
+</form>

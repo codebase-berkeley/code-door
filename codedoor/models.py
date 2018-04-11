@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Company(models.Model):
@@ -11,7 +14,7 @@ class Company(models.Model):
     name = models.CharField(max_length=100)
     industry = models.CharField(max_length=100)
     website = models.URLField(null=True, blank=True)
-    logo = models.ImageField(null=True, blank=True)
+    logo = models.URLField(null=True, blank=True)
     structure = models.CharField(max_length=100, choices=STRUCTURES)
 
     def __str__(self):
@@ -19,15 +22,26 @@ class Company(models.Model):
 
 
 class Profile(models.Model):
-    name = models.CharField(max_length=100)
-    profile_pic = models.ImageField(null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic = models.URLField(null=True, blank=True)
     graduation_year = models.IntegerField()
     current_job = models.CharField(null=True, blank=True, max_length=1000)
     linkedin = models.URLField(null=True, blank=True)
     resume = models.FileField(null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.user.get_full_name()
+
+
+#@receiver(post_save, sender=User)
+#def create_user_profile(sender, instance, created, **kwargs):
+#    if created:
+#        Profile.objects.create(user=instance)
+
+
+#@receiver(post_save, sender=User)
+#def save_user_profile(sender, instance, **kwargs):
+#    instance.profile.save()
 
 
 class Application(models.Model):
@@ -47,7 +61,7 @@ class Application(models.Model):
     difficult = models.DecimalField(decimal_places=2, max_digits=10)
 
     def __str__(self):
-        return "{}'s application to {}".format(self.profile.name,
+        return "{}'s application to {}".format(self.profile.user.get_full_name(),
                                                self.company.name)
 
 
@@ -57,9 +71,10 @@ class Review(models.Model):
     rating = models.DecimalField(decimal_places=2, max_digits=10)
     recommend = models.BooleanField()
     review = models.TextField()
+    title = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return "{}'s review of {}".format(self.reviewer.name,
+        return "{}'s review of {}".format(self.reviewer.user,
                                           self.company.name)
 
 
