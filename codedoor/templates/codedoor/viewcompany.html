@@ -9,13 +9,17 @@
 <body>
   <div class="companyportion">
     <div class="company-logo">
-    <img src="{{company.logo}}" alt="Company logo" width="150" height="150">
+      {% if review.company.logo %}
+        <img src="{{company.logo}}" alt="Company logo" width="150" height="150">
+      {% else %}
+        <img src="/static/images/temp.png" alt="Company logo" width="150" height="150">
+      {% endif %}
 
-    <div class='sub1'><h1>{{company.name}}</h1><br>
-      <p>{{ company.industry }}, {{company.structure}}</p><br>
-      <img src="{% static 'images/linklogo.png' %}" class='logo' width="20px" height="20px" /> <span>{{company.website}}</span>
-      <img src="{% static 'images/locationlogo.png' %}" class='logo' width="20px" height="20px" /> <span>Mountain View</span>
-    </div>
+      <div class='sub1'><h1>{{company.name}}</h1><br>
+        <p>{{ company.industry }}, {{company.structure}}</p><br>
+        <img src="{% static 'images/linklogo.png' %}" class='logo' width="20px" height="20px" /> <span>{{company.website}}</span>
+        <img src="{% static 'images/locationlogo.png' %}" class='logo' width="20px" height="20px" /> <span>Mountain View</span>
+      </div>
 
     </div>
   </div>
@@ -33,7 +37,7 @@
     {% for review in reviews %}
     <table>
       <tr>
-        {% if review.company.logo != null %}
+        {% if review.company.logo %}
           <td rowspan="3" width="7%">
             <img src="{{review.company.logo}}" alt="Company logo" width="100" height="100">
           </td>
@@ -51,7 +55,7 @@
       </tr>
       <tr>
         <td>
-          {% if review.title != null %}
+          {% if review.title %}
             <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
           {% else %}
             <p></p>
