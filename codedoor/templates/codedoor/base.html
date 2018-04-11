@@ -18,13 +18,15 @@
 				</a>
 			</div>
 			<div class="nav-item">
-				{% if user.profile %}
-					<a href="{% url 'codedoor:viewprofile' pk=user.profile.pk %}">
-						<div id="profile-circle" style="background-image: url('{{ user.profile.profile_pic }}');">
-						</div>
-					</a>
+				{% if request.user.is_authenticated %}
+					{% if user.profile %}
+						<a href="{% url 'codedoor:viewprofile' pk=user.profile.pk %}">
+							<div id="profile-circle" style="background-image: url('{{ user.profile.profile_pic }}');">
+							</div>
+						</a>
+					{% endif %}
+					<a id="logout" href="{% url 'codedoor:logout' %}">Logout</a>
 				{% endif %}
-				<a id="logout" href="{% url 'codedoor:logout' %}">Logout</a>
 			</div>
 		</div>
 	</div>
