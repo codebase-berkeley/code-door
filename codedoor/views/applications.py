@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from codedoor.models import Profile, Company, Question, Application
 from django.core.paginator import Paginator
 import traceback
@@ -111,7 +111,7 @@ def list_applications(request, pk, pg=1):
         
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
-def create_question(request):
+def created_question(request):
     print("MADE IT HERE")
     if request.method == "POST":
 
@@ -119,12 +119,12 @@ def create_question(request):
         company_answer = request.POST['company_answer']
         app_answer = request.POST['applicant_answer']
         pk = request.POST['pk']
+        app = Application.objects.get(pk=pk)
 
-        new_question = Question(question=question, applicant_answer=app_answer, actual_answer=company_answer, application=pk)
+        new_question = Question(question=question, applicant_answer=app_answer, actual_answer=company_answer, application=app)
         new_question.save()
 
         return JsonResponse({"question": new_question.question, "company_answer": new_question.actual_answer, "applicant_answer": new_question.applicant_answer, "success": True})
 
     return HttpResponse("created a question!")
-
 

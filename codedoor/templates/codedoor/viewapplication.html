@@ -113,13 +113,13 @@
           <textarea id="company_answer" name="company answer" placeholder="Company answer"></textarea><br><br>
       </div>
       <div class="entry">
-          <button id="submit_button" type="submit" class="big">Submit</button>
+          <button id="submit_button" type="submit" class="big" onclick="displayQuestionForm()">Submit</button>
       </div>
   </div>
     <br><br><br>
     <h2>Questions</h2>
     {% if questions %}
-        <div class="questList">
+        <div id="questList">
         {% for q in questions %}
             <div class="post">
                 <h4 class="blue-text">Question</h4>
