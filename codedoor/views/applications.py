@@ -110,3 +110,20 @@ def list_applications(request, pk, pg=1):
         applications_list = paginator.page(paginator.num_pages)
         
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
+
+def create_question(request):
+    if request.method == "POST":
+
+        question = request.POST['question']
+        company_answer = request.POST['company_answer']
+        app_answer = request.POST['applicant_answer']
+        pk = request.POST['pk']
+
+        new_question = Question(question=question, applicant_answer=app_answer, actual_answer=company_answer, application=pk)
+        new_question.save()
+
+        return JsonResponse({"question": new_question.question, "company_answer": new_question.actual_answer, "applicant_answer": new_question.applicant_answer, "success": True})
+
+    return HttpResponse("created a question!")
+
+
