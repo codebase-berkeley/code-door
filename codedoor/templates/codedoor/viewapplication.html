@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/application.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
-    <script src="{% static 'js/createquestion.js' %}"></script>
+    
 </head>
 <body>
   <div class="entry">
@@ -101,18 +101,18 @@
     <div id="hidden" style="display: none;">
       <div class="entry">
           <h4>Question:</h4><br>
-          <textarea name="question" placeholder="Question here"></textarea><br>
+          <textarea id="question" name="question" placeholder="Question here"></textarea><br>
       </div>
       <div class="entry">
           <h4>Applicant Answer:</h4><br>
-          <textarea name="applicant answer" placeholder="Your answer"></textarea><br>
+          <textarea id="applicant_answer" name="applicant answer" placeholder="Your answer"></textarea><br>
       </div>
       <div class="entry">
           <h4>Company Answer:</h4><br>
-          <textarea name="company answer" placeholder="Company answer"></textarea><br><br>
+          <textarea id="company_answer" name="company answer" placeholder="Company answer"></textarea><br><br>
       </div>
       <div class="entry">
-          <button type="submit" class="big">Submit</button>
+          <button id="submit_button" type="submit" class="big">Submit</button>
       </div>
   </div>
     <br><br><br>
@@ -135,6 +135,6 @@
         <p>No questions yet!</p>
     {% endif %}
   </div>
-
+  <script src="{% static 'js/createquestion.js' %}"></script>
 </body>
 {% endblock %}
