@@ -27,7 +27,7 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
   var headers = new Headers();
   // console.log(csrftoken);
   // headers.append('X-CSRFToken', csrftoken);
-  fetch("/addquestion", {
+  fetch(pk, {
     method: "POST",
     body: formData,
     headers: headers,
@@ -36,11 +36,7 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
     return response.json();
   }).then(function(json) {
     if (json.success) {
-        document.getElementById("questList").innerHTML = "<div class='post'><h3>" + json. + "</h3><em>" + 
-        json.pub_date + "</em><p>" + json.body + "</p></div>" + 
-
-
-
+        document.getElementById("questList").innerHTML =
 
         "<div class='post'> <h4 class='blue-text'>Question</h4> <p>{{ " +
         	question + 
