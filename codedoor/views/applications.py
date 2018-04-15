@@ -112,6 +112,7 @@ def list_applications(request, pk, pg=1):
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
 def create_question(request):
+    print("MADE IT HERE")
     if request.method == "POST":
 
         question = request.POST['question']

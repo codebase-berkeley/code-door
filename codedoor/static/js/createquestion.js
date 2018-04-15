@@ -27,7 +27,7 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
   var headers = new Headers();
   // console.log(csrftoken);
   // headers.append('X-CSRFToken', csrftoken);
-  fetch(pk, {
+  fetch("createdquestion", {
     method: "POST",
     body: formData,
     headers: headers,
