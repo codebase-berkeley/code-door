@@ -4,6 +4,7 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/application.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <script src="{% static 'js/createquestion.js' %}"></script>
 </head>
 <body>
   <div class="entry">
@@ -93,9 +94,27 @@
     </table>
     <br><br>
         {% if request.user.profile == profile %}
-          <a class="sub" href="{% url 'codedoor:create_question' pk=a.pk %}">Create Question</a>
+          <button class="sub" onclick="displayQuestionForm()">Create Question</button>
           <a class="sub" href="{% url 'codedoor:edit_application' pk=a.pk %}">Edit Application</a>
         {% endif %}
+    <br><br>
+    <div id="hidden" style="display: none;">
+      <div class="entry">
+          <h4>Question:</h4><br>
+          <textarea name="question" placeholder="Question here"></textarea><br>
+      </div>
+      <div class="entry">
+          <h4>Applicant Answer:</h4><br>
+          <textarea name="applicant answer" placeholder="Your answer"></textarea><br>
+      </div>
+      <div class="entry">
+          <h4>Company Answer:</h4><br>
+          <textarea name="company answer" placeholder="Company answer"></textarea><br><br>
+      </div>
+      <div class="entry">
+          <button type="submit" class="big">Submit</button>
+      </div>
+  </div>
     <br><br><br>
     <h2>Questions</h2>
     {% if questions %}
