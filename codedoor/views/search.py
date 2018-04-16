@@ -26,13 +26,13 @@ def search(request, database):
     if database == "reviews":
         vector = review_vector
         entry = Review.objects.annotate(search=vector).filter(search=query)
-    elif database == "applications":
+    elif database == "interviews":
         vector = application_vector
         entry = Application.objects.annotate(search=vector).filter(search=query)
     elif database == "companies":
         vector = company_vector
         entry = Company.objects.annotate(search=vector).filter(search=query)
-    elif database == "profiles":
+    elif database == "users":
         vector = profile_vector
         entry = Profile.objects.annotate(search=vector).filter(search=query)
     paginator = Paginator(entry, 10)
@@ -48,5 +48,5 @@ def search(request, database):
 
     list = pagination(paginator, page)
 
-    return render(request, "codedoor/search.html", {"database": database, "data": list})
+    return render(request, "codedoor/search.html", {"database": database, "data": list, "query": input_query})
 

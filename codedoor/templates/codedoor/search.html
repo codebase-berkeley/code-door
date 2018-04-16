@@ -25,7 +25,7 @@
     </form>
   </div>
   <div>
-    <form action="{% url 'codedoor:search' database='profiles' %}" method="POST"> {% csrf_token %}
+    <form action="{% url 'codedoor:search' database='users' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
       <button class="sub" type="submit">Users</button>
     </form>
