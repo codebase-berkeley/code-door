@@ -20,6 +20,12 @@
     align-items: center;
     justify-content: flex-end;
 }
+#searchtype {
+    background-image: url('emailicon.png');
+    background-position: 5px 5px;
+    background-repeat: no-repeat;
+    padding-left: 20px;
+}
 #profile-circle {
     width: 58px;
     height: 58px;

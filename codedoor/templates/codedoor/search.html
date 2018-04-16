@@ -33,8 +33,8 @@
 </div>
 <div class="results">
   {% if database == "reviews" %}
-    <p> {{ len(reviews) }} company reviews found</p>
-    {% for review in reviews %}
+    <p>  company reviews found</p>
+    {% for review in data %}
     <table>
       <tr>
         {% if review.company.logo %}
@@ -171,8 +171,8 @@
     {% endif %}
 
   {% elif database == "interviews" %}
-    <p> {{ len(applications) }} interviews found</p>
-    {% for a in applications %}
+    <p>  interviews found</p>
+    {% for a in data %}
     <table>
       <tr>
         {% if review.company.logo != null %}
@@ -277,10 +277,10 @@
     {% endif %}
 
   {% elif database == "companies" %}
-    <p> {{ len(companies) }} companies found</p>
+    <p>  companies found</p>
 
   {% elif database == "users" %}
-    <p> {{ len(profiles) }} users found</p>
+    <p>  users found</p>
 
   {% endif %}
 </div>
