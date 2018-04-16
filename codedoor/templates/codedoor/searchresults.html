@@ -1,0 +1,146 @@
+{% extends 'codedoor/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/searchresults.css' %}">
+</head>
+<body>
+<div class="reviews">
+    {% for review in reviews %}
+    <table>
+      <tr>
+        {% if review.company.logo %}
+          <td rowspan="3" width="7%">
+            <img src="{{review.company.logo}}" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" width="100" height="100">
+          </td>
+        {% endif %}
+        <td width="93%">
+          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
+            <h2 class="link-text">{{ review.company }}</h2>
+          </a>
+          <span class="applicant-name">{{ review.reviewer }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {% if review.company.logo != null %}
+            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+          {% else %}
+            <p></p>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info colorful-boxy">
+            {% if review.recommend %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg> Recommends
+              </span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg> Doesn't Recommend
+              </span>
+            {% endif %}
+          </span>
+          <span class="info colorful-boxy">
+            {% if review.rating < 1 %}
+              <span>
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 2 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 3 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 4 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% elif review.rating < 5 %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/whitestar.png" height="20" width="20">
+              </span>
+            {% else %}
+              <span>
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+                <img src="/static/images/blackstar.png" height="20" width="20">
+              </span>
+            {% endif %}
+          </span></p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div>
+            <h4>Description:</h4>
+            <p class="description_small_text">{{review.review}}</p>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <br>
+    {% endfor %}
+
+    <!-- Source: Vitor Freitas -->
+    {% if reviews.has_other_pages %}
+      <ul class="pagination">
+        {% if reviews.has_previous %}
+          <li class="clickable"><a href="?page={{ reviews.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in reviews.paginator.page_range %}
+          {% if reviews.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <a href="?page={{ i }}"><li>{{ i }}</li></a>
+          {% endif %}
+        {% endfor %}
+        {% if reviews.has_next %}
+          <li><a href="?page={{ reviews.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+  </div>
+</body>
+{% endblock %}
