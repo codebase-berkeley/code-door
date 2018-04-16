@@ -22,9 +22,64 @@
     <a href="{% url 'codedoor:createreview'%}">
       <button class="inline-block small-teal">Create Review</button>
     </a>&nbsp;
-    <a href="{% url 'codedoor:createcompany'%}">
-      <button class="inline-block small-teal">Create Company</button>
-    </a>
+    <button class="inline-block small-teal" id="create_company" onclick="displayCompanyForm()">Create Company</button>
+
+    <!--This is the create company form-->
+    <div id="company_form" style="display: none;">
+      <h1> Create company </h1><br>
+      <form enctype="multipart/form-data" action="{% url 'codedoor:createcompany' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p class="error" id="display-error"></p>
+        <div class="space">
+          Logo <br>
+          <div class="border">
+            <input type="file" name="logo" id="logo1">
+          </div>
+          <p class="error" id="logo-error">
+          </p>
+        </div><br>
+        <div class="space">
+          Company name <br>
+          <div class="border-text">
+            <input type="text" name="name" id="name">
+          </div>
+          <p class="error" id="name-error">
+          </p>
+        </div><br>
+        <div class="space">
+          Industry <br>
+          <div class="border-text">
+            <input type="text" name="industry" id='industry'>
+          </div>
+          <p class="error" id="industry-error">
+          </p>
+        </div><br>
+        <div class="space">
+          Website <br>
+          <div class="border-text">
+            <input type="url" name="website" id='website'>
+          </div>
+          <p class="error" id="website-error">
+          </p>
+        </div><br>
+
+        <div class="space">
+          Type of company <br>
+          <div class="border">
+            <input type="radio" name="structure" value="Startup" id="startup"> Startup <br>
+            <input type="radio" name="structure" value="Boutique" id="boutique"> Boutique <br>
+            <input type="radio" name="structure" value="Medium" id="medium"> Medium <br>
+            <input type="radio" name="structure" value="Small" id="small"> Small <br>
+            <input type="radio" name="structure" value="Large" id="large"> Large <br>
+          </div>
+          <p class="error" id="type-error">
+          </p>
+        </div><br>
+        <div id="submit"><input type="submit" value="Submit" onclick="validate()"></div>
+      </form>
+    </div>
+    <script src="{% static 'js/company.js' %}"></script>
+
   </div>
   <hr id="break">
 </br>
