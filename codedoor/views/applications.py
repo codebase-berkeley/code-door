@@ -51,12 +51,14 @@ def create_application_company(request):
             return HttpResponse("You did not fill out the form correctly")
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
+        console.log("YAAA")
         return redirect("codedoor:view_application", pk=a.id)
     else:
         return render(request, 'codedoor/createapplicationcomp.html', {'companies' : companies})
 
 
-def edit_application(request, pk):
+def edit_application(request):
+    pk = request.POST['pk']
     a = get_object_or_404(Application, pk=pk)
     if request.method == 'POST':
         try:
@@ -70,25 +72,14 @@ def edit_application(request, pk):
             else:
                 a.received_offer = False
             a.offer_details = request.POST['offer_details']
-            a.difficulty = request.POST['difficulty']
+            a.difficult = request.POST['difficulty']
         except Exception as e:
             traceback.print_exc()
             return HttpResponse("You did not fill out the form correctly")
         a.save()
-        return redirect("codedoor:view_application", pk=a.id)
+        return JsonResponse({})
     else:
-        return render(request, 'codedoor/editapplication.html',
-                      {
-                          "description": a.description,
-                          "season": a.season,
-                          "position": a.position,
-                          "received_offer": a.received_offer,
-                          "year": a.year,
-                          "offer_details": a.offer_details,
-                          "difficulty": a.difficult,
-                          "pk": pk,
-                          "link": "/codedoor/editapplication/" + str(pk)
-                      })
+        return HttpResponse("couldn't edit the application")
 
 
 def view_application(request, pk):
@@ -112,7 +103,6 @@ def list_applications(request, pk, pg=1):
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
 def created_question(request):
-    print("MADE IT HERE")
     if request.method == "POST":
 
         question = request.POST['question']
@@ -126,5 +116,5 @@ def created_question(request):
 
         return JsonResponse({"question": new_question.question, "company_answer": new_question.actual_answer, "applicant_answer": new_question.applicant_answer, "success": True})
 
-    return HttpResponse("created a question!")
+    return HttpResponse("failed to create a question!")
 

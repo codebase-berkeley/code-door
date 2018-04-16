@@ -14,6 +14,16 @@ function displayQuestionForm() {
     }
 }
 
+function displayEditApplicationForm() {
+    var x = document.getElementById("hidden2");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
 
 document.getElementById("submit_button").addEventListener("click", function(e) {
   var question = document.getElementById("question").value;
@@ -57,3 +67,46 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
     }
   })
   });
+
+
+document.getElementById("submit_button_edit").addEventListener("click", function(e) {
+  var position = document.getElementById("position").value;
+  var season = document.getElementsByClassName("menu")[0].value;
+  var year = document.getElementById("year").value;
+  var difficulty = document.getElementById("difficulty").value;
+  var description = document.getElementById("difficulty").value;
+  var received_offer = document.getElementsByClassName("received_offer")[0].value;
+  var offer_details = document.getElementById("offer_details").value;
+  var pk = document.getElementById("pk").value;
+
+  console.log(document.getElementsByClassName("received_offer")[0].value + document.getElementsByClassName("received_offer")[1].value);
+
+  var formData = new FormData();
+
+  formData.append("position", position);
+  formData.append("season", season);
+  formData.append("year", year);
+  formData.append("difficulty", difficulty);
+  formData.append("description", description);
+  formData.append("received_offer", received_offer);
+  formData.append("offer_details", offer_details);
+  formData.append("pk", pk);
+
+
+  var headers = new Headers();
+  var csrftoken = getCookie("csrftoken")  ;
+  headers.append('X-CSRFToken', csrftoken);
+  fetch("/codedoor/editapplication", {
+    method: "POST",
+    body: formData,
+    headers: headers,
+    credentials: "include"
+  }).then(function(response) {
+    return response.json();
+  }).then(function(json) {
+    console.log("success");
+  })
+
+});
+
+
