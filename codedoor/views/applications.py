@@ -67,7 +67,7 @@ def edit_application(request):
             a.position = request.POST['position']
             received_offer = request.POST['received_offer']
             a.year = request.POST['year']
-            if(received_offer == "on"):
+            if(received_offer):
                 a.received_offer = True
             else:
                 a.received_offer = False

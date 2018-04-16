@@ -75,11 +75,11 @@ document.getElementById("submit_button_edit").addEventListener("click", function
   var year = document.getElementById("year").value;
   var difficulty = document.getElementById("difficulty").value;
   var description = document.getElementById("difficulty").value;
-  var received_offer = document.getElementsByClassName("received_offer")[0].value;
+  var received_offer = document.getElementById("received_offer").checked;
   var offer_details = document.getElementById("offer_details").value;
   var pk = document.getElementById("pk").value;
+  var a = document.getElementById("a").value;
 
-  console.log(document.getElementsByClassName("received_offer")[0].value + document.getElementsByClassName("received_offer")[1].value);
 
   var formData = new FormData();
 
@@ -104,7 +104,15 @@ document.getElementById("submit_button_edit").addEventListener("click", function
   }).then(function(response) {
     return response.json();
   }).then(function(json) {
-    console.log("success");
+    // if (json.success) {
+    //     document.getElementById("app").innerHTML = "{% if a.company.logo != null %} <td rowspan="3" width="7%"><img src=" + 
+    //     a.company_logo + "alt='Company logo' width="100" height="100"> </td> {% else %} <td rowspan="3" width="7%">" +
+    //         "<img src='/static/images/temp.png' alt='Company logo' width='100' height='100'></td> {% endif %} <td width="93%"> " +
+    //       "<a href='{% url 'codedoor:viewcompany' pk=a.company.pk %}'> <h2 class='link-text'>" + 
+    //       a.company + "</h2> </a> <span class='applicant-name'>" + 
+    //       a.profile +"</span></td>"
+    // }
+    console.log("success")
   })
 
 });

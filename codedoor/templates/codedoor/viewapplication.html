@@ -7,10 +7,11 @@
     
 </head>
 <body>
-  <textarea id="pk" style="display: none;">{{ a.pk }}</textarea><br>
+  <textarea id="pk" style="display: none;">{{ a.pk }}</textarea>
+  <texarea id="a" style="displaay: none;">{{ a}}</texarea>
   <div class="entry">
     <table>
-      <tr>
+      <tr id="app">
         {% if a.company.logo != null %}
           <td rowspan="3" width="7%">
             <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
@@ -152,10 +153,10 @@
     <div class="entry">
         <h4>Received Offer:</h4><br>
         {% if a.received_offer %}
-          <p><input class="received_offer" type="radio" name="received_offer" value="Yes" checked> Yes</p><br>
-          <p><input class="received_offer" type="radio" name="received_offer" value="No"> No</p><br><br>
+          <p><input id="received_offer" type="radio" name="received_offer" value="Yes" checked> Yes</p><br>
+          <p><input type="radio" name="received_offer" value="No"> No</p><br><br>
         {% else %}
-          <p><input class="received_offer" type="radio" name="received_offer" value="Yes"> Yes</p><br>
+          <p><input id="received_offer" class="received_offer" type="radio" name="received_offer" value="Yes"> Yes</p><br>
           <p><input class="received_offer" type="radio" name="received_offer" value="No" checked> No</p><br><br>
         {% endif %}
     </div>
