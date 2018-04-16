@@ -139,7 +139,7 @@
         <td>
           <div>
             <h4>Description:</h4>
-            <p class="description_small_text">{{review.review}}</p><br>
+            <p class="description_small_text">{{review.review}}</p>
           </div>
         </td>
       </tr>
@@ -147,13 +147,15 @@
         <td></td>
         <td id="comments">
           {% for comment in comments %}
-            <div id="comment">
-              <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
-              </div> 
-              <p id="commenter"> {{comment.commenter}} </p>
-              <p style="padding-left:40px;"> {{comment.content}} </p>
-              <br>
-            </div>
+            {% if comment.review == review %}
+              <div id="comment">
+                <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+                </div> 
+                <p id="commenter"> {{comment.commenter}} </p>
+                <p style="padding-left:40px;"> {{comment.content}} </p>
+                <br>
+              </div>
+            {% endif %}
           {% endfor %}
         </td>
       </tr>

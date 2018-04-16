@@ -43,6 +43,8 @@ def view_company(request, pk):
     comments = []
     for review in reviews:
         comments += ReviewComment.objects.filter(review=review)
+    comments = comments[:2]
+    comments_len = len(comments)
     applications = Application.objects.filter(company=company)
     paginator1 = Paginator(reviews, 5)
     paginator2 = Paginator(applications, 5)
@@ -60,7 +62,7 @@ def view_company(request, pk):
     except EmptyPage:
         application_list = paginator2.page(paginator2.num_pages)
 
-    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "applications":application_list, "comments": comments})
+    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "applications":application_list, "comments": comments, "comments_len": comments_len})
 
 @login_required
 def edit_company(request, pk):
