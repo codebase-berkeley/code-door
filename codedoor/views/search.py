@@ -5,6 +5,7 @@ from codedoor.models import Review, Company, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def search(request, database):
@@ -36,6 +37,7 @@ def search(request, database):
         entry = Profile.objects.annotate(vector).filter(search=query)
     paginator = Paginator(entry, 10)
     page = request.GET.get('page', 1)
+
     def pagination(paginator, page):
         try:
             return paginator.page(page)
