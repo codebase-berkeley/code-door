@@ -19,3 +19,4 @@ def search(request, database, text):
 
     # parsed_text =
     query = SearchQuery(text)
+    return HttpResponse("none")
