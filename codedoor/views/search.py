@@ -23,16 +23,16 @@ def search(request, database):
                                       'position')
     company_vector = SearchVector('name', 'industry')
     profile_vector = SearchVector('user__first_name', 'user__last_name', 'current_job')
-    if database == "Review":
+    if database == "reviews":
         vector = review_vector
         entry = Review.objects.annotate(vector).filter(search=query)
-    elif database == "Application":
+    elif database == "applications":
         vector = application_vector
         entry = Application.objects.annotate(vector).filter(search=query)
-    elif database == "Company":
+    elif database == "companies":
         vector = company_vector
         entry = Company.objects.annotate(vector).filter(search=query)
-    elif database == "Profile":
+    elif database == "profiles":
         vector = profile_vector
         entry = Profile.objects.annotate(vector).filter(search=query)
     paginator = Paginator(entry, 10)
