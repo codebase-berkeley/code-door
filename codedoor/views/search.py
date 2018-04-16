@@ -58,5 +58,3 @@ def search(request, database):
 
     return render(request, "codedoor/search.html", {"database": list})
 
-
-

@@ -2,35 +2,9 @@
 {% load static %}
 {% block content %}
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
-  <link rel="stylesheet" href="{% static 'css/application.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/searchresults.css' %}">
 </head>
 <body>
-  <div class="indent">
-    <h1 id="codor"> Codor </h1>
-    <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
-    <div id="searchbar">
-      <form action="search" method="POST"> {% csrf_token %}
-      <input id="searchtype" type="text" placeholder='Try "Google"'>
-      <button class="sub" id="search" type="submit">Search</button>
-      </form>
-    </div>
-  </div>
-  <br>
-
-
-  <div class="indent">
-    <h3>Recent Activity</h3><br>
-    <h2 class="inline-block">Company Reviews&nbsp;&nbsp;</h2>
-    <a href="{% url 'codedoor:createreview'%}">
-      <button class="inline-block small-teal">Create Review</button>
-    </a>&nbsp;
-    <a href="{% url 'codedoor:createcompany'%}">
-      <button class="inline-block small-teal">Create Company</button>
-    </a>
-  </div>
-  <hr class="break">
-</br>
 <div class="reviews">
     {% for review in reviews %}
     <table>
@@ -167,127 +141,6 @@
         {% endif %}
       </ul>
     {% endif %}
-
-
-
-    <br>
-  </div>
-  <br>
-
-
-
-  <div class="indent" >
-    <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
-    <a href="{% url 'codedoor:create_application'%}">
-      <button class="inline-block small-teal">Create New Application</button>
-    </a>
-  </div>
-  <hr class="break">
-  <div class="reviews">
-    {% for a in applications %}
-    <table>
-      <tr>
-        {% if review.company.logo != null %}
-          <td rowspan="3" width="7%">
-            <img src="{{a.company.logo}}" width="100" height="100">
-          </td>
-        {% else %}
-          <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" width="100" height="100">
-          </td>
-        {% endif %}
-        <td width="93%">
-          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
-            <h2 class="link-text">{{ a.company }}</h2>
-          </a>
-          <span class="applicant-name">{{ a.profile }}</span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info job-position">{{a.position}}</span>
-          <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info colorful-boxy">
-            {% if a.received_offer %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg> Received Offer
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg> No Offer
-              </span>
-            {% endif %}
-          </span>
-          <span class="info colorful-boxy">
-            {% if a.difficult > 7 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-              </span>
-            {% elif a.difficult < 4 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#FF9B71;" />
-                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
-              </span>
-            {% endif %}
-          </span></p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <h4>Description:</h4>
-          <p class="description_small_text">{{a.description}}</p>
-        </td>
-      </tr>
-    </table>
-    <br>
-    {% endfor %}
-
-    <!-- Source: Vitor Freitas -->
-    {% if applications.has_other_pages %}
-      <ul class="pagination">
-        {% if applications.has_previous %}
-          <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in applications.paginator.page_range %}
-          {% if applications.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if applications.has_next %}
-          <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
-    {% endif %}
-    <br>
   </div>
 </body>
 {% endblock %}

@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
+
 @login_required
 def home(request):
     reviews = Review.objects.all().order_by('-id')
@@ -30,3 +31,4 @@ def home(request):
     except EmptyPage:
         application_list = paginator_2.page(paginator_2.num_pages)
     return render(request, "codedoor/home.html", {"reviews": review_list, "applications": application_list})
+
