@@ -141,21 +141,6 @@
           </div>
         </td>
       </tr>
-      <tr>
-        <td></td>
-        <td id="comments">
-          <br><p style="color:black;font-weight:bold;"> Comments: </p>
-          {% for comment in comments %}
-            <div id="comment">
-              <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
-              </div> 
-              <p id="commenter"> {{comment.commenter}} </p>
-              <p style="padding-left:40px;"> {{comment.content}} </p>
-              <br>
-            </div>
-          {% endfor %}
-        </td>
-      </tr>
     </table>
     <br>
   </div>
@@ -175,15 +160,18 @@
 
 </div>
 
-</div>
 
 
-<script>
-
-
+<script type="text/javascript">
 
 function myFunction() {
     alert("Hello! I am an alert box!");
+}
+
+function getCookie(name) {
+  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
+  var result = regexp.exec(document.cookie);
+  return (result === null) ? null : result[1];
 }
 
 console.log("Do somethings");
@@ -197,7 +185,9 @@ console.log("Do somethings");
         commentData.append("review", {{ review }} )
         var headers = new Headers();
 
-
+        var csrftoken = getCookie("csrftoken")
+        console.log(csrftoken);
+        headers.append('X-CSRFToken', csrftoken);
 
         fetch("/comments/add/", {
             method: "POST",
@@ -208,8 +198,8 @@ console.log("Do somethings");
             return response.json();
         }).then(function(json) {
             if (json.success) {
-                document.getElementById("list").innerHTML = "<div class='comment'><h3>" +
-                json.title + "</h3><em>" + json.content + "</em><p>" + json.content + "</p></div>" + document.getElementById("list").innerHTML;
+                document.getElementById("comment").innerHTML = "<div id='comment'><h3>" +
+                json.title + "</h3><em>" + json.content + "</em><p>" + json.content + "</p></div>" + document.getElementById("comment").innerHTML;
             }
         })
     });
