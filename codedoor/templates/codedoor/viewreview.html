@@ -25,6 +25,13 @@
   <br>
 
 <div id="bottom-half">
+  <div style="float:right;position:absolute;right:10%;">
+    {% if review.reviewer.user == request.user %}
+      <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
+    {% else %}
+      <p></p>
+    {% endif %}
+  </div>
   <div id="reviews">
     <table>
       <tr>
@@ -130,8 +137,23 @@
         <td>
           <div>
             <h4>Description:</h4>
-            <p class="description_small_text">{{review.review}}</p>
+            <p class="description_small_text" style="width:80%;">{{review.review}}</p>
           </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="comments">
+          <br><p style="color:black;font-weight:bold;"> Comments: </p>
+          {% for comment in comments %}
+            <div id="comment">
+              <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+              </div> 
+              <p id="commenter"> {{comment.commenter}} </p>
+              <p style="padding-left:40px;"> {{comment.content}} </p>
+              <br>
+            </div>
+          {% endfor %}
         </td>
       </tr>
     </table>
@@ -142,11 +164,7 @@
 
 
 </div>
-<div id="comments">
-  <hr id="break">
-  <br>
-
-
+<div>
 <div id="commentsection">
   <h2>Add comment</h2>
 
@@ -155,41 +173,7 @@
 
   <button id="submit">submit</button>
 
-  <h2>comments</h2>
-  {% if comments %}
-      <div id="list" class="commentlist">
-      {% for comment in comments %}
-          <div class="comment">
-              <h3>{{ comment.title }}</h3>
-              <em>{{ comment.pub_date }}</em>
-              <p>{{ comment.body }}</p>
-          </div>
-      {% endfor %}
-      </div>
-  {% else %}
-      <p>No comments yet!</p>
-  {% endif %}
-
-
-
-
 </div>
-
-
-
-
-  <div>
-    <br><br><br>
-      {% if review.reviewer.user == request.user %}
-        <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
-      {% else %}
-        <p></p>
-      {% endif %}
-    <br>
-  </div>
-
-
-
 
 </div>
 
