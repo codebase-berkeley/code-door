@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from codedoor.models import Profile, Company, Question, Application
+from codedoor.models import Profile, Company, Question, Application, ApplicationComment
 from django.core.paginator import Paginator
 import traceback
 
@@ -95,7 +95,8 @@ def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     profile = get_object_or_404(Profile, id=a.profile.pk)
     questions = Question.objects.filter(application=pk).order_by("-pk")
-    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile, "questions": questions})
+    comments = ApplicationComment.objects.filter(application=a)
+    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile, "questions": questions, "comments": comments})
 
 
 def list_applications(request, pk, pg=1):

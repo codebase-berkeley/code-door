@@ -29,9 +29,15 @@
     <p onclick="showReviews()" id="reviews_tab" class="active_item nav_items">Reviews</p>
     <p onclick="showApplications()" id="applications_tab" class="nav_items">Applications</p>
     <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
+    <span style="float:right;position:absolute;right:10%;">
+      <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
+      <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
+      <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=company.pk %}">Add Application</a>
+    </span>
   </div>
 
 <div id="bottom-half">
+
   <div id="reviews">
 
     {% for review in reviews %}
@@ -139,14 +145,14 @@
         <td>
           <div>
             <h4>Description:</h4>
-            <p class="description_small_text">{{review.review}}</p>
+            <p class="description_small_text" style="width:80%;">{{review.review}}</p>
           </div>
         </td>
       </tr>
       <tr>
         <td></td>
         <td id="comments">
-          {% for comment in comments %}
+          {% for comment in review_comments %}
             {% if comment.review == review %}
               <div id="comment">
                 <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
@@ -266,6 +272,22 @@
           <p class="description_small_text">{{a.description}}</p>
         </td>
       </tr>
+      <tr>
+        <td></td>
+        <td id="comments">
+          {% for comment in app_comments %}
+            {% if comment.application == a %}
+              <div id="comment">
+                <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+                </div> 
+                <p id="commenter"> {{comment.commenter}} </p>
+                <p style="padding-left:40px;"> {{comment.content}} </p>
+                <br>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </td>
+      </tr>
     </table>
     <br>
     {% endfor %}
@@ -292,15 +314,6 @@
         {% endif %}
       </ul>
     {% endif %}
-    <br>
-  </div>
-
-
-  <div>
-    <br><br><br>
-        <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
-        <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
-         <a class="sub" href="{% url 'codedoor:create_application_filled' companypk=company.pk %}">Add Application</a>
     <br>
   </div>
 </body>

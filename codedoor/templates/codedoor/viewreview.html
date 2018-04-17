@@ -24,6 +24,14 @@
   <br>
 
 <div id="bottom-half">
+  <div style="float:right;position:absolute;right:10%;">
+    {% if review.reviewer.user == request.user %}
+      <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
+    {% else %}
+      <p></p>
+    {% endif %}
+    <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Add Comments</a>
+  </div>
   <div id="reviews">
     <table>
       <tr>
@@ -36,7 +44,7 @@
             <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
           </td>
         {% endif %}
-        <td width="93%">
+        <td width="80%">
           <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
             <h2 class="link-text">{{ review.company }}</h2>
           </a>
@@ -129,22 +137,26 @@
         <td>
           <div>
             <h4>Description:</h4>
-            <p class="description_small_text">{{review.review}}</p>
+            <p class="description_small_text" style="width:80%;">{{review.review}}</p>
           </div>
         </td>
       </tr>
+      <tr>
+        <td></td>
+        <td id="comments">
+          <br><p style="color:black;font-weight:bold;"> Comments: </p>
+          {% for comment in comments %}
+            <div id="comment">
+              <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+              </div> 
+              <p id="commenter"> {{comment.commenter}} </p>
+              <p style="padding-left:40px;"> {{comment.content}} </p>
+              <br>
+            </div>
+          {% endfor %}
+        </td>
+      </tr>
     </table>
-    <br>
-  </div>
-
-
-  <div>
-    <br><br><br>
-      {% if review.reviewer.user == request.user %}
-        <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
-      {% else %}
-        <p></p>
-      {% endif %}
     <br>
   </div>
 </body>
