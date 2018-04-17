@@ -50,3 +50,14 @@ def search(request, database):
 
     return render(request, "codedoor/search.html", {"database": database, "data": list, "query": input_query})
 
+
+def filter(request, database, company):
+    if database == "reviews":
+        input_rating = request.POST['rating']
+    elif database == "interviews":
+        input_year = request.POST['year']
+    elif database == "users":
+        input_year = request.POSt['year']
+
+    return HttpResponse("not working")
+
