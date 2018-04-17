@@ -9,29 +9,29 @@
   <div>
     <form action="{% url 'codedoor:search' database='reviews' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Company Reviews</button>
+      <button class="data" type="submit">Company Reviews</button>
     </form>
   </div>
   <div>
     <form action="{% url 'codedoor:search' database='interviews' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Interviews</button>
+      <button class="data" type="submit">Interviews</button>
     </form>
   </div>
   <div>
     <form action="{% url 'codedoor:search' database='companies' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Companies</button>
+      <button class="data" type="submit">Companies</button>
     </form>
   </div>
   <div>
     <form action="{% url 'codedoor:search' database='users' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Users</button>
+      <button class="data" type="submit">Users</button>
     </form>
   </div>
 </div>
-<div class="results">
+<div id="results">
   {% if database == "reviews" %}
     {% for review in data %}
     <table>
