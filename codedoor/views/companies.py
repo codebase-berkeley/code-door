@@ -38,14 +38,18 @@ def create_company(request):
 def view_company(request, pk):
     company = get_object_or_404(Company, pk=pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
+    # Reviews
     reviews = Review.objects.filter(company=company)
-    # comments = ReviewComment.objects.all()
-    comments = []
+    review_comments = []
     for review in reviews:
-        comments += ReviewComment.objects.filter(review=review)
-    comments = comments[:2]
-    comments_len = len(comments)
+        review_comments += ReviewComment.objects.filter(review=review)
+    review_comments = review_comments[:2]
+    # Applications
     applications = Application.objects.filter(company=company)
+    app_comments = []
+    for application in applications:
+        app_comments += ApplicationComment.objects.filter(application=application)
+    app_comments = app_comments[:2]
     paginator1 = Paginator(reviews, 5)
     paginator2 = Paginator(applications, 5)
     page = request.GET.get('page', 1)
@@ -62,7 +66,10 @@ def view_company(request, pk):
     except EmptyPage:
         application_list = paginator2.page(paginator2.num_pages)
 
-    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "applications":application_list, "comments": comments, "comments_len": comments_len})
+    return render(request, "codedoor/viewcompany.html", {"company": company, 
+        "reviews": review_list, "profile": profile, 
+        "applications":application_list, "review_comments": review_comments, 
+        "app_comments": app_comments})
 
 @login_required
 def edit_company(request, pk):
