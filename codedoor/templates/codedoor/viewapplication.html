@@ -116,15 +116,19 @@
         <p>No questions yet!</p>
     {% endif %}
     <br><br>
-    <h2> Comments </h2> <br>     
-    {% for comment in comments %}
-        <div id="comment">
-          <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
-          </div> 
-          <p id="commenter"> {{comment.commenter}} </p>
-          <p style="padding-left:40px;"> {{comment.content}} </p><br>
-        </div>
-    {% endfor %}
+    <h2> Comments </h2>
+    {% if comments %}     
+      {% for comment in comments %}
+          <div id="comment">
+            <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+            </div> 
+            <p id="commenter"> {{comment.commenter}} </p>
+            <p style="padding-left:40px;"> {{comment.content}} </p><br>
+          </div>
+      {% endfor %}
+    {% else %}
+      <p> No comments yet! </p>
+    {% endif %}
   </div>
 
 </body>
