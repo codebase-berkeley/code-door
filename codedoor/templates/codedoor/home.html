@@ -27,7 +27,7 @@
     <!--This is the create company form-->
     <div id="company_form" style="display: none;">
       <h1> Create company </h1><br>
-      <form enctype="multipart/form-data" action="{% url 'codedoor:createcompany' %}" method="POST" enctype="multipart/form-data">
+      
         {% csrf_token %}
         <p class="error" id="display-error"></p>
         <div class="space">
@@ -66,17 +66,17 @@
         <div class="space">
           Type of company <br>
           <div class="border">
-            <input type="radio" name="structure" value="Startup" id="startup"> Startup <br>
-            <input type="radio" name="structure" value="Boutique" id="boutique"> Boutique <br>
-            <input type="radio" name="structure" value="Medium" id="medium"> Medium <br>
-            <input type="radio" name="structure" value="Small" id="small"> Small <br>
-            <input type="radio" name="structure" value="Large" id="large"> Large <br>
+            <input class="type" type="radio" name="structure" value="Startup" id="startup"> Startup <br>
+            <input class="type" type="radio" name="structure" value="Boutique" id="boutique"> Boutique <br>
+            <input class="type" type="radio" name="structure" value="Medium" id="medium"> Medium <br>
+            <input class="type" type="radio" name="structure" value="Small" id="small"> Small <br>
+            <input class="type"type="radio" name="structure" value="Large" id="large"> Large <br>
           </div>
           <p class="error" id="type-error">
           </p>
         </div><br>
-        <div id="submit"><input type="submit" value="Submit" onclick="validate()"></div>
-      </form>
+        <div id="submit"><input type="submit" value="Submit" onclick="validate()" onclick="displayCompanyForm()"></div>
+
     </div>
     <script src="{% static 'js/company.js' %}"></script>
 

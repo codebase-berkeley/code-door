@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from codedoor.models import Company, Review, Profile, Application
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
@@ -19,6 +19,7 @@ def create_company(request):
             logo = request.FILES["logo"].read()
             structure = request.POST["structure"]
         except Exception as e:
+            print(e)
             return HttpResponse("You did not fill out the form correctly!")
 
         company = Company(name=name, industry=industry, website=website, structure=structure)
@@ -29,10 +30,10 @@ def create_company(request):
         url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
         company.logo = url
         company.save()
+        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo})
 
-        return redirect('viewcompany/' + str(company.pk))
     else:
-        return render(request, "codedoor/createcompany.html")
+        return HttpResponse("failed to create a company!")
 
 @login_required
 def view_company(request, pk):
