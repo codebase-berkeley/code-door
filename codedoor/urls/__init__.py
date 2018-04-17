@@ -4,6 +4,7 @@ from .reviews import urlpatterns as review_urls
 from .profiles import urlpatterns as profile_urls
 from .questions import urlpatterns as question_urls
 from .root import urlpatterns as root_urls
+from .comment import urlpatterns as comment_urls
 
 
 app_name = 'codedoor'
@@ -14,5 +15,6 @@ urlpatterns = (
     profile_urls +
     question_urls +
     review_urls +
-    root_urls
+    root_urls +
+    comment_urls
 )

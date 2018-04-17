@@ -141,6 +141,21 @@
           </div>
         </td>
       </tr>
+<!--       <tr>
+        <td></td>
+        <td id="comments">
+          <br><p style="color:black;font-weight:bold;"> Comments: </p>
+          {% for comment in comments %}
+            <div id="comment">
+              <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+              </div>
+              <p id="commenter"> {{comment.commenter}} </p>
+              <p style="padding-left:40px;"> {{comment.content}} </p>
+              <br>
+            </div>
+          {% endfor %}
+        </td>
+      </tr> -->
     </table>
     <br>
   </div>
@@ -156,7 +171,7 @@
   Title: <input id="addtitle" type="text" name="title"> <br>
   Body: <input id="addbody" type="text" name="body"> <br>
 
-  <button id="submit">submit</button>
+  <button id="submit">Submit</button>
 
 </div>
 
@@ -176,8 +191,11 @@ function getCookie(name) {
 
 console.log("Do somethings");
     document.getElementById("submit").addEventListener("click", function() {
+
+
+
         var title = document.getElementById("addtitle").value;
-        var body = document.getElementById("addbody").value;
+        var content = document.getElementById("addbody").value;
 
         var commentData = new FormData();
         commentData.append("title", title);
@@ -189,7 +207,7 @@ console.log("Do somethings");
         console.log(csrftoken);
         headers.append('X-CSRFToken', csrftoken);
 
-        fetch("/comments/add/", {
+        fetch("/codedoor/addrc/", {
             method: "POST",
             body: commentData,
             headers: headers,
@@ -198,11 +216,18 @@ console.log("Do somethings");
             return response.json();
         }).then(function(json) {
             if (json.success) {
-                document.getElementById("comment").innerHTML = "<div id='comment'><h3>" +
+                document.getElementById("comment").innerHTML = "<div class='comment'><h3>" +
                 json.title + "</h3><em>" + json.content + "</em><p>" + json.content + "</p></div>" + document.getElementById("comment").innerHTML;
             }
         })
-    });
+
+          alert("Hello! I am an alert box!");
+
+    }
+
+
+
+  );
 </script>
 </body>
 {% endblock %}
