@@ -143,22 +143,6 @@
           </div>
         </td>
       </tr>
-      <tr>
-        <td></td>
-        <td id="comments">
-          {% for comment in comments %}
-            {% if comment.review == review %}
-              <div id="comment">
-                <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
-                </div> 
-                <p id="commenter"> {{comment.commenter}} </p>
-                <p style="padding-left:40px;"> {{comment.content}} </p>
-                <br>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </td>
-      </tr>
     </table>
     <br>
     {% endfor %}
@@ -201,7 +185,7 @@
             <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
           </td>
         {% endif %}
-        <td width="80%">
+        <td width="93%">
           <a href="{% url 'codedoor:view_application' pk=a.pk %}">
             <h2 class="link-text">{{ a.company }}</h2>
           </a>

@@ -138,6 +138,44 @@
   </div>
 
 
+
+
+</div>
+<div id="comments">
+  <hr id="break">
+  <br>
+
+
+<div id="commentsection">
+  <h2>Add comment</h2>
+  Title: <input id="addtitle" type="text" name="title"> <br>
+  Body: <input id="addbody" type="text" name="body"> <br>
+
+  <button id="submit">submit</button>
+
+  <h2>comments</h2>
+  {% if comments %}
+      <div id="list" class="commentlist">
+      {% for comment in comments %}
+          <div class="comment">
+              <h3>{{ comment.title }}</h3>
+              <em>{{ comment.pub_date }}</em>
+              <p>{{ comment.body }}</p>
+          </div>
+      {% endfor %}
+      </div>
+  {% else %}
+      <p>No comments yet!</p>
+  {% endif %}
+
+
+
+
+</div>
+
+
+
+
   <div>
     <br><br><br>
       {% if review.reviewer.user == request.user %}
@@ -147,8 +185,48 @@
       {% endif %}
     <br>
   </div>
-</body>
+
+
+
+
 </div>
+
+
+<script>
+
+
+
+function myFunction() {
+    alert("Hello! I am an alert box!");
+}
+
+console.log("Do somethings");
+    document.getElementById("submit").addEventListener("click", function() {
+        var title = document.getElementById("addtitle").value;
+        var body = document.getElementById("addbody").value;
+
+        var commentData = new FormData();
+        commentData.append("title", title);
+        commentData.append("content", content);
+        commentData.append("review", {{ review }} )
+        var headers = new Headers();
+
+
+
+        fetch("/comments/add/", {
+            method: "POST",
+            body: commentData,
+            headers: headers,
+            credentials: "include"
+        }).then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            if (json.success) {
+                document.getElementById("list").innerHTML = "<div class='comment'><h3>" +
+                json.title + "</h3><em>" + json.content + "</em><p>" + json.content + "</p></div>" + document.getElementById("list").innerHTML;
+            }
+        })
+    });
+</script>
+</body>
 {% endblock %}
-
-
