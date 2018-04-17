@@ -2,7 +2,7 @@
 {% load static %}
 {% block content %}
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/searchresults.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}">
 </head>
 <body>
 <div id="databases">
@@ -33,7 +33,6 @@
 </div>
 <div class="results">
   {% if database == "reviews" %}
-    <p>  company reviews found</p>
     {% for review in data %}
     <table>
       <tr>
@@ -171,7 +170,6 @@
     {% endif %}
 
   {% elif database == "interviews" %}
-    <p>  interviews found</p>
     {% for a in data %}
     <table>
       <tr>
@@ -277,10 +275,8 @@
     {% endif %}
 
   {% elif database == "companies" %}
-    <p>  companies found</p>
 
   {% elif database == "users" %}
-    <p>  users found</p>
 
   {% endif %}
 </div>
