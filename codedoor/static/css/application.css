@@ -166,3 +166,7 @@ p.description_small_text {
   position: relative;
   left:5%;
 }
+
+#hidden-application {
+  display: none;
+}

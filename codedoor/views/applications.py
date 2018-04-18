@@ -25,9 +25,12 @@ def create_application(request,companypk):
             return HttpResponse("You did not fill out the form correctly")
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
-        return redirect("codedoor:view_application", pk=a.id)
+        # return redirect("codedoor:view_application", pk=a.id)
+        JsonResponse({"application": a})
     else:
-        return render(request, 'codedoor/createapplication.html', {"companypk": companypk})
+        return HttpResponse("created an application")
+        # return render(request, 'codedoor/createapplication.html', {"companypk": companypk})
+
 
 def create_application_company(request):
     profilepk = request.user.profile.pk
@@ -111,20 +114,28 @@ def list_applications(request, pk, pg=1):
         
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
-def created_question(request):
-    print("MADE IT HERE")
-    if request.method == "POST":
+# def created_application(request):
+#     print("MADE IT HERE")
+#     if request.method == "POST":
 
-        question = request.POST['question']
-        company_answer = request.POST['company_answer']
-        app_answer = request.POST['applicant_answer']
-        pk = request.POST['pk']
-        app = Application.objects.get(pk=pk)
+#         position = request.POST['position']
+#         company = request.POST['company']
+#         season = request.POST['season']
+#         year = request.POST['year']
+#         difficulty = request.POST['difficulty']
+#         description = request.POST['description']
+#         received_offer = request.POST['received_offer']
+#         offer_details = request.POST['offer_details']
+#         app = Application.objects.get(pk=pk)
 
-        new_question = Question(question=question, applicant_answer=app_answer, actual_answer=company_answer, application=app)
-        new_question.save()
+#         new_application = Question(application=application, company=company, season=season, year=year,\
+#          difficulty=difficulty, description=description, received_offer=received_offer, offer_details=offer_details,\
+#          application=app)
+#         new_application.save()
 
-        return JsonResponse({"question": new_question.question, "company_answer": new_question.actual_answer, "applicant_answer": new_question.applicant_answer, "success": True})
+#         return JsonResponse({"question": new_question.question, "company_answer": new_question.actual_answer, "applicant_answer": new_question.applicant_answer, "success": True})
 
-    return HttpResponse("created a question!")
+#     return HttpResponse("created a question!")
+
+
 
