@@ -14,7 +14,8 @@ function displayCompanyForm() {
 }
 
 document.getElementById("submit").addEventListener("click", function(e) {
-	var logo = document.getElementById("logo1").value;
+	displayCompanyForm();
+	var logo = document.getElementById("logo1").files[0];
 	var name = document.getElementById("name").value;
 	var industry = document.getElementById("industry").value;
 	var website = document.getElementById("website").value;
@@ -62,10 +63,12 @@ document.getElementById("submit").addEventListener("click", function(e) {
 	  })
 });
 
-function validate() {
-  var form = document.getElementsByTagName('form')[0];
+// function validate() {
+  // var form = document.getElementsByTagName('form')[0];
 
-  form.addEventListener('submit', function(event) {
+  // form.addEventListener('submit', function(event) {
+document.getElementById("submit").addEventListener("click", function(e) {
+  	console.log("inside validate");
     var name = document.getElementById('name').value;
     var industry = document.getElementById('industry').value;
     var website = document.getElementById('website').value;
@@ -81,6 +84,8 @@ function validate() {
     var type_error = document.getElementById('type-error');
     var display_error = document.getElementById('display-error');
     display_error.innerHTML = '';
+    console.log("before ifs");
+    console.log(!website + " " + boutique);
 
     if (!name || name === 'None' || name.trim().length == 0) {
       display_error.innerHTML += 'You must provide a company name <br>';
@@ -104,11 +109,13 @@ function validate() {
       website_error.innerHTML = '';
     }
     if (!startup && !boutique && !small && !medium && !large) {
+    	console.log("erroring");
       display_error.innerHTML += 'You must provide a company type <br>';
       type_error.innerHTML = 'You must provide a company type';
       event.preventDefault();
     } else {
       type_error.innerHTML = '';
     }
-  });
-}
+    console.log("after ifs");
+  // });
+});
