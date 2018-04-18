@@ -85,7 +85,7 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
     credentials: "include"
   }).then(function(response) {
     // console.log(response);
-    return JSON.parse(response.json());
+    return response.json();
   }).then(function(json) {
     if (json.success) {
       var A = JSON.stringify(`<table>
