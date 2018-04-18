@@ -18,6 +18,6 @@ def addrc(request):
         rc = ReviewComment(review=review, title=title, content=content, commenter=commenter)
         rc.save()
 
-        return JsonResponse({"title": rc.title, "content": rc.content, "success": True})
+        return JsonResponse({"title": rc.title, "content": rc.content, "profile_url": rc.commenter.profile_pic ,"name": rc.commenter.user.get_full_name(), "success": True})
 
     return HttpResponse("yeeha")

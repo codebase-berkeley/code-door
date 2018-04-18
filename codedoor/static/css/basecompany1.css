@@ -10,6 +10,8 @@ span {
   margin: 3px;
 }
 
+
+
 .border-text input {
   margin-top: 5px;
   border: 1px solid #cccccc;
@@ -173,4 +175,9 @@ ul li {
   position:absolute;
   padding:10px;
   color:black;
+}
+.comment{
+color:black;
+font-weight:bold;
+
 }

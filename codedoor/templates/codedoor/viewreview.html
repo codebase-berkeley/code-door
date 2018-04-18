@@ -3,7 +3,7 @@
 {% block content %}
 
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany2.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
   <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 </head>
@@ -144,13 +144,15 @@
       <tr>
         <td></td>
         <td id="comments">
-          <br><p style="color:black;font-weight:bold;"> Comments: </p>
+          <br><p class="commentbase"> Comments: </p>
+          <div id ="comment">
+          </div>
           {% for comment in comments %}
             <div id="comment">
               <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
               </div>
               <p id="commenter"> {{comment.commenter}} </p>
-              <p style="padding-left:40px;"> {{comment.content}} </p>
+              <p class="commentcontents"> {{comment.content}} </p>
               <br>
             </div>
           {% endfor %}
@@ -221,12 +223,16 @@ console.log("Do somethings");
             return response.json();
         }).then(function(json) {
             if (json.success) {
-                document.getElementById("comment").innerHTML = "<div class='comment'><h3>" +
-                json.title + "</h3><em>" + json.content + "</em><p>" + json.content + "</p></div>" + document.getElementById("comment").innerHTML;
+                document.getElementById("comment").innerHTML =
+
+
+                "<div id=\"comment\"><div id=\"profile-img\" style=\"background-image: url(" +json.profile_url+ ");\">"
+                  +"</div><p id='commenter'>"+json.name+"</p>"
+                  +"<p class='commentcontents'>"+json.content+"</p><br></div>"
+                   + document.getElementById("comment").innerHTML;
             }
         })
 
-          alert("Hello! I am an alert box!");
 
     }
 
