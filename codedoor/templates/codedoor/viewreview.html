@@ -170,6 +170,7 @@
 
   Title: <input id="addtitle" type="text" name="title"> <br>
   Body: <input id="addbody" type="text" name="body"> <br>
+  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}">
 
   <button id="submit">Submit</button>
 
@@ -195,7 +196,7 @@ function getCookie(name) {
 
 console.log("Do somethings");
     document.getElementById("submit").addEventListener("click", function() {
-
+        console.log("In the addEventListener");
 
 
         var title = document.getElementById("addtitle").value;
@@ -204,11 +205,11 @@ console.log("Do somethings");
         var commentData = new FormData();
         commentData.append("title", title);
         commentData.append("content", content);
-        commentData.append("review", {{ review }} )
+        var review = document.getElementById("reviewpk").value;
+        commentData.append("review", review )
         var headers = new Headers();
 
         var csrftoken = getCookie("csrftoken")
-        console.log(csrftoken);
         headers.append('X-CSRFToken', csrftoken);
 
         fetch("/codedoor/addrc/", {
