@@ -4,6 +4,10 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/application.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
   <div class="entry">
@@ -92,6 +96,7 @@
       </tr>
     </table>
     <br><br>
+        <a class="sub" id="addcomment" href="#">Add Comment</a>
         {% if request.user.profile == profile %}
           <a class="sub" href="{% url 'codedoor:create_question' pk=a.pk %}">Create Question</a>
           <a class="sub" href="{% url 'codedoor:edit_application' pk=a.pk %}">Edit Application</a>
@@ -130,6 +135,99 @@
       <p> No comments yet! </p>
     {% endif %}
   </div>
+  <div id="commentsection">
+  <h2>Add comment</h2><br>
 
+  Title <input id="addtitle" type="text" name="title"> <br><br>
+  Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
+
+  <button class="sub" id="submit">Submit</button>
+
+</div>
+
+<script type="text/javascript">
+
+function myFunction() {
+    alert("Hello! I am an alert box!");
+}
+
+function getCookie(name) {
+  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
+  var result = regexp.exec(document.cookie);
+  return (result === null) ? null : result[1];
+}
+
+function displayCommentSection() {
+    var x = document.getElementById("commentsection");
+    if (x.style.display != "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+$( function() {
+    $( "#commentsection" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "fade",
+        duration: 300
+      },
+      hide: {
+        effect: "close",
+        duration: 1000
+      }
+    });
+ 
+    $( "#addcomment" ).on( "click", function() {
+      $( "#commentsection" ).dialog( "open" );
+    });
+  } );
+
+console.log("Do somethings");
+    document.getElementById("submit").addEventListener("click", function() {
+        console.log("In the addEventListener");
+
+
+        var title = document.getElementById("addtitle").value;
+        var content = document.getElementById("addbody").value;
+
+        var commentData = new FormData();
+        commentData.append("title", title);
+        commentData.append("content", content);
+        var review = document.getElementById("reviewpk").value;
+        commentData.append("review", review )
+        var headers = new Headers();
+
+        var csrftoken = getCookie("csrftoken")
+        headers.append('X-CSRFToken', csrftoken);
+
+        fetch("/codedoor/addrc/", {
+            method: "POST",
+            body: commentData,
+            headers: headers,
+            credentials: "include"
+        }).then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            if (json.success) {
+                document.getElementById("comment").innerHTML =
+
+
+                "<div id=\"comment\"><div id=\"profile-img\" style=\"background-image: url(" +json.profile_url+ ");\">"
+                  +"</div><p id='commenter'>"+json.name+"</p>"
+                  +"<p class='commentcontents'>"+json.content+"</p><br></div>"
+                   + document.getElementById("comment").innerHTML;
+            }
+        })
+
+
+    }
+
+
+
+  );
+</script>
 </body>
 {% endblock %}
