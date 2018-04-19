@@ -8,8 +8,11 @@
   <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 </head>
 <body>
+
+
   <div class="companyportion">
     <div class="company-logo">
+
     <img src="{{review.company.logo}}" alt="Company logo" width="150" height="150">
 
     <div class='sub1'><h1>{{review.company.name}}</h1><br>
@@ -191,6 +194,8 @@ function getCookie(name) {
   var result = regexp.exec(document.cookie);
   return (result === null) ? null : result[1];
 }
+
+
 
 console.log("Do somethings");
     document.getElementById("submit").addEventListener("click", function() {
