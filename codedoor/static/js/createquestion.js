@@ -14,8 +14,8 @@ function displayQuestionForm() {
     }
 }
 
-
-document.getElementById("submit_button").addEventListener("click", function(e) {
+function validate() {
+	document.getElementById("submit_button").addEventListener("click", function(e) {
   var question = document.getElementById("question").value;
   var applicant_ans = document.getElementById("applicant_answer").value;
   var company_ans = document.getElementById("company_answer").value;
@@ -57,3 +57,5 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
     }
   })
   });
+}
+
