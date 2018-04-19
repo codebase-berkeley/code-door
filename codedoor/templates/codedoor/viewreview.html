@@ -8,8 +8,12 @@
   <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 </head>
 <body>
+  <div id="blackout">
+  </div>
+
   <div class="companyportion">
     <div class="company-logo">
+
     <img src="{{review.company.logo}}" alt="Company logo" width="150" height="150">
 
     <div class='sub1'><h1>{{review.company.name}}</h1><br>
@@ -190,6 +194,10 @@ function getCookie(name) {
   var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
   var result = regexp.exec(document.cookie);
   return (result === null) ? null : result[1];
+}
+
+document.getElementById("shohide").addEventListener("click", function() {
+alert("Hello! I am an alert box!!");
 }
 
 console.log("Do somethings");
