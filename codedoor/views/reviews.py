@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from codedoor.models import Review, Company, Profile
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 @login_required
 def create_review(request):
