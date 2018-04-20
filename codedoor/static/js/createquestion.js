@@ -78,8 +78,10 @@ document.getElementById("submit_button_edit").addEventListener("click", function
   var received_offer = document.getElementById("received_offer").checked;
   var offer_details = document.getElementById("offer_details").value;
   var pk = document.getElementById("pk").value;
-  var a = document.getElementById("a").value;
-
+  var logo = document.getElementById("logo").value;
+  var company = document.getElementById("company").value;
+  var profile = document.getElementById("profile").value;
+  
 
   var formData = new FormData();
 
@@ -112,7 +114,142 @@ document.getElementById("submit_button_edit").addEventListener("click", function
     //       a.company + "</h2> </a> <span class='applicant-name'>" + 
     //       a.profile +"</span></td>"
     // }
-    console.log("success")
+    var comp;
+    if(logo != null) {
+      comp = `<td rowspan="3" width="7%">
+            <img src="` + logo + `" alt="Company logo" width="100" height="100">
+          </td`;
+    } else {
+      comp = `<td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+          </td>`;
+    }
+    var rec;
+    if(received_offer) {
+      rec = `<span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg> Received Offer
+              </span>`;
+    } else {
+      rec = `<span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg> No Offer
+              </span>`;
+    }
+
+    var diff;
+    if(difficulty > 7) {
+      diff = `<span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg>&nbsp;&nbsp;Difficult Interview: ` + difficulty/10 +
+              `</span>`;
+    } else if(difficulty < 4) {
+      diff = `<span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg>&nbsp;&nbsp;Easy Interview: ` + difficulty/10 +
+              `</span>`;
+    } else {
+      diff = `<span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#FF9B71;" />
+                </svg>&nbsp;&nbsp;Average Interview: ` + difficulty/10 + 
+              `</span>`;
+    }
+
+    var A = `<tr>
+        {% if a.company.logo != null %}
+          <td rowspan="3" width="7%">
+            <img src="` + logo + `" alt="Company logo" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
+          </td>
+        {% endif %}
+        <td width="93%">
+          <a href="{% url 'codedoor:viewcompany' pk=a.company.pk %}">
+            <h2 class="link-text">` + company + `</h2>
+          </a>
+          <span class="applicant-name">` + profile + `</span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info job-position">`+position+`</span>
+          <span class="info job-season">` + season + ` ` + year + `-San Francisco, CA</span></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info colorful-boxy">
+            {% if ` + received_offer + ` %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg> Received Offer
+              </span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg> No Offer
+              </span>
+            {% endif %}
+          </span>
+          <span class="info colorful-boxy">
+            {% if `+ difficulty + `> 7 %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg>&nbsp;&nbsp;Difficult Interview: ` + difficulty/10 +
+              `</span>
+            {% elif ` + difficulty + ` < 4 %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg>&nbsp;&nbsp;Easy Interview: ` + difficulty/10 +
+              `</span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#FF9B71;" />
+                </svg>&nbsp;&nbsp;Average Interview: ` + difficulty/10 + 
+              `</span>
+            {% endif %}
+          </span></p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <h4>Description:</h4>
+          <p>` + description +`</p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <h4>Offer details:</h4>
+          <p>` + offer_details + `</p>
+        </td>
+      </tr>`;
+      
+    document.getElementById("app").innerHTML = A;
+    console.log("success");
   })
 
 });
