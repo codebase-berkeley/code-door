@@ -47,13 +47,12 @@ function displayApplicationForm() {
 
 document.getElementById("submit_button").addEventListener("click", function(e) {
   var position = document.getElementById("position").value;
-  var company = document.getElementById("company").value;
-  var season = document.getElementById("season").value;
+  var season = document.getElementsByClassName("menu")[0].value;
   var year = document.getElementById("year").value;
   var difficulty = document.getElementById("difficulty").value;
-  var description = document.getElementById("description").value;
-  var receivedOffer = document.getElementById("received_offer").value;
-  var offerDetails = document.getElementById("offer_details").value;
+  var description = document.getElementById("difficulty").value;
+  var received_offer = document.getElementById("received_offer").checked;
+  var offer_details = document.getElementById("offer_details").value;
 
   document.getElementById("position").value = "";
   document.getElementById("company").value = "";
@@ -62,79 +61,67 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
   document.getElementById("difficulty").value = "";
   document.getElementById("description").value = "";
   document.getElementById("received_offer").value = "";
-  document.getElementById("offer_details").value = "";
+  document.getElementById("offer_details").value = "";  
 
   var formData = new FormData();
 
   formData.append("position", position);
-  formData.append("company", company);
   formData.append("season", season);
   formData.append("year", year);
   formData.append("difficulty", difficulty);
   formData.append("description", description);
-  formData.append("received_offer", receivedOffer);
-  formData.append("offer_details", offerDetails);
+  formData.append("received_offer", received_offer);
+  formData.append("offer_details", offer_details);
 
   var headers = new Headers();
   var csrftoken = getCookie("csrftoken")  
   headers.append('X-CSRFToken', csrftoken);
   fetch("/codedoor/createapplication", {
     method: "POST",
-    body: JSON.stringify(formData),
+    body: formData,
     headers: headers,
     credentials: "include"
   }).then(function(response) {
-    // console.log(response);
     return response.json();
   }).then(function(json) {
-    if ("application" in json) {
-      createApplicationElement(json.application);
-    }
-    else {
-      console.log("something is wrong :(")
-    }
+    createApplicationElement(json);
   })
   });
-
-
-// var season = document.forms["create_app_form"]["season"];
-// season.addEventListener("select", function (event) {
-//   if (season === "--Select--") {
-//     season.setCustomValidity("I expect an e-mail, darling!");
-//   } else {
-//     season.setCustomValidity("");
-//   }
-// });
-
 // a is an Application object
 function createApplicationElement(a) {
-  var entry = document.getElementById("hidden-table").cloneNode();
-  entry.getElementById("position").innerHTML = a.position;
-  entry.getElementById("company-name").innerHTML = a.company;
-  entry.getElementById("profile-name").innerHTML = a.profile;
-  entry.getElementById("season").innerHTML = a.season;
-  entry.getElementById("year").innerHTML = a.year;
-  if (a.receivedOffer) {
-    entry.getElementById("square").style = "fill:#01959b";
-    entry.getElementById("offer_text").innerHTML = "Received Offer";
+  var entry = document.getElementById("hidden-element").cloneNode();
+  document.getElementById("position").innerHTML = position;
+  document.getElementById("company-name").innerHTML = company;
+  document.getElementById("season").innerHTML = season;
+  document.getElementById("year").innerHTML = year;
+  if (received_offer) {
+    document.getElementById("square").style = "fill:#01959b";
+    document.getElementById("offer_text").innerHTML = "Received Offer";
   }
   else { //no offer
-    entry.getElementById("square").style = "fill:#ff4d4d";
-    entry.getElementById("offer_text").innerHTML = "No Offer";
+    document.getElementById("square").style = "fill:#ff4d4d";
+    document.getElementById("offer_text").innerHTML = "No Offer";
   } 
   // evaluating difficulty of interview
-  if (a.difficult > 7) {
-    entry.getElementById("difficulty-square").style = "fill:#ff4d4d";
-    entry.getElementById("difficulty-text").innerHTML = "Difficult Interview: " + a.difficult + "/10";
+  if (difficulty > 7) {
+    document.getElementById("difficulty-square").style = "fill:#ff4d4d";
+    document.getElementById("difficulty-text").innerHTML = "Difficult Interview: " + difficulty + "/10";
   }
-  else if (a.difficult < 4) {
-    entry.getElementById("difficulty-square").style = "fill:#01959b";
-    entry.getElementById("difficulty-text").innerHTML = "Easy Interview: " + a.difficult + "/10";
+  else if (difficulty < 4) {
+    document.getElementById("difficulty-square").style = "fill:#01959b";
+    document.getElementById("difficulty-text").innerHTML = "Easy Interview: " + difficulty + "/10";
   }
   else {
-    entry.getElementById("difficuly-square").style = "fill:#FF9B71;";
-    entry.getElementById("difficulty-text").innerHTML = "Average Interview: " + a.difficult + "/10";
+    document.getElementById("difficulty-square").style = "fill:#FF9B71;";
+    document.getElementById("difficulty-text").innerHTML = "Average Interview: " + difficulty + "/10";
   }
-  entry.getElementById("description").innerHTML = a.description;
+  document.getElementById("description").innerHTML = description;
+
+  console.log("made it here");
+  
+  var parent = document.getElementById("application-list");
+  parent.insertBefore(entry, document.getElementById("existing-applications"));
+
+  entry.style.display = "block";
 }
 

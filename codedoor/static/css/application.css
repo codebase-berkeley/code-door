@@ -167,6 +167,6 @@ p.description_small_text {
   left:5%;
 }
 
-#hidden-application {
+.hidden {
   display: none;
 }
