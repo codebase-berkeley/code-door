@@ -28,7 +28,7 @@ document.getElementById("submit").addEventListener("click", function(e) {
         	// get value, set checked flag or do whatever you need to
         	type = types[i].value; 
         }      
-    }
+  }
 
 	var formData = new FormData();
 
@@ -47,6 +47,14 @@ document.getElementById("submit").addEventListener("click", function(e) {
     document.getElementById("name").value = "";
     document.getElementById("industry").value = "";
     document.getElementById("website").value = "";
+
+    for(var i = 0; i < types.length; i++) {
+    if (types[i].type === 'radio' && types[i].checked) {
+          // get value, set checked flag or do whatever you need to
+          types[i].checked = false;
+        }      
+    }
+
     fetch("/codedoor/createcompany", {
       method: "POST",
       body: formData,
@@ -83,7 +91,6 @@ document.getElementById("submit").addEventListener("click", function(e) {
 
     if (!name || name === 'None' || name.trim().length == 0) {
       errors_exist = true;
-      console.log("erroring 1");
       display_error.innerHTML += 'You must provide a company name <br>';
       name_error.innerHTML = 'You must provide a company name';
     } else {
@@ -91,7 +98,6 @@ document.getElementById("submit").addEventListener("click", function(e) {
     }
     if (!industry || industry === 'None' || industry.trim().length == 0) {
       errors_exist = true;
-      console.log("erroring 2");
       display_error.innerHTML += 'You must provide an industry name <br>';
       industry_error.innerHTML = 'You must provide an industry name';
     } else {
@@ -99,7 +105,6 @@ document.getElementById("submit").addEventListener("click", function(e) {
     }
     if (!website) {
       errors_exist = true;
-      console.log("erroring 3");
       display_error.innerHTML += 'You must provide a company website <br>';
       website_error.innerHTML = 'You must provide a company website';
     } else {
@@ -107,7 +112,6 @@ document.getElementById("submit").addEventListener("click", function(e) {
     }
     if (!startup && !boutique && !small && !medium && !large) {
       errors_exist = true;
-    	console.log("erroring 4");
       display_error.innerHTML += 'You must provide a company type <br>';
       type_error.innerHTML = 'You must provide a company type';
     } else {
