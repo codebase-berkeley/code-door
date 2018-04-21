@@ -136,7 +136,7 @@ document.getElementById("submit_button_edit").addEventListener("click", function
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
                 style="fill:#ff4d4d" />
                 </svg> No Offer
-              </span>`;
+                </span>`;
     }
 
     var diff;
