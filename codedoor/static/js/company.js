@@ -30,11 +30,6 @@ document.getElementById("submit").addEventListener("click", function(e) {
         }      
     }
 
-	document.getElementById("logo1").value = null;
-	document.getElementById("name").value = "";
-	document.getElementById("industry").value = "";
-	document.getElementById("website").value = "";
-
 	var formData = new FormData();
 
 	formData.append("logo", logo);
@@ -48,6 +43,10 @@ document.getElementById("submit").addEventListener("click", function(e) {
 	headers.append('X-CSRFToken', csrftoken);
   if(!errors_exist) {
     displayCompanyForm();
+    document.getElementById("logo1").value = null;
+    document.getElementById("name").value = "";
+    document.getElementById("industry").value = "";
+    document.getElementById("website").value = "";
     fetch("/codedoor/createcompany", {
       method: "POST",
       body: formData,
