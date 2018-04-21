@@ -323,7 +323,57 @@
 
 
 
-  <div id="application-list" class="indent"> <!-- change this id eventually-->
+  <div id="application-list" class="indent">
+    <table id="hidden-table">
+      <tr>
+        {% if review.company.logo != null %}
+          <td rowspan="3" width="7%">
+            <img src="{{a.company.logo}}" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" width="100" height="100">
+          </td>
+        {% endif %}
+        <td width="93%">
+          <a id="company-link">
+            <h2 id="company-name" class="link-text"></h2>
+          </a>
+          <span id="profile-name" class="applicant-name"></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span id="position" class="info job-position"></span>
+          <span id="season" class="info job-season"></span><span id="year" class="info job-season"></span></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p>
+          <span class="info colorful-boxy">
+            <svg width="15" height="15">
+              <rect id="square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+            </svg><span id="offer_text"></span>
+          </span>
+          <span class="info colorful-boxy">
+            <svg width="15" height="15">
+              <rect id="difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+            </svg>&nbsp;&nbsp;<span id="difficulty-text"></span>
+          </span>
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <h4>Description:</h4>
+          <p id="description" class="description_small_text"></p>
+        </td>
+      </tr>
+    </table>
+
+
     {% for a in applications %}
     <table>
       <tr>
@@ -337,7 +387,7 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+          <!-- <a href="{% url 'codedoor:view_application' pk=a.pk %}"> -->
             <h2 class="link-text">{{ a.company }}</h2>
           </a>
           <span class="applicant-name">{{ a.profile }}</span>

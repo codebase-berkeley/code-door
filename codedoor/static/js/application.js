@@ -87,86 +87,11 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
     // console.log(response);
     return response.json();
   }).then(function(json) {
-    if (json.success) {
-      var A = JSON.stringify(`<table>
-          <tr> +
-          {% if review.company.logo != null %}
-            <td rowspan="3" width="7%">
-              <img src="{{a.company.logo}}" width="100" height="100">
-            </td>
-          {% else %}
-            <td rowspan="3" width="7%">
-              <img src="/static/images/temp.png" width="100" height="100">
-            </td>
-          {% endif %}
-          <td width="93%">
-            <a href="{% url 'codedoor:view_application' pk=a.pk %}">
-              <h2 class="link-text">{{ a.company }}</h2>
-            </a>
-            <span class="applicant-name">{{ a.profile }}</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span class="info job-position">` + position + `</span>
-            <span class="info job-season">` + season + year+ `</span></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span class="info colorful-boxy">
-              {% if ` + received_offer +  ` %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#01959b" />
-                  </svg> Received Offer
-                </span>
-              {% else %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#ff4d4d" />
-                  </svg> No Offer
-                </span>
-              {% endif %}
-            </span>
-            <span class="info colorful-boxy">
-              {% if a.difficult > 7 %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#ff4d4d" />
-                  </svg>&nbsp;&nbsp;Difficult Interview: ` + difficulty + `/10
-                </span>
-              {% elif ` + difficulty + `< 4 %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#01959b" />
-                  </svg>&nbsp;&nbsp;Easy Interview: ` + difficulty + `/10
-                </span>
-              {% else %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#FF9B71;" />
-                  </svg>&nbsp;&nbsp;Average Interview: ` + difficulty + `/10
-                </span>
-              {% endif %}
-            </span></p>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <h4>Description:</h4>
-            <p class="description_small_text">` + description + `</p>
-          </td>
-        </tr>
-      </table>`);
-        document.getElementById("application-list").innerHTML =
-        A + document.getElementById("application-list").innerHTML;
+    if ("application" in json) {
+      createApplicationElement(json.application);
+    }
+    else {
+      console.log("something is wrong :(")
     }
   })
   });
@@ -179,3 +104,35 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
 //     season.setCustomValidity("");
 //   }
 // });
+
+// a is an Application object
+function createApplicationElement(a) {
+  var entry = document.getElementById("hidden-table").cloneNode();
+  entry.getElementById("position").innerHTML = a.position;
+  entry.getElementById("company-name").innerHTML = a.company;
+  entry.getElementById("profile-name").innerHTML = a.profile;
+  entry.getElementById("season").innerHTML = a.season;
+  entry.getElementById("year").innerHTML = a.year;
+  if (a.receivedOffer) {
+    entry.getElementById("square").style = "fill:#01959b";
+    entry.getElementById("offer_text").innerHTML = "Received Offer";
+  }
+  else { //no offer
+    entry.getElementById("square").style = "fill:#ff4d4d";
+    entry.getElementById("offer_text").innerHTML = "No Offer";
+  } 
+  // evaluating difficulty of interview
+  if (a.difficult > 7) {
+    entry.getElementById("difficulty-square").style = "fill:#ff4d4d";
+    entry.getElementById("difficulty-text").innerHTML = "Difficult Interview: " + a.difficult + "/10";
+  }
+  else if (a.difficult < 4) {
+    entry.getElementById("difficulty-square").style = "fill:#01959b";
+    entry.getElementById("difficulty-text").innerHTML = "Easy Interview: " + a.difficult + "/10";
+  }
+  else {
+    entry.getElementById("difficuly-square").style = "fill:#FF9B71;";
+    entry.getElementById("difficulty-text").innerHTML = "Average Interview: " + a.difficult + "/10";
+  }
+  entry.getElementById("description").innerHTML = a.description;
+}
