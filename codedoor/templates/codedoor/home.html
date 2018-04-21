@@ -18,9 +18,8 @@
 
   <div class="indent">
     <h3>Recent Activity</h3><br>
-    <h2 class="inline-block">Company Reviews&nbsp;&nbsp;</h2>
-    <a href="{% url 'codedoor:createreview'%}">
-      <button class="inline-block small-teal">Create Review</button>
+    <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
+      <button class="inline-block small-teal" onclick="displayReviewForm()">Create Review</button>
     </a>&nbsp;
     <button class="inline-block small-teal" id="create_company" onclick="displayCompanyForm()">Create Company</button>
 
@@ -75,7 +74,7 @@
           <p class="error" id="type-error">
           </p>
         </div><br>
-        <div id="submit"><input type="submit" value="Submit" onclick="validate()"></div>
+        <div id="submit"><input type="submit" value="Submit"></div>
 
     </div>
     <script src="{% static 'js/company.js' %}"></script>
@@ -83,6 +82,60 @@
   </div>
   <hr id="break">
 </br>
+
+
+<div id="hidden_review" style="display: none;">
+      <div class="space">
+        Review Title <br>
+        <div class="border">
+          <div id="title">
+            <input type="text" name="title" id="title1">
+          </div>
+          <p class="error" id="title-error">
+          </p>
+        </div>
+      </div><br>
+      <div class="space">
+        Company <br>
+        <div class="border">
+          <select name="company" class="select-style" id="reviewcompany">
+            {% for company in companies %}
+                <option value={{company.pk}}>{{company.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <p class="error" id="company-error">
+        </p>
+      </div><br>
+        <div class="space">
+        Rating <br>
+        <div class="border">
+          <div id="number">
+            <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
+          </div>
+        </div>
+        <p class="error" id="rating-error">
+        </p>
+      </div><br>
+      <div class="space">Recommend
+        <div class="border">
+          <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
+          <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
+        </div>
+        <p class="error" id="recommend-error">
+        </p>
+      </div><br>
+      <div class="space">Review <br>
+        <div class="border">
+          <textarea type="text" name="review" id="review"></textarea>
+        </div>
+        <p class="error" id="review-error">
+        </p>
+      </div><br>
+      <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
+  </div>
+
+
 <div id="reviews">
     {% for review in reviews %}
     <table>
@@ -241,18 +294,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   <div id="hidden-application" class="indent">
     <div class="entry">
       <h4>Position:</h4><br>
@@ -374,6 +415,7 @@
     </table>
 
 
+
     {% for a in applications %}
     <table>
       <tr>
@@ -479,6 +521,7 @@
     {% endif %}
     <br>
   </div>
+  <script src="{% static 'js/createreview.js' %}"></script>
 </body>
 <script src="{% static 'js/application.js' %}"></script>
 {% endblock %}

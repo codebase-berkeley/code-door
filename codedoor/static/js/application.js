@@ -96,6 +96,7 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
   })
   });
 
+
 // var season = document.forms["create_app_form"]["season"];
 // season.addEventListener("select", function (event) {
 //   if (season === "--Select--") {
@@ -136,3 +137,4 @@ function createApplicationElement(a) {
   }
   entry.getElementById("description").innerHTML = a.description;
 }
+
