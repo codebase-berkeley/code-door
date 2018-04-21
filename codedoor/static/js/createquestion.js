@@ -18,6 +18,7 @@ function displayQuestionForm() {
     }
 }
 
+
 function displayEditApplicationForm() {
     var x = document.getElementById("hidden2");
     if (x.style.display === "none") {
@@ -73,8 +74,8 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
   });
 
 
+
 document.getElementById("submit_button_edit").addEventListener("click", function(e) {
-  console.log("I AM HERE!!!!");
   var position = document.getElementById("position").value;
   var season = document.getElementsByClassName("menu")[0].value;
   var year = document.getElementById("year").value;
@@ -111,14 +112,6 @@ document.getElementById("submit_button_edit").addEventListener("click", function
   }).then(function(response) {
     return response.json();
   }).then(function(json) {
-    // if (json.success) {
-    //     document.getElementById("app").innerHTML = "{% if a.company.logo != null %} <td rowspan="3" width="7%"><img src=" + 
-    //     a.company_logo + "alt='Company logo' width="100" height="100"> </td> {% else %} <td rowspan="3" width="7%">" +
-    //         "<img src='/static/images/temp.png' alt='Company logo' width='100' height='100'></td> {% endif %} <td width="93%"> " +
-    //       "<a href='{% url 'codedoor:viewcompany' pk=a.company.pk %}'> <h2 class='link-text'>" + 
-    //       a.company + "</h2> </a> <span class='applicant-name'>" + 
-    //       a.profile +"</span></td>"
-    // }
     var comp;
     if(logo != null) {
       comp = `<td rowspan="3" width="7%">
@@ -213,12 +206,9 @@ document.getElementById("submit_button_edit").addEventListener("click", function
           <p>` + offer_details + `</p>
         </td>
       </tr>`;
-      
-    console.log(A);
+
     document.getElementById("app").innerHTML = A;
 
   })
 
 });
-
-

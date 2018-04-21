@@ -25,9 +25,12 @@ def create_application(request,companypk):
             return HttpResponse("You did not fill out the form correctly")
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
-        return redirect("codedoor:view_application", pk=a.id)
+        # return redirect("codedoor:view_application", pk=a.id)
+        JsonResponse({"application": a})
     else:
-        return render(request, 'codedoor/createapplication.html', {"companypk": companypk})
+        return HttpResponse("created an application")
+        # return render(request, 'codedoor/createapplication.html', {"companypk": companypk})
+
 
 def create_application_company(request):
     profilepk = request.user.profile.pk
