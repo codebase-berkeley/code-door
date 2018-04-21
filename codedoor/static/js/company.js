@@ -14,7 +14,8 @@ function displayCompanyForm() {
 }
 
 document.getElementById("submit").addEventListener("click", function(e) {
-	displayCompanyForm();
+	
+  var errors_exist = validate();
 	var logo = document.getElementById("logo1").files[0];
 	var name = document.getElementById("name").value;
 	var industry = document.getElementById("industry").value;
@@ -28,13 +29,11 @@ document.getElementById("submit").addEventListener("click", function(e) {
         	type = types[i].value; 
         }      
     }
-	
 
-	// document.getElementById("logo1").value = null;
-	// document.getElementById("name").value = "";
-	// document.getElementById("industry").value = "";
-	// document.getElementById("website").value = "";
-
+	document.getElementById("logo1").value = null;
+	document.getElementById("name").value = "";
+	document.getElementById("industry").value = "";
+	document.getElementById("website").value = "";
 
 	var formData = new FormData();
 
@@ -44,31 +43,27 @@ document.getElementById("submit").addEventListener("click", function(e) {
 	formData.append("website", website);
 	formData.append("structure", type);
 
-
 	var headers = new Headers();
 	var csrftoken = getCookie("csrftoken")  
 	headers.append('X-CSRFToken', csrftoken);
-	fetch("/codedoor/createcompany", {
-	    method: "POST",
-	    body: formData,
-	    headers: headers,
-	    credentials: "include"
-	  }).then(function(response) {
-	    return response.json();
-	  }).then(function(json) {
-	  	console.log("here");
-	    if (json.success) {
-	        console.log("success");
-	    }
-	  })
+  if(!errors_exist) {
+    displayCompanyForm();
+    fetch("/codedoor/createcompany", {
+      method: "POST",
+      body: formData,
+      headers: headers,
+      credentials: "include"
+    }).then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      if (json.success) {
+          console.log("success in creating a company");
+      }
+    })
+  }
 });
 
-// function validate() {
-  // var form = document.getElementsByTagName('form')[0];
-
-  // form.addEventListener('submit', function(event) {
-document.getElementById("submit").addEventListener("click", function(e) {
-  	console.log("inside validate");
+  function validate() {
     var name = document.getElementById('name').value;
     var industry = document.getElementById('industry').value;
     var website = document.getElementById('website').value;
@@ -84,38 +79,41 @@ document.getElementById("submit").addEventListener("click", function(e) {
     var type_error = document.getElementById('type-error');
     var display_error = document.getElementById('display-error');
     display_error.innerHTML = '';
-    console.log("before ifs");
-    console.log(!website + " " + boutique);
+
+    var errors_exist = false;
 
     if (!name || name === 'None' || name.trim().length == 0) {
+      errors_exist = true;
+      console.log("erroring 1");
       display_error.innerHTML += 'You must provide a company name <br>';
       name_error.innerHTML = 'You must provide a company name';
-      event.preventDefault();
     } else {
       name_error.innerHTML = '';
     }
     if (!industry || industry === 'None' || industry.trim().length == 0) {
+      errors_exist = true;
+      console.log("erroring 2");
       display_error.innerHTML += 'You must provide an industry name <br>';
       industry_error.innerHTML = 'You must provide an industry name';
-      event.preventDefault();
     } else {
       industry_error.innerHTML = '';
     }
     if (!website) {
+      errors_exist = true;
+      console.log("erroring 3");
       display_error.innerHTML += 'You must provide a company website <br>';
       website_error.innerHTML = 'You must provide a company website';
-      event.preventDefault();
     } else {
       website_error.innerHTML = '';
     }
     if (!startup && !boutique && !small && !medium && !large) {
-    	console.log("erroring");
+      errors_exist = true;
+    	console.log("erroring 4");
       display_error.innerHTML += 'You must provide a company type <br>';
       type_error.innerHTML = 'You must provide a company type';
-      event.preventDefault();
     } else {
       type_error.innerHTML = '';
     }
-    console.log("after ifs");
+    return errors_exist;
   // });
-});
+  }

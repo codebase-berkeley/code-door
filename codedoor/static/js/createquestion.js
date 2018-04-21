@@ -1,3 +1,7 @@
+console.log("inside the createQuestion.js");
+
+
+
 function getCookie(name) {
   var value = "; " + document.cookie;
   var parts = value.split("; " + name + "=");
@@ -70,6 +74,7 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
 
 
 document.getElementById("submit_button_edit").addEventListener("click", function(e) {
+  console.log("I AM HERE!!!!");
   var position = document.getElementById("position").value;
   var season = document.getElementsByClassName("menu")[0].value;
   var year = document.getElementById("year").value;
@@ -165,16 +170,12 @@ document.getElementById("submit_button_edit").addEventListener("click", function
               `</span>`;
     }
 
-    var A = `<tr>
-        {% if a.company.logo != null %}
-          <td rowspan="3" width="7%">
-            <img src="` + logo + `" alt="Company logo" width="100" height="100">
-          </td>
-        {% else %}
-          <td rowspan="3" width="7%">
+
+    var A = `<tr>` +
+        comp +
+          `<td rowspan="3" width="7%">
             <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
           </td>
-        {% endif %}
         <td width="93%">
           <a href="{% url 'codedoor:viewcompany' pk=a.company.pk %}">
             <h2 class="link-text">` + company + `</h2>
@@ -190,47 +191,12 @@ document.getElementById("submit_button_edit").addEventListener("click", function
       </tr>
       <tr>
         <td>
-          <p><span class="info colorful-boxy">
-            {% if ` + received_offer + ` %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg> Received Offer
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg> No Offer
-              </span>
-            {% endif %}
-          </span>
-          <span class="info colorful-boxy">
-            {% if `+ difficulty + `> 7 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg>&nbsp;&nbsp;Difficult Interview: ` + difficulty/10 +
-              `</span>
-            {% elif ` + difficulty + ` < 4 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg>&nbsp;&nbsp;Easy Interview: ` + difficulty/10 +
-              `</span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#FF9B71;" />
-                </svg>&nbsp;&nbsp;Average Interview: ` + difficulty/10 + 
-              `</span>
-            {% endif %}
-          </span></p>
+          <p><span class="info colorful-boxy">`
+            + rec +
+          `</span>
+          <span class="info colorful-boxy">`
+            + diff +
+          `</span></p>
         </td>
       </tr>
       <tr>
@@ -248,8 +214,9 @@ document.getElementById("submit_button_edit").addEventListener("click", function
         </td>
       </tr>`;
       
+    console.log(A);
     document.getElementById("app").innerHTML = A;
-    console.log("success");
+
   })
 
 });
