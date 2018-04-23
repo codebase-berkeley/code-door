@@ -101,6 +101,7 @@ class ReviewComment(models.Model):
 
 class ApplicationComment(models.Model):
     application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, null=True, blank=True)
     content = models.TextField()
     commenter = models.ForeignKey(Profile, on_delete=models.CASCADE)
 

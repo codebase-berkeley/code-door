@@ -140,7 +140,7 @@
 
   Title <input id="addtitle" type="text" name="title"> <br><br>
   Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
-  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
+  <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}"><br><br>
 
   <button class="sub" id="submit">Submit</button>
 
@@ -196,14 +196,16 @@ console.log("Do somethings");
         var commentData = new FormData();
         commentData.append("title", title);
         commentData.append("content", content);
-        var review = document.getElementById("reviewpk").value;
-        commentData.append("review", review )
+
+
+        var application = document.getElementById("applicationpk").value;
+        commentData.append("application", application )
         var headers = new Headers();
 
         var csrftoken = getCookie("csrftoken")
         headers.append('X-CSRFToken', csrftoken);
-
-        fetch("/codedoor/addrc/", {
+        console.log("did not error out");
+        fetch("/codedoor/addac/", {
             method: "POST",
             body: commentData,
             headers: headers,
