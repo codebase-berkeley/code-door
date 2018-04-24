@@ -125,3 +125,4 @@ function createApplicationElement(a) {
   entry.style.display = "block";
 }
 
+
