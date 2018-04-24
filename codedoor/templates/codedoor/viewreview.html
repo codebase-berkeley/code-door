@@ -15,6 +15,9 @@
 
 
   <div class="companyportion">
+    <div id="blackout">
+
+    </div>
     <div class="company-logo">
 
     <img src="{{review.company.logo}}" alt="Company logo" width="150" height="150">
@@ -190,6 +193,7 @@
 
 
 <script type="text/javascript">
+document.getElementById("blackout").style.display = "none";
 
 function myFunction() {
     alert("Hello! I am an alert box!");
@@ -211,19 +215,24 @@ function displayCommentSection() {
 }
 
 $( function() {
+
     $( "#commentsection" ).dialog({
+
       autoOpen: false,
       show: {
         effect: "fade",
         duration: 300
       },
       hide: {
+        <!--document.getElementById("blackout").style.display = "none";-->
         effect: "close",
         duration: 1000
+        
       }
     });
  
     $( "#addcomment" ).on( "click", function() {
+    document.getElementById("blackout").style.display = "block";
       $( "#commentsection" ).dialog( "open" );
     });
   } );
@@ -231,7 +240,7 @@ $( function() {
 console.log("Do somethings");
     document.getElementById("submit").addEventListener("click", function() {
         console.log("In the addEventListener");
-
+        document.getElementById("blackout").style.display = "none";
 
         var title = document.getElementById("addtitle").value;
         var content = document.getElementById("addbody").value;
@@ -265,7 +274,7 @@ console.log("Do somethings");
             }
         })
 
-
+      $( "#commentsection" ).dialog( "close" );
     }
 
 
