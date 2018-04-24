@@ -94,5 +94,5 @@ def created_review(request):
         review.save()
         print("saved a revieww")
 
-        return JsonResponse({"rating": review.rating, "recommend": review.recommend, "review": review.review, "title": review.title, "success": True})
+        return JsonResponse({"reviewername": review.reviewer.user.get_full_name(), "companypk": review.company.pk, "companyname": review.company.name, "companylogo": review.company.logo, "rating": review.rating, "recommend": review.recommend, "review": review.review, "title": review.title, "success": True})
     return HttpResponse("created a question!")

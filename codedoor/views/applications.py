@@ -26,7 +26,7 @@ def create_application(request,companypk):
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
         # return redirect("codedoor:view_application", pk=a.id)
-        JsonResponse({"application": a})
+        return JsonResponse({"application": a})
     else:
         return HttpResponse("created an application")
         # return render(request, 'codedoor/createapplication.html', {"companypk": companypk})
@@ -51,13 +51,15 @@ def create_application_company(request):
             difficulty = request.POST['difficulty']
         except Exception as e:
             traceback.print_exc()
-            return HttpResponse("You did not fill out the form correctly")
+            return JsonResponse({})
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
         console.log("YAAA")
-        return redirect("codedoor:view_application", pk=a.id)
+        # return redirect("codedoor:view_application", pk=a.id)
+        return JsonResponse({"application": a})
     else:
-        return render(request, 'codedoor/createapplicationcomp.html', {'companies' : companies})
+        return HttpResponse("created an application")
+        # return render(request, 'codedoor/createapplicationcomp.html', {'companies' : companies})
 
 
 def edit_application(request):

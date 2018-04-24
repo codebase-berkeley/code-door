@@ -64,15 +64,40 @@ document.getElementById("submit_button_review").addEventListener("click", functi
     return response.json();
   }).then(function(json) {
     if (json.success) {
-        // document.getElementById("questList").innerHTML =
+        document.getElementById("reviews").innerHTML =
 
-        // "<div class='post'> <h4 class='blue-text'>Question</h4> <p>" +
-        // 	question + 
-        // "</p> <h4 class='blue-text'>Applicant answer</h4> <p>" +
-        //         	applicant_ans + 
-        //         "</p> <h4 class='blue-text'>Company answer</h4><p>" +
-        //         	company_ans +
-        //         "</p><br><br></div>" + document.getElementById("questList").innerHTML;
+      "<table> <tr>" +
+      " {% if " + 
+      json.companylogo +
+      " %} <td rowspan='3' width='7%'> <img src='" + 
+      json.companylogo + 
+      "' width='100' height='100'> </td> {% else %} <td rowspan='3' width='7%'> <img src='/static/images/temp.png' width='100' height='100'> </td> {% endif %}" +
+      " <td width='93%'> <a href='{% url 'codedoor:viewcompany' pk=" +
+      json.companypk + " %}'> <h2 class='link-text'>  " +
+      json.companyname + 
+      " </h2></a> <span class='applicant-name'>  " +
+      json.reviewername + " </span> </td> </tr> <tr> <td> {% if "
+      json.companylogo + 
+      "!= null %} <a class='button' id='reviewtitle' href='{% url 'codedoor:viewreview' pk=" +
+      review.pk +
+      " %}'> " +
+      json.title +
+      " </a> {% else %} <p></p> {% endif %} </td> </tr> <tr> <td> <p><span class='info colorful-boxy'> {% if " +
+      json.recommend + 
+      " %} <span> <svg width='15' height='15'> <rect x='0' y='0' rx='3' ry='3' width='15' height='15' style='fill:#01959b' /> </svg> Recommends </span> {% else %} <span> <svg width='15' height='15'> <rect x='0' y='0' rx='3' ry='3' width='15' height='15' style='fill:#ff4d4d' /> </svg> Doesn't Recommend </span> {% endif %} </span> <span class='info colorful-boxy'> {% if " + 
+      json.rating + 
+      " < 1 %} <span> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> {% elif " +
+      json.rating +
+      " < 2 %} <span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> {% elif " +
+      json.rating + 
+      " < 3 %} <span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> {% elif " +
+      json.rating +
+      " < 4 %} <span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> {% elif " +
+      json.rating +
+      " < 5 %} <span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> {% else %} <span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> </span> {% endif %} </span></p> </td> </tr> <tr> <td></td> <td> <div> <h4>Description:</h4> <p class='description_small_text'>" +
+      json.review +
+      "</p> </div> </td> </tr> </table> <br>"+     
+        document.getElementById("reviews").innerHTML;
         console.log("we made it");
     }
   })

@@ -47,13 +47,12 @@ function displayApplicationForm() {
 
 document.getElementById("submit_button").addEventListener("click", function(e) {
   var position = document.getElementById("position").value;
-  var company = document.getElementById("company").value;
-  var season = document.getElementById("season").value;
+  var season = document.getElementsByClassName("menu")[0].value;
   var year = document.getElementById("year").value;
   var difficulty = document.getElementById("difficulty").value;
-  var description = document.getElementById("description").value;
-  var receivedOffer = document.getElementById("received_offer").value;
-  var offerDetails = document.getElementById("offer_details").value;
+  var description = document.getElementById("difficulty").value;
+  var received_offer = document.getElementById("received_offer").checked;
+  var offer_details = document.getElementById("offer_details").value;
 
   document.getElementById("position").value = "";
   document.getElementById("company").value = "";
@@ -62,111 +61,67 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
   document.getElementById("difficulty").value = "";
   document.getElementById("description").value = "";
   document.getElementById("received_offer").value = "";
-  document.getElementById("offer_details").value = "";
+  document.getElementById("offer_details").value = "";  
 
   var formData = new FormData();
 
   formData.append("position", position);
-  formData.append("company", company);
   formData.append("season", season);
   formData.append("year", year);
   formData.append("difficulty", difficulty);
   formData.append("description", description);
-  formData.append("received_offer", receivedOffer);
-  formData.append("offer_details", offerDetails);
+  formData.append("received_offer", received_offer);
+  formData.append("offer_details", offer_details);
 
   var headers = new Headers();
   var csrftoken = getCookie("csrftoken")  
   headers.append('X-CSRFToken', csrftoken);
   fetch("/codedoor/createapplication", {
     method: "POST",
-    body: JSON.stringify(formData),
+    body: formData,
     headers: headers,
     credentials: "include"
   }).then(function(response) {
-    // console.log(response);
     return response.json();
   }).then(function(json) {
-    if (json.success) {
-      var A = JSON.stringify(`<table>
-          <tr> +
-          {% if review.company.logo != null %}
-            <td rowspan="3" width="7%">
-              <img src="{{a.company.logo}}" width="100" height="100">
-            </td>
-          {% else %}
-            <td rowspan="3" width="7%">
-              <img src="/static/images/temp.png" width="100" height="100">
-            </td>
-          {% endif %}
-          <td width="93%">
-            <a href="{% url 'codedoor:view_application' pk=a.pk %}">
-              <h2 class="link-text">{{ a.company }}</h2>
-            </a>
-            <span class="applicant-name">{{ a.profile }}</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span class="info job-position">` + position + `</span>
-            <span class="info job-season">` + season + year+ `</span></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span class="info colorful-boxy">
-              {% if ` + received_offer +  ` %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#01959b" />
-                  </svg> Received Offer
-                </span>
-              {% else %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#ff4d4d" />
-                  </svg> No Offer
-                </span>
-              {% endif %}
-            </span>
-            <span class="info colorful-boxy">
-              {% if a.difficult > 7 %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#ff4d4d" />
-                  </svg>&nbsp;&nbsp;Difficult Interview: ` + difficulty + `/10
-                </span>
-              {% elif ` + difficulty + `< 4 %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#01959b" />
-                  </svg>&nbsp;&nbsp;Easy Interview: ` + difficulty + `/10
-                </span>
-              {% else %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#FF9B71;" />
-                  </svg>&nbsp;&nbsp;Average Interview: ` + difficulty + `/10
-                </span>
-              {% endif %}
-            </span></p>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <h4>Description:</h4>
-            <p class="description_small_text">` + description + `</p>
-          </td>
-        </tr>
-      </table>`);
-        document.getElementById("application-list").innerHTML =
-        A + document.getElementById("application-list").innerHTML;
-    }
+    createApplicationElement(json);
   })
   });
+// a is an Application object
+function createApplicationElement(a) {
+  var entry = document.getElementById("hidden-element").cloneNode();
+  document.getElementById("position").innerHTML = position;
+  document.getElementById("company-name").innerHTML = company;
+  document.getElementById("season").innerHTML = season;
+  document.getElementById("year").innerHTML = year;
+  if (received_offer) {
+    document.getElementById("square").style = "fill:#01959b";
+    document.getElementById("offer_text").innerHTML = "Received Offer";
+  }
+  else { //no offer
+    document.getElementById("square").style = "fill:#ff4d4d";
+    document.getElementById("offer_text").innerHTML = "No Offer";
+  } 
+  // evaluating difficulty of interview
+  if (difficulty > 7) {
+    document.getElementById("difficulty-square").style = "fill:#ff4d4d";
+    document.getElementById("difficulty-text").innerHTML = "Difficult Interview: " + difficulty + "/10";
+  }
+  else if (difficulty < 4) {
+    document.getElementById("difficulty-square").style = "fill:#01959b";
+    document.getElementById("difficulty-text").innerHTML = "Easy Interview: " + difficulty + "/10";
+  }
+  else {
+    document.getElementById("difficulty-square").style = "fill:#FF9B71;";
+    document.getElementById("difficulty-text").innerHTML = "Average Interview: " + difficulty + "/10";
+  }
+  document.getElementById("description").innerHTML = description;
+
+  console.log("made it here");
+  
+  var parent = document.getElementById("application-list");
+  parent.insertBefore(entry, document.getElementById("existing-applications"));
+
+  entry.style.display = "block";
+}
+

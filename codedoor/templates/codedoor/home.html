@@ -25,7 +25,7 @@
 
     <!--This is the create company form-->
     <div id="company_form" style="display: none;">
-      <h1> Create company </h1><br>
+      <h1> Create Company </h1><br>
       
         {% csrf_token %}
         <p class="error" id="display-error"></p>
@@ -85,9 +85,10 @@
 
 
 <div id="hidden_review" style="display: none;">
+  <h1> Create Review </h1><br>
       <div class="space">
         Review Title <br>
-        <div class="border">
+        <div class="border-text">
           <div id="title">
             <input type="text" name="title" id="title1">
           </div>
@@ -109,7 +110,7 @@
       </div><br>
         <div class="space">
         Rating <br>
-        <div class="border">
+        <div class="border-text">
           <div id="number">
             <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
           </div>
@@ -294,7 +295,7 @@
 
 
 
-  <div id="hidden-application" class="indent">
+  <div id="hidden-application" class="indent hidden">
     <div class="entry">
       <h4>Position:</h4><br>
       <p id="error0"></p>
@@ -352,87 +353,153 @@
 
 
 
-  <div id="application-list" class="indent"> <!-- change this id eventually-->
-    {% for a in applications %}
-    <table>
-      <tr>
-        {% if review.company.logo != null %}
-          <td rowspan="3" width="7%">
-            <img src="{{a.company.logo}}" width="100" height="100">
+
+
+
+
+
+
+
+
+
+
+
+
+  <div id="application-list" class="indent">
+    <div id="hidden-element" class="hidden">
+      <table>
+        <tr>
+          {% if review.company.logo != null %}
+            <td rowspan="3" width="7%">
+              <img src="{{a.company.logo}}" width="100" height="100">
+            </td>
+          {% else %}
+            <td rowspan="3" width="7%">
+              <img src="/static/images/temp.png" width="100" height="100">
+            </td>
+          {% endif %}
+          <td width="93%">
+            <a id="company-link">
+              <h2 id="company-name" class="link-text"></h2>
+            </a>
+            <span id="profile-name" class="applicant-name"></span>
           </td>
-        {% else %}
-          <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" width="100" height="100">
+        </tr>
+        <tr>
+          <td>
+            <p><span id="position" class="info job-position"></span>
+            <span id="season" class="info job-season"></span><span id="year" class="info job-season"></span></p>
           </td>
-        {% endif %}
-        <td width="93%">
-          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
-            <h2 class="link-text">{{ a.company }}</h2>
-          </a>
-          <span class="applicant-name">{{ a.profile }}</span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info job-position">{{a.position}}</span>
-          <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info colorful-boxy">
-            {% if a.received_offer %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg> Received Offer
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg> No Offer
-              </span>
-            {% endif %}
-          </span>
-          <span class="info colorful-boxy">
-            {% if a.difficult > 7 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-              </span>
-            {% elif a.difficult < 4 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#FF9B71;" />
-                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
-              </span>
-            {% endif %}
-          </span></p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <h4>Description:</h4>
-          <p class="description_small_text">{{a.description}}</p>
-        </td>
-      </tr>
-    </table>
-    <br>
-    {% endfor %}
+        </tr>
+        <tr>
+          <td>
+            <p>
+            <span class="info colorful-boxy">
+              <svg width="15" height="15">
+                <rect id="square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+              </svg><span id="offer_text"></span>
+            </span>
+            <span class="info colorful-boxy">
+              <svg width="15" height="15">
+                <rect id="difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+              </svg>&nbsp;&nbsp;<span id="difficulty-text"></span>
+            </span>
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <h4>Description:</h4>
+            <p id="description" class="description_small_text"></p>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+
+    <div id="existing-applications">
+      {% for a in applications %}
+      <table>
+        <tr>
+          {% if review.company.logo != null %}
+            <td rowspan="3" width="7%">
+              <img src="{{a.company.logo}}" width="100" height="100">
+            </td>
+          {% else %}
+            <td rowspan="3" width="7%">
+              <img src="/static/images/temp.png" width="100" height="100">
+            </td>
+          {% endif %}
+          <td width="93%">
+            <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+              <h2 class="link-text">{{ a.company }}</h2>
+            </a>
+            <span class="applicant-name">{{ a.profile }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><span class="info job-position">{{a.position}}</span>
+            <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p><span class="info colorful-boxy">
+              {% if a.received_offer %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#01959b" />
+                  </svg> Received Offer
+                </span>
+              {% else %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#ff4d4d" />
+                  </svg> No Offer
+                </span>
+              {% endif %}
+            </span>
+            <span class="info colorful-boxy">
+              {% if a.difficult > 7 %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#ff4d4d" />
+                  </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+                </span>
+              {% elif a.difficult < 4 %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#01959b" />
+                  </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+                </span>
+              {% else %}
+                <span>
+                  <svg width="15" height="15">
+                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                  style="fill:#FF9B71;" />
+                  </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+                </span>
+              {% endif %}
+            </span></p>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <h4>Description:</h4>
+            <p class="description_small_text">{{a.description}}</p>
+          </td>
+        </tr>
+      </table>
+      <br>
+      {% endfor %}
+    </div>
 
     <!-- Source: Vitor Freitas -->
     {% if applications.has_other_pages %}
