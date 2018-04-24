@@ -91,3 +91,7 @@ h3, h4 {
 input {
     color: #484848;
 }
+
+.display {
+  display: block !important;
+}

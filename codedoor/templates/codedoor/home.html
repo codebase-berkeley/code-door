@@ -367,26 +367,20 @@
     <div id="hidden-element" class="hidden">
       <table>
         <tr>
-          {% if review.company.logo != null %}
-            <td rowspan="3" width="7%">
-              <img src="{{a.company.logo}}" width="100" height="100">
-            </td>
-          {% else %}
-            <td rowspan="3" width="7%">
-              <img src="/static/images/temp.png" width="100" height="100">
-            </td>
-          {% endif %}
+          <td rowspan="3" width="7%">
+            <img id="hidden-logo" class="hidden-logo" width="100" height="100">
+          </td>
           <td width="93%">
             <a id="company-link">
-              <h2 id="company-name" class="link-text"></h2>
+              <h2 id="hidden-company-name" class="link-text hidden-company-name"></h2>
             </a>
-            <span id="profile-name" class="applicant-name"></span>
+            <span id="hidden-profile-name" class="applicant-name hidden-profile-name"></span>
           </td>
         </tr>
         <tr>
           <td>
-            <p><span id="position" class="info job-position"></span>
-            <span id="season" class="info job-season"></span><span id="year" class="info job-season"></span></p>
+            <p><span id="hidden-position" class="info job-position hidden-position"></span>
+            <span id="hidden-season" class="info job-season hidden-season"></span><span id="hidden-year" class="info job-season hidden-year"></span></p>
           </td>
         </tr>
         <tr>
@@ -394,13 +388,13 @@
             <p>
             <span class="info colorful-boxy">
               <svg width="15" height="15">
-                <rect id="square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg><span id="offer_text"></span>
+                <rect id="hidden-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+              </svg><span id="hidden-offer-text" class="hidden-offer-text"></span>
             </span>
             <span class="info colorful-boxy">
               <svg width="15" height="15">
-                <rect id="difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg>&nbsp;&nbsp;<span id="difficulty-text"></span>
+                <rect id="hidden-difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+              </svg>&nbsp;&nbsp;<span id="hidden-difficulty-text" class="hidden-difficulty-text"></span>
             </span>
             </p>
           </td>
@@ -409,7 +403,7 @@
           <td></td>
           <td>
             <h4>Description:</h4>
-            <p id="description" class="description_small_text"></p>
+            <p id="hidden-description" class="description_small_text hidden-description"></p>
           </td>
         </tr>
       </table>
@@ -439,7 +433,15 @@
         <tr>
           <td>
             <p><span class="info job-position">{{a.position}}</span>
-            <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
+            {% if a.season == 1 %}
+              <span class="info job-season">Fall {{a.year}}</span></p>
+            {% elif a.season == 2 %}
+              <span class="info job-season">Winter {{a.year}}</span></p>
+            {% elif a.season == 3 %}
+              <span class="info job-season">Spring {{a.year}}</span></p>
+            {% else %}
+              <span class="info job-season">Summer {{a.year}}</span></p>
+            {% endif %}
           </td>
         </tr>
         <tr>

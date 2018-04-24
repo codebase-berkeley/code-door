@@ -1,11 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
-from codedoor.models import Profile, Company, Question, Application
+from codedoor.models import Profile, Company, Question, Application, User
 from django.core.paginator import Paginator
-import traceback
+from django.core import serializers
 
+import traceback
+import ast
+import json
 
 def create_application(request,companypk):
+    print("reached here")
     profilepk = request.user.profile.pk
     if request.method == 'POST':
         try:
@@ -33,10 +37,13 @@ def create_application(request,companypk):
 
 
 def create_application_company(request):
+    print("in create application company")
     profilepk = request.user.profile.pk
     companies = Company.objects.filter()
     if request.method == 'POST':
+        print("inside the if")
         try:
+            print(request.POST)
             companypk = request.POST['company']
             description = request.POST['description']
             season = request.POST['season']
@@ -54,9 +61,11 @@ def create_application_company(request):
             return JsonResponse({})
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
-        console.log("YAAA")
         # return redirect("codedoor:view_application", pk=a.id)
-        return JsonResponse({"application": a})
+        return JsonResponse({"a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
+                             "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
+                             "p": serializers.serialize('json', Profile.objects.filter(pk=a.profile.pk)),
+                             "u": serializers.serialize('json', User.objects.filter(pk=a.profile.user.pk))}, safe=False)
     else:
         return HttpResponse("created an application")
         # return render(request, 'codedoor/createapplicationcomp.html', {'companies' : companies})
