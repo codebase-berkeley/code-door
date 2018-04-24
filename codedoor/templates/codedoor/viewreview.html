@@ -186,6 +186,7 @@
   <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
 
   <button class="sub" id="submit">Submit</button>
+  <button class="sub" id="cancel">Cancel</button>
 
 </div>
 </div>
@@ -217,7 +218,7 @@ function displayCommentSection() {
 $( function() {
 
     $( "#commentsection" ).dialog({
-
+      dialogClass: "no-close",
       autoOpen: false,
       show: {
         effect: "fade",
@@ -227,7 +228,7 @@ $( function() {
         <!--document.getElementById("blackout").style.display = "none";-->
         effect: "close",
         duration: 1000
-        
+
       }
     });
  
@@ -237,7 +238,15 @@ $( function() {
     });
   } );
 
+$('.selector').dialog('option', 'dialogClass', 'noTitleStuff');
+$(".ui-dialog-titlebar").hide();
+
 console.log("Do somethings");
+    document.getElementById("cancel").addEventListener("click", function() {
+
+document.getElementById("blackout").style.display = "none";
+$( "#commentsection" ).dialog( "close" );
+});
     document.getElementById("submit").addEventListener("click", function() {
         console.log("In the addEventListener");
         document.getElementById("blackout").style.display = "none";
