@@ -218,7 +218,7 @@ function displayCommentSection() {
 $( function() {
 
     $( "#commentsection" ).dialog({
-      dialogClass: "no-close",
+
       autoOpen: false,
       show: {
         effect: "fade",
@@ -231,15 +231,17 @@ $( function() {
 
       }
     });
- 
+
+    $(".ui-dialog-titlebar").hide();
+
     $( "#addcomment" ).on( "click", function() {
     document.getElementById("blackout").style.display = "block";
       $( "#commentsection" ).dialog( "open" );
     });
   } );
 
-$('.selector').dialog('option', 'dialogClass', 'noTitleStuff');
-$(".ui-dialog-titlebar").hide();
+
+
 
 console.log("Do somethings");
     document.getElementById("cancel").addEventListener("click", function() {
