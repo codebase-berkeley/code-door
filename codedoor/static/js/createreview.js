@@ -64,16 +64,59 @@ document.getElementById("submit_button_review").addEventListener("click", functi
     return response.json();
   }).then(function(json) {
     if (json.success) {
-        // document.getElementById("questList").innerHTML =
+      var first = "<table> <tr>";
+      var second = "";
+      if (json.companylogo) {
+        second = " <td rowspan='3' width='7%'> <img src='" + json.companylogo + "' width='100' height='100'> </td> "
+      }
+      else {
+        second = "<td rowspan='3' width='7%'> <img src='/static/images/temp.png' width='100' height='100'> </td> ";
+      } 
+      
+      var third = " <td width='93%'> <a href='/codedoor/viewcompany/"+json.companypk+"'> <h2 class='link-text'>  " + json.companyname + " </h2></a> <span class='applicant-name'>  " + json.reviewername + " </span> </td> </tr> <tr> <td> ";
+      
+      var fourth = "";
+      if (json.companylogo != null){
+       fourth = "<a class='button' id='reviewtitle' href='{% url 'codedoor:viewreview' pk=" + review.pk + " %}'> " + json.title +" </a> ";
+      }
+      else {
+          fourth = "<p></p> "
+      }
+      
+      var fifth = "</td> </tr> <tr> <td> <p><span class='info colorful-boxy'> ";
 
-        // "<div class='post'> <h4 class='blue-text'>Question</h4> <p>" +
-        // 	question + 
-        // "</p> <h4 class='blue-text'>Applicant answer</h4> <p>" +
-        //         	applicant_ans + 
-        //         "</p> <h4 class='blue-text'>Company answer</h4><p>" +
-        //         	company_ans +
-        //         "</p><br><br></div>" + document.getElementById("questList").innerHTML;
-        console.log("we made it");
+      var sixth = "";
+
+      if (json.recommend) {
+        sixth = "<span> <svg width='15' height='15'> <rect x='0' y='0' rx='3' ry='3' width='15' height='15' style='fill:#01959b' /> </svg> Recommends </span> ";
+      }
+      else {
+        sixth = "<span> <svg width='15' height='15'> <rect x='0' y='0' rx='3' ry='3' width='15' height='15' style='fill:#ff4d4d' /> </svg> Doesn't Recommend </span> ";
+      }
+      var seventh = "</span> <span class='info colorful-boxy'> "
+      var eighth = "";
+      if (json.rating < 1) {
+        eighth = "<span> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
+      } 
+      else if (json.rating < 2) {
+        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
+      }
+      else if (json.rating < 3) {
+        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
+      }
+      else if (json.rating < 4) {
+        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
+      }
+      else if (json.rating < 5) {
+        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
+      }
+      else {
+        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> </span> ";
+      }
+      var ninth = "</span></p> </td> </tr> <tr> <td></td> <td> <div> <h4>Description:</h4> <p class='description_small_text'> " + json.review + " </p> </div> </td> </tr> </table> <br> ";     
+      
+      document.getElementById("reviews").innerHTML = first + second + third + fourth + fifth + sixth + seventh + eighth + ninth + document.getElementById("reviews").innerHTML;
+      console.log("we made it");
     }
   })
 }

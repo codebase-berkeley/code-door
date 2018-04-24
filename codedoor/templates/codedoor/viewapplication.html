@@ -98,7 +98,7 @@
     </table>
     <br><br>
         {% if request.user.profile == profile %}
-          <button class="sub" onclick="displayQuestionForm()">Create Question</button>
+          <button id="qBtn" class="sub">Create Question</button>
           <button class="sub" onclick = "displayEditApplicationForm()">Edit Application</button>
         {% endif %}
     <br><br>
@@ -173,21 +173,24 @@
 
 
     
-    <div id="hidden" style="display: none;">
-      <div class="entry">
-          <h4>Question:</h4><br>
-          <textarea id="question" name="question" placeholder="Question here"></textarea><br>
-      </div>
-      <div class="entry">
-          <h4>Applicant Answer:</h4><br>
-          <textarea id="applicant_answer" name="applicant answer" placeholder="Your answer"></textarea><br>
-      </div>
-      <div class="entry">
-          <h4>Company Answer:</h4><br>
-          <textarea id="company_answer" name="company answer" placeholder="Company answer"></textarea><br><br>
-      </div>
-      <div class="entry">
-          <button id="submit_button" type="submit" class="big" onclick="displayQuestionForm()">Submit</button>
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="entry">
+            <h4>Question:</h4><br>
+            <textarea id="question" name="question" placeholder="Question here"></textarea><br>
+        </div>
+        <div class="entry">
+            <h4>Applicant Answer:</h4><br>
+            <textarea id="applicant_answer" name="applicant answer" placeholder="Your answer"></textarea><br>
+        </div>
+        <div class="entry">
+            <h4>Company Answer:</h4><br>
+            <textarea id="company_answer" name="company answer" placeholder="Company answer"></textarea><br><br>
+        </div>
+        <div class="entry">
+            <button id="submit_button" type="submit" class="big" onclick="displayQuestionForm()">Submit</button>
+        </div>
       </div>
   </div>
     <br><br><br>
