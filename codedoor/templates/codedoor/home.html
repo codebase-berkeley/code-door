@@ -19,7 +19,7 @@
   <div class="indent">
     <h3>Recent Activity</h3><br>
     <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
-      <button class="inline-block small-teal" onclick="displayReviewForm()">Create Review</button>
+      <button class="inline-block small-teal" id="createreviewbutton">Create Review</button>
     </a>&nbsp;
     <button class="inline-block small-teal" id="create_company">Create Company</button>
 
@@ -87,7 +87,9 @@
 </br>
 
 
-<div id="hidden_review" style="display: none;">
+<div id="reviewmodal" class="modal">
+  <div class="modal-content">
+  <span class="close">&times;</span>
   <h1> Create Review </h1><br>
       <div class="space">
         Review Title <br>
@@ -137,6 +139,7 @@
         </p>
       </div><br>
       <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
+    </div>
   </div>
 
 
