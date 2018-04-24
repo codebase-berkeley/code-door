@@ -179,7 +179,7 @@ document.getElementById("submit_button_edit").addEventListener("click", function
       <tr>
         <td>
           <p><span class="info job-position">`+position+`</span>
-          <span class="info job-season">` + season + ` ` + year + `-San Francisco, CA</span></p>
+          <span class="info job-season">` + season + ` ` + year + `</span></p>
         </td>
       </tr>
       <tr>
