@@ -4,6 +4,7 @@
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
   <link rel="stylesheet" href="{% static 'css/application.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 <body>
   <div class="indent">
@@ -26,7 +27,7 @@
     <!--This is the create company form-->
     <div id="companyModal" class="modal">
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span id="closeC" class="close">&times;</span>
         <h1> Create Company </h1><br>
         
           {% csrf_token %}
@@ -79,7 +80,7 @@
           <div id="submit"><input type="submit" value="Submit"></div>
 
       </div>
-    <script src="{% static 'js/company.js' %}"></script>
+      <!-- company js tag originally went here -->
 
   </div>
 </div>
@@ -89,7 +90,7 @@
 
 <div id="reviewmodal" class="modal">
   <div class="modal-content">
-  <span class="close">&times;</span>
+  <span id="closeR" class="close">&times;</span>
   <h1> Create Review </h1><br>
       <div class="space">
         Review Title <br>
@@ -290,7 +291,7 @@
 
   <div class="indent" >
     <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
-    <button class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
+    <button id="create-application-btn" class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
   </div>
   <hr id="break">
 
@@ -300,62 +301,68 @@
 
 
 
-
-  <div id="hidden-application" class="indent hidden">
-    <div class="entry">
-      <h4>Position:</h4><br>
-      <p id="error0"></p>
-      <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
-    </div>
-    <div class="entry">
-      <h4>Company:</h4><br>
-      <p id="error1" class="error"></p>
-      <select id="company" name="company" class="menu" required>
-        {% for entry in companies %}
-          <option value="{{ entry.id }}">{{ entry.name }}</option>
-        {% endfor %}
-      </select>
-    </div>
-    <div class="entry">
-      <h4>Season:</h4><br>
-      <p id="error1" class="error"></p>
-      <select id="season" name="season" class="menu" required>
-        <option value="Fall">Fall</option>
-        <option value="Winter">Winter</option>
-        <option value="Spring">Spring</option>
-        <option value="Summer">Summer</option>
-      </select>
-    </div>
-    <div class="entry">
-      <h4>Year:</h4><br>
-      <p id="error2" class="error"></p>
-      <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
-    </div>
-    <div class="entry">
-      <h4>Difficulty:</h4><br>
-      <p id="error3" class="error"></p>
-      <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
-    </div>
-    <div class="entry">
-      <h4>Description:</h4><br>
-      <p id="error4" class="error"></p>
-      <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
-    </div>
-    <div class="entry">
-      <h4>Received Offer:</h4><br>
-      <p id="error5" class="error"></p>
-      <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
-      <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
-    </div>
-    <div class="entry">
-      <h4>Offer details:</h4><br>
-      <p id="error6" class="error"></p>
-      <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
-    </div>
-    <div class="entry">
-      <button id="submit_button" type="submit" class="big" onclick="displayApplicationForm()">Submit</button>
+  <div id="application-modal" class="modal">
+    <div class="modal-content">
+      <span id="closeA" class="close">&times;</span>
+      <div id="hidden-application" class="indent">
+        <h1> Create Application</h1><br>
+        <div class="entry">
+          <h4>Position:</h4><br>
+          <p id="error0"></p>
+          <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
+        </div>
+        <div class="entry">
+          <h4>Company:</h4><br>
+          <p id="error1" class="error"></p>
+          <select id="company" name="company" class="menu" required>
+            {% for entry in companies %}
+              <option value="{{ entry.id }}">{{ entry.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="entry">
+          <h4>Season:</h4><br>
+          <p id="error1" class="error"></p>
+          <select id="season" name="season" class="menu" required>
+            <option value="Fall">Fall</option>
+            <option value="Winter">Winter</option>
+            <option value="Spring">Spring</option>
+            <option value="Summer">Summer</option>
+          </select>
+        </div>
+        <div class="entry">
+          <h4>Year:</h4><br>
+          <p id="error2" class="error"></p>
+          <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
+        </div>
+        <div class="entry">
+          <h4>Difficulty:</h4><br>
+          <p id="error3" class="error"></p>
+          <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
+        </div>
+        <div class="entry">
+          <h4>Description:</h4><br>
+          <p id="error4" class="error"></p>
+          <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
+        </div>
+        <div class="entry">
+          <h4>Received Offer:</h4><br>
+          <p id="error5" class="error"></p>
+          <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
+          <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
+        </div>
+        <div class="entry">
+          <h4>Offer details:</h4><br>
+          <p id="error6" class="error"></p>
+          <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
+        </div>
+        <div class="entry">
+          <button id="submit_button" type="submit" class="big">Submit</button>
+        </div>
+      </div>
     </div>
   </div>
+
 
 
 
@@ -528,7 +535,10 @@
     {% endif %}
     <br>
   </div>
-  <script src="{% static 'js/createreview.js' %}"></script>
+  
 </body>
+<script src="{% static 'js/createreview.js' %}"></script>
+<script src="{% static 'js/company.js' %}"></script>
 <script src="{% static 'js/application.js' %}"></script>
+<script src="{% static 'js/home.js' %}"></script>
 {% endblock %}

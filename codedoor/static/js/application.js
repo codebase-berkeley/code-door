@@ -44,6 +44,35 @@ function displayApplicationForm() {
 		}
 }
 
+// Get the modal
+var modalA = document.getElementById('application-modal');
+
+// Get the button that opens the modal
+var createAppBtn = document.getElementById("create-application-btn");
+
+// Get the <span> element that closes the modal
+// var spanA = document.getElementsByClassName("close")[0];
+var spanA = document.getElementById("closeA");
+
+// Get the submit button at the end of the form
+var submitBtnA = document.getElementById("submit_button");
+
+// When the user clicks on the button, open the modal 
+createAppBtn.onclick = function() {
+    modalA.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+spanA.onclick = function() {
+	console.log("clicked x");
+  	modalA.style.display = "none";
+}
+// When the user submits the form, close the modal
+submitBtnA.onclick = function(event) {
+	console.log("clicked submit button");
+    modalA.style.display = "none";
+}
+
 
 document.getElementById("submit_button").addEventListener("click", function(e) {
 	var position = document.getElementById("position").value;
