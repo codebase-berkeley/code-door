@@ -61,8 +61,8 @@ def interviews_filter(request, company):
     input_season = request.POST['season']
     input_received_offer = request.POST['received_offer']
 
-    entry = Review.objects.filter(company=company, year=input_year, season=input_season,
-                                  received_offer=input_received_offer)
+    entry = Application.objects.filter(company=company, year=input_year, season=input_season,
+                                       received_offer=input_received_offer)
 
     paginator = Paginator(entry, 4)
     page = request.GET.get('page', 1)
