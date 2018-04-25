@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 import boto3
 from api_keys import s3_access_keys
 
-company_logos_bucket = 'codedoor-company-logos'
+company_logos_bucket = 'codedoor-companies-logos'
 
 
 @login_required
