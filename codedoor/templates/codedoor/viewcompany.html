@@ -3,13 +3,13 @@
 {% block content %}
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
   <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 </head>
 <body>
   <div class="companyportion">
     <div class="company-logo">
-      {% if review.company.logo %}
+      {% if company.logo %}
         <img src="{{company.logo}}" alt="Company logo" width="150" height="150">
       {% else %}
         <img src="/static/images/temp.png" alt="Company logo" width="150" height="150">
