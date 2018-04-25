@@ -255,7 +255,9 @@
     {% if applications.has_other_pages %}
       <ul class="pagination">
         {% if applications.has_previous %}
-          <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
+          <li class="clickable">
+            <a href="?page={{ applications.previous_page_number }}">&laquo;</a>
+          </li>
         {% else %}
           <li>&laquo;</li>
         {% endif %}

@@ -37,27 +37,45 @@ def search(request, database):
         entry = Profile.objects.annotate(search=vector).filter(search=query)
     paginator = Paginator(entry, 10)
     page = request.GET.get('page', 1)
+    data = pagination(paginator, page)
 
-    def pagination(paginator, page):
-        try:
-            return paginator.page(page)
-        except PageNotAnInteger:
-            return paginator.page(1)
-        except EmptyPage:
-            return paginator.page(paginator.num_pages)
-
-    list = pagination(paginator, page)
-
-    return render(request, "codedoor/search.html", {"database": database, "data": list, "query": input_query})
+    return render(request, "codedoor/search.html", {"database": database, "data": data, "query": input_query})
 
 
-def filter(request, database, company):
-    if database == "reviews":
-        input_rating = request.POST['rating']
-    elif database == "interviews":
-        input_year = request.POST['year']
-    elif database == "users":
-        input_year = request.POSt['year']
+def reviews_filter(request, company):
+    input_rating = request.POST['rating']
+    input_recommend = request.POST['recommend']
 
-    return HttpResponse("not working")
+    entry = Review.objects.filter(company=company, rating=input_rating, recommend=input_recommend)
 
+    paginator = Paginator(entry, 4)
+    page = request.GET.get('page', 1)
+    data = pagination(paginator, page)
+
+    return render(request, "codedoor/viewcompany.html", {"data": data, "rating": input_rating,
+                                                         "recommend": input_recommend})
+
+
+def interviews_filter(request, company):
+    input_year = request.POST['year']
+    input_season = request.POST['season']
+    input_received_offer = request.POST['received_offer']
+
+    entry = Review.objects.filter(company=company, year=input_year, season=input_season,
+                                  received_offer=input_received_offer)
+
+    paginator = Paginator(entry, 4)
+    page = request.GET.get('page', 1)
+    data = pagination(paginator, page)
+
+    return render(request, "codedoor/viewcompany.html", {"data": data, "year": input_year, "season": input_season,
+                                                         "received_offer": input_received_offer})
+
+
+def pagination(paginator, page):
+    try:
+        return paginator.page(page)
+    except PageNotAnInteger:
+        return paginator.page(1)
+    except EmptyPage:
+        return paginator.page(paginator.num_pages)
