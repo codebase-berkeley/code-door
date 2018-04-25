@@ -13,14 +13,6 @@
   float: right;
 }
 
-#searchbar {
-  width: 80%;
-  height: 3%;
-  margin-top: 10px;
-  padding: 15px 15px;
-  box-shadow: 5px 5px 5px grey;
-}
-
 #subtitle {
   font-size: 25px;
   margin-top: 10px;
@@ -174,12 +166,6 @@ ul li {
   margin-bottom: 5px;
 }
 
-#searchbar {
-  width: 90%;
-  height: 3%;
-  box-shadow: 2px 2px;
-}
-
 .inline-block {
   display: inline-block;
 }
@@ -213,4 +199,12 @@ button.tiny-teal {
   height: 300px;
   background-position: center;
   background-size: cover;
+}
+
+#searchbar {
+  width: 90%;
+  margin-top: 10px;
+  padding: 10px 10px;
+  object-fit: cover;
+  box-shadow: 5px 5px 5px 5px grey;
 }
