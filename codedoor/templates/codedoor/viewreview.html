@@ -225,7 +225,7 @@ $( function() {
         duration: 300
       },
       hide: {
-        <!--document.getElementById("blackout").style.display = "none";-->
+
         effect: "close",
         duration: 1000
 
@@ -233,10 +233,12 @@ $( function() {
     });
 
     $(".ui-dialog-titlebar").hide();
+    $( "#commentsection" ).dialog({ closeOnEscape: false });
 
     $( "#addcomment" ).on( "click", function() {
     document.getElementById("blackout").style.display = "block";
       $( "#commentsection" ).dialog( "open" );
+
     });
   } );
 
@@ -247,6 +249,7 @@ console.log("Do somethings");
     document.getElementById("cancel").addEventListener("click", function() {
 
 document.getElementById("blackout").style.display = "none";
+
 $( "#commentsection" ).dialog( "close" );
 });
     document.getElementById("submit").addEventListener("click", function() {
