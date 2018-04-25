@@ -9,6 +9,9 @@ button.big {
   font-size: 16px;
   border-radius: 4px;
 }
+.commentcontents{
+  padding-left:40px;
+}
 
 
 #blackout{

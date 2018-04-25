@@ -131,7 +131,7 @@
             <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
             </div>
             <p id="commenter"> {{comment.commenter}} </p>
-            <p style="padding-left:40px;"> {{comment.content}} </p><br>
+            <p class="commentcontents"> {{comment.content}} </p><br>
           </div>
       {% endfor %}
     {% else %}
@@ -143,8 +143,8 @@
 
   Title <input id="addtitle" type="text" name="title"> <br><br>
   Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
-  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
 
+  <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}"><br><br>
   <button class="sub" id="submit">Submit</button>
   <button class="sub" id="cancel">Cancel</button>
 </div>
@@ -204,7 +204,7 @@ $( "#commentsection" ).dialog( "close" );
 
 
     document.getElementById("submit").addEventListener("click", function() {
-        console.log("In the addEventListener");
+
         document.getElementById("blackout").style.display = "none";
 
 
@@ -241,7 +241,7 @@ $( "#commentsection" ).dialog( "close" );
         })
 
 
-         $( "#commentsection" ).dialog( "close" );
+        $( "#commentsection" ).dialog( "close" );
 
 
     }
