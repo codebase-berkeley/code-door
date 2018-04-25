@@ -165,12 +165,20 @@ function createApplicationElement(a) {
 
 	console.log("made it here");
 	
+	console.log("hidden element before: " + document.getElementById("hidden-element"));
 
 	document.getElementById("hidden-element").classList.add("display");
 	document.getElementById("hidden-element").id = "";
 	entry.id = "hidden-element";
 
+	console.log("hidden element after: " + document.getElementById("hidden-element"));
+	console.log("entry: " + entry);
+	console.log("entry id: " + entry.id);
+
+	console.log("entry: " + entry);
+
 	var p = document.getElementById("application-list");
 	p.insertBefore(parent, p.children[0]);
+	p.insertBefore(entry, parent);
 }
 
