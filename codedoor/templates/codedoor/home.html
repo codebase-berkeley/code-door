@@ -33,7 +33,7 @@
           {% csrf_token %}
           <p class="error" id="display-error"></p>
           <div class="space">
-            Logo <br>
+            <h4>Logo</h4>
             <div class="border">
               <input type="file" name="logo" id="logo1">
             </div>
@@ -41,7 +41,7 @@
             </p>
           </div><br>
           <div class="space">
-            Company name <br>
+            <h4>Company name</h4>
             <div class="border-text">
               <input type="text" name="name" id="name">
             </div>
@@ -49,7 +49,7 @@
             </p>
           </div><br>
           <div class="space">
-            Industry <br>
+            <h4>Industry</h4>
             <div class="border-text">
               <input type="text" name="industry" id='industry'>
             </div>
@@ -57,7 +57,7 @@
             </p>
           </div><br>
           <div class="space">
-            Website <br>
+            <h4>Website</h4>
             <div class="border-text">
               <input type="url" name="website" id='website'>
             </div>
@@ -66,21 +66,19 @@
           </div><br>
 
           <div class="space">
-            Type of company <br>
+            <h4>Type of company</h4>
             <div class="border">
-              <input class="type" type="radio" name="structure" value="Startup" id="startup"> Startup <br>
-              <input class="type" type="radio" name="structure" value="Boutique" id="boutique"> Boutique <br>
-              <input class="type" type="radio" name="structure" value="Medium" id="medium"> Medium <br>
-              <input class="type" type="radio" name="structure" value="Small" id="small"> Small <br>
-              <input class="type"type="radio" name="structure" value="Large" id="large"> Large <br>
+              <input class="type" type="radio" name="structure" value="Startup" id="startup">Startup<br>
+              <input class="type" type="radio" name="structure" value="Boutique" id="boutique">Boutique<br>
+              <input class="type" type="radio" name="structure" value="Medium" id="medium">Medium<br>
+              <input class="type" type="radio" name="structure" value="Small" id="small">Small<br>
+              <input class="type"type="radio" name="structure" value="Large" id="large">Large<br>
             </div>
             <p class="error" id="type-error">
             </p>
           </div><br>
-          <div id="submit"><input type="submit" value="Submit"></div>
-
+          <button id="submit" type="submit" class="small-teal">Submit</button>
       </div>
-      <!-- company js tag originally went here -->
 
   </div>
 </div>
@@ -93,7 +91,7 @@
   <span id="closeR" class="close">&times;</span>
   <h1> Create Review </h1><br>
       <div class="space">
-        Review Title <br>
+        <h4>Review Title</h4>
         <div class="border-text">
           <div id="title">
             <input type="text" name="title" id="title1">
@@ -298,9 +296,6 @@
 
 
 
-
-
-
   <div id="application-modal" class="modal">
     <div class="modal-content">
       <span id="closeA" class="close">&times;</span>
@@ -357,7 +352,7 @@
           <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
         </div>
         <div class="entry">
-          <button id="submit_button" type="submit" class="big">Submit</button>
+          <button id="submit_button" type="submit" class="small-teal">Submit</button>
         </div>
       </div>
     </div>
