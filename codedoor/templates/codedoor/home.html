@@ -19,72 +19,77 @@
   <div class="indent">
     <h3>Recent Activity</h3><br>
     <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
-      <button class="inline-block small-teal" onclick="displayReviewForm()">Create Review</button>
+      <button class="inline-block small-teal" id="createreviewbutton">Create Review</button>
     </a>&nbsp;
-    <button class="inline-block small-teal" id="create_company" onclick="displayCompanyForm()">Create Company</button>
+    <button class="inline-block small-teal" id="create_company">Create Company</button>
 
     <!--This is the create company form-->
-    <div id="company_form" style="display: none;">
-      <h1> Create Company </h1><br>
-      
-        {% csrf_token %}
-        <p class="error" id="display-error"></p>
-        <div class="space">
-          Logo <br>
-          <div class="border">
-            <input type="file" name="logo" id="logo1">
-          </div>
-          <p class="error" id="logo-error">
-          </p>
-        </div><br>
-        <div class="space">
-          Company name <br>
-          <div class="border-text">
-            <input type="text" name="name" id="name">
-          </div>
-          <p class="error" id="name-error">
-          </p>
-        </div><br>
-        <div class="space">
-          Industry <br>
-          <div class="border-text">
-            <input type="text" name="industry" id='industry'>
-          </div>
-          <p class="error" id="industry-error">
-          </p>
-        </div><br>
-        <div class="space">
-          Website <br>
-          <div class="border-text">
-            <input type="url" name="website" id='website'>
-          </div>
-          <p class="error" id="website-error">
-          </p>
-        </div><br>
+    <div id="companyModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1> Create Company </h1><br>
+        
+          {% csrf_token %}
+          <p class="error" id="display-error"></p>
+          <div class="space">
+            Logo <br>
+            <div class="border">
+              <input type="file" name="logo" id="logo1">
+            </div>
+            <p class="error" id="logo-error">
+            </p>
+          </div><br>
+          <div class="space">
+            Company name <br>
+            <div class="border-text">
+              <input type="text" name="name" id="name">
+            </div>
+            <p class="error" id="name-error">
+            </p>
+          </div><br>
+          <div class="space">
+            Industry <br>
+            <div class="border-text">
+              <input type="text" name="industry" id='industry'>
+            </div>
+            <p class="error" id="industry-error">
+            </p>
+          </div><br>
+          <div class="space">
+            Website <br>
+            <div class="border-text">
+              <input type="url" name="website" id='website'>
+            </div>
+            <p class="error" id="website-error">
+            </p>
+          </div><br>
 
-        <div class="space">
-          Type of company <br>
-          <div class="border">
-            <input class="type" type="radio" name="structure" value="Startup" id="startup"> Startup <br>
-            <input class="type" type="radio" name="structure" value="Boutique" id="boutique"> Boutique <br>
-            <input class="type" type="radio" name="structure" value="Medium" id="medium"> Medium <br>
-            <input class="type" type="radio" name="structure" value="Small" id="small"> Small <br>
-            <input class="type"type="radio" name="structure" value="Large" id="large"> Large <br>
-          </div>
-          <p class="error" id="type-error">
-          </p>
-        </div><br>
-        <div id="submit"><input type="submit" value="Submit"></div>
+          <div class="space">
+            Type of company <br>
+            <div class="border">
+              <input class="type" type="radio" name="structure" value="Startup" id="startup"> Startup <br>
+              <input class="type" type="radio" name="structure" value="Boutique" id="boutique"> Boutique <br>
+              <input class="type" type="radio" name="structure" value="Medium" id="medium"> Medium <br>
+              <input class="type" type="radio" name="structure" value="Small" id="small"> Small <br>
+              <input class="type"type="radio" name="structure" value="Large" id="large"> Large <br>
+            </div>
+            <p class="error" id="type-error">
+            </p>
+          </div><br>
+          <div id="submit"><input type="submit" value="Submit"></div>
 
-    </div>
+      </div>
     <script src="{% static 'js/company.js' %}"></script>
 
   </div>
+</div>
   <hr id="break">
 </br>
 
 
-<div id="hidden_review" style="display: none;">
+<div id="reviewmodal" class="modal">
+  <div class="modal-content">
+  <span class="close">&times;</span>
   <h1> Create Review </h1><br>
       <div class="space">
         Review Title <br>
@@ -134,6 +139,7 @@
         </p>
       </div><br>
       <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
+    </div>
   </div>
 
 
@@ -350,11 +356,6 @@
       <button id="submit_button" type="submit" class="big" onclick="displayApplicationForm()">Submit</button>
     </div>
   </div>
-
-
-
-
-
 
 
 
