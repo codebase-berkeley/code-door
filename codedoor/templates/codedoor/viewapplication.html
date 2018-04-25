@@ -11,6 +11,9 @@
 </head>
 <body>
   <div class="entry">
+    <div id="blackout">
+
+     </div>
     <table>
       <tr>
         {% if a.company.logo != null %}
@@ -143,11 +146,11 @@
   <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
 
   <button class="sub" id="submit">Submit</button>
-
+  <button class="sub" id="cancel">Cancel</button>
 </div>
 
 <script type="text/javascript">
-
+document.getElementById("blackout").style.display = "none";
 function myFunction() {
     alert("Hello! I am an alert box!");
 }
@@ -179,15 +182,30 @@ $( function() {
         duration: 1000
       }
     });
- 
+
+    $(".ui-dialog-titlebar").hide();
+    $( "#commentsection" ).dialog({ closeOnEscape: false });
+
     $( "#addcomment" ).on( "click", function() {
+     document.getElementById("blackout").style.display = "block";
       $( "#commentsection" ).dialog( "open" );
     });
   } );
 
 console.log("Do somethings");
+
+  document.getElementById("cancel").addEventListener("click", function() {
+
+document.getElementById("blackout").style.display = "none";
+$( "#commentsection" ).dialog( "close" );
+});
+
+
+
+
     document.getElementById("submit").addEventListener("click", function() {
         console.log("In the addEventListener");
+        document.getElementById("blackout").style.display = "none";
 
 
         var title = document.getElementById("addtitle").value;
@@ -196,14 +214,14 @@ console.log("Do somethings");
         var commentData = new FormData();
         commentData.append("title", title);
         commentData.append("content", content);
-        var review = document.getElementById("reviewpk").value;
-        commentData.append("review", review )
+        var application = document.getElementById("applicationpk").value;
+        commentData.append("application", application )
         var headers = new Headers();
 
         var csrftoken = getCookie("csrftoken")
         headers.append('X-CSRFToken', csrftoken);
-
-        fetch("/codedoor/addrc/", {
+        console.log("did not error out");
+        fetch("/codedoor/addac/", {
             method: "POST",
             body: commentData,
             headers: headers,
@@ -221,6 +239,9 @@ console.log("Do somethings");
                    + document.getElementById("comment").innerHTML;
             }
         })
+
+
+         $( "#commentsection" ).dialog( "close" );
 
 
     }

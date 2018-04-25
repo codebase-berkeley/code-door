@@ -6,12 +6,17 @@
   margin-bottom: 3px;
 }
 
+
 span {
   margin: 3px;
 }
+
+.noTitleStuff .ui-dialog-titlebar {display:none}
+
 #blackout{
+
   position: fixed;
-  opacity: 0.5;
+  opacity: 0.7;
   left:0%;
   top:0%;
   width:100%;
