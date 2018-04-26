@@ -87,3 +87,23 @@ class Question(models.Model):
     def __str__(self):
         return "{}: {}".format(self.application.company.name,
                                self.question[0:40])
+
+
+class ReviewComment(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, null=True, blank=True)
+    content = models.TextField()
+    commenter = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} comment on {}".format(self.commenter.user, self.review.title)
+
+
+class ApplicationComment(models.Model):
+    application = models.ForeignKey(Application, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, null=True, blank=True)
+    content = models.TextField()
+    commenter = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} comment on {}".format(self.commenter.user, self.application.company.name)

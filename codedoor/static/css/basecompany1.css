@@ -10,6 +10,8 @@ span {
   margin: 3px;
 }
 
+
+
 .border-text input {
   margin-top: 5px;
   border: 1px solid #cccccc;
@@ -147,4 +149,35 @@ ul li {
 #bottom-half {
   left: 5%;
   position:relative;
+}
+
+#comments {
+  padding-top:10px;
+
+}
+
+#comment {
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+#profile-img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+  display: inline-block;
+}
+
+#commenter {
+  display:inline-block;
+  position:absolute;
+  padding:10px;
+  color:black;
+}
+.comment{
+color:black;
+font-weight:bold;
+
 }
