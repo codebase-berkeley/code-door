@@ -99,6 +99,15 @@ span {
   font-weight: bold;
   display: inline;
 }
+#filter {
+  font-size: 10px;
+  display: inline-block;
+  font-weight: lighter;
+  position: absolute;
+  right: 0px;
+  padding: 10px;
+}
+
 
 .nav_items:hover {
   transition: 0.3s;
