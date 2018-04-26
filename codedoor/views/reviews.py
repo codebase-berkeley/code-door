@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from codedoor.models import Review, Company, Profile
+from codedoor.models import Review, Company, Profile, ReviewComment
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
@@ -53,7 +53,8 @@ def create_review_wc(request, pk):
 @login_required
 def view_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
-    return render(request, "codedoor/viewreview.html", {"review": review})
+    comments = ReviewComment.objects.filter(review=review)
+    return render(request, "codedoor/viewreview.html", {"review": review, "comments":comments})
 
 @login_required
 def edit_review(request, pk):

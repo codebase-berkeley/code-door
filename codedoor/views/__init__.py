@@ -4,3 +4,4 @@ from .reviews import *
 from .profiles import *
 from .questions import *
 from .root import *
+from .comments import *
