@@ -32,15 +32,14 @@
     <p onclick="showApplications()" id="applications_tab" class="nav_items">Applications</p>
     <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
 
-    <p class="filter"> Job Title:
-    <select name = "jobtitle">
-      <option value = "alljobs">All</option>
-      <option value = "software">Software Engineer</option>
-      <option value = "inter">Summer Intern</option>
-    </select>
-    </p>
+  </div>
 
 
+
+<div id="bottom-half">
+  <div id="reviews">
+
+    <form action="{% url 'codedoor:viewcompany' pk=company.id %}" method="POST"> {% csrf_token %}
     <p class="filter">Rating:
     <select name = "rating">
       <option value = "allstars">All</option>
@@ -52,20 +51,16 @@
     </select>
     </p>
 
-    <p class="filter">Year:
-    <select name = "year">
-      <option value = "allyears">All</option>
-      <option value = "2018">2018</option>
-      <option value = "2017">2017</option>
-      <option value = "2016">2016</option>
-      <option value = "2015">2015</option>
-      <option value = "Older">Older</option>
+    <p class="filter">Recommend:
+    <select name = "recommend">
+      <option value = "recommendall">All</option>
+      <option value = "yes">Yes</option>
+      <option value = "no">No</option>
     </select>
     </p>
-  </div>
 
-<div id="bottom-half">
-  <div id="reviews">
+      <button class="sub" id="search" type="submit">Filter</button>
+    </form>
 
     {% for review in reviews %}
     <table>
@@ -89,7 +84,7 @@
       <tr>
         <td>
           {% if review.title %}
-            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewcompany' pk=review.pk database=database  %}">{{review.title}}</a>
           {% else %}
             <p></p>
           {% endif %}
@@ -206,6 +201,41 @@
 
 
   <div id="applications">
+
+    <form action="{% url 'codedoor:viewcompany' pk=review.pk database=database %}" method="POST"> {% csrf_token %}
+    <p class="filter">Year:
+    <select name = "year">
+      <option value = "allyears">All</option>
+      <option value = "2018">2018</option>
+      <option value = "2017">2017</option>
+      <option value = "2016">2016</option>
+      <option value = "2015">2015</option>
+      <option value = "Older">Older</option>
+    </select>
+    </p>
+
+    <p class="filter">Season:
+    <select name = "season">
+      <option value = "allseasons">All</option>
+      <option value = "fall">Fall</option>
+      <option value = "spring">Spring</option>
+      <option value = "summer">Summer</option>
+      <option value = "winter">Winter</option>
+    </select>
+    </p>
+
+    <p class="filter">Received Offer:
+    <select name = "received_offer">
+      <option value = "receivedall">All</option>
+      <option value = "yes">Yes</option>
+      <option value = "no">No</option>
+    </select>
+    </p>
+
+    <button class="sub" id="search" type="submit">Filter</button>
+    </form>
+
+
     {% for a in applications %}
     <table>
       <tr>
