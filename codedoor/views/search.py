@@ -41,7 +41,7 @@ def search(request, database):
 
     return render(request, "codedoor/search.html", {"database": database, "data": data, "query": input_query})
 
-
+'''
 def reviews_filter(request, company):
     input_rating = request.POST['rating']
     input_recommend = request.POST['recommend']
@@ -52,7 +52,7 @@ def reviews_filter(request, company):
     page = request.GET.get('page', 1)
     data = pagination(paginator, page)
 
-    return render(request, "codedoor/viewcompany.html", {"data": data, "rating": input_rating,
+    return render(request, "codedoor/viewcompany.html", {"reviews": data, "rating": input_rating,
                                                          "recommend": input_recommend})
 
 
@@ -68,9 +68,9 @@ def interviews_filter(request, company):
     page = request.GET.get('page', 1)
     data = pagination(paginator, page)
 
-    return render(request, "codedoor/viewcompany.html", {"data": data, "year": input_year, "season": input_season,
+    return render(request, "codedoor/viewcompany.html", {"applications": data, "year": input_year, "season": input_season,
                                                          "received_offer": input_received_offer})
-
+'''
 
 def pagination(paginator, page):
     try:
