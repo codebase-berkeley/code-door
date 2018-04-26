@@ -39,7 +39,7 @@
 <div id="bottom-half">
   <div id="reviews">
 
-    <form action="{% url 'codedoor:viewcompany' pk=company.id %}" method="POST"> {% csrf_token %}
+    <form action="{% url 'codedoor:viewcompany' pk=company.id database='reviews'%}" method="POST"> {% csrf_token %}
     <p class="filter">Rating:
     <select name = "rating">
       <option value = "allstars">All</option>
@@ -75,7 +75,7 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
+          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk database='reviews' %}">
             <h2 class="link-text">{{ review.company }}</h2>
           </a>
           <span class="applicant-name">{{ review.reviewer }}</span>
@@ -84,7 +84,7 @@
       <tr>
         <td>
           {% if review.title %}
-            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewcompany' pk=review.pk database=database  %}">{{review.title}}</a>
+            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewcompany' pk=review.pk database='reviews' %}">{{review.title}}</a>
           {% else %}
             <p></p>
           {% endif %}
@@ -202,7 +202,7 @@
 
   <div id="applications">
 
-    <form action="{% url 'codedoor:viewcompany' pk=review.pk database=database %}" method="POST"> {% csrf_token %}
+    <form action="{% url 'codedoor:viewcompany' pk=review.pk database='applications' %}" method="POST"> {% csrf_token %}
     <p class="filter">Year:
     <select name = "year">
       <option value = "allyears">All</option>
