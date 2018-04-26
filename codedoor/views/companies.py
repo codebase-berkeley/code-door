@@ -112,7 +112,9 @@ def view_company(request, pk, database):
     except EmptyPage:
         application_list = paginator2.page(paginator2.num_pages)
 
-    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "applications":application_list})
+    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile,
+                                                         "applications": application_list})
+
 
 @login_required
 def edit_company(request, pk):
