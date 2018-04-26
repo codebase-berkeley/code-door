@@ -2,38 +2,37 @@
 {% load static %}
 {% block content %}
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/searchresults.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}">
 </head>
 <body>
 <div id="databases">
   <div>
     <form action="{% url 'codedoor:search' database='reviews' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Company Reviews</button>
+      <button class="data" type="submit">Company Reviews</button>
     </form>
   </div>
   <div>
     <form action="{% url 'codedoor:search' database='interviews' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Interviews</button>
+      <button class="data" type="submit">Interviews</button>
     </form>
   </div>
   <div>
     <form action="{% url 'codedoor:search' database='companies' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Companies</button>
+      <button class="data" type="submit">Companies</button>
     </form>
   </div>
   <div>
     <form action="{% url 'codedoor:search' database='users' %}" method="POST"> {% csrf_token %}
       <input name="query" type="hidden" value="{{ query }}">
-      <button class="sub" type="submit">Users</button>
+      <button class="data" type="submit">Users</button>
     </form>
   </div>
 </div>
-<div class="results">
+<div id="results">
   {% if database == "reviews" %}
-    <p>  company reviews found</p>
     {% for review in data %}
     <table>
       <tr>
@@ -171,7 +170,6 @@
     {% endif %}
 
   {% elif database == "interviews" %}
-    <p>  interviews found</p>
     {% for a in data %}
     <table>
       <tr>
@@ -277,10 +275,8 @@
     {% endif %}
 
   {% elif database == "companies" %}
-    <p>  companies found</p>
 
   {% elif database == "users" %}
-    <p>  users found</p>
 
   {% endif %}
 </div>
