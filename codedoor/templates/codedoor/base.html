@@ -12,16 +12,18 @@
 <body>
 	<div class="nav">
 		<div class="container">
-			<div class="nav-item">
+			<div id="logo" class="nav-item">
 				<a href="{% url 'codedoor:home' %}">
 					<img src="{% static 'images/logo.svg' %}" width="41px" height="58px" />
 				</a>
 			</div>
-
-				<div id="searchbar">
+			<div class="nav-left">
+				<div>
 					<form action="{% url 'codedoor:search' database='reviews' %}" method="POST"> {% csrf_token %}
-					<img src={% static 'images/magnify.png' %} width=50px height=50px%><input id="searchtype" name="query" type="text" placeholder='Search'>
-					<button class="sub" id="search" type="submit">Search</button>
+					<input id="searchtype" name="query" type="text" placeholder='Search'>
+					<button id="search" type="submit">
+						<img src="{% static 'images/search_icon.png' %}" width="15px" height="15px" />
+					</button>
 					</form>
 				</div>
 
