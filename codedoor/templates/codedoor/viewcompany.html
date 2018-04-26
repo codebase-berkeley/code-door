@@ -43,19 +43,19 @@
     <p class="filter">Rating:
     <select name = "rating">
       <option value = "allstars">All</option>
-      <option value = "1star">1 star</option>
-      <option value = "2stars">2 stars</option>
-      <option value = "3stars">3 stars</option>
-      <option value = "4stars">4 stars</option>
-      <option value = "5stars">5 stars</option>
+      <option value = 1>1 star</option>
+      <option value = 2>2 stars</option>
+      <option value = 3>3 stars</option>
+      <option value = 4>4 stars</option>
+      <option value = 5>5 stars</option>
     </select>
     </p>
 
     <p class="filter">Recommend:
     <select name = "recommend">
       <option value = "recommendall">All</option>
-      <option value = "yes">Yes</option>
-      <option value = "no">No</option>
+      <option value = True>Yes</option>
+      <option value = False>No</option>
     </select>
     </p>
 
@@ -205,30 +205,30 @@
     <form action="{% url 'codedoor:viewcompany' pk=review.pk database='applications' %}" method="POST"> {% csrf_token %}
     <p class="filter">Year:
     <select name = "year">
-      <option value = "allyears">All</option>
-      <option value = "2018">2018</option>
-      <option value = "2017">2017</option>
-      <option value = "2016">2016</option>
-      <option value = "2015">2015</option>
-      <option value = "Older">Older</option>
+      <option value = 10>All</option>
+      <option value = 2018>2018</option>
+      <option value = 2017>2017</option>
+      <option value = 2016>2016</option>
+      <option value = 2015>2015</option>
+      <option value = 2014>Older</option>
     </select>
     </p>
 
     <p class="filter">Season:
     <select name = "season">
       <option value = "allseasons">All</option>
-      <option value = "fall">Fall</option>
-      <option value = "spring">Spring</option>
-      <option value = "summer">Summer</option>
-      <option value = "winter">Winter</option>
+      <option value = "Fall">Fall</option>
+      <option value = "Spring">Spring</option>
+      <option value = "Summer">Summer</option>
+      <option value = "Winter">Winter</option>
     </select>
     </p>
 
     <p class="filter">Received Offer:
     <select name = "received_offer">
       <option value = "receivedall">All</option>
-      <option value = "yes">Yes</option>
-      <option value = "no">No</option>
+      <option value = True>Yes</option>
+      <option value = False>No</option>
     </select>
     </p>
 
