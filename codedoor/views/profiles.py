@@ -11,7 +11,7 @@ import boto3
 import urllib
 from api_keys import s3_access_keys
 
-profile_pic_bucket = 'codedoor-profile-pics'
+profile_pic_bucket = 'codedoor-profile-pictures'
 
 
 def createprofile(request):
