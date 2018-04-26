@@ -34,12 +34,27 @@ def create_company(request):
     else:
         return render(request, "codedoor/createcompany.html")
 
+
 @login_required
-def view_company(request, pk):
+def view_company(request, pk, database):
     company = get_object_or_404(Company, pk=pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
-    reviews = Review.objects.filter(company=company)
-    applications = Application.objects.filter(company=company)
+
+    if database == "reviews":
+        input_rating = request.POST['rating']
+        input_recommend = request.POST['recommend']
+        reviews = Review.objects.filter(company=company, rating=input_rating, recommend=input_recommend)
+        applications = Application.objects.filter(company=company)
+    elif database == "applications":
+        input_year = request.POST['year']
+        input_season = request.POST['season']
+        input_received_offer = request.POST['received_offer']
+        applications = Application.objects.filter(company=company, year=input_year, season=input_season,
+                                           received_offer=input_received_offer)
+        reviews = Review.objects.filter(company=company)
+    else:
+        HttpResponse("Invalid url")
+
     paginator1 = Paginator(reviews, 5)
     paginator2 = Paginator(applications, 5)
     page = request.GET.get('page', 1)
