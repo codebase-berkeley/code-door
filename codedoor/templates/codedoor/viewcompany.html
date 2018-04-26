@@ -32,40 +32,35 @@
     <p onclick="showApplications()" id="applications_tab" class="nav_items">Applications</p>
     <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
 
-    <p class="filter"> Job Title:
-    <select name = "jobtitle">
-      <option value = "alljobs">All</option>
-      <option value = "software">Software Engineer</option>
-      <option value = "inter">Summer Intern</option>
-    </select>
-    </p>
-
-
-    <p class="filter">Rating:
-    <select name = "rating">
-      <option value = "allstars">All</option>
-      <option value = "1star">1 star</option>
-      <option value = "2stars">2 stars</option>
-      <option value = "3stars">3 stars</option>
-      <option value = "4stars">4 stars</option>
-      <option value = "5stars">5 stars</option>
-    </select>
-    </p>
-
-    <p class="filter">Year:
-    <select name = "year">
-      <option value = "allyears">All</option>
-      <option value = "2018">2018</option>
-      <option value = "2017">2017</option>
-      <option value = "2016">2016</option>
-      <option value = "2015">2015</option>
-      <option value = "Older">Older</option>
-    </select>
-    </p>
   </div>
+
+
 
 <div id="bottom-half">
   <div id="reviews">
+
+    <form action="{% url 'codedoor:viewcompany' pk=company.id database='reviews'%}" method="POST"> {% csrf_token %}
+    <p class="filter">Rating:
+    <select name = "rating">
+      <option value = "allstars">All</option>
+      <option value = 1>1 star</option>
+      <option value = 2>2 stars</option>
+      <option value = 3>3 stars</option>
+      <option value = 4>4 stars</option>
+      <option value = 5>5 stars</option>
+    </select>
+    </p>
+
+    <p class="filter">Recommend:
+    <select name = "recommend">
+      <option value = "recommendall">All</option>
+      <option value = True>Yes</option>
+      <option value = False>No</option>
+    </select>
+    </p>
+
+      <button class="sub" id="search" type="submit">Filter</button>
+    </form>
 
     {% for review in reviews %}
     <table>
@@ -80,7 +75,7 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
+          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk database='reviews' %}">
             <h2 class="link-text">{{ review.company }}</h2>
           </a>
           <span class="applicant-name">{{ review.reviewer }}</span>
@@ -89,7 +84,7 @@
       <tr>
         <td>
           {% if review.title %}
-            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewcompany' pk=review.pk database='reviews' %}">{{review.title}}</a>
           {% else %}
             <p></p>
           {% endif %}
@@ -206,6 +201,41 @@
 
 
   <div id="applications">
+
+    <form action="{% url 'codedoor:viewcompany' pk=review.pk database='applications' %}" method="POST"> {% csrf_token %}
+    <p class="filter">Year:
+    <select name = "year">
+      <option value = 10n>All</option>
+      <option value = 2018>2018</option>
+      <option value = 2017>2017</option>
+      <option value = 2016>2016</option>
+      <option value = 2015>2015</option>
+      <option value = 2014>Older</option>
+    </select>
+    </p>
+
+    <p class="filter">Season:
+    <select name = "season">
+      <option value = "allseasons">All</option>
+      <option value = "Fall">Fall</option>
+      <option value = "Spring">Spring</option>
+      <option value = "Summer">Summer</option>
+      <option value = "Winter">Winter</option>
+    </select>
+    </p>
+
+    <p class="filter">Received Offer:
+    <select name = "received_offer">
+      <option value = "receivedall">All</option>
+      <option value = True>Yes</option>
+      <option value = False>No</option>
+    </select>
+    </p>
+
+    <button class="sub" id="search" type="submit">Filter</button>
+    </form>
+
+
     {% for a in applications %}
     <table>
       <tr>
