@@ -151,9 +151,7 @@
       <ul class="pagination">
         {% if data.has_previous %}
           <li class="clickable">
-              <form action="{% url '?page={{ data.previous_page_number }}' database='reviews' %}" method="POST"> {% csrf_token %}
-                 <input name="query" type="hidden" value="{{ query }}">
-                <button class="data" type="submit">Company Reviews</button>
+            <li class="clickable"><a href="?page={{ reviews.previous_page_number }}">&laquo;</a></li>
             </form>
           </li>
         {% else %}
@@ -163,9 +161,7 @@
           {% if data.number == i %}
             <li class="active">{{ i }}</li>
           {% else %}
-              <form action="{% url '?page={{ i }}' database='reviews' %}" method="POST"> {% csrf_token %}
-                 <input name="query" type="hidden" value="{{ query }}">
-                <button class="data" type="submit">Company Reviews</button>
+                <li class="clickable"><a href="?page={{ i }}">{{ i }}</a></li>
             </form>
           {% endif %}
         {% endfor %}
@@ -176,7 +172,6 @@
         {% endif %}
       </ul>
      {%  else %}
-        <p>No pagination</p>
     {% endif %}
 
   {% elif database == "interviews" %}
@@ -262,32 +257,82 @@
     {% endfor %}
 
     <!-- Source: Vitor Freitas -->
-    {% if applications.has_other_pages %}
-      <ul class="pagination">
-        {% if applications.has_previous %}
-          <li class="clickable">
-            <a href="?page={{ applications.previous_page_number }}">&laquo;</a>
-          </li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in applications.paginator.page_range %}
-          {% if applications.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if applications.has_next %}
-          <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
-    {% endif %}
 
   {% elif database == "companies" %}
-
+      {% for a in data %}
+    <table>
+      <tr>
+        {% if a.logo != null %}
+          <td rowspan="3" width="7%">
+            <img src="{{a.company.logo}}" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" width="100" height="100">
+          </td>
+        {% endif %}
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info job-position">{{a.position}}</span>
+          <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <p><span class="info colorful-boxy">
+            {% if a.received_offer %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg> Received Offer
+              </span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg> No Offer
+              </span>
+            {% endif %}
+          </span>
+          <span class="info colorful-boxy">
+            {% if a.difficult > 7 %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#ff4d4d" />
+                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+              </span>
+            {% elif a.difficult < 4 %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#01959b" />
+                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+              </span>
+            {% else %}
+              <span>
+                <svg width="15" height="15">
+                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                style="fill:#FF9B71;" />
+                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+              </span>
+            {% endif %}
+          </span></p>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <h4>Description:</h4>
+          <p class="description_small_text">{{a.description}}</p>
+        </td>
+      </tr>
+    </table>
+    <br>
+    {% endfor %}
   {% elif database == "users" %}
 
   {% endif %}
