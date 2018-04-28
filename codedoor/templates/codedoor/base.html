@@ -19,7 +19,7 @@
 			</div>
 			<div class="nav-left">
 				<div>
-					<form action="{% url 'codedoor:search' database='reviews' %}" method="POST"> {% csrf_token %}
+					<form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
 					<input id="searchtype" name="query" type="text" placeholder='Search'>
 					<button id="search" type="submit">
 						<img src="{% static 'images/search_icon.png' %}" width="15px" height="15px" />
