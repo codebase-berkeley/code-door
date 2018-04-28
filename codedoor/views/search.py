@@ -9,8 +9,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def search(request, database):
-    input_query = request.POST['query']
-    parsed_query = input_query.split(" ")
+    input_query = request.GET.get('q')
+    # parsed_query = input_query.split("+")
+    parsed_query = [input_query]
     query = None
     if parsed_query:
         query = parsed_query[0]

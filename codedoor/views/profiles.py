@@ -10,6 +10,7 @@ from requests.auth import HTTPBasicAuth
 import boto3
 import urllib
 from api_keys import s3_access_keys
+from api_keys import slack_access_keys
 
 profile_pic_bucket = 'codedoor-profile-pictures'
 
@@ -167,8 +168,8 @@ def slack_info(request):
 
 
 def slack_callback(request):
-    client_id = "44822465026.334128598816"
-    client_secret = "7387eabf2e73804cf8492e6025c89326"
+    client_id = slack_access_keys[client_id]
+    client_secret = slack_access_keys[client_secret]
 
     if request.method == 'GET':
         code = request.GET.get('code')

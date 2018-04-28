@@ -10,7 +10,7 @@
     <h1 id="codor"> Codor </h1>
     <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
     <div id="searchbar">
-      <form action="{% url 'codedoor:search' database='reviews' %}" method="POST"> {% csrf_token %}
+      <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
       <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
       <button class="sub" id="search" type="submit">Search</button>
       </form>
