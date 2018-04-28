@@ -1,4 +1,3 @@
-document.getElementById("blackout").style.display = "none";
 
 
 function getCookie(name) {
