@@ -27,7 +27,7 @@ def search(request, database):
     #     query = parsed_query[0]
     # for q in parsed_query[1:]:
     #     query = query and SearchQuery(q)
-    query = parsed_query
+    query = SearchQuery(input_query)
     review_vector = SearchVector('company__name', 'reviewer__user__first_name', 'reviewer__user__last_name',
                                  'title')
     application_vector = SearchVector('company__name', 'profile__user__first_name', 'profile__user__last_name',
@@ -46,7 +46,7 @@ def search(request, database):
     elif database == "users":
         vector = profile_vector
         entry = Profile.objects.annotate(search=vector).filter(search=query)
-    paginator = Paginator(entry, 10)
+    paginator = Paginator(entry, 2)
     page = request.GET.get('page', 1)
     data = pagination(paginator, page)
 
