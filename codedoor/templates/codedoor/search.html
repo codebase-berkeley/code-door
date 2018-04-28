@@ -247,81 +247,52 @@
     <!-- Source: Vitor Freitas -->
 
   {% elif database == "companies" %}
-      {% for a in data %}
+      {% for company in data %}
     <table>
       <tr>
-        {% if a.logo != null %}
+        {% if company.logo %}
           <td rowspan="3" width="7%">
-            <img src="{{a.company.logo}}" width="100" height="100">
+            <img src="{{company.logo}}" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
             <img src="/static/images/temp.png" width="100" height="100">
           </td>
         {% endif %}
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info job-position">{{a.position}}</span>
-          <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info colorful-boxy">
-            {% if a.received_offer %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg> Received Offer
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg> No Offer
-              </span>
-            {% endif %}
-          </span>
-          <span class="info colorful-boxy">
-            {% if a.difficult > 7 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-              </span>
-            {% elif a.difficult < 4 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#FF9B71;" />
-                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
-              </span>
-            {% endif %}
-          </span></p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <h4>Description:</h4>
-          <p class="description_small_text">{{a.description}}</p>
+        <td width="93%">
+          <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}">
+            <h2 class="link-text">{{ company.name }}</h2>
+          </a>
+          <span class="applicant-name">{{ company.industry }}, {{company.structure}}</span>
         </td>
       </tr>
     </table>
     <br>
     {% endfor %}
   {% elif database == "users" %}
+    {% for profile in data %}
+    <table>
+      <tr>
+        {% if profile.profile_pic %}
+          <td rowspan="3" width="7%">
+            <img src="{{profile.profile_pic}}" width="100" height="100">
+          </td>
+        {% else %}
+          <td rowspan="3" width="7%">
+            <img src="/static/images/temp.png" width="100" height="100">
+          </td>
+        {% endif %}
+        <td width="93%">
+          <a href="{% url 'codedoor:viewprofile' pk=profile.pk %}">
+            <h2 class="link-text">{{ profile.user.get_full_name }}</h2>
+          </a>
+          <div class="applicant-name"> {{ profile.current_job }} </div>
+          <div class="applicant-name"> Class of {{ profile.graduation_year }} </div>
+        </td>
+      </tr>
+    </table>
+    <br>
+    {% endfor %}
 
   {% endif %}
 </div>

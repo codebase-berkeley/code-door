@@ -185,3 +185,8 @@ button.tiny-teal {
     width: 75%;
     float: right;
 }
+
+.applicant-name {
+    font-family: 'Roboto';
+	color: #7F7F7F;
+}
