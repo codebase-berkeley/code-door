@@ -7,11 +7,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+input_query = 'query'
+
 
 def search(request, database):
-    input_query = request.GET.get('q')
-    # parsed_query = input_query.split("+")
-    parsed_query = [input_query]
+    # input_query = request.GET.get('q')
+    # # parsed_query = input_query.split("+")
+    # parsed_query = [input_query]
+    try:
+        request.POST['query']
+        global input_query
+        input_query = request.POST['query']
+    except Exception:
+        pass
+
+    parsed_query = input_query.split(" ")
     query = None
     if parsed_query:
         query = parsed_query[0]
