@@ -13,7 +13,7 @@ span {
 .noTitleStuff .ui-dialog-titlebar {display:none}
 
 #blackout{
-  display: absolute;
+  display: none;
   position: fixed;
   background:rgba(0,0,0,0.7);
   left:0%;
