@@ -43,6 +43,29 @@ def view_company(request, pk, database):
     if request.method == "GET":
         reviews = Review.objects.filter(company=company)
         applications = Application.objects.filter(company=company)
+        if database == "reviews":
+            rating = request.GET.get('rating')
+            recommend = request.GET.get('recommend')
+            if rating and rating != 'None':
+                reviews = reviews.filter(rating=rating)
+            if recommend and recommend !='None':
+                reviews = reviews.filter(recommend=recommend)
+        elif database == "applications":
+            year = request.GET.get('year')
+            season = request.GET.get('season')
+            received_offer = request.GET.get('received_offer')
+
+            if year and year != 'None':
+                applications = applications.filter(year=year)
+            if season and season != 'None':
+                applications = applications.filter(season=season)
+            if received_offer and received_offer != 'None':
+                applications = applications.filter(received_offer=received_offer)
+        else:
+            HttpResponse("Invalid url")
+
+
+
     else:
         if database == "reviews":
             if 'rating' in request.POST and 'recommend' in request.POST:
