@@ -30,7 +30,7 @@ def create_company(request):
         company.logo = url
         company.save()
 
-        return redirect('viewcompany/' + str(company.pk))
+        return redirect('codedoor:viewcompany', pk=company.pk, database="reviews")
     else:
         return render(request, "codedoor/createcompany.html")
 

@@ -7,27 +7,27 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-input_query = 'query'
+# input_query = 'query'
 
 
 def search(request, database):
-    # input_query = request.GET.get('q')
-    # # parsed_query = input_query.split("+")
-    # parsed_query = [input_query]
-    try:
-        request.POST['query']
-        global input_query
-        input_query = request.POST['query']
-    except Exception:
-        pass
+    input_query = request.GET.get('query')
+    # parsed_query = input_query.split("+")
+    parsed_query = [input_query]
+    # try:
+    #     request.POST['query']
+    #     global input_query
+    #     input_query = request.POST['query']
+    # except Exception:
+    #     pass
+    # parsed_query = input_query.split(" ")
 
-    parsed_query = input_query.split(" ")
-    query = None
-    if parsed_query:
-        query = parsed_query[0]
-    for q in parsed_query[1:]:
-        query = query and SearchQuery(q)
-
+    # query = None
+    # if parsed_query:
+    #     query = parsed_query[0]
+    # for q in parsed_query[1:]:
+    #     query = query and SearchQuery(q)
+    query = parsed_query
     review_vector = SearchVector('company__name', 'reviewer__user__first_name', 'reviewer__user__last_name',
                                  'title')
     application_vector = SearchVector('company__name', 'profile__user__first_name', 'profile__user__last_name',

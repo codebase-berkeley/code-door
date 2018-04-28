@@ -168,8 +168,8 @@ def slack_info(request):
 
 
 def slack_callback(request):
-    client_id = slack_access_keys[client_id]
-    client_secret = slack_access_keys[client_secret]
+    client_id = slack_access_keys["client_id"]
+    client_secret = slack_access_keys["client_secret"]
 
     if request.method == 'GET':
         code = request.GET.get('code')
