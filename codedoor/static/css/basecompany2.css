@@ -13,7 +13,7 @@ span {
 .noTitleStuff .ui-dialog-titlebar {display:none}
 
 #blackout{
-  display:none      ;
+  display: absolute;
   position: fixed;
   background:rgba(0,0,0,0.7);
   left:0%;
@@ -27,9 +27,9 @@ span {
 
 #commentsection{
 
-  position: fixed;
+  position: absolute;
   left:40%;
-  top:40%;
+  top: 50px;
   width:200px;
   height:300px;
   opacity: 1;
