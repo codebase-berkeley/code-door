@@ -29,6 +29,7 @@ span {
   padding-bottom: 2%;
 }
 
+
 .sub1 {
   display: inline-block;
   position: relative;
@@ -91,6 +92,13 @@ ul {
   overflow: hidden;
 }
 
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
 .active {
   background-color: #01959b;
   color: white;
@@ -119,6 +127,30 @@ ul li {
 
 .inline-block {
   display: inline-block;
+}
+
+button.small-teal {
+  background-color: #01959b; /* Teal */
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+button.tiny-teal {
+  background-color: #01959b; /* Teal */
+  border: none;
+  color: white;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 4px;
 }
 
 .company {
