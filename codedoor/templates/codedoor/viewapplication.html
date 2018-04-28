@@ -12,6 +12,20 @@
   <textarea id="company" style="display: none;">{{ a.company }}</textarea>
   <textarea id="profile" style="display: none;">{{ a.profile }}</textarea>
   <div class="entry">
+      <div id="blackout">
+        <div id="commentsection">
+            <h2>Add comment</h2><br>
+
+            Title <input id="addtitle" type="text" name="title"> <br><br>
+            Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+            <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}"><br><br>
+
+              <button class="sub" id="submit">Submit</button>
+              <button class="sub" id="cancel">Cancel</button>
+
+        </div>
+    </div>
+
     <table id="app">
       <tr>
         {% if a.company.logo != null %}
