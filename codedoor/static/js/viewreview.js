@@ -1,9 +1,9 @@
 
 
 function getCookie(name) {
-  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
-  var result = regexp.exec(document.cookie);
-  return (result === null) ? null : result[1];
+  var value = "; " + document.cookie;
+  var parts = value.split("; " + name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
 document.getElementById("addcomment").addEventListener("click", function(){
@@ -35,6 +35,7 @@ document.getElementById("blackout").style.display = "none";
 
         var csrftoken = getCookie("csrftoken")
         headers.append('X-CSRFToken', csrftoken);
+        console.log("CSRFToken", csrftoken)
 
         fetch("/codedoor/addrc/", {
             method: "POST",
