@@ -24,6 +24,7 @@ document.getElementById("blackout").style.display = "none";
     document.getElementById("submit").addEventListener("click", function() {
         console.log("In the addEventListener");
         document.getElementById("blackout").style.display = "none";
+        document.getElementById("init").style.display = "none";
 
 
         var title = document.getElementById("addtitle").value;

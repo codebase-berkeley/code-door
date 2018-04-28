@@ -211,7 +211,10 @@ p.description_small_text {
   padding-top:5px;
   padding-bottom:5px;
 }
-
+#buffer{
+  padding-top:10px;
+  padding-bottom:10px;
+}
 #profile-img {
   height: 30px;
   width: 30px;

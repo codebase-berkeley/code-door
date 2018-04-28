@@ -235,7 +235,8 @@
         {% endfor %}
         </div>
     {% else %}
-        <p>No questions yet!</p>
+
+        <p id="buffer">No questions yet!</p>
     {% endif %}
     <h2> Comments </h2>
     {% if comments %}
@@ -248,7 +249,10 @@
           </div>
       {% endfor %}
     {% else %}
-      <p> No comments yet! </p>
+
+     <div id ="comment">
+          </div>
+      <div id ="init"><p>No comments yet!</p></div>
     {% endif %}
 
 
