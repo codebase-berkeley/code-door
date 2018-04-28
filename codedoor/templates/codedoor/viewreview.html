@@ -16,6 +16,16 @@
 
   <div class="companyportion">
     <div id="blackout">
+      <div id="commentsection">
+  <h2>Add comment</h2><br>
+
+  Title <input id="addtitle" type="text" name="title"> <br><br>
+  Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
+
+  <button class="sub" id="submit">Submit</button>
+  <button class="sub" id="cancel">Cancel</button>
+</div>
 
     </div>
     <div class="company-logo">
@@ -178,16 +188,7 @@
 
 </div>
 <div>
-<div id="commentsection">
-  <h2>Add comment</h2><br>
 
-  Title <input id="addtitle" type="text" name="title"> <br><br>
-  Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
-  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
-
-  <button class="sub" id="submit">Submit</button>
-  <button class="sub" id="cancel">Cancel</button>
-</div>
 
 
 <script src="{% static 'js/viewreview.js' %}">
