@@ -117,6 +117,20 @@ def list_applications(request, pk, pg=1):
         
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
+def list_all_applications(request, pg=1):
+    applications = Application.objects.order_by("-pk")
+    paginator = Paginator(applications, 10) 
+    page = request.GET.get('page', 1)
+    try:
+        applications_list = paginator.page(page)
+    except PageNotAnInteger:
+        applications_list = paginator.page(1)
+    except EmptyPage:
+        applications_list = paginator.page(paginator.num_pages)
+        
+    return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
+
+
 def created_question(request):
     if request.method == "POST":
 
