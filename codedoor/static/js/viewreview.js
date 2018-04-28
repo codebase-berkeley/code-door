@@ -6,8 +6,6 @@ function getCookie(name) {
   return (result === null) ? null : result[1];
 }
 
-
-
 document.getElementById("addcomment").addEventListener("click", function(){
 
 document.getElementById("blackout").style.display = "block";
