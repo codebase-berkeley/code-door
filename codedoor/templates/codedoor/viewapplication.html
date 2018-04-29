@@ -12,6 +12,20 @@
   <textarea id="company" style="display: none;">{{ a.company }}</textarea>
   <textarea id="profile" style="display: none;">{{ a.profile }}</textarea>
   <div class="entry">
+      <div id="blackout">
+        <div id="commentsection">
+            <h2>Add comment</h2><br>
+
+            Title <input id="addtitle" type="text" name="title"> <br><br>
+            Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+            <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}"><br><br>
+
+              <button class="sub" id="submit">Submit</button>
+              <button class="sub" id="cancel">Cancel</button>
+
+        </div>
+    </div>
+
     <table id="app">
       <tr>
         {% if a.company.logo != null %}
@@ -96,6 +110,9 @@
         </td>
       </tr>
     </table>
+      <br>
+      <a class="sub" id="addcomment" href="#">Add Comment</a>
+
     <br><br>
         {% if request.user.profile == profile %}
           <button id="qBtn" class="sub">Create Question</button>
@@ -218,9 +235,32 @@
         {% endfor %}
         </div>
     {% else %}
-        <p>No questions yet!</p>
+
+        <p id="buffer">No questions yet!</p>
     {% endif %}
+    <h2> Comments </h2>
+    {% if comments %}
+      {% for comment in comments %}
+          <div id="comment">
+            <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+            </div>
+            <p id="commenter"> {{comment.commenter}} </p>
+            <p style="padding-left:40px;"> {{comment.content}} </p><br>
+          </div>
+      {% endfor %}
+    {% else %}
+
+     <div id ="comment">
+          </div>
+      <div id ="init"><p>No comments yet!</p></div>
+    {% endif %}
+
+
   </div>
-  <script src="{% static 'js/createquestion.js' %}"></script>
+
+
+
 </body>
+    <script src="{% static 'js/application.js' %}"></script>
+    <script src="{% static 'js/showcommentsap.js' %}"></script>
 {% endblock %}

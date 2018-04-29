@@ -11,13 +11,10 @@
     <h1 id="codor"> Codor </h1>
     <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
     <div id="searchbar">
-      <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-      <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
-      <button class="sub" id="search" type="submit">Search</button>
-      </form>
+      <input id="searchtype" type="text" placeholder="Try Google">
+      <a class="sub" id="search" href="#">Search</a>
     </div>
-  </div>
-  <br>
+  </div><br>
 
 
   <div class="indent">
@@ -84,8 +81,6 @@
       </div>
 
   </div>
-
-  
 </div>
   <hr id="break">
 </br>
@@ -161,7 +156,7 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk database='reviews' %}">
+          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
             <h2 class="link-text">{{ review.company }}</h2>
           </a>
           <span class="applicant-name">{{ review.reviewer }}</span>
@@ -169,7 +164,7 @@
       </tr>
       <tr>
         <td>
-          {% if review.company.logo != null %}
+          {% if review.title != null %}
             <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
           {% else %}
             <p></p>
@@ -296,6 +291,8 @@
     <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
     <button id="create-application-btn" class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
   </div>
+  <hr id="break">
+
 
 
 
@@ -360,6 +357,16 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+
+
+
+
+
 
   <div id="application-list" class="indent">
     <div id="hidden-element" class="hidden">

@@ -5,19 +5,30 @@
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany2.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
   <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 
 
   <div class="companyportion">
-    <div id="blackout">
+    <div id="commentmodal" class="modal">
+      <div class="modal-content" style="width:40%;">
+        <span id="close" class="close">&times;</span>
+        <h1 style="color:#484848;">Add comment</h1><br>
+
+        <h4>Title </h4>
+        <div class="border-text">
+          <input id="addtitle" type="text" name="title">
+        </div><br><br>
+        <h4>Comment </h4><br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+        <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
+
+        <button class="sub" id="submit">Submit</button>
+      </div>
 
     </div>
+
     <div class="company-logo">
 
     <img src="{{review.company.logo}}" alt="Company logo" width="150" height="150">
@@ -178,120 +189,5 @@
 
 </div>
 <div>
-<div id="commentsection">
-  <h2>Add comment</h2><br>
 
-  Title <input id="addtitle" type="text" name="title"> <br><br>
-  Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
-  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
-
-  <button class="sub" id="submit">Submit</button>
-  <button class="sub" id="cancel">Cancel</button>
-</div>
-
-
-
-<script type="text/javascript">
-document.getElementById("blackout").style.display = "none";
-
-function myFunction() {
-    alert("Hello! I am an alert box!");
-}
-
-function getCookie(name) {
-  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
-  var result = regexp.exec(document.cookie);
-  return (result === null) ? null : result[1];
-}
-
-function displayCommentSection() {
-    var x = document.getElementById("commentsection");
-    if (x.style.display != "block") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-$( function() {
-
-    $( "#commentsection" ).dialog({
-
-      autoOpen: false,
-      show: {
-        effect: "fade",
-        duration: 300
-      },
-      hide: {
-
-        effect: "close",
-        duration: 1000
-
-      }
-    });
-
-    $(".ui-dialog-titlebar").hide();
-    $( "#commentsection" ).dialog({ closeOnEscape: false });
-
-    $( "#addcomment" ).on( "click", function() {
-    document.getElementById("blackout").style.display = "block";
-      $( "#commentsection" ).dialog( "open" );
-
-    });
-  } );
-
-
-
-
-console.log("Do somethings");
-    document.getElementById("cancel").addEventListener("click", function() {
-
-document.getElementById("blackout").style.display = "none";
-
-$( "#commentsection" ).dialog( "close" );
-});
-    document.getElementById("submit").addEventListener("click", function() {
-        console.log("In the addEventListener");
-        document.getElementById("blackout").style.display = "none";
-
-        var title = document.getElementById("addtitle").value;
-        var content = document.getElementById("addbody").value;
-
-        var commentData = new FormData();
-        commentData.append("title", title);
-        commentData.append("content", content);
-        var review = document.getElementById("reviewpk").value;
-        commentData.append("review", review )
-        var headers = new Headers();
-
-        var csrftoken = getCookie("csrftoken")
-        headers.append('X-CSRFToken', csrftoken);
-
-        fetch("/codedoor/addrc/", {
-            method: "POST",
-            body: commentData,
-            headers: headers,
-            credentials: "include"
-        }).then(function(response) {
-            return response.json();
-        }).then(function(json) {
-            if (json.success) {
-                document.getElementById("comment").innerHTML =
-
-
-                "<div id=\"comment\"><div id=\"profile-img\" style=\"background-image: url(" +json.profile_url+ ");\">"
-                  +"</div><p id='commenter'>"+json.name+"</p>"
-                  +"<p class='commentcontents'>"+json.content+"</p><br></div>"
-                   + document.getElementById("comment").innerHTML;
-            }
-        })
-
-      $( "#commentsection" ).dialog( "close" );
-    }
-
-
-
-  );
-</script>
 </body>
-{% endblock %}
