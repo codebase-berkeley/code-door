@@ -167,6 +167,8 @@ def slack_info(request):
         return redirect("codedoor:viewprofile", pk=user.profile.id)
 
 
+from api_keys import absolute_url
+
 def slack_callback(request):
     client_id = slack_access_keys["client_id"]
     client_secret = slack_access_keys["client_secret"]
@@ -180,7 +182,7 @@ def slack_callback(request):
                           auth=HTTPBasicAuth(client_id, client_secret),
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code",
-                                  "redirect_uri": "/codedoor/slack_info"})
+                                  "redirect_uri": "{}/codedoor/slack_info".format(absolute_url)})
         access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
