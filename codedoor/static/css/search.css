@@ -1,52 +1,12 @@
-#codor {
-  font-size: 40px;
-  color: #008489;
-}
-
-#searchtype {
-  width: 83%;
-  height: 35px;
-  font-size: 15px;
-}
-
-#search {
-  float: right;
-}
-
-#subtitle {
-  font-size: 25px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
 
 #form {
   margin-top: 20px;
-}
-
-.space {
-  margin-bottom: 3px;
 }
 
 span {
   margin: 3px;
 }
 
-.border-text input {
-  margin-top: 5px;
-  border: 1px solid #cccccc;
-  border-radius: 3px;
-  width: 70%;
-  height: 28px;
-  padding: 5px;
-  font-size: 15px;
-  background-color: #f8f8f8;
-}
-
-.border {
-  margin-top: 5px;
-}
-
-/*Idea inspired by Group 1's createprofile.css*/
 #submit input {
   width: 10%;
   background-color: #008489;
@@ -62,21 +22,13 @@ span {
   background-color: #01959b;
 }
 
-.sub {
-  background-color: #008489;
-  color: White;
-  border: none;
-  border-radius: 2px;
-  padding: 10px 20px;
-  outline: none;
-}
-
 .companyportion {
   position: relative;
   top: 10%;
   left: 5%;
   padding-bottom: 2%;
 }
+
 
 .sub1 {
   display: inline-block;
@@ -140,6 +92,13 @@ ul {
   overflow: hidden;
 }
 
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+
 .active {
   background-color: #01959b;
   color: white;
@@ -201,36 +160,33 @@ button.tiny-teal {
   background-size: cover;
 }
 
-#searchbar {
-  width: 90%;
-  margin-top: 10px;
-  padding: 10px 10px;
-  object-fit: cover;
-  box-shadow: 5px 5px 5px 5px grey;
+#databases {
+    display: inline-block;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E8E8E8;
+    border-radius: 5px;
+    width: 20%;
+    float: left;
 }
 
-
-button.big {
-  background-color: #008489; /* Teal */
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  border-radius: 4px;
+#databases > div {
+    margin: 15px;
 }
 
-button.small {
-  background-color: #FF9B71; /* Orange */
-  border: none;
-  color: white;
-  padding: 10px 27px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  border-radius: 4px;
+.data {
+    color: #01959b;
+    font-weight: bold;
+    font-size: 16px;
 }
 
+#results {
+    display: inline-block;
+    width: 75%;
+    float: right;
+}
+
+.applicant-name {
+    font-family: 'Roboto';
+	color: #7F7F7F;
+}

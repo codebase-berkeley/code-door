@@ -9,23 +9,6 @@ button.big {
   font-size: 16px;
   border-radius: 4px;
 }
-.commentcontents{
-  padding-left:40px;
-}
-
-
-#blackout{
-
-  position: fixed;
-  opacity: 0.7;
-  left:0%;
-  top:0%;
-  width:100%;
-  height:100%;
-  background-color: black;
-  z-index: 1;
-
-}
 
 button.small {
   background-color: #FF9B71; /* Orange */
@@ -184,28 +167,7 @@ p.description_small_text {
   left:5%;
 }
 
-#comments {
-  padding-top:10px;
+#filter {
+ display: inline;
 
-}
-
-#comment {
-  padding-top:5px;
-  padding-bottom:5px;
-}
-
-#profile-img {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-  background-position: center;
-  background-size: cover;
-  display: inline-block;
-}
-
-#commenter {
-  display:inline-block;
-  position:absolute;
-  padding:10px;
-  color:black;
 }

@@ -10,8 +10,6 @@ span {
   margin: 3px;
 }
 
-
-
 .border-text input {
   margin-top: 5px;
   border: 1px solid #cccccc;
@@ -101,6 +99,15 @@ span {
   font-weight: bold;
   display: inline;
 }
+#filter {
+  font-size: 10px;
+  display: inline-block;
+  font-weight: lighter;
+  position: absolute;
+  right: 0px;
+  padding: 10px;
+}
+
 
 .nav_items:hover {
   transition: 0.3s;
