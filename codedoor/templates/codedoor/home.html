@@ -164,7 +164,7 @@
       </tr>
       <tr>
         <td>
-          {% if review.company.logo != null %}
+          {% if review.title != null %}
             <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
           {% else %}
             <p></p>
