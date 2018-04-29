@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+
 
 @login_required
 def home(request):
@@ -29,7 +31,6 @@ def home(request):
         application_list = paginator_2.page(1)
     except EmptyPage:
         application_list = paginator_2.page(paginator_2.num_pages)
-
 
     return render(request, "codedoor/home.html", {"companies": companies, "reviews": review_list, "applications": application_list})
 
