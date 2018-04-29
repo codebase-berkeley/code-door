@@ -211,4 +211,3 @@ function createApplicationElement(a) {
 	p.insertBefore(entry, parent);
 }
 
-

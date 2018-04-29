@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from codedoor.models import Profile, Company, Question, Application, ApplicationComment
+from django.http import HttpResponse, JsonResponse
+from codedoor.models import Profile, Company, Question, Application, User
 from django.core.paginator import Paginator
 from django.core import serializers
 
@@ -100,8 +100,7 @@ def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     profile = get_object_or_404(Profile, id=a.profile.pk)
     questions = Question.objects.filter(application=pk).order_by("-pk")
-    comments = ApplicationComment.objects.filter(application=a)
-    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile, "questions": questions, "comments": comments})
+    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile, "questions": questions})
 
 
 def list_applications(request, pk, pg=1):
@@ -130,7 +129,6 @@ def list_all_applications(request, pg=1):
         
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
-
 def created_question(request):
     if request.method == "POST":
 
@@ -146,4 +144,3 @@ def created_question(request):
         return JsonResponse({"question": new_question.question, "company_answer": new_question.actual_answer, "applicant_answer": new_question.applicant_answer, "success": True})
 
     return HttpResponse("failed to create a question!")
-
