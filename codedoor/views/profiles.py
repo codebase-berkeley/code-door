@@ -10,6 +10,8 @@ from requests.auth import HTTPBasicAuth
 import boto3
 import urllib
 from api_keys import s3_access_keys
+from api_keys import slack_access_keys
+from api_keys import absolute_url
 
 profile_pic_bucket = 'codedoor-profile-pics'
 
@@ -167,8 +169,8 @@ def slack_info(request):
 
 
 def slack_callback(request):
-    client_id = "44822465026.334128598816"
-    client_secret = "7387eabf2e73804cf8492e6025c89326"
+    client_id = slack_access_keys.client_id
+    client_secret = slack_access_keys.client_secret
 
     if request.method == 'GET':
         code = request.GET.get('code')
@@ -179,7 +181,8 @@ def slack_callback(request):
                           auth=HTTPBasicAuth(client_id, client_secret),
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code",
-                                  "redirect_uri": "/codedoor/slack_info"})
+                                  "redirect_uri": "{}/codedoor/slack_info".format(absolute_url)})
+        print(r.json())
         access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
