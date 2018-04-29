@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from codedoor.models import Company, Review, Profile, Application
+from codedoor.models import Company, Review, Profile, Application, ReviewComment, ApplicationComment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 import boto3
@@ -19,6 +19,7 @@ def create_company(request):
             logo = request.FILES["logo"].read()
             structure = request.POST["structure"]
         except Exception as e:
+            print(e)
             return HttpResponse("You did not fill out the form correctly!")
 
         company = Company(name=name, industry=industry, website=website, structure=structure)
@@ -29,10 +30,9 @@ def create_company(request):
         url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
         company.logo = url
         company.save()
-
-        return redirect('codedoor:viewcompany', pk=company.pk, database="reviews")
+        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo})
     else:
-        return render(request, "codedoor/createcompany.html")
+        return HttpResponse("failed to create a company!")
 
 
 @login_required
@@ -119,6 +119,20 @@ def view_company(request, pk, database):
         else:
             HttpResponse("Invalid url")
 
+    # Reviews
+    reviews = Review.objects.filter(company=company)
+    review_comments = []
+    for review in reviews:
+        review_comments += ReviewComment.objects.filter(review=review)
+    review_comments = review_comments[:2]
+    # Applications
+    applications = Application.objects.filter(company=company)
+    app_comments = []
+    for application in applications:
+        app_comments += ApplicationComment.objects.filter(application=application)
+    app_comments = app_comments[:2]
+
+    
     paginator1 = Paginator(reviews, 5)
     paginator2 = Paginator(applications, 5)
     page = request.GET.get('page', 1)
@@ -135,8 +149,10 @@ def view_company(request, pk, database):
     except EmptyPage:
         application_list = paginator2.page(paginator2.num_pages)
 
-    return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile,
-                                                         "applications": application_list})
+    return render(request, "codedoor/viewcompany.html", {"company": company, 
+        "reviews": review_list, "profile": profile, 
+        "applications":application_list, "review_comments": review_comments, 
+        "app_comments": app_comments})
 
 
 @login_required

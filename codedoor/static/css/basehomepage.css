@@ -35,7 +35,7 @@ span {
   margin-top: 5px;
   border: 1px solid #cccccc;
   border-radius: 3px;
-  width: 500px;
+  width: 70%;
   height: 28px;
   padding: 5px;
   font-size: 15px;
@@ -208,3 +208,29 @@ button.tiny-teal {
   object-fit: cover;
   box-shadow: 5px 5px 5px 5px grey;
 }
+
+
+button.big {
+  background-color: #008489; /* Teal */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+button.small {
+  background-color: #FF9B71; /* Orange */
+  border: none;
+  color: white;
+  padding: 10px 27px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 4px;
+}
+

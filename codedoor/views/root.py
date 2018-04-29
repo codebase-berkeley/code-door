@@ -14,6 +14,7 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 def home(request):
     reviews = Review.objects.all().order_by('-id')
     applications = Application.objects.all().order_by('-id')
+    companies = Company.objects.all()
     paginator_1 = Paginator(reviews, 3)
     paginator_2 = Paginator(applications, 3)
     page = request.GET.get('page', 1)
@@ -30,5 +31,6 @@ def home(request):
         application_list = paginator_2.page(1)
     except EmptyPage:
         application_list = paginator_2.page(paginator_2.num_pages)
-    return render(request, "codedoor/home.html", {"reviews": review_list, "applications": application_list})
+
+    return render(request, "codedoor/home.html", {"companies": companies, "reviews": review_list, "applications": application_list})
 

@@ -1,0 +1,211 @@
+#form {
+  margin-top: 20px;
+}
+
+.space {
+  margin-bottom: 3px;
+}
+
+
+span {
+  margin: 3px;
+}
+
+.noTitleStuff .ui-dialog-titlebar {display:none}
+
+#blackout{
+
+  position: fixed;
+  opacity: 0.7;
+  left:0%;
+  top:0%;
+  width:100%;
+  height:100%;
+  background-color: black;
+  z-index: 1;
+
+}
+
+#shohide{
+  z-index: 2;
+  background-color: white;
+}
+.border-text input {
+  margin-top: 5px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  width: 500px;
+  height: 28px;
+  padding: 5px;
+  font-size: 15px;
+  background-color: #f8f8f8;
+}
+
+.border {
+  margin-top: 5px;
+}
+
+/*Idea inspired by Group 1's createprofile.css*/
+#submit input {
+  width: 10%;
+  background-color: #008489;
+  color: White;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 10px;
+  outline: none;
+}
+
+#submit input:hover {
+  transition-duration: 0.3s;
+  background-color: #01959b;
+}
+
+.sub {
+  background-color: #008489;
+  color: White;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+  outline: none;
+}
+
+.companyportion {
+  position: relative;
+  top: 10%;
+  left: 5%;
+  padding-bottom: 2%;
+  z-index: 2;
+}
+
+.sub1 {
+  display: inline-block;
+  position: relative;
+  top: -40px;
+}
+
+.logo {
+  display: inline;
+}
+
+#break {
+  height: 3px;
+  background-color: #01959b;
+  position: relative;
+  left: 5%;
+  width: 90%;
+}
+
+#reviewtitle {
+  color: #01959b;
+  font-size: 18px;
+}
+
+#reviewtitle:hover {
+  transition: 0.3s;
+  color: #016265;
+}
+
+#nav {
+  margin-top: 3%;
+  margin-bottom: 3%;
+  position: relative;
+  left: 5%;
+}
+
+.nav_items {
+  color: #01959b;
+  font-size: 20px;
+  padding-right: 8%;
+  font-weight: bold;
+  display: inline;
+}
+
+.nav_items:hover {
+  transition: 0.3s;
+  color: #016265;
+  cursor: pointer;
+}
+
+.active_item {
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.active {
+  background-color: #01959b;
+  color: white;
+  border-radius: 5px;
+}
+
+li:hover:not(.active) {
+  display: inline;
+  background-color: #ddd;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+ul li {
+  width: auto;
+  display: inline-block;
+  color: black;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+}
+.company {
+  width: 300px;
+  height: 300px;
+  background-position: center;
+  background-size: cover;
+}
+
+#bottom-half {
+  left: 5%;
+  position:relative;
+}
+
+#comments {
+  padding-top:10px;
+
+}
+
+#comment {
+  padding-top:5px;
+  padding-bottom:5px;
+}
+
+#profile-img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-position: center;
+  background-size: cover;
+  display: inline-block;
+}
+
+#commenter {
+  display:inline-block;
+  position:absolute;
+  padding:10px;
+  color:black;
+}
+.commentbase{
+color:black;
+font-weight:bold;
+padding-bottom:5px;
+
+}
+
+.commentcontents{
+  padding-left:40px;
+}
+
+#commentsection {
+  
+}

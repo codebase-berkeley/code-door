@@ -1,14 +1,25 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
+
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany2.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/applications.css' %}">
   <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
+
+
   <div class="companyportion">
+    <div id="blackout">
+
+    </div>
     <div class="company-logo">
+
     <img src="{{review.company.logo}}" alt="Company logo" width="150" height="150">
 
     <div class='sub1'><h1>{{review.company.name}}</h1><br>
@@ -24,6 +35,14 @@
   <br>
 
 <div id="bottom-half">
+  <div style="float:right;position:absolute;right:10%;">
+    {% if review.reviewer.user == request.user %}
+      <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
+    {% else %}
+      <p></p>
+    {% endif %}
+    <a class="sub" id="addcomment" href="#">Add Comment</a>
+  </div>
   <div id="reviews">
     <table>
       <tr>
@@ -37,7 +56,7 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk database='reviews' %}">
+          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
             <h2 class="link-text">{{ review.company }}</h2>
           </a>
           <span class="applicant-name">{{ review.reviewer }}</span>
@@ -129,8 +148,25 @@
         <td>
           <div>
             <h4>Description:</h4>
-            <p class="description_small_text">{{review.review}}</p>
+            <p class="description_small_text" style="width:80%;">{{review.review}}</p>
           </div>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td id="comments">
+          <br><p class="commentbase"> Comments: </p>
+          <div id ="comment">
+          </div>
+          {% for comment in comments %}
+            <div id="comment">
+              <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+              </div>
+              <p id="commenter"> {{comment.commenter}} </p>
+              <p class="commentcontents"> {{comment.content}} </p>
+              <br>
+            </div>
+          {% endfor %}
         </td>
       </tr>
     </table>
@@ -138,17 +174,124 @@
   </div>
 
 
-  <div>
-    <br><br><br>
-      {% if review.reviewer.user == request.user %}
-        <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
-      {% else %}
-        <p></p>
-      {% endif %}
-    <br>
-  </div>
-</body>
+
+
 </div>
+<div>
+<div id="commentsection">
+  <h2>Add comment</h2><br>
+
+  Title <input id="addtitle" type="text" name="title"> <br><br>
+  Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
+
+  <button class="sub" id="submit">Submit</button>
+  <button class="sub" id="cancel">Cancel</button>
+</div>
+
+
+
+<script type="text/javascript">
+document.getElementById("blackout").style.display = "none";
+
+function myFunction() {
+    alert("Hello! I am an alert box!");
+}
+
+function getCookie(name) {
+  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
+  var result = regexp.exec(document.cookie);
+  return (result === null) ? null : result[1];
+}
+
+function displayCommentSection() {
+    var x = document.getElementById("commentsection");
+    if (x.style.display != "block") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+}
+
+$( function() {
+
+    $( "#commentsection" ).dialog({
+
+      autoOpen: false,
+      show: {
+        effect: "fade",
+        duration: 300
+      },
+      hide: {
+
+        effect: "close",
+        duration: 1000
+
+      }
+    });
+
+    $(".ui-dialog-titlebar").hide();
+    $( "#commentsection" ).dialog({ closeOnEscape: false });
+
+    $( "#addcomment" ).on( "click", function() {
+    document.getElementById("blackout").style.display = "block";
+      $( "#commentsection" ).dialog( "open" );
+
+    });
+  } );
+
+
+
+
+console.log("Do somethings");
+    document.getElementById("cancel").addEventListener("click", function() {
+
+document.getElementById("blackout").style.display = "none";
+
+$( "#commentsection" ).dialog( "close" );
+});
+    document.getElementById("submit").addEventListener("click", function() {
+        console.log("In the addEventListener");
+        document.getElementById("blackout").style.display = "none";
+
+        var title = document.getElementById("addtitle").value;
+        var content = document.getElementById("addbody").value;
+
+        var commentData = new FormData();
+        commentData.append("title", title);
+        commentData.append("content", content);
+        var review = document.getElementById("reviewpk").value;
+        commentData.append("review", review )
+        var headers = new Headers();
+
+        var csrftoken = getCookie("csrftoken")
+        headers.append('X-CSRFToken', csrftoken);
+
+        fetch("/codedoor/addrc/", {
+            method: "POST",
+            body: commentData,
+            headers: headers,
+            credentials: "include"
+        }).then(function(response) {
+            return response.json();
+        }).then(function(json) {
+            if (json.success) {
+                document.getElementById("comment").innerHTML =
+
+
+                "<div id=\"comment\"><div id=\"profile-img\" style=\"background-image: url(" +json.profile_url+ ");\">"
+                  +"</div><p id='commenter'>"+json.name+"</p>"
+                  +"<p class='commentcontents'>"+json.content+"</p><br></div>"
+                   + document.getElementById("comment").innerHTML;
+            }
+        })
+
+      $( "#commentsection" ).dialog( "close" );
+    }
+
+
+
+  );
+</script>
+</body>
 {% endblock %}
-
-
