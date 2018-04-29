@@ -134,34 +134,6 @@
     <br>
     {% endfor %}
 
-    <!-- Source: Vitor Freitas -->
- {% if data.has_other_pages %}
-      <ul class="pagination">
-        {% if data.has_previous %}
-          <li class="clickable">
-            <li class="clickable"><a href="?query={{ query }}&page={{ data.previous_page_number }}">&laquo;</a></li>
-            </form>
-          </li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in data.paginator.page_range %}
-          {% if data.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-                <li class="clickable"><a href="?query={{ query }}&page={{ i }}">{{ i }}</a></li>
-            </form>
-          {% endif %}
-        {% endfor %}
-        {% if data.has_next %}
-          <li><a href="?query={{ query }}&page={{ data.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
-     {%  else %}
-    {% endif %}
-
   {% elif database == "interviews" %}
     {% for a in data %}
     <table>
@@ -295,6 +267,34 @@
     {% endfor %}
 
   {% endif %}
+    <!-- Source: Vitor Freitas -->
+ {% if data.has_other_pages %}
+      <ul class="pagination">
+        {% if data.has_previous %}
+          <li class="clickable">
+            <li class="clickable"><a href="?query={{ query }}&page={{ data.previous_page_number }}">&laquo;</a></li>
+            </form>
+          </li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in data.paginator.page_range %}
+          {% if data.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+                <li class="clickable"><a href="?query={{ query }}&page={{ i }}">{{ i }}</a></li>
+            </form>
+          {% endif %}
+        {% endfor %}
+        {% if data.has_next %}
+          <li><a href="?query={{ query }}&page={{ data.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+     {%  else %}
+    {% endif %}
+
 </div>
 </body>
 {% endblock %}
