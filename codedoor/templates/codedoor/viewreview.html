@@ -67,7 +67,7 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk %}">
+          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk database='reviews'%}">
             <h2 class="link-text">{{ review.company }}</h2>
           </a>
           <span class="applicant-name">{{ review.reviewer }}</span>
@@ -191,3 +191,4 @@
 <div>
 
 </body>
+{% endblock %}
