@@ -19,3 +19,4 @@ def home(request):
     companies += [Company.objects.get(id=application.company.id) for application in applications]
 
     return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": applications, "num_apps": num_apps})
+
