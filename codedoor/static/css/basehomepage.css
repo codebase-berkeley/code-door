@@ -157,7 +157,7 @@ ul {
 li:hover:not(.active) {
   display: inline;
   background-color: #ddd;
-  border-radius: 5px;
+  border-radius: 0px;
   transition: 0.3s;
 }
 
