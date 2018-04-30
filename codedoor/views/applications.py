@@ -125,8 +125,6 @@ def list_applications(request, pk, pg=1):
 
 def list_all_applications(request, pg=1):
     companies = Company.objects.all()
-    # print("Hello");
-    # print(companies)
     applications = Application.objects.order_by("-pk")
     paginator = Paginator(applications, 10) 
     page = request.GET.get('page', 1)
