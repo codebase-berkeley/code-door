@@ -199,3 +199,6 @@ button.tiny-teal {
 .link-text {
     color: #01959b;
 }
+table {
+    margin-bottom: 25px;
+}
