@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 RESULTS_PER_PAGE = 5
 
+
 def search(request, database):
     input_query = request.GET.get('query')
     parsed_query = input_query.split("+")
