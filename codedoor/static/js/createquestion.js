@@ -46,6 +46,7 @@ qBtn.onclick = function() {
 }
 
 aBtn.onclick = function() {
+  console.log("Are you getting clicked dumbass");
   modal2.style.display = "block";
 }
 
@@ -114,8 +115,11 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
 
 
 document.getElementById("submit_button_edit").addEventListener("click", function(e) {
+  console.log("What about your dumbass");
+
   var position = document.getElementById("position").value;
-  var season = document.getElementsByClassName("menu")[0].value;
+  //var season = document.getElementsByClassName("menu")[0].value;
+  var season = "Fall";
   var year = document.getElementById("year").value;
   var difficulty = document.getElementById("difficulty").value;
   var description = document.getElementById("difficulty").value;
@@ -142,12 +146,15 @@ document.getElementById("submit_button_edit").addEventListener("click", function
   var headers = new Headers();
   var csrftoken = getCookie("csrftoken")  ;
   headers.append('X-CSRFToken', csrftoken);
+
+  console.log("Are we getting all the way here?");
   fetch("/codedoor/editapplication", {
     method: "POST",
     body: formData,
     headers: headers,
     credentials: "include"
   }).then(function(response) {
+    console.log("Getting response", response)
     return response.json();
   }).then(function(json) {
     var comp;
