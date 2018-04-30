@@ -119,8 +119,3 @@ button:hover {
 #topsearch > .item {
     margin-right: 1em;
 }
-
-#home-search, .content, .container {
-  display: block;
-  height: 100%;
-}

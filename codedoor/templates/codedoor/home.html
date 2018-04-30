@@ -1,6 +1,8 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
   <link rel="stylesheet" href="{% static 'css/application.css' %}">
@@ -20,7 +22,7 @@
   </div><br>
 
 
-  <div class="indent">
+  <div id="recent-activity" class="indent">
     <h3>Recent Activity</h3><br>
     <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
       <button class="inline-block small-teal" id="createreviewbutton">Create Review</button>
