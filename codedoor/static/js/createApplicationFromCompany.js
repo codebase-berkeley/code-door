@@ -42,6 +42,15 @@ submitBtnA.onclick = function(event) {
     modalA.style.display = "none";
 }
 
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    console.log("clicked outside the modal");
+    if (event.target == modalA) {
+        console.log("in the if");
+        modalA.style.display = "none";
+    }
+}
+
 
 document.getElementById("submit_button").addEventListener("click", function(e) {
   var position = document.getElementById("position").value;

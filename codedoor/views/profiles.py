@@ -100,9 +100,13 @@ def editprofile(request, pk):
         return render(request, 'codedoor/editprofile.html', {"profile": profile})
     else:
         try:
+            input_profile_pic = False
             profile.user.first_name = request.POST['first_name']
             profile.user.last_name = request.POST['last_name']
-            input_profile_pic = request.FILES['profile_pic'].read()
+            try:
+                input_profile_pic = request.FILES['profile_pic'].read()
+            except Exception as e:
+                pass
             profile.graduation_year = request.POST['graduation_year']
             profile.current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']

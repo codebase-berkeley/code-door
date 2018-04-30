@@ -10,8 +10,6 @@
   <div class="companyportion">
     <div class="company-logo">
       {% if company.logo %}
-
-
         <img src="{{company.logo}}" alt="Company logo" width="150" height="150">
       {% else %}
         <img src="/static/images/temp.png" alt="Company logo" width="150" height="150">
@@ -34,7 +32,7 @@
     <span style="float:right;position:absolute;right:10%;">
       <a class="sub" id="createreviewbutton">Add Review</a>
       <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
-      <button id="create-application-btn" class="sub" onclick="displayApplicationForm()">Add Application</button>
+      <a id="create-application-btn" class="sub" onclick="displayApplicationForm()">Add Application</a>
     </span>
   </div>
 
@@ -54,13 +52,13 @@
         </div>
       </div><br>
       <div class="space">
-        Companies <br>
+        <h4>Companies</h4> <br>
         <div class="border">
           <select name="company" class="menu companies" id="reviewcompany">
                   <option value={{company.pk}} selected>{{company.name}}</option>
             {% for c in companies %}
                 {% if c.pk != company.pk %}
-                  <option value={{c.pk}}>{{c.name}}</option>
+                  <option value={{c.pk}}><p>{{c.name}}</p></option>
                 {% endif %}
             {% endfor %}
           </select>
@@ -69,7 +67,7 @@
         </p>
       </div><br>
         <div class="space">
-        Rating <br>
+        <h4>Rating</h4> <br>
         <div class="border-text">
           <div id="number">
             <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
@@ -78,7 +76,7 @@
         <p class="error" id="rating-error">
         </p>
       </div><br>
-      <div class="space">Recommend
+      <div class="space"><h4>Recommend</h4>
         <div class="border">
           <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
           <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
@@ -86,7 +84,7 @@
         <p class="error" id="recommend-error">
         </p>
       </div><br>
-      <div class="space">Review <br>
+      <div class="space"><h4>Review</h4> <br>
         <div class="border">
           <textarea type="text" name="review" id="review"></textarea>
         </div>
@@ -98,12 +96,12 @@
   </div>
 
 
-<div id="bottom-half">
+<div id="bottom-half" class="indent">
 
   <div id="reviews">
-    <div id="reviews-dropdown">
+    <div id="reviews-dropdown" class="dropdown">
       <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
-          <p class="filter">Rating:
+          <span class="filter">Rating:
           <select name = "rating">
             <option value = None>All</option>
             <option value = 1>1 star</option>
@@ -112,24 +110,26 @@
             <option value = 4>4 stars</option>
             <option value = 5>5 stars</option>
           </select>
-          </p>
+          </span>
 
 
 
-          <p class="filter">Recommend:
+          <span class="filter">Recommend:
           <select name = "recommend">
             <option value = None>All</option>
             <option value = True>Yes</option>
             <option value = False>No</option>
           </select>
-          </p>
+          </span>
 
         <button class="sub" id="search" type="submit">Filter</button>
       </form>
     </div>
   </div>
 
-<div id = "reviewsnew">
+  <br>
+
+  <div id="reviewsnew">
     {% for review in reviews %}
     <table>
       <tr>
@@ -260,7 +260,6 @@
     </table>
     <br>
     {% endfor %}
-  </div>
 
     <!-- Source: Vitor Freitas -->
     {% if reviews.has_other_pages %}
@@ -287,11 +286,11 @@
   </div>
 
 
-  <div id="applications">
+  <div id="applications" class="indent">
 
-    <div id="applications-dropdown">
+    <div id="applications-dropdown" class="dropdown">
       <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
-          <p class="filter">Year:
+          <span class="filter">Year:
           <select name = "year">
             <option value = None>All</option>
             <option value = 2018>2018</option>
@@ -300,9 +299,9 @@
             <option value = 2015>2015</option>
             <option value = 2014>Older</option>
           </select>
-          </p>
+          </span>
 
-          <p class="filter">Season:
+          <span class="filter">Season:
           <select name = "season">
             <option value = None>All</option>
             <option value = "Fall">Fall</option>
@@ -310,248 +309,242 @@
             <option value = "Summer">Summer</option>
             <option value = "Winter">Winter</option>
           </select>
-          </p>
+          </span>
 
-          <p class="filter">Received Offer:
+          <span class="filter">Received Offer:
           <select name = "received_offer">
             <option value = None>All</option>
             <option value = True>Yes</option>
             <option value = False>No</option>
           </select>
-          </p>
+          </span>
 
           <button class="sub" id="search" type="submit">Filter</button>
       </form>
     </div>
 
 
-  <div id="application-modal" class="modal">
-    <div class="modal-content">
-      <span id="closeA" class="close">&times;</span>
-      <div id="hidden-application" class="indent">
-        <h1> Create Application</h1><br>
-        {% csrf_token %}
-        <div class="entry">
-          <h4>Position:</h4><br>
-          <p id="error0"></p>
-          <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
-        </div>
-        <div class="entry">
-          <h4>Season:</h4><br>
-          <p id="error1" class="error"></p>
-          <select id="season" name="season" class="menu" required>
-            <option value="Fall">Fall</option>
-            <option value="Winter">Winter</option>
-            <option value="Spring">Spring</option>
-            <option value="Summer">Summer</option>
-          </select>
-        </div>
-        <div class="entry">
-          <h4>Year:</h4><br>
-          <p id="error2" class="error"></p>
-          <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
-        </div>
-        <div class="entry">
-          <h4>Difficulty:</h4><br>
-          <p id="error3" class="error"></p>
-          <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
-        </div>
-        <div class="entry">
-          <h4>Description:</h4><br>
-          <p id="error4" class="error"></p>
-          <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
-        </div>
-        <div class="entry">
-          <h4>Received Offer:</h4><br>
-          <p id="error5" class="error"></p>
-          <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
-          <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
-        </div>
-        <div class="entry">
-          <h4>Offer details:</h4><br>
-          <p id="error6" class="error"></p>
-          <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
-        </div>
-        <div class="entry">
-          <button id="submit_button" type="submit" class="small-teal">Submit</button>
+    <div id="application-modal" class="modal">
+      <div class="modal-content">
+        <span id="closeA" class="close">&times;</span>
+        <div id="hidden-application" class="indent">
+          <h1> Create Application</h1><br>
+          {% csrf_token %}
+          <div class="entry">
+            <h4>Position:</h4><br>
+            <p id="error0"></p>
+            <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
+          </div>
+          <div class="entry">
+            <h4>Season:</h4><br>
+            <p id="error1" class="error"></p>
+            <select id="season" name="season" class="menu" required>
+              <option value="Fall">Fall</option>
+              <option value="Winter">Winter</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+            </select>
+          </div>
+          <div class="entry">
+            <h4>Year:</h4><br>
+            <p id="error2" class="error"></p>
+            <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
+          </div>
+          <div class="entry">
+            <h4>Difficulty:</h4><br>
+            <p id="error3" class="error"></p>
+            <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
+          </div>
+          <div class="entry">
+            <h4>Description:</h4><br>
+            <p id="error4" class="error"></p>
+            <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
+          </div>
+          <div class="entry">
+            <h4>Received Offer:</h4><br>
+            <p id="error5" class="error"></p>
+            <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
+            <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
+          </div>
+          <div class="entry">
+            <h4>Offer details:</h4><br>
+            <p id="error6" class="error"></p>
+            <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
+          </div>
+          <div class="entry">
+            <button id="submit_button" type="submit" class="small-teal">Submit</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
 
 
-
-
-
-
-
-
-
-
-  <div id="application-list" class="indent">
-    <div id="hidden-element" class="hidden">
-      <table>
-        <tr>
-          <td rowspan="3" width="7%">
-            <img id="hidden-logo" class="hidden-logo" width="100" height="100">
-          </td>
-          <td width="93%">
-            <a id="company-link">
-              <h2 id="hidden-company-name" class="link-text hidden-company-name"></h2>
-            </a>
-            <span id="hidden-profile-name" class="applicant-name hidden-profile-name"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span id="hidden-position" class="info job-position hidden-position"></span>
-            <span id="hidden-season" class="info job-season hidden-season"></span><span id="hidden-year" class="info job-season hidden-year"></span></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>
-            <span class="info colorful-boxy">
-              <svg width="15" height="15">
-                <rect id="hidden-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg><span id="hidden-offer-text" class="hidden-offer-text"></span>
-            </span>
-            <span class="info colorful-boxy">
-              <svg width="15" height="15">
-                <rect id="hidden-difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg>&nbsp;&nbsp;<span id="hidden-difficulty-text" class="hidden-difficulty-text"></span>
-            </span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <h4>Description:</h4>
-            <p id="hidden-description" class="description_small_text hidden-description"></p>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div id="existing-applications">
-      {% for a in applications %}
+    <div id="application-list">
+      <div id="hidden-element" class="hidden">
         <table>
           <tr>
-            {% if a.company.logo != null %}
-              <td rowspan="3" width="7%">
-                <img src="{{a.company.logo}}" width="100" height="100">
-              </td>
-            {% else %}
-              <td rowspan="3" width="7%">
-                <img src="/static/images/temp.png" width="100" height="100">
-              </td>
-            {% endif %}
+            <td rowspan="3" width="7%">
+              <img id="hidden-logo" class="hidden-logo" width="100" height="100">
+            </td>
             <td width="93%">
-              <a href="{% url 'codedoor:view_application' pk=a.pk %}">
-                <h2 class="link-text">{{ a.company }}</h2>
+              <a id="company-link">
+                <h2 id="hidden-company-name" class="link-text hidden-company-name"></h2>
               </a>
-              <span class="applicant-name">{{ a.profile }}</span>
+              <span id="hidden-profile-name" class="applicant-name hidden-profile-name"></span>
             </td>
           </tr>
           <tr>
             <td>
-              <p><span class="info job-position">{{a.position}}</span>
-              {% if a.season == 1 %}
-                <span class="info job-season">Fall {{a.year}}</span></p>
-              {% elif a.season == 2 %}
-                <span class="info job-season">Winter {{a.year}}</span></p>
-              {% elif a.season == 3 %}
-                <span class="info job-season">Spring {{a.year}}</span></p>
-              {% else %}
-                <span class="info job-season">Summer {{a.year}}</span></p>
-              {% endif %}
+              <p><span id="hidden-position" class="info job-position hidden-position"></span>
+              <span id="hidden-season" class="info job-season hidden-season"></span><span id="hidden-year" class="info job-season hidden-year"></span></p>
             </td>
           </tr>
           <tr>
             <td>
-              <p><span class="info colorful-boxy">
-                {% if a.received_offer %}
-                  <span>
-                    <svg width="15" height="15">
-                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                    style="fill:#01959b" />
-                    </svg> Received Offer
-                  </span>
-                {% else %}
-                  <span>
-                    <svg width="15" height="15">
-                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                    style="fill:#ff4d4d" />
-                    </svg> No Offer
-                  </span>
-                {% endif %}
+              <p>
+              <span class="info colorful-boxy">
+                <svg width="15" height="15">
+                  <rect id="hidden-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+                </svg><span id="hidden-offer-text" class="hidden-offer-text"></span>
               </span>
               <span class="info colorful-boxy">
-                {% if a.difficult > 7 %}
-                  <span>
-                    <svg width="15" height="15">
-                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                    style="fill:#ff4d4d" />
-                    </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-                  </span>
-                {% elif a.difficult < 4 %}
-                  <span>
-                    <svg width="15" height="15">
-                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                    style="fill:#01959b" />
-                    </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
-                  </span>
-                {% else %}
-                  <span>
-                    <svg width="15" height="15">
-                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                    style="fill:#FF9B71;" />
-                    </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
-                  </span>
-                {% endif %}
-              </span></p>
+                <svg width="15" height="15">
+                  <rect id="hidden-difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
+                </svg>&nbsp;&nbsp;<span id="hidden-difficulty-text" class="hidden-difficulty-text"></span>
+              </span>
+              </p>
             </td>
           </tr>
           <tr>
             <td></td>
             <td>
               <h4>Description:</h4>
-              <p class="description_small_text">{{a.description}}</p>
+              <p id="hidden-description" class="description_small_text hidden-description"></p>
             </td>
           </tr>
         </table>
-        <br>
-      {% endfor %}
-    </div>
+      </div>
 
-    <!-- Source: Vitor Freitas -->
-    {% if applications.has_other_pages %}
-      <ul class="pagination">
-        {% if applications.has_previous %}
-          <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in applications.paginator.page_range %}
-          {% if applications.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
+      <div id="existing-applications">
+        {% for a in applications %}
+          <table>
+            <tr>
+              {% if a.company.logo != null %}
+                <td rowspan="3" width="7%">
+                  <img src="{{a.company.logo}}" width="100" height="100">
+                </td>
+              {% else %}
+                <td rowspan="3" width="7%">
+                  <img src="/static/images/temp.png" width="100" height="100">
+                </td>
+              {% endif %}
+              <td width="93%">
+                <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+                  <h2 class="link-text">{{ a.company }}</h2>
+                </a>
+                <span class="applicant-name">{{ a.profile }}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p><span class="info job-position">{{a.position}}</span>
+                {% if a.season == 1 %}
+                  <span class="info job-season">Fall {{a.year}}</span></p>
+                {% elif a.season == 2 %}
+                  <span class="info job-season">Winter {{a.year}}</span></p>
+                {% elif a.season == 3 %}
+                  <span class="info job-season">Spring {{a.year}}</span></p>
+                {% else %}
+                  <span class="info job-season">Summer {{a.year}}</span></p>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <p><span class="info colorful-boxy">
+                  {% if a.received_offer %}
+                    <span>
+                      <svg width="15" height="15">
+                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                      style="fill:#01959b" />
+                      </svg> Received Offer
+                    </span>
+                  {% else %}
+                    <span>
+                      <svg width="15" height="15">
+                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                      style="fill:#ff4d4d" />
+                      </svg> No Offer
+                    </span>
+                  {% endif %}
+                </span>
+                <span class="info colorful-boxy">
+                  {% if a.difficult > 7 %}
+                    <span>
+                      <svg width="15" height="15">
+                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                      style="fill:#ff4d4d" />
+                      </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+                    </span>
+                  {% elif a.difficult < 4 %}
+                    <span>
+                      <svg width="15" height="15">
+                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                      style="fill:#01959b" />
+                      </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+                    </span>
+                  {% else %}
+                    <span>
+                      <svg width="15" height="15">
+                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                      style="fill:#FF9B71;" />
+                      </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+                    </span>
+                  {% endif %}
+                </span></p>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <h4>Description:</h4>
+                <p class="description_small_text">{{a.description}}</p>
+              </td>
+            </tr>
+          </table>
+          <br>
         {% endfor %}
-        {% if applications.has_next %}
-          <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
-    {% endif %}
-    <br>
+      </div>
+
+      <!-- Source: Vitor Freitas -->
+      {% if applications.has_other_pages %}
+        <ul class="pagination">
+          {% if applications.has_previous %}
+            <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li>&laquo;</li>
+          {% endif %}
+          {% for i in applications.paginator.page_range %}
+            {% if applications.number == i %}
+              <li class="active">{{ i }}</li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if applications.has_next %}
+            <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li>&raquo;</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+      <br>
+    </div>
   </div>
+</div>
 </body>
-<script src="{% static 'js/createreviewwc.js' %}"></script>
 <script src="{% static 'js/createApplicationFromCompany.js' %}"></script>
 <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
+<script src="{% static 'js/createreviewwc.js' %}"></script>
 {% endblock %}

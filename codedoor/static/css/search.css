@@ -180,6 +180,12 @@ button.tiny-teal {
     font-size: 16px;
 }
 
+#number {
+    margin-bottom: 10px;
+    font-family: 'Roboto';
+	color: #7F7F7F;
+}
+
 #results {
     display: inline-block;
     width: 75%;
@@ -189,4 +195,7 @@ button.tiny-teal {
 .applicant-name {
     font-family: 'Roboto';
 	color: #7F7F7F;
+}
+.link-text {
+    color: #01959b;
 }
