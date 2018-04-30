@@ -421,12 +421,17 @@
             <a href="{% url 'codedoor:view_application' pk=a.pk %}">
               <h2 class="link-text">{{ a.company }}</h2>
             </a>
-            <span class="applicant-name">{{ a.profile }}</span>
+            <span class="applicant-name">
+                <a href="{% url 'codedoor:viewprofile' pk=a.profile.id %}">{{ a.profile }}</a>
+            </span>
           </td>
         </tr>
         <tr>
           <td>
-            <p><span class="info job-position">{{a.position}}</span>
+            <p>
+            {% if a.position %}
+                <span class="info job-position">{{a.position}}</span>
+            {% endif %}
             {% if a.season == 1 %}
               <span class="info job-season">Fall {{a.year}}</span></p>
             {% elif a.season == 2 %}
