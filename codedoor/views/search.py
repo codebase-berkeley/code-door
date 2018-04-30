@@ -23,20 +23,20 @@ def search(request, database):
                                  'title')
     application_vector = SearchVector('company__name', 'profile__user__first_name', 'profile__user__last_name',
                                       'position')
-    company_vector = SearchVector('name', 'industry')
+    company_vector = SearchVector('name')
     profile_vector = SearchVector('user__first_name', 'user__last_name', 'current_job')
     if database == "reviews":
         vector = review_vector
-        entry = Review.objects.annotate(search=vector).filter(search=query)
+        entry = Review.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     elif database == "interviews":
         vector = application_vector
-        entry = Application.objects.annotate(search=vector).filter(search=query)
+        entry = Application.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     elif database == "companies":
         vector = company_vector
-        entry = Company.objects.annotate(search=vector).filter(search=query)
+        entry = Company.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     elif database == "users":
         vector = profile_vector
-        entry = Profile.objects.annotate(search=vector).filter(search=query)
+        entry = Profile.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     n = len(entry)
     paginator = Paginator(entry, RESULTS_PER_PAGE)
     page = request.GET.get('page', 1)

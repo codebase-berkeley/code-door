@@ -5,22 +5,17 @@
 <h1>
     Login
 </h1>
+<div id = "young">
+    <img src="/static/images/supreme_leader.png" alt="Young Guo is Love, Young Guo is Life", height = 300, width = 300>
+</div>
 <form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
     <input type="hidden" next= {{ next }}>
-    <div class="entry">
-        Email:
-        <input type="text" name="uname" placeholder="BobSmith123" required>
-    </div>
-    <div class="entry">
-        Password:
-        <input type="password" name="pwd" placeholder="e.g. Bob Smith" required>
-    </div>
-    <div class="entry">
-        <button type="submit">Login</button>
-    </div>
+<h2>
+    Welcome to CodeDoor, the GlassDoor ripoff of the premiere EECS sponsored alcoholic Computer Club Cobedase of UC Broccoli
+</h2>
 
     <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id=44822465026.334128598816">
-        <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
+        <img alt="Sign in with Slack" height="80" width="172*2" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
     </a>
     {% if failed %}
         <div id="failed">
