@@ -104,6 +104,7 @@ def create_application_company(request):
 
 
 def edit_application(request):
+    print("Are we here ma dude")
     pk = request.POST['pk']
     a = get_object_or_404(Application, pk=pk)
     if request.method == 'POST':

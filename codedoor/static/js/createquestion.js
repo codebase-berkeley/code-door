@@ -37,8 +37,10 @@ var qBtn = document.getElementById("qBtn");
 var aBtn = document.getElementById("aBtn");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var span2 = document.getElementsByClassName("close")[1];
+var span = document.getElementById("closeModal1");
+var span2 = document.getElementById("closeModal2");
+
+console.log(document.getElementsByClassName("close"));
 
 // When the user clicks on the button, open the modal 
 qBtn.onclick = function() {
@@ -46,6 +48,7 @@ qBtn.onclick = function() {
 }
 
 aBtn.onclick = function() {
+  console.log("Are you getting clicked dumbass");
   modal2.style.display = "block";
 }
 
@@ -55,13 +58,15 @@ span.onclick = function() {
 }
 
 span2.onclick = function() {
+  console.log("Go in here bitch");
   modal2.style.display = "none";
 }
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target == modal || event.target == modal2) {
         modal.style.display = "none";
+        modal2.style.display = "none";
     }
 }
 
@@ -114,8 +119,11 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
 
 
 document.getElementById("submit_button_edit").addEventListener("click", function(e) {
+  console.log("What about your dumbass");
+
   var position = document.getElementById("position").value;
-  var season = document.getElementsByClassName("menu")[0].value;
+  //var season = document.getElementsByClassName("menu")[0].value;
+  var season = "Fall";
   var year = document.getElementById("year").value;
   var difficulty = document.getElementById("difficulty").value;
   var description = document.getElementById("difficulty").value;
@@ -142,12 +150,15 @@ document.getElementById("submit_button_edit").addEventListener("click", function
   var headers = new Headers();
   var csrftoken = getCookie("csrftoken")  ;
   headers.append('X-CSRFToken', csrftoken);
+
+  console.log("Are we getting all the way here?");
   fetch("/codedoor/editapplication", {
     method: "POST",
     body: formData,
     headers: headers,
     credentials: "include"
   }).then(function(response) {
+    console.log("Getting response", response)
     return response.json();
   }).then(function(json) {
     var comp;

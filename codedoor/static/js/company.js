@@ -65,6 +65,12 @@ document.getElementById("submit").addEventListener("click", function(e) {
     }).then(function(json) {
       if (json.success) {
           console.log("success in creating a company");
+
+          var drop_downs = document.getElementsByClassName("companies");
+          var drop1 = drop_downs[0];
+          var drop2 = drop_downs[1];
+          drop1.innerHTML += `<option value=` + json.pk + `>` + name + `</option>`;
+          drop2.innerHTML += `<option value=` + json.pk + `>` + name + `</option>`;
       }
     })
   }
@@ -85,6 +91,11 @@ document.getElementById("submit").addEventListener("click", function(e) {
     var website_error = document.getElementById('website-error');
     var type_error = document.getElementById('type-error');
     var display_error = document.getElementById('display-error');
+
+    var drop_downs = document.getElementsByClassName("companies");
+    var drop1 = drop_downs[0];
+    var drop2 = drop_downs[1];
+
     display_error.innerHTML = '';
 
     var errors_exist = false;

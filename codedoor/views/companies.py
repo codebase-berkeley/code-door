@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from codedoor.models import Company, Review, Profile, Application, ReviewComment, ApplicationComment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
@@ -30,7 +30,7 @@ def create_company(request):
         url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
         company.logo = url
         company.save()
-        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo})
+        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo, "pk": company.pk})
     else:
         return HttpResponse("failed to create a company!")
 
@@ -40,17 +40,35 @@ def view_company(request, pk, database):
     company = get_object_or_404(Company, pk=pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
 
+
     if request.method == "GET":
-        reviews = Review.objects.filter(company=company)
-        applications = Application.objects.filter(company=company)
+        page = request.GET.get('page', 1)
         if database == "reviews":
+            reviews = Review.objects.filter(company=company)
             rating = request.GET.get('rating')
             recommend = request.GET.get('recommend')
             if rating and rating != 'None':
                 reviews = reviews.filter(rating=rating)
             if recommend and recommend !='None':
                 reviews = reviews.filter(recommend=recommend)
+            review_comments = []
+            for review in reviews:
+                review_comments += ReviewComment.objects.filter(review=review)
+            review_comments = review_comments[:2]
+
+            paginator1 = Paginator(reviews, 5)
+
+            try:
+                review_list = paginator1.page(page)
+            except PageNotAnInteger:
+                review_list = paginator1.page(1)
+            except EmptyPage:
+                review_list = paginator1.page(paginator1.num_pages)
+
+            return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "review_comments": review_comments})
+
         elif database == "applications":
+            applications = Application.objects.filter(company=company)
             year = request.GET.get('year')
             season = request.GET.get('season')
             received_offer = request.GET.get('received_offer')
@@ -61,98 +79,25 @@ def view_company(request, pk, database):
                 applications = applications.filter(season=season)
             if received_offer and received_offer != 'None':
                 applications = applications.filter(received_offer=received_offer)
+            app_comments = []
+            for application in applications:
+                app_comments += ApplicationComment.objects.filter(application=application)
+            app_comments = app_comments[:2]
+
+            paginator2 = Paginator(applications, 5)
+            try:
+                application_list = paginator2.page(page)
+            except PageNotAnInteger:
+                application_list = paginator2.page(1)
+            except EmptyPage:
+                application_list = paginator2.page(paginator2.num_pages)
+
+            print([app for app in application_list])
+
+            return render(request, "codedoor/viewcompany.html", {"company": company, "profile": profile, "applications": application_list, "app_comments": app_comments})
+
         else:
             HttpResponse("Invalid url")
-
-
-
-    else:
-        if database == "reviews":
-            if 'rating' in request.POST and 'recommend' in request.POST:
-                input_rating = request.POST['rating']
-                input_recommend = request.POST['recommend']
-                reviews = Review.objects.filter(company=company, rating=input_rating, recommend=input_recommend)
-            elif 'rating' in request.POST:
-                input_rating = request.POST['rating']
-                reviews = Review.objects.filter(company=company, rating=input_rating)
-            elif 'recommend' in request.POST:
-                input_recommend = request.POST['recommend']
-                reviews = Review.objects.filter(company=company, recommend=input_recommend)
-            else:
-                reviews = Review.objects.filter(company=company)
-            applications = Application.objects.filter(company=company)
-        elif database == "applications":
-            if 'year' in request.POST and 'season' in request.POST and 'received_offer' in request.POST:
-                input_year = request.POST['year']
-                input_season = request.POST['season']
-                input_received_offer = request.POST['received_offer']
-                applications = Application.objects.filter(company=company, year=input_year, season=input_season,
-                                                          received_offer=input_received_offer)
-            elif 'year' in request.POST:
-                if 'season' in request.POST:
-                    input_year = request.POST['year']
-                    input_season = request.POST['season']
-                    applications = Application.objects.filter(company=company, year=input_year, season=input_season)
-                elif 'received_offer' in request.POST:
-                    input_year = request.POST['year']
-                    input_received_offer = request.POST['received_offer']
-                    applications = Application.objects.filter(company=company, year=input_year,
-                                                              received_offer=input_received_offer)
-                else:
-                    input_year = request.POST['year']
-                    applications = Application.objects.filter(company=company, year=input_year)
-            elif 'season' in request.POST:
-                if 'received_offer' in request.POST:
-                    input_season = request.POST['season']
-                    input_received_offer = request.POST['received_offer']
-                    applications = Application.objects.filter(company=company, season=input_season,
-                                                              received_offer=input_received_offer)
-                else:
-                    input_season = request.POST['season']
-                    applications = Application.objects.filter(company=company, season=input_season)
-            elif 'received_offer' in request.POST:
-                input_received_offer = request.POST['received_offer']
-                applications = Application.objects.filter(company=company, received_offer=input_received_offer)
-            else:
-                applications = Application.objects.filter(company=company)
-            reviews = Review.objects.filter(company=company)
-        else:
-            HttpResponse("Invalid url")
-
-    # Reviews
-    reviews = Review.objects.filter(company=company)
-    review_comments = []
-    for review in reviews:
-        review_comments += ReviewComment.objects.filter(review=review)
-    review_comments = review_comments[:2]
-    # Applications
-    applications = Application.objects.filter(company=company)
-    app_comments = []
-    for application in applications:
-        app_comments += ApplicationComment.objects.filter(application=application)
-    app_comments = app_comments[:2]
-
-    
-    paginator1 = Paginator(reviews, 5)
-    paginator2 = Paginator(applications, 5)
-    page = request.GET.get('page', 1)
-    try:
-        review_list = paginator1.page(page)
-    except PageNotAnInteger:
-        review_list = paginator1.page(1)
-    except EmptyPage:
-        review_list = paginator1.page(paginator1.num_pages)
-    try:
-        application_list = paginator2.page(page)
-    except PageNotAnInteger:
-        application_list = paginator2.page(1)
-    except EmptyPage:
-        application_list = paginator2.page(paginator2.num_pages)
-
-    return render(request, "codedoor/viewcompany.html", {"company": company, 
-        "reviews": review_list, "profile": profile, 
-        "applications":application_list, "review_comments": review_comments, 
-        "app_comments": app_comments})
 
 
 @login_required

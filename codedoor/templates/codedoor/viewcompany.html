@@ -10,6 +10,8 @@
   <div class="companyportion">
     <div class="company-logo">
       {% if company.logo %}
+
+
         <img src="{{company.logo}}" alt="Company logo" width="150" height="150">
       {% else %}
         <img src="/static/images/temp.png" alt="Company logo" width="150" height="150">
@@ -26,8 +28,8 @@
 
   <hr id="break">
   <div id="nav">
-    <p onclick="showReviews()" id="reviews_tab" class="active_item nav_items">Reviews</p>
-    <p onclick="showApplications()" id="applications_tab" class="nav_items">Applications</p>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" id="reviews_tab" class="active_item nav_items">Reviews</a>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" id="applications_tab" class="nav_items">Applications</a>
     <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
     <span style="float:right;position:absolute;right:10%;">
       <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
@@ -66,9 +68,9 @@
     {% for review in reviews %}
     <table>
       <tr>
-        {% if review.company.logo %}
+        {% if review.reviewer.profile_pic %}
           <td rowspan="3" width="7%">
-            <img src="{{review.company.logo}}" alt="Company logo" width="100" height="100">
+            <img src="{{review.reviewer.profile_pic}}" alt="Company logo" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
@@ -252,7 +254,6 @@
         <button class="sub" id="search" type="submit">Filter</button>
     </form>
 
-
     <h1> HEY HELLO THIS IS A DIVIDER</h1>
 
 
@@ -374,7 +375,6 @@
       </table>
     </div>
 
-
     <div id="existing-applications">
       {% for a in applications %}
        {% if forloop.counter < 4 %}
@@ -478,4 +478,3 @@
 <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 <script src="{% static 'js/createApplicationFromCompany.js' %}"></script>
 {% endblock %}
-

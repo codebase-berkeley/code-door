@@ -7,10 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 import requests
 from requests.auth import HTTPBasicAuth
+import datetime
 import boto3
-import urllib
 from api_keys import s3_access_keys
 from api_keys import slack_access_keys
+from api_keys import absolute_url
 
 profile_pic_bucket = 'codedoor-profile-pictures'
 
@@ -42,11 +43,7 @@ def createprofile(request):
 
         user.save()
         profile.save()
-        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
-                            aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
-        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
-        profile.profile_pic = url
+        upload_picture(input_profile_pic, profile)
         profile.save()
         user = authenticate(request, username=input_username, password=input_password)
         auth_login(request, user)
@@ -80,11 +77,7 @@ def finishprofile(request):
                           current_job=input_current_job, linkedin=input_linkedin)
         user.save()
         profile.save()
-        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
-                            aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
-        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
-        profile.profile_pic = url
+        upload_picture(input_profile_pic, profile)
         profile.save()
         user = authenticate(request, username=input_id)
         auth_login(request, user)
@@ -109,17 +102,17 @@ def editprofile(request, pk):
         try:
             profile.user.first_name = request.POST['first_name']
             profile.user.last_name = request.POST['last_name']
-            # profile.user.password = request.POST['password']
-            # profile.profile_pic = request.POST['profile_pic']
+            input_profile_pic = request.FILES['profile_pic'].read()
             profile.graduation_year = request.POST['graduation_year']
             profile.current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
             if "http://" not in input_linkedin and "https://" not in input_linkedin and input_linkedin:
                 input_linkedin = "http://" + input_linkedin
             profile.linkedin = input_linkedin
-            # profile.resume = request.POST['resume']
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly!")
+        if input_profile_pic:
+            upload_picture(input_profile_pic, profile)
         user.save()
         profile.save()
         return redirect("codedoor:viewprofile", pk=pk)
@@ -167,8 +160,6 @@ def slack_info(request):
         return redirect("codedoor:viewprofile", pk=user.profile.id)
 
 
-from api_keys import absolute_url
-
 def slack_callback(request):
     client_id = slack_access_keys["client_id"]
     client_secret = slack_access_keys["client_secret"]
@@ -191,3 +182,14 @@ def slack_callback(request):
         
         return r.json()
 
+
+def upload_picture(input_profile_pic, profile):
+    s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+                        aws_secret_access_key=s3_access_keys["secret"])
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
+    s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id, timestamp),
+                                             Body=input_profile_pic, ACL='public-read')
+    url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
+          + timestamp
+    profile.profile_pic = url
+    profile.save()
