@@ -67,7 +67,6 @@ document.getElementById('submit').addEventListener('click', function() {
 function validate_comment() {
   var content = document.getElementById('addbody').value;
   var display_error = document.getElementById('display-error').value;
-  display_error.innerHTML = ' ';
   if (!content || content.trim().length == 0 || content === 'None') {
       error_exists = true;
       display_error.innerHTML += 'You must provide a comment';
