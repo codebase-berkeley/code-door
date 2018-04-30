@@ -258,7 +258,11 @@
     <br>
     {% endfor %}
 
+    {% if reviews.number > 3 %}
     <a href="{% url 'codedoor:view_company_reviews' %}">Show More >>></a>
+    {% else %}
+    <div></div>
+    {% endif %}
 
     <!-- Source: Vitor Freitas -->
     {% if reviews.has_other_pages %}
