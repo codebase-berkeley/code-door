@@ -7,18 +7,38 @@
 <body>
 <div id="databases">
   <div>
+    {% if database != "reviews" %}
     <a class="data" href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
+    {% endif %}
   </div>
   <div>
+    {% if database != "interviews" %}
     <a class="data" href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
+    {% endif %}
   </div>
   <div>
+    {% if database != "companies" %}
     <a class="data" href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
+    {% endif %}
   </div>
   <div>
+    {% if database != "users" %}
     <a class="data" href="{% url 'codedoor:search' database='users' %}?query={{ query }}">Users</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='users' %}?query={{ query }}">Users</a>
+    {% endif %}
   </div>
 </div>
+
+<span>
+{{ number }} {{ database }} found for "{{ query }}":
+</span>
 <div id="results">
   {% if database == "reviews" %}
     {% for review in data %}
@@ -134,39 +154,11 @@
     <br>
     {% endfor %}
 
-    <!-- Source: Vitor Freitas -->
- {% if data.has_other_pages %}
-      <ul class="pagination">
-        {% if data.has_previous %}
-          <li class="clickable">
-            <li class="clickable"><a href="?query={{ query }}&page={{ data.previous_page_number }}">&laquo;</a></li>
-            </form>
-          </li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in data.paginator.page_range %}
-          {% if data.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-                <li class="clickable"><a href="?query={{ query }}&page={{ i }}">{{ i }}</a></li>
-            </form>
-          {% endif %}
-        {% endfor %}
-        {% if data.has_next %}
-          <li><a href="?query={{ query }}&page={{ data.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
-     {%  else %}
-    {% endif %}
-
   {% elif database == "interviews" %}
     {% for a in data %}
     <table>
       <tr>
-        {% if review.company.logo != null %}
+        {% if a.company.logo != null %}
           <td rowspan="3" width="7%">
             <img src="{{a.company.logo}}" width="100" height="100">
           </td>
@@ -295,6 +287,35 @@
     {% endfor %}
 
   {% endif %}
+    <!-- Source: Vitor Freitas -->
+ {% if data.has_other_pages %}
+      <ul class="pagination">
+        {% if data.has_previous %}
+          <li class="clickable">
+            <li class="clickable"><a href="?query={{ query }}&page={{ data.previous_page_number }}">&laquo;</a></li>
+            </form>
+          </li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in data.paginator.page_range %}
+          {% if data.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+                <li class="clickable"><a href="?query={{ query }}&page={{ i }}">{{ i }}</a></li>
+            </form>
+          {% endif %}
+        {% endfor %}
+        {% if data.has_next %}
+          <li><a href="?query={{ query }}&page={{ data.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+     {%  else %}
+    {% endif %}
+
 </div>
 </body>
 {% endblock %}
+>>>>>>> f756dd30b8cfa5a1c34f35db43c707832c51fcf8

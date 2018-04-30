@@ -36,11 +36,13 @@ def search(request, database):
     elif database == "users":
         vector = profile_vector
         entry = Profile.objects.annotate(search=vector).filter(search=query)
-    paginator = Paginator(entry, 2)
+    n = len(entry)
+    paginator = Paginator(entry, 1)
     page = request.GET.get('page', 1)
     data = pagination(paginator, page)
 
-    return render(request, "codedoor/search.html", {"database": database, "data": data, "query": input_query})
+    return render(request, "codedoor/search.html", {"database": database, "data": data, "number": n,
+                                                    "query": input_query})
 
 '''
 def reviews_filter(request, company):
@@ -80,3 +82,4 @@ def pagination(paginator, page):
         return paginator.page(1)
     except EmptyPage:
         return paginator.page(paginator.num_pages)
+
