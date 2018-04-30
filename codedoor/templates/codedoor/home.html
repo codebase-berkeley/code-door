@@ -74,7 +74,7 @@
               <input class="type" type="radio" name="structure" value="Boutique" id="boutique">Boutique<br>
               <input class="type" type="radio" name="structure" value="Medium" id="medium">Medium<br>
               <input class="type" type="radio" name="structure" value="Small" id="small">Small<br>
-              <input class="type"type="radio" name="structure" value="Large" id="large">Large<br>
+              <input class="type" type="radio" name="structure" value="Large" id="large">Large<br>
             </div>
             <p class="error" id="type-error">
             </p>
@@ -423,7 +423,7 @@
       {% for a in applications %}
       <table>
         <tr>
-          {% if review.company.logo != null %}
+          {% if a.company.logo != null %}
             <td rowspan="3" width="7%">
               <img src="{{a.company.logo}}" width="100" height="100">
             </td>
