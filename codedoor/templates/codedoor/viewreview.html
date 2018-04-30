@@ -147,9 +147,10 @@
     </table>
     <br>
   </div>
-
+  <br><br>
   <h4 class="commentbase"> Comments: </h4>
-  <textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+  <textarea id="addbody" name="body" placeholder="Review here"></textarea>
+  <div id="display-error"></div>
   <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}">
 
   <button class="sub" id="submit">Submit</button>
@@ -165,7 +166,6 @@
       <br>
     </div>
   {% endfor %}
-
 
 
 </div>
