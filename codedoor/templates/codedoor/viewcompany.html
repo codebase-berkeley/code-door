@@ -251,12 +251,12 @@
         <button class="sub" id="search" type="submit">Filter</button>
     </form>
 
-    {% for a in applications %}
+    {% for application in applications %}
     <table>
       <tr>
-        {% if a.company.logo %}
+        {% if application.company.logo %}
           <td rowspan="3" width="7%">
-            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
+            <img src="{{ application.company.logo }}" alt="Company logo" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
@@ -264,22 +264,22 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:view_application' pk=a.pk %}">
-            <h2 class="link-text">{{ a.company }}</h2>
+          <a href="{% url 'codedoor:view_application' pk=application.pk %}">
+            <h2 class="link-text">{{ application.company }}</h2>
           </a>
-          <span class="applicant-name">{{ a.profile }}</span>
+          <span class="applicant-name">{{ application.profile }}</span>
         </td>
       </tr>
       <tr>
         <td>
-          <p><span class="info job-position">{{a.position}}</span>
-          <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
+          <p><span class="info job-position">{{application.position}}</span>
+          <span class="info job-season">{{application.season}} {{application.year}}-San Francisco, CA</span></p>
         </td>
       </tr>
       <tr>
         <td>
           <p><span class="info colorful-boxy">
-            {% if a.received_offer %}
+            {% if application.received_offer %}
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
@@ -296,26 +296,26 @@
             {% endif %}
           </span>
           <span class="info colorful-boxy">
-            {% if a.difficult > 7 %}
+            {% if application.difficult > 7 %}
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
                 style="fill:#ff4d4d" />
-                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+              </svg>&nbsp;&nbsp;Difficult Interview: {{application.difficult}}/10
               </span>
-            {% elif a.difficult < 4 %}
+            {% elif application.difficult < 4 %}
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
                 style="fill:#01959b" />
-                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+              </svg>&nbsp;&nbsp;Easy Interview: {{application.difficult}}/10
               </span>
             {% else %}
               <span>
                 <svg width="15" height="15">
                 <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
                 style="fill:#FF9B71;" />
-                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+              </svg>&nbsp;&nbsp;Average Interview: {{application.difficult}}/10
               </span>
             {% endif %}
           </span></p>
@@ -325,14 +325,14 @@
         <td></td>
         <td>
           <h4>Description:</h4>
-          <p class="description_small_text">{{a.description}}</p>
+          <p class="description_small_text">{{application.description}}</p>
         </td>
       </tr>
       <tr>
         <td></td>
         <td id="comments">
           {% for comment in app_comments %}
-            {% if comment.application == a %}
+            {% if comment.application == application %}
               <div id="comment">
                 <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
                 </div>
