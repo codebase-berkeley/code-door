@@ -11,6 +11,7 @@ import datetime
 import boto3
 from api_keys import s3_access_keys
 from api_keys import slack_access_keys
+from api_keys import absolute_url
 
 profile_pic_bucket = 'codedoor-profile-pictures'
 
@@ -42,12 +43,7 @@ def createprofile(request):
 
         user.save()
         profile.save()
-        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
-                            aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
-        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
-              + datetime.datetime.now().strftime('%Y-%m-%d')
-        profile.profile_pic = url
+        upload_picture(input_profile_pic, profile)
         profile.save()
         user = authenticate(request, username=input_username, password=input_password)
         auth_login(request, user)
@@ -81,12 +77,7 @@ def finishprofile(request):
                           current_job=input_current_job, linkedin=input_linkedin)
         user.save()
         profile.save()
-        s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
-                            aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
-        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
-              + datetime.datetime.now().strftime('%Y-%m-%d')
-        profile.profile_pic = url
+        upload_picture(input_profile_pic, profile)
         profile.save()
         user = authenticate(request, username=input_id)
         auth_login(request, user)
@@ -121,12 +112,7 @@ def editprofile(request, pk):
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly!")
         if input_profile_pic:
-            s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
-                                aws_secret_access_key=s3_access_keys["secret"])
-            s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
-            url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
-              + datetime.datetime.now().strftime('%Y-%m-%d')
-            profile.profile_pic = url
+            upload_picture(input_profile_pic, profile)
         user.save()
         profile.save()
         return redirect("codedoor:viewprofile", pk=pk)
@@ -174,8 +160,6 @@ def slack_info(request):
         return redirect("codedoor:viewprofile", pk=user.profile.id)
 
 
-from api_keys import absolute_url
-
 def slack_callback(request):
     client_id = slack_access_keys["client_id"]
     client_secret = slack_access_keys["client_secret"]
@@ -198,3 +182,14 @@ def slack_callback(request):
         
         return r.json()
 
+
+def upload_picture(input_profile_pic, profile):
+    s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+                        aws_secret_access_key=s3_access_keys["secret"])
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
+    s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id, timestamp),
+                                             Body=input_profile_pic, ACL='public-read')
+    url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
+          + timestamp
+    profile.profile_pic = url
+    profile.save()
