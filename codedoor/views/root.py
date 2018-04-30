@@ -19,5 +19,5 @@ def home(request):
     companies = [Company.objects.get(id=review.company.id) for review in reviews]
     companies += [Company.objects.get(id=application.company.id) for application in applications]
 
-    return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": applications, "num_reviews": num_reviews, "num_apps": num_apps})
+    return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": applications, "num_reviews": num_reviews, "num_apps": num_apps, "is_home": True})
 
