@@ -71,6 +71,9 @@ document.getElementById("submit").addEventListener("click", function(e) {
           var drop2 = drop_downs[1];
           drop1.innerHTML += `<option value=` + json.pk + `>` + name + `</option>`;
           drop2.innerHTML += `<option value=` + json.pk + `>` + name + `</option>`;
+
+          window.location.replace('/codedoor/viewcompany/' + json.pk + '/reviews');
+
       }
     })
   }
