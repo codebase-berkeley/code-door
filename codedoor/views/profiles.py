@@ -44,9 +44,11 @@ def createprofile(request):
         profile.save()
         s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
                             aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
+        s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id,
+                                                                datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')),
+                                                 Body=input_profile_pic, ACL='public-read')
         url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
-              + datetime.datetime.now().strftime('%Y-%m-%d')
+              + datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
         profile.profile_pic = url
         profile.save()
         user = authenticate(request, username=input_username, password=input_password)
@@ -83,9 +85,11 @@ def finishprofile(request):
         profile.save()
         s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
                             aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
+        s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id,
+                                                                datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')),
+                                                 Body=input_profile_pic, ACL='public-read')
         url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
-              + datetime.datetime.now().strftime('%Y-%m-%d')
+              + datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
         profile.profile_pic = url
         profile.save()
         user = authenticate(request, username=input_id)
@@ -123,9 +127,12 @@ def editprofile(request, pk):
         if input_profile_pic:
             s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
                                 aws_secret_access_key=s3_access_keys["secret"])
-            s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
+            s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id,
+                                                                    datetime.datetime.now().strftime(
+                                                                        '%Y-%m-%d:%H:%M:%S')),
+                                                     Body=input_profile_pic, ACL='public-read')
             url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
-              + datetime.datetime.now().strftime('%Y-%m-%d')
+                  + datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
             profile.profile_pic = url
         user.save()
         profile.save()
