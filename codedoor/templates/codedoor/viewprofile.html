@@ -52,11 +52,13 @@
             <!--</p>-->
         </div>
     </div>
+    {% if request.user.profile == profile %}
         <p id = "edit-profile">
             <a href="/codedoor/editprofile/{{ profile.id }}"><!--add pk?-->
             (edit profile)
             </a>
         </p>
+    {% endif %}
 </body>
 </html>
 {% endblock content %}

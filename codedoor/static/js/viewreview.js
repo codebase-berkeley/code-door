@@ -88,5 +88,4 @@ document.getElementById('submit').addEventListener('click', function() {
     });
 
   document.getElementById('commentmodal').style.display = 'none';
->>>>>>> 598b1660ee726ce35b8c81ff75951f047165e5ca
 });
