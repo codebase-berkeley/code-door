@@ -198,3 +198,22 @@ font-weight:bold;
   position: relative;
   left: 5%;
 }
+select {
+    box-sizing: border-box;
+	background-color: transparent;
+	text-decoration: none;
+	user-select: none;
+	list-style: none;
+	font-family: 'Roboto';
+	color: #7F7F7F;
+}
+option {
+    box-sizing: border-box;
+	background-color: transparent;
+	border: none;
+	text-decoration: none;
+	user-select: none;
+	list-style: none;
+	font-family: 'Roboto';
+	color: #7F7F7F;
+}
