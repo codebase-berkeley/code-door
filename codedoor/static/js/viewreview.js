@@ -31,7 +31,7 @@ var qBtn = document.getElementById("addcomment");
 // var span2 = document.getElementsByClassName("close")[1];
 var span = document.getElementById("close");
 
-// When the user clicks on the button, open the modal 
+// When the user clicks on the button, open the modal
 qBtn.onclick = function() {
     modal.style.display = "block";
 }
@@ -43,7 +43,7 @@ span.onclick = function() {
 
 
 console.log("Do somethings");
-    
+
 document.getElementById("submit").addEventListener("click", function() {
     console.log("In the addEventListener");
 
@@ -82,5 +82,6 @@ document.getElementById("submit").addEventListener("click", function() {
     })
 
   document.getElementById("commentmodal").style.display = "none";
+  document.getElementById('addtitle').value = ''
+  document.getElementById('addbody').value = ''
 });
-
