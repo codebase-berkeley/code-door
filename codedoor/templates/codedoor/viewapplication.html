@@ -223,8 +223,8 @@
     {% else %}
         <p id="buffer">No questions yet!</p>
     {% endif %}
-    <h2> Comments </h2>
-    <textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
+    <h2> Comments </h2><br>
+    <textarea id="addbody" name="body" placeholder="Review here"></textarea><p id="display-error"></p>
     <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}">
     <button class="sub" id="submit">Submit</button>
     <button class="sub" id="cancel">Cancel</button>

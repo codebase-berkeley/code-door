@@ -229,3 +229,13 @@ padding-bottom:5px;
   font-size: 15px;
   background-color: #f8f8f8;
 }
+
+textarea {
+  width: 60%;
+  height: 70px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+}

@@ -1,13 +1,15 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
   <link rel="stylesheet" href="{% static 'css/application.css' %}">
   <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 <body>
-  <div class="indent">
+  <div id="home-search" class="indent">
     <h1 id="codor"> Codor </h1>
     <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
     <div id="searchbar">
@@ -20,7 +22,7 @@
   </div><br>
 
 
-  <div class="indent">
+  <div id="recent-activity" class="indent">
     <h3>Recent Activity</h3><br>
     <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
       <button class="inline-block small-teal" id="createreviewbutton">Create Review</button>
