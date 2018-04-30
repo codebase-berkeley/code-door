@@ -422,7 +422,7 @@
       {% for a in applications %}
       <table>
         <tr>
-          {% if review.company.logo != null %}
+          {% if a.company.logo != null %}
             <td rowspan="3" width="7%">
               <img src="{{a.company.logo}}" width="100" height="100">
             </td>
