@@ -1,25 +1,41 @@
+
 {% load static %}
+<head>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+	<div class="nav">
+		<div class="container">
+			<div id="logo" class="nav-item">
+				<a href="{% url 'codedoor:home' %}">
+					<img src="{% static 'images/logo.svg' %}" width="41px" height="58px" />
+				</a>
+			</div>
+        </div>
+    </div>
+<form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
+    <input type="hidden" next= {{ next }}>
+
 <h1>
     Login
 </h1>
-<div id = "young">
-    <img src="/static/images/supreme_leader.png" alt="Young Guo is Love, Young Guo is Life", height = 300, width = 300>
-</div>
-<form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
-    <input type="hidden" next= {{ next }}>
+
 <h2>
-    Welcome to CodeDoor, the GlassDoor ripoff of the premiere EECS sponsored alcoholic Computer Club Cobedase of UC Broccoli
+    Welcome to CodeDoor, a platform for sharing job and internship experiences with the premiere coding club at UC Berkeley!
 </h2>
 
+<div id="button">
     <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id=44822465026.334128598816">
-        <img alt="Sign in with Slack" height="80" width="172*2" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
+        <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
     </a>
+</div>
     {% if failed %}
         <div id="failed">
             <p> LOGIN ATTEMPT FAILED. </p>
         </div>
     {% endif %}
 </form>
+</body>
