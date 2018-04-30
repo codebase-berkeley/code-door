@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from codedoor.models import Profile, Company, Question, Application, ApplicationComment
+from django.http import HttpResponse, JsonResponse
+from codedoor.models import Profile, Company, Question, Application, ApplicationComment, User
 from django.core.paginator import Paginator
 from django.core import serializers
 
@@ -100,8 +100,7 @@ def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     profile = get_object_or_404(Profile, id=a.profile.pk)
     questions = Question.objects.filter(application=pk).order_by("-pk")
-    comments = ApplicationComment.objects.filter(application=a)
-    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile, "questions": questions, "comments": comments})
+    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile, "questions": questions})
 
 
 def list_applications(request, pk, pg=1):
@@ -117,6 +116,19 @@ def list_applications(request, pk, pg=1):
         
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
+def list_all_applications(request, pg=1):
+    applications = Application.objects.order_by("-pk")
+    paginator = Paginator(applications, 10) 
+    page = request.GET.get('page', 1)
+    try:
+        applications_list = paginator.page(page)
+    except PageNotAnInteger:
+        applications_list = paginator.page(1)
+    except EmptyPage:
+        applications_list = paginator.page(paginator.num_pages)
+        
+    return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
+    
 def created_question(request):
     if request.method == "POST":
 
