@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+RESULTS_PER_PAGE = 5
 
 def search(request, database):
     input_query = request.GET.get('query')
@@ -37,7 +38,7 @@ def search(request, database):
         vector = profile_vector
         entry = Profile.objects.annotate(search=vector).filter(search=query)
     n = len(entry)
-    paginator = Paginator(entry, 1)
+    paginator = Paginator(entry, RESULTS_PER_PAGE)
     page = request.GET.get('page', 1)
 
     def pagination(paginator, page):
