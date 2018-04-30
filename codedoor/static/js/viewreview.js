@@ -39,7 +39,8 @@ qBtn.onclick = function() {
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
-  modal.style.display = 'none';
+
+modal.style.display = 'none';
 };
 
 console.log('Do somethings');
@@ -87,4 +88,5 @@ document.getElementById('submit').addEventListener('click', function() {
     });
 
   document.getElementById('commentmodal').style.display = 'none';
+>>>>>>> 598b1660ee726ce35b8c81ff75951f047165e5ca
 });
