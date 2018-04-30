@@ -12,7 +12,7 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 
 @login_required
 def home(request):
-    reviews = Review.objects.all()[:3]
+    reviews = Review.objects.all().order_by('-pk')[:3]
     applications = Application.objects.all().order_by('-id')
     companies = [Company.objects.get(id=review.company.id) for review in reviews]
     companies += [Company.objects.get(id=application.company.id) for application in applications]
