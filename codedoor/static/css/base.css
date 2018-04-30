@@ -93,5 +93,9 @@ input {
 }
 
 .display {
-  display: block !important;
+    display: block !important;
+}
+
+button:hover {
+    cursor: pointer;
 }
