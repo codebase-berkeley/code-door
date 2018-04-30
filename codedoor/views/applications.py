@@ -9,32 +9,6 @@ import ast
 import json
 
 def create_application(request,companypk):
-    # print("reached here")
-    # profilepk = request.user.profile.pk
-    # if request.method == 'POST':
-    #     try:
-    #         description = request.POST['description']
-    #         season = request.POST['season']
-    #         position = request.POST['position']
-    #         received_offer = request.POST['received_offer']
-    #         year = request.POST['year']
-    #         if(received_offer == "Yes"):
-    #             received_offer = True
-    #         else:
-    #             received_offer = False
-    #         offer_details = request.POST['offer_details']
-    #         difficulty = request.POST['difficulty']
-    #     except Exception as e:
-    #         traceback.print_exc()
-    #         return HttpResponse("You did not fill out the form correctly")
-    #     a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
-    #     a.save()
-    #     # return redirect("codedoor:view_application", pk=a.id)
-    #     return JsonResponse({"application": a})
-    # else:
-    #     return HttpResponse("created an application")
-    #     # return render(request, 'codedoor/createapplication.html', {"companypk": companypk})
-
     print("in create application (no company)")
     profilepk = request.user.profile.pk
     companies = Company.objects.filter()

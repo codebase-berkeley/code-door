@@ -30,7 +30,7 @@
   <div id="nav">
     <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" id="reviews_tab" class="active_item nav_items">Reviews</a>
     <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" id="applications_tab" class="nav_items">Applications</a>
-    <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
+  <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
     <span style="float:right;position:absolute;right:10%;">
       <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
       <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
@@ -41,29 +41,30 @@
 <div id="bottom-half">
 
   <div id="reviews">
+    <div id="reviews-dropdown">
+      <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
+          <p class="filter">Rating:
+          <select name = "rating">
+            <option value = None>All</option>
+            <option value = 1>1 star</option>
+            <option value = 2>2 stars</option>
+            <option value = 3>3 stars</option>
+            <option value = 4>4 stars</option>
+            <option value = 5>5 stars</option>
+          </select>
+          </p>
 
-    <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
-        <p class="filter">Rating:
-        <select name = "rating">
-          <option value = None>All</option>
-          <option value = 1>1 star</option>
-          <option value = 2>2 stars</option>
-          <option value = 3>3 stars</option>
-          <option value = 4>4 stars</option>
-          <option value = 5>5 stars</option>
-        </select>
-        </p>
+          <p class="filter">Recommend:
+          <select name = "recommend">
+            <option value = None>All</option>
+            <option value = True>Yes</option>
+            <option value = False>No</option>
+          </select>
+          </p>
 
-        <p class="filter">Recommend:
-        <select name = "recommend">
-          <option value = None>All</option>
-          <option value = True>Yes</option>
-          <option value = False>No</option>
-        </select>
-        </p>
-
-      <button class="sub" id="search" type="submit">Filter</button>
-    </form>
+        <button class="sub" id="search" type="submit">Filter</button>
+      </form>
+    </div>
 
     {% for review in reviews %}
     <table>
@@ -221,38 +222,40 @@
 
   <div id="applications">
 
-    <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
-        <p class="filter">Year:
-        <select name = "year">
-          <option value = None>All</option>
-          <option value = 2018>2018</option>
-          <option value = 2017>2017</option>
-          <option value = 2016>2016</option>
-          <option value = 2015>2015</option>
-          <option value = 2014>Older</option>
-        </select>
-        </p>
+    <div id="applications-dropdown">
+      <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
+          <p class="filter">Year:
+          <select name = "year">
+            <option value = None>All</option>
+            <option value = 2018>2018</option>
+            <option value = 2017>2017</option>
+            <option value = 2016>2016</option>
+            <option value = 2015>2015</option>
+            <option value = 2014>Older</option>
+          </select>
+          </p>
 
-        <p class="filter">Season:
-        <select name = "season">
-          <option value = None>All</option>
-          <option value = "Fall">Fall</option>
-          <option value = "Spring">Spring</option>
-          <option value = "Summer">Summer</option>
-          <option value = "Winter">Winter</option>
-        </select>
-        </p>
+          <p class="filter">Season:
+          <select name = "season">
+            <option value = None>All</option>
+            <option value = "Fall">Fall</option>
+            <option value = "Spring">Spring</option>
+            <option value = "Summer">Summer</option>
+            <option value = "Winter">Winter</option>
+          </select>
+          </p>
 
-        <p class="filter">Received Offer:
-        <select name = "received_offer">
-          <option value = None>All</option>
-          <option value = True>Yes</option>
-          <option value = False>No</option>
-        </select>
-        </p>
+          <p class="filter">Received Offer:
+          <select name = "received_offer">
+            <option value = None>All</option>
+            <option value = True>Yes</option>
+            <option value = False>No</option>
+          </select>
+          </p>
 
-        <button class="sub" id="search" type="submit">Filter</button>
-    </form>
+          <button class="sub" id="search" type="submit">Filter</button>
+      </form>
+    </div>
 
     <h1> HEY HELLO THIS IS A DIVIDER</h1>
 
@@ -377,104 +380,121 @@
 
     <div id="existing-applications">
       {% for a in applications %}
-       {% if forloop.counter < 4 %}
-          <table>
-            <tr>
-              {% if review.company.logo != null %}
-                <td rowspan="3" width="7%">
-                  <img src="{{a.company.logo}}" width="100" height="100">
-                </td>
+        <table>
+          <tr>
+            {% if a.company.logo != null %}
+              <td rowspan="3" width="7%">
+                <img src="{{a.company.logo}}" width="100" height="100">
+              </td>
+            {% else %}
+              <td rowspan="3" width="7%">
+                <img src="/static/images/temp.png" width="100" height="100">
+              </td>
+            {% endif %}
+            <td width="93%">
+              <a href="{% url 'codedoor:view_application' pk=a.pk %}">
+                <h2 class="link-text">{{ a.company }}</h2>
+              </a>
+              <span class="applicant-name">{{ a.profile }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><span class="info job-position">{{a.position}}</span>
+              {% if a.season == 1 %}
+                <span class="info job-season">Fall {{a.year}}</span></p>
+              {% elif a.season == 2 %}
+                <span class="info job-season">Winter {{a.year}}</span></p>
+              {% elif a.season == 3 %}
+                <span class="info job-season">Spring {{a.year}}</span></p>
               {% else %}
-                <td rowspan="3" width="7%">
-                  <img src="/static/images/temp.png" width="100" height="100">
-                </td>
+                <span class="info job-season">Summer {{a.year}}</span></p>
               {% endif %}
-              <td width="93%">
-                <a href="{% url 'codedoor:view_application' pk=a.pk %}">
-                  <h2 class="link-text">{{ a.company }}</h2>
-                </a>
-                <span class="applicant-name">{{ a.profile }}</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p><span class="info job-position">{{a.position}}</span>
-                {% if a.season == 1 %}
-                  <span class="info job-season">Fall {{a.year}}</span></p>
-                {% elif a.season == 2 %}
-                  <span class="info job-season">Winter {{a.year}}</span></p>
-                {% elif a.season == 3 %}
-                  <span class="info job-season">Spring {{a.year}}</span></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p><span class="info colorful-boxy">
+                {% if a.received_offer %}
+                  <span>
+                    <svg width="15" height="15">
+                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                    style="fill:#01959b" />
+                    </svg> Received Offer
+                  </span>
                 {% else %}
-                  <span class="info job-season">Summer {{a.year}}</span></p>
+                  <span>
+                    <svg width="15" height="15">
+                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                    style="fill:#ff4d4d" />
+                    </svg> No Offer
+                  </span>
                 {% endif %}
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <p><span class="info colorful-boxy">
-                  {% if a.received_offer %}
-                    <span>
-                      <svg width="15" height="15">
-                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                      style="fill:#01959b" />
-                      </svg> Received Offer
-                    </span>
-                  {% else %}
-                    <span>
-                      <svg width="15" height="15">
-                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                      style="fill:#ff4d4d" />
-                      </svg> No Offer
-                    </span>
-                  {% endif %}
-                </span>
-                <span class="info colorful-boxy">
-                  {% if a.difficult > 7 %}
-                    <span>
-                      <svg width="15" height="15">
-                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                      style="fill:#ff4d4d" />
-                      </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-                    </span>
-                  {% elif a.difficult < 4 %}
-                    <span>
-                      <svg width="15" height="15">
-                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                      style="fill:#01959b" />
-                      </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
-                    </span>
-                  {% else %}
-                    <span>
-                      <svg width="15" height="15">
-                      <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                      style="fill:#FF9B71;" />
-                      </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
-                    </span>
-                  {% endif %}
-                </span></p>
-              </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td>
-                <h4>Description:</h4>
-                <p class="description_small_text">{{a.description}}</p>
-              </td>
-            </tr>
-          </table>
-          <br>
-        {% endif %}
+              </span>
+              <span class="info colorful-boxy">
+                {% if a.difficult > 7 %}
+                  <span>
+                    <svg width="15" height="15">
+                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                    style="fill:#ff4d4d" />
+                    </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
+                  </span>
+                {% elif a.difficult < 4 %}
+                  <span>
+                    <svg width="15" height="15">
+                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                    style="fill:#01959b" />
+                    </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
+                  </span>
+                {% else %}
+                  <span>
+                    <svg width="15" height="15">
+                    <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
+                    style="fill:#FF9B71;" />
+                    </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
+                  </span>
+                {% endif %}
+              </span></p>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <h4>Description:</h4>
+              <p class="description_small_text">{{a.description}}</p>
+            </td>
+          </tr>
+        </table>
+        <br>
       {% endfor %}
-    </div>
 
-    {% if applications|length > 3 %}
-      <a class="link-text" href="{% url 'codedoor:list_all_applications' %}">See more interviews ></a>
-    {% endif %}
+      <!-- Source: Vitor Freitas -->
+      {% if applications.has_other_pages %}
+        <ul class="pagination">
+          {% if applications.has_previous %}
+            <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li>&laquo;</li>
+          {% endif %}
+          {% for i in applications.paginator.page_range %}
+            {% if applications.number == i %}
+              <li class="active">{{ i }}</li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if applications.has_next %}
+            <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li>&raquo;</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+    </div>
     <br>
   </div>
 </div>
 </body>
-<script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 <script src="{% static 'js/createApplicationFromCompany.js' %}"></script>
+<script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 {% endblock %}
