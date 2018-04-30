@@ -30,8 +30,7 @@ def create_company(request):
         url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
         company.logo = url
         company.save()
-        print("after company save")
-        return render(request, 'codedoor/viewcompany.html', {})
+        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo, "pk": company.pk})
     else:
         return HttpResponse("failed to create a company!")
 
@@ -66,7 +65,7 @@ def view_company(request, pk, database):
             except EmptyPage:
                 review_list = paginator1.page(paginator1.num_pages)
 
-            return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "review_comments": review_comments})
+            return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "review_comments": review_comments, "review": True})
 
         elif database == "applications":
             applications = Application.objects.filter(company=company)
@@ -95,10 +94,10 @@ def view_company(request, pk, database):
 
             print([app for app in application_list])
 
-            return render(request, "codedoor/viewcompany.html", {"company": company, "profile": profile, "applications": application_list, "app_comments": app_comments})
+            return render(request, "codedoor/viewcompany.html", {"company": company, "profile": profile, "applications": application_list, "app_comments": app_comments, "review": False})
 
         else:
-            HttpResponse("Invalid url")
+            return HttpResponse("Invalid url")
 
 
 @login_required

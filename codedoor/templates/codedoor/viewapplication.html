@@ -41,7 +41,9 @@
           <a href="{% url 'codedoor:viewcompany' pk=a.company.pk database='reviews' %}">
             <h2 class="link-text">{{ a.company }}</h2>
           </a>
-          <span class="applicant-name">{{ a.profile }}</span>
+          <span class="applicant-name">
+              <a href="{% url 'codedoor:viewprofile' pk=a.profile.id %}">{{ a.profile }}</a>
+          </span>
         </td>
       </tr>
       <tr>
