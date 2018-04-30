@@ -12,8 +12,8 @@
     <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
     <div id="searchbar">
       <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-        <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
-        <button class="sub" id="search" type="submit">Search</button>
+      <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
+      <button class="sub" id="search" type="submit">Search</button>
       </form>
     </div>
   </div><br>
@@ -31,7 +31,7 @@
       <div class="modal-content">
         <span id="closeC" class="close">&times;</span>
         <h1> Create Company </h1><br>
-        
+
           {% csrf_token %}
           <p class="error" id="display-error"></p>
           <div class="space">
@@ -258,6 +258,8 @@
     <br>
     {% endfor %}
 
+    <a href="{% url 'codedoor:view_company_reviews' %}">Show More >>></a>
+
     <!-- Source: Vitor Freitas -->
     {% if reviews.has_other_pages %}
       <ul class="pagination">
@@ -421,7 +423,7 @@
       {% for a in applications[0] %}
       <table>
         <tr>
-          {% if review.company.logo != null %}
+          {% if a.company.logo != null %}
             <td rowspan="3" width="7%">
               <img src="{{a.company.logo}}" width="100" height="100">
             </td>
@@ -508,11 +510,31 @@
       {% endfor %}
     </div>
 
-    <a class="link-text" href="{% url 'codedoor:list_all_applications' %}">See more interviews ></a>
-    
+    <!-- Source: Vitor Freitas -->
+    {% if applications.has_other_pages %}
+      <ul class="pagination">
+        {% if applications.has_previous %}
+          <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in applications.paginator.page_range %}
+          {% if applications.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if applications.has_next %}
+          <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+    {% endif %}
     <br>
   </div>
-  
+
 </body>
 <script src="{% static 'js/createreview.js' %}"></script>
 <script src="{% static 'js/company.js' %}"></script>
