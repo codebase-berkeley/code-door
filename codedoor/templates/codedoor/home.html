@@ -12,8 +12,8 @@
     <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
     <div id="searchbar">
       <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-      <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
-      <button class="sub" id="search" type="submit">Search</button>
+        <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
+        <button class="sub" id="search" type="submit">Search</button>
       </form>
     </div>
   </div><br>
@@ -509,28 +509,8 @@
       {% endfor %}
     </div>
 
-    <!-- Source: Vitor Freitas -->
-    {% if applications.has_other_pages %}
-      <ul class="pagination">
-        {% if applications.has_previous %}
-          <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in applications.paginator.page_range %}
-          {% if applications.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if applications.has_next %}
-          <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
-    {% endif %}
+    <a class="link-text" href="{% url 'codedoor:list_all_applications' %}">See more interviews ></a>
+    
     <br>
   </div>
 
