@@ -13,17 +13,9 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 @login_required
 def home(request):
     reviews = Review.objects.all().order_by('-pk')[:3]
-    applications = Application.objects.all().order_by('-id')
+    applications = Application.objects.all().order_by('-id')[:3]
+    num_apps = len(Application.objects.all())
     companies = [Company.objects.get(id=review.company.id) for review in reviews]
     companies += [Company.objects.get(id=application.company.id) for application in applications]
-    paginator_2 = Paginator(applications, 3)
-    page = request.GET.get('page', 1)
 
-    try:
-        application_list = paginator_2.page(page)
-    except PageNotAnInteger:
-        application_list = paginator_2.page(1)
-    except EmptyPage:
-        application_list = paginator_2.page(paginator_2.num_pages)
-
-    return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": application_list})
+    return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": applications, "num_apps": num_apps})
