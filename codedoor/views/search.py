@@ -37,6 +37,7 @@ def search(request, database):
         vector = profile_vector
         entry = Profile.objects.annotate(search=vector).filter(search=query)
     n = len(entry)
+    entry = entry.objects.annotate(rank=SearchRank(vector, query)).order_by('-rank')
     paginator = Paginator(entry, 1)
     page = request.GET.get('page', 1)
 
