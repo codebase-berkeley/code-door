@@ -16,6 +16,7 @@ def home(request):
     applications = Application.objects.all().order_by('-id')
     companies = [Company.objects.get(id=review.company.id) for review in reviews]
     companies += [Company.objects.get(id=application.company.id) for application in applications]
+    application_companies = Company.objects.all()
     paginator_2 = Paginator(applications, 3)
     page = request.GET.get('page', 1)
 
@@ -26,4 +27,4 @@ def home(request):
     except EmptyPage:
         application_list = paginator_2.page(paginator_2.num_pages)
 
-    return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": application_list})
+    return render(request, "codedoor/home.html", {"application_companies":application_companies, "companies": companies, "reviews": reviews, "applications": application_list})
