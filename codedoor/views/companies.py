@@ -64,61 +64,6 @@ def view_company(request, pk, database):
         else:
             HttpResponse("Invalid url")
 
-
-
-    else:
-        if database == "reviews":
-            if 'rating' in request.POST and 'recommend' in request.POST:
-                input_rating = request.POST['rating']
-                input_recommend = request.POST['recommend']
-                reviews = Review.objects.filter(company=company, rating=input_rating, recommend=input_recommend)
-            elif 'rating' in request.POST:
-                input_rating = request.POST['rating']
-                reviews = Review.objects.filter(company=company, rating=input_rating)
-            elif 'recommend' in request.POST:
-                input_recommend = request.POST['recommend']
-                reviews = Review.objects.filter(company=company, recommend=input_recommend)
-            else:
-                reviews = Review.objects.filter(company=company)
-            applications = Application.objects.filter(company=company)
-        elif database == "applications":
-            if 'year' in request.POST and 'season' in request.POST and 'received_offer' in request.POST:
-                input_year = request.POST['year']
-                input_season = request.POST['season']
-                input_received_offer = request.POST['received_offer']
-                applications = Application.objects.filter(company=company, year=input_year, season=input_season,
-                                                          received_offer=input_received_offer)
-            elif 'year' in request.POST:
-                if 'season' in request.POST:
-                    input_year = request.POST['year']
-                    input_season = request.POST['season']
-                    applications = Application.objects.filter(company=company, year=input_year, season=input_season)
-                elif 'received_offer' in request.POST:
-                    input_year = request.POST['year']
-                    input_received_offer = request.POST['received_offer']
-                    applications = Application.objects.filter(company=company, year=input_year,
-                                                              received_offer=input_received_offer)
-                else:
-                    input_year = request.POST['year']
-                    applications = Application.objects.filter(company=company, year=input_year)
-            elif 'season' in request.POST:
-                if 'received_offer' in request.POST:
-                    input_season = request.POST['season']
-                    input_received_offer = request.POST['received_offer']
-                    applications = Application.objects.filter(company=company, season=input_season,
-                                                              received_offer=input_received_offer)
-                else:
-                    input_season = request.POST['season']
-                    applications = Application.objects.filter(company=company, season=input_season)
-            elif 'received_offer' in request.POST:
-                input_received_offer = request.POST['received_offer']
-                applications = Application.objects.filter(company=company, received_offer=input_received_offer)
-            else:
-                applications = Application.objects.filter(company=company)
-            reviews = Review.objects.filter(company=company)
-        else:
-            HttpResponse("Invalid url")
-
     # Reviews
     reviews = Review.objects.filter(company=company)
     review_comments = []
