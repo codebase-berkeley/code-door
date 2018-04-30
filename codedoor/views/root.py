@@ -14,7 +14,8 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 def home(request):
     reviews = Review.objects.all()[:3]
     applications = Application.objects.all().order_by('-id')
-    companies = Company.objects.all()
+    companies = [Company.objects.get(id=review.company.id) for review in reviews]
+    companies += [Company.objects.get(id=application.company.id) for application in applications]
     paginator_2 = Paginator(applications, 3)
     page = request.GET.get('page', 1)
 
