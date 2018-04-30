@@ -54,7 +54,7 @@ button.small {
 }
 
 textarea {
-  width: 70%;
+  width: 80%;
   height: 150px;
   padding: 12px 20px;
   box-sizing: border-box;
@@ -74,7 +74,7 @@ input.text {
 }
 
 input.select-num {
-  width: 10%;
+  width: 30%;
   height: 35px;
   padding: 15px 10px;
   box-sizing: border-box;
@@ -164,7 +164,7 @@ rect.orange-rect {
 
 .menu {
   height: 30px;
-  width: 10%;
+  width: 30%;
 }
 
 .error {
@@ -225,4 +225,8 @@ p.description_small_text {
   position:absolute;
   padding:10px;
   color:black;
+}
+
+.hidden {
+  display: none;
 }
