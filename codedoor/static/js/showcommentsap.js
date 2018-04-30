@@ -14,6 +14,9 @@ console.log("Do somethings");
 
   document.getElementById("cancel").addEventListener("click", function() {
 
+  document.getElementById("addtitle").value="";
+        document.getElementById("addbody").value="";
+
 document.getElementById("blackout").style.display = "none";
 
 });
@@ -26,7 +29,7 @@ document.getElementById("blackout").style.display = "none";
         document.getElementById("blackout").style.display = "none";
         var myEle = document.getElementById("init");
             if(myEle){
-                document.getElementById("init").style.display = "none";
+               document.getElementById("init").style.display = "none";
             }
 
 
@@ -34,6 +37,9 @@ document.getElementById("blackout").style.display = "none";
 
         var title = document.getElementById("addtitle").value;
         var content = document.getElementById("addbody").value;
+        document.getElementById("addtitle").value="";
+        document.getElementById("addbody").value="";
+
 
         var commentData = new FormData();
         commentData.append("title", title);
@@ -62,8 +68,12 @@ document.getElementById("blackout").style.display = "none";
                   +"<p class='commentcontents'>"+json.content+"</p><br></div>"
                    + document.getElementById("comment").innerHTML;
             }
-        })
+        }
 
+
+
+
+        )
 
 
 
