@@ -40,6 +40,29 @@
 
   <div id="reviews">
 
+    <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
+        <p class="filter">Rating:
+        <select name = "rating">
+          <option value = None>All</option>
+          <option value = 1>1 star</option>
+          <option value = 2>2 stars</option>
+          <option value = 3>3 stars</option>
+          <option value = 4>4 stars</option>
+          <option value = 5>5 stars</option>
+        </select>
+        </p>
+
+        <p class="filter">Recommend:
+        <select name = "recommend">
+          <option value = None>All</option>
+          <option value = True>Yes</option>
+          <option value = False>No</option>
+        </select>
+        </p>
+
+      <button class="sub" id="search" type="submit">Filter</button>
+    </form>
+
     {% for review in reviews %}
     <table>
       <tr>
