@@ -34,12 +34,13 @@ spanR.onclick = function() {
   modalR.style.display = "none";
 }
 
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//     if (event.target == modalR) {
-//         modalR.style.display = "none";
-//     }
-// }
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modalR) {
+        modalR.style.display = "none";
+    }
+}
 
 
 document.getElementById("submit_button_review").addEventListener("click", function(e) {

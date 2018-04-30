@@ -57,7 +57,7 @@
       <div class="space">
         Companies <br>
         <div class="border">
-          <select name="company" class="select-style" id="reviewcompany">
+          <select name="company" class="menu companies" id="reviewcompany">
                   <option value={{company.pk}} selected>{{company.name}}</option>
             {% for c in companies %}
                 {% if c.pk != company.pk %}
