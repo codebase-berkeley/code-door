@@ -195,6 +195,40 @@
 
 
   <div id="applications">
+
+    <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
+        <p class="filter">Year:
+        <select name = "year">
+          <option value = None>All</option>
+          <option value = 2018>2018</option>
+          <option value = 2017>2017</option>
+          <option value = 2016>2016</option>
+          <option value = 2015>2015</option>
+          <option value = 2014>Older</option>
+        </select>
+        </p>
+
+        <p class="filter">Season:
+        <select name = "season">
+          <option value = None>All</option>
+          <option value = "Fall">Fall</option>
+          <option value = "Spring">Spring</option>
+          <option value = "Summer">Summer</option>
+          <option value = "Winter">Winter</option>
+        </select>
+        </p>
+
+        <p class="filter">Received Offer:
+        <select name = "received_offer">
+          <option value = None>All</option>
+          <option value = True>Yes</option>
+          <option value = False>No</option>
+        </select>
+        </p>
+
+        <button class="sub" id="search" type="submit">Filter</button>
+    </form>
+
     {% for a in applications %}
     <table>
       <tr>
