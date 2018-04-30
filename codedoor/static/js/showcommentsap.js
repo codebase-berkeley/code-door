@@ -4,18 +4,10 @@ function getCookie(name) {
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-document.getElementById("addcomment").addEventListener("click", function(){
-console.log("debugged");
-});
-
 console.log("Do somethings");
 
   document.getElementById("cancel").addEventListener("click", function() {
-
-  document.getElementById("addtitle").value="";
         document.getElementById("addbody").value="";
-
-document.getElementById("blackout").style.display = "none";
 
 });
 
