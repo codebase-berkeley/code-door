@@ -109,3 +109,13 @@ button:hover {
     width: 80%;
 
 }
+
+#topsearch {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#topsearch > .item {
+    margin-right: 1em;
+}

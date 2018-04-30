@@ -107,7 +107,7 @@
         Company <br>
         <div class="border">
           <select name="company" class="menu companies" id="reviewcompany" >
-            {% for company in companies %}
+            {% for company in actual_companies %}
                 <option value={{company.pk}}>{{company.name}}</option>
             {% endfor %}
           </select>
@@ -116,7 +116,7 @@
         </p>
       </div><br>
         <div class="space">
-        Rating <br>
+        Rating (0 - 5)<br>
         <div class="border-text">
           <div id="number">
             <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
@@ -259,32 +259,11 @@
     <br>
     {% endfor %}
 
+    {% if num_reviews > 3 %}
     <a href="{% url 'codedoor:view_company_reviews' %}">Show More >>></a>
-
-    <!-- Source: Vitor Freitas -->
-    {% if reviews.has_other_pages %}
-      <ul class="pagination">
-        {% if reviews.has_previous %}
-          <li class="clickable"><a href="?page={{ reviews.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in reviews.paginator.page_range %}
-          {% if reviews.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-            <a href="?page={{ i }}"><li>{{ i }}</li></a>
-          {% endif %}
-        {% endfor %}
-        {% if reviews.has_next %}
-          <li><a href="?page={{ reviews.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
+    {% else %}
+    <div></div>
     {% endif %}
-
-
 
     <br>
   </div>
@@ -318,7 +297,7 @@
           <h4>Company:</h4><br>
           <p id="error1" class="error"></p>
           <select id="company" name="company" class="menu companies" required>
-            {% for entry in companies %}
+            {% for entry in actual_companies %}
               <option value="{{ entry.id }}">{{ entry.name }}</option>
             {% endfor %}
           </select>
@@ -512,6 +491,9 @@
       </table>
       <br>
       {% endfor %}
+      {% if num_apps > 3 %}
+          <a href="{% url 'codedoor:list_all_applications' %}">Show More >>></a>
+      {% endif %}
     </div>
 
     <!-- Source: Vitor Freitas -->
