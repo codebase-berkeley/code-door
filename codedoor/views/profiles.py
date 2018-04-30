@@ -7,8 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 import requests
 from requests.auth import HTTPBasicAuth
+import datetime
 import boto3
-import urllib
 from api_keys import s3_access_keys
 from api_keys import slack_access_keys
 
@@ -44,8 +44,11 @@ def createprofile(request):
         profile.save()
         s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
                             aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
-        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
+        s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id,
+                                                                datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')),
+                                                 Body=input_profile_pic, ACL='public-read')
+        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
+              + datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
         profile.profile_pic = url
         profile.save()
         user = authenticate(request, username=input_username, password=input_password)
@@ -82,8 +85,11 @@ def finishprofile(request):
         profile.save()
         s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
                             aws_secret_access_key=s3_access_keys["secret"])
-        s3.Bucket(profile_pic_bucket).put_object(Key=str(profile.id), Body=input_profile_pic, ACL='public-read')
-        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id)
+        s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id,
+                                                                datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')),
+                                                 Body=input_profile_pic, ACL='public-read')
+        url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
+              + datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
         profile.profile_pic = url
         profile.save()
         user = authenticate(request, username=input_id)
@@ -109,17 +115,25 @@ def editprofile(request, pk):
         try:
             profile.user.first_name = request.POST['first_name']
             profile.user.last_name = request.POST['last_name']
-            # profile.user.password = request.POST['password']
-            # profile.profile_pic = request.POST['profile_pic']
+            input_profile_pic = request.FILES['profile_pic'].read()
             profile.graduation_year = request.POST['graduation_year']
             profile.current_job = request.POST['current_job']
             input_linkedin = request.POST['linkedin']
             if "http://" not in input_linkedin and "https://" not in input_linkedin and input_linkedin:
                 input_linkedin = "http://" + input_linkedin
             profile.linkedin = input_linkedin
-            # profile.resume = request.POST['resume']
         except Exception as e:
             return HttpResponse("You did not fill out the form correctly!")
+        if input_profile_pic:
+            s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+                                aws_secret_access_key=s3_access_keys["secret"])
+            s3.Bucket(profile_pic_bucket).put_object(Key="%s/%s" % (profile.id,
+                                                                    datetime.datetime.now().strftime(
+                                                                        '%Y-%m-%d:%H:%M:%S')),
+                                                     Body=input_profile_pic, ACL='public-read')
+            url = "https://s3-us-west-1.amazonaws.com/" + profile_pic_bucket + "/" + str(profile.id) + "/" \
+                  + datetime.datetime.now().strftime('%Y-%m-%d:%H:%M:%S')
+            profile.profile_pic = url
         user.save()
         profile.save()
         return redirect("codedoor:viewprofile", pk=pk)
