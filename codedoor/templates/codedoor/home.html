@@ -31,7 +31,7 @@
       <div class="modal-content">
         <span id="closeC" class="close">&times;</span>
         <h1> Create Company </h1><br>
-        
+
           {% csrf_token %}
           <p class="error" id="display-error"></p>
           <div class="space">
@@ -257,6 +257,7 @@
     </table>
     <br>
     {% endfor %}
+
 
     <!-- Source: Vitor Freitas -->
     {% if reviews.has_other_pages %}
@@ -512,7 +513,7 @@
     
     <br>
   </div>
-  
+
 </body>
 <script src="{% static 'js/createreview.js' %}"></script>
 <script src="{% static 'js/company.js' %}"></script>
