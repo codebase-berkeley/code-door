@@ -76,7 +76,7 @@ canvas {
 }
 
 .content {
-    margin: 40px 0 80px;
+    margin: 15px 0 80px;
 }
 
 h1, h2 {
@@ -118,4 +118,9 @@ button:hover {
 
 #topsearch > .item {
     margin-right: 1em;
+}
+
+#home-search, .content, .container {
+  display: block;
+  height: 100%;
 }
