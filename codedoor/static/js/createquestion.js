@@ -37,8 +37,10 @@ var qBtn = document.getElementById("qBtn");
 var aBtn = document.getElementById("aBtn");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-var span2 = document.getElementsByClassName("close")[1];
+var span = document.getElementById("closeModal1");
+var span2 = document.getElementById("closeModal2");
+
+console.log(document.getElementsByClassName("close"));
 
 // When the user clicks on the button, open the modal 
 qBtn.onclick = function() {
@@ -56,6 +58,7 @@ span.onclick = function() {
 }
 
 span2.onclick = function() {
+  console.log("Go in here bitch");
   modal2.style.display = "none";
 }
 
