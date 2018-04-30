@@ -132,28 +132,28 @@
         </div>
         <div class="entry">
             <h4>Season:</h4><br>
-            {% if a.season == "Fall" %} 
+            {% if a.season == "Fall" %}
             <select name="season" class="menu" required>
                 <option value="Fall" selected="selected">Fall</option>
                 <option value="Winter">Winter</option>
                 <option value="Spring">Spring</option>
                 <option value="Summer">Summer</option>
             </select>
-            {% elif a.season == "Winter" %} 
+            {% elif a.season == "Winter" %}
             <select name="season" class="menu" required>
                 <option value="Fall">Fall</option>
                 <option value="Winter" selected="selected">Winter</option>
                 <option value="Spring">Spring</option>
                 <option value="Summer">Summer</option>
             </select>
-            {% elif a.season == "Spring" %} 
+            {% elif a.season == "Spring" %}
             <select name="season" class="menu" required>
                 <option value="Fall">Fall</option>
                 <option value="Winter">Winter</option>
                 <option value="Spring" selected="selected">Spring</option>
                 <option value="Summer">Summer</option>
             </select>
-            {% elif a.season == "Summer" %} 
+            {% elif a.season == "Summer" %}
             <select name="season" class="menu" required>
                 <option value="Fall">Fall</option>
                 <option value="Winter">Winter</option>
@@ -165,7 +165,7 @@
         <div class="entry">
             <h4>Year:</h4><br>
             <input type="number" name="year" value="{{a.year}}" class="select-num" id="year"><br><br>
-        </div>    
+        </div>
         <div class="entry">
             <h4>Difficulty:</h4><br>
             <input type = "number" step="0.1" name="difficulty" value="{{ a.difficult }}" class="select-num" id="difficulty"></input><br><br>
@@ -197,7 +197,7 @@
 
 
 
-    
+
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
