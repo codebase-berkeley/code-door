@@ -30,8 +30,7 @@ def create_company(request):
         url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
         company.logo = url
         company.save()
-        print("after company save")
-        return render(request, 'codedoor/viewcompany.html', {})
+        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo, "pk": company.pk})
     else:
         return HttpResponse("failed to create a company!")
 
