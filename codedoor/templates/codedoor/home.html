@@ -107,7 +107,7 @@
         Company <br>
         <div class="border">
           <select name="company" class="menu companies" id="reviewcompany" >
-            {% for company in companies %}
+            {% for company in application_companies %}
                 <option value={{company.pk}}>{{company.name}}</option>
             {% endfor %}
           </select>
