@@ -9,6 +9,8 @@
   <div class="companyportion">
     <div class="company-logo">
       {% if company.logo %}
+
+
         <img src="{{company.logo}}" alt="Company logo" width="150" height="150">
       {% else %}
         <img src="/static/images/temp.png" alt="Company logo" width="150" height="150">
@@ -65,9 +67,9 @@
     {% for review in reviews %}
     <table>
       <tr>
-        {% if review.company.logo %}
+        {% if review.reviewer.profile_pic %}
           <td rowspan="3" width="7%">
-            <img src="{{review.company.logo}}" alt="Company logo" width="100" height="100">
+            <img src="{{review.reviewer.profile_pic}}" alt="Company logo" width="100" height="100">
           </td>
         {% else %}
           <td rowspan="3" width="7%">
