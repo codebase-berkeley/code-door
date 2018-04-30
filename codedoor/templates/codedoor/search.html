@@ -36,10 +36,12 @@
   </div>
 </div>
 
-<span>
-{{ number }} {{ database }} found for "{{ query }}":
-</span>
+
 <div id="results">
+  <div id="number">
+  {{ number }} {{ database }} found for "{{ query }}":
+  </div>
+
   {% if database == "reviews" %}
     {% for review in data %}
     <table>

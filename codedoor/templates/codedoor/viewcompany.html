@@ -101,9 +101,9 @@
 <div id="bottom-half">
 
   <div id="reviews">
-    <div id="reviews-dropdown">
+    <div class="dropdown">
       <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
-          <p class="filter">Rating:
+          <span class="filter">Rating:
           <select name = "rating">
             <option value = None>All</option>
             <option value = 1>1 star</option>
@@ -112,17 +112,17 @@
             <option value = 4>4 stars</option>
             <option value = 5>5 stars</option>
           </select>
-          </p>
+          </span>
 
 
 
-          <p class="filter">Recommend:
+          <span class="filter">Recommend:
           <select name = "recommend">
             <option value = None>All</option>
             <option value = True>Yes</option>
             <option value = False>No</option>
           </select>
-          </p>
+          </span>
 
         <button class="sub" id="search" type="submit">Filter</button>
       </form>
@@ -288,10 +288,10 @@
 
 
   <div id="applications">
-
-    <div id="applications-dropdown">
+    {% if database == "applications" %}
+    <div class="dropdown">
       <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
-          <p class="filter">Year:
+          <span class="filter">Year:
           <select name = "year">
             <option value = None>All</option>
             <option value = 2018>2018</option>
@@ -300,9 +300,9 @@
             <option value = 2015>2015</option>
             <option value = 2014>Older</option>
           </select>
-          </p>
+          </span>
 
-          <p class="filter">Season:
+          <span class="filter">Season:
           <select name = "season">
             <option value = None>All</option>
             <option value = "Fall">Fall</option>
@@ -310,15 +310,15 @@
             <option value = "Summer">Summer</option>
             <option value = "Winter">Winter</option>
           </select>
-          </p>
+          </span>
 
-          <p class="filter">Received Offer:
+          <span class="filter">Received Offer:
           <select name = "received_offer">
             <option value = None>All</option>
             <option value = True>Yes</option>
             <option value = False>No</option>
           </select>
-          </p>
+          </span>
 
           <button class="sub" id="search" type="submit">Filter</button>
       </form>
