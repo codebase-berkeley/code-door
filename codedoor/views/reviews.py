@@ -61,7 +61,7 @@ def view_review(request, pk):
 def view_company_reviews(request):
     reviews = Review.objects.all().order_by('-id')
     companies = Company.objects.all()
-    paginator_1 = Paginator(reviews, 3)
+    paginator1 = Paginator(reviews, 6)
     page = request.GET.get('page', 1)
     try:
         review_list = paginator1.page(page)
@@ -71,7 +71,7 @@ def view_company_reviews(request):
         review_list = paginator1.page(paginator1.num_pages)
 
     return render(request, "codedoor/viewcompanyreviews.html",
-        {"company": company, "reviews": review_list})
+        {"company": companies, "reviews": review_list})
 
 @login_required
 def edit_review(request, pk):
