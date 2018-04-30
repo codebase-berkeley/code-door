@@ -127,6 +127,8 @@
     </div>
   </div>
 
+  <br>
+
   <div id="reviewsnew">
     {% for review in reviews %}
     <table>
@@ -258,7 +260,6 @@
     </table>
     <br>
     {% endfor %}
-  </div>
 
     <!-- Source: Vitor Freitas -->
     {% if reviews.has_other_pages %}
@@ -285,7 +286,7 @@
   </div>
 
 
-  <div id="applications">
+  <div id="applications" class="indent">
 
     <div id="applications-dropdown">
       <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
@@ -379,7 +380,7 @@
 
 
 
-    <div id="application-list" class="indent">
+    <div id="application-list">
       <div id="hidden-element" class="hidden">
         <table>
           <tr>
@@ -541,6 +542,7 @@
       <br>
     </div>
   </div>
+</div>
 </body>
 <script src="{% static 'js/createApplicationFromCompany.js' %}"></script>
 <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
