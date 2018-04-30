@@ -8,12 +8,7 @@
 <h1>
     Edit Profile: {{ profile.user.get_full_name }}
 </h1>
-<form action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
-     <!--<div class="entry">-->
-        <!--Password:-->
-        <!--<input type="text" name="password" value = {{ profile.user.password }} required>-->
-    <!--</div>-->
-    <!--should we be allowing this functionality? profile.user.password is an ugly hashcode of the PW atm-->
+<form enctype="multipart/form-data" action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
     <div class="entry">
         First Name:
         <input type="text" name="first_name" value="{{ profile.user.first_name }}" required>
@@ -22,36 +17,22 @@
         Last Name:
         <input type="text" name="last_name" value="{{ profile.user.last_name }}" required>
     </div>
-    <!--
     <div class="entry">
         Profile Picture:
-        <input type="image" name="profile_pic">
+        <input type="file" name="profile_pic" accept="image/*">
     </div>
-    -->
     <div class="entry">
         Graduation Year:
         <input type="number" name="graduation_year" value="{{ profile.graduation_year }}" required>
     </div>
-    <!--
-    <div class="entry">
-        Email:
-        <input type = "text" name="email" value="{{  profile.email }} required">
-    </div>
-    -->
     <div class="entry">
         Current Job:
         <input type="text" name="current_job" value="{{ profile.current_job }}">
     </div>
     <div class="entry">
         LinkedIn:
-        <input type = "text" name = "linkedin" value="{{ profile.linkedin }}">
+        <input type="text" name="linkedin" value="{{ profile.linkedin }}">
     </div>
-    <!--
-    <div class="entry">
-        Resume:
-        <input type="file" name="resume">
-    </div>
-    -->
     <div id="submit">
         <input type="submit" value="Save Changes">
     </div>

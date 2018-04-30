@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+RESULTS_PER_PAGE = 5
 
 def search(request, database):
     input_query = request.GET.get('query')
@@ -37,48 +38,17 @@ def search(request, database):
         vector = profile_vector
         entry = Profile.objects.annotate(search=vector).filter(search=query)
     n = len(entry)
-    paginator = Paginator(entry, 1)
+    paginator = Paginator(entry, RESULTS_PER_PAGE)
     page = request.GET.get('page', 1)
+
+    def pagination(paginator, page):
+        try:
+            return paginator.page(page)
+        except PageNotAnInteger:
+            return paginator.page(1)
+        except EmptyPage:
+            return paginator.page(paginator.num_pages)
     data = pagination(paginator, page)
 
     return render(request, "codedoor/search.html", {"database": database, "data": data, "number": n,
                                                     "query": input_query})
-
-'''
-def reviews_filter(request, company):
-    input_rating = request.POST['rating']
-    input_recommend = request.POST['recommend']
-
-    entry = Review.objects.filter(company=company, rating=input_rating, recommend=input_recommend)
-
-    paginator = Paginator(entry, 4)
-    page = request.GET.get('page', 1)
-    data = pagination(paginator, page)
-
-    return render(request, "codedoor/viewcompany.html", {"reviews": data, "rating": input_rating,
-                                                         "recommend": input_recommend})
-
-
-def interviews_filter(request, company):
-    input_year = request.POST['year']
-    input_season = request.POST['season']
-    input_received_offer = request.POST['received_offer']
-
-    entry = Application.objects.filter(company=company, year=input_year, season=input_season,
-                                       received_offer=input_received_offer)
-
-    paginator = Paginator(entry, 4)
-    page = request.GET.get('page', 1)
-    data = pagination(paginator, page)
-
-    return render(request, "codedoor/viewcompany.html", {"applications": data, "year": input_year, "season": input_season,
-                                                         "received_offer": input_received_offer})
-'''
-
-def pagination(paginator, page):
-    try:
-        return paginator.page(page)
-    except PageNotAnInteger:
-        return paginator.page(1)
-    except EmptyPage:
-        return paginator.page(paginator.num_pages)
