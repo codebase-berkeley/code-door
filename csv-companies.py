@@ -20,23 +20,24 @@ with open('companies.csv', newline='', encoding='utf-8') as f:
         else:
             url = website[7:-1]
 
-        img = requests.get('https://logo.clearbit.com/' + url)
-        if img.status_code == 200:
-            img_data = img.content
-
-            s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
-                                aws_secret_access_key=s3_access_keys["secret"])
-            s3.Bucket(company_logos_bucket).put_object(Key=str(pk), Body=img_data, ACL='public-read')
-
-            url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(pk)
-            print(url)
-            logo = url
-
-            # NEEDS TO UPLOAD TO S3
-            # with open('static/images/logos/' + name + '.png', 'wb') as handler:
-            #     handler.write(img_data)
-        else:
-            continue
+        logo = None
+        # img = requests.get('https://logo.clearbit.com/' + url)
+        # if img.status_code == 200:
+        #     img_data = img.content
+        #
+        #     s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
+        #                         aws_secret_access_key=s3_access_keys["secret"])
+        #     s3.Bucket(company_logos_bucket).put_object(Key=str(pk), Body=img_data, ACL='public-read')
+        #
+        #     url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(pk)
+        #     print(url)
+        #     logo = url
+        #
+        #     # NEEDS TO UPLOAD TO S3
+        #     # with open('static/images/logos/' + name + '.png', 'wb') as handler:
+        #     #     handler.write(img_data)
+        # else:
+        #     continue
 
         name = row[1][:100]
         industry = row[3][:100]
