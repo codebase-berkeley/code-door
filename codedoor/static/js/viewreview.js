@@ -8,51 +8,18 @@ function getCookie(name) {
       .shift();
 }
 
-function displayReviewForm() {
-  console.log('displaying review form');
-  var x = document.getElementById('commentmodal');
-  if (x.style.display === 'none') {
-    x.style.display = 'block';
-  } else {
-    x.style.display = 'none';
-  }
-}
+document.getElementById("cancel").addEventListener("click", function() {
+        document.getElementById("addbody").value="";
 
-document.getElementById('addcomment').addEventListener('click', function() {
-  document.getElementById('commentmodal').style.display = 'block';
-  console.log('debugged');
 });
-
-var modal = document.getElementById('commentmodal');
-
-// Get the button that opens the modal
-var qBtn = document.getElementById('addcomment');
-
-// Get the <span> element that closes the modal
-// var span2 = document.getElementsByClassName("close")[1];
-var span = document.getElementById('close');
-
-// When the user clicks on the button, open the modal
-qBtn.onclick = function() {
-  modal.style.display = 'block';
-};
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-
-modal.style.display = 'none';
-document.getElementById("addtitle").value="";
-document.getElementById("addbody").value="";
-};
 
 console.log('Do somethings');
 
 document.getElementById('submit').addEventListener('click', function() {
   console.log('In the addEventListener');
 
-  var title = document.getElementById('addtitle').value;
+  var title = "";
   var content = document.getElementById('addbody').value;
-  document.getElementById("addtitle").value="";
   document.getElementById("addbody").value="";
 
   var commentData = new FormData();
@@ -90,6 +57,4 @@ document.getElementById('submit').addEventListener('click', function() {
           document.getElementById('comment').innerHTML;
       }
     });
-
-  document.getElementById('commentmodal').style.display = 'none';
 });
