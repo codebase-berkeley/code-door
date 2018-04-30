@@ -91,6 +91,8 @@ def view_company(request, pk, database):
             except EmptyPage:
                 application_list = paginator2.page(paginator2.num_pages)
 
+            print([app for app in application_list])
+
             return render(request, "codedoor/viewcompany.html", {"company": company, "profile": profile, "applications": application_list, "app_comments": app_comments})
 
         else:
