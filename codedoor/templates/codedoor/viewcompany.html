@@ -4,7 +4,6 @@
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
-  <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 </head>
 <body>
   <div class="companyportion">
@@ -26,8 +25,8 @@
 
   <hr id="break">
   <div id="nav">
-    <p onclick="showReviews()" id="reviews_tab" class="active_item nav_items">Reviews</p>
-    <p onclick="showApplications()" id="applications_tab" class="nav_items">Applications</p>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" id="reviews_tab" class="active_item nav_items">Reviews</a>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" id="applications_tab" class="nav_items">Applications</a>
     <!--<a href="#" id="people_tab" class="nav_items">People</a>-->
     <span style="float:right;position:absolute;right:10%;">
       <a class="sub" href="{% url 'codedoor:createreviewwc' pk=company.pk %}">Add Review</a>
@@ -376,4 +375,3 @@
 </body>
 </div>
 {% endblock %}
-
