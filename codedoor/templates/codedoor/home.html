@@ -259,7 +259,7 @@
     <br>
     {% endfor %}
 
-    {% if reviews.number > 3 %}
+    {% if num_reviews > 3 %}
     <a href="{% url 'codedoor:view_company_reviews' %}">Show More >>></a>
     {% else %}
     <div></div>

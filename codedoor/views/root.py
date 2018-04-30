@@ -14,9 +14,10 @@ from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 def home(request):
     reviews = Review.objects.all().order_by('-pk')[:3]
     applications = Application.objects.all().order_by('-id')[:3]
-    num_apps = len(Application.objects.all())
+    num_reviews = Review.objects.all().count()
+    num_apps = Application.objects.all().count()
     companies = [Company.objects.get(id=review.company.id) for review in reviews]
     companies += [Company.objects.get(id=application.company.id) for application in applications]
 
-    return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": applications, "num_apps": num_apps})
+    return render(request, "codedoor/home.html", {"companies": companies, "reviews": reviews, "applications": applications, "num_reviews": num_reviews, "num_apps": num_apps})
 
