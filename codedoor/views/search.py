@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+RESULTS_PER_PAGE = 5
 
 def search(request, database):
     input_query = request.GET.get('query')
@@ -26,18 +27,18 @@ def search(request, database):
     profile_vector = SearchVector('user__first_name', 'user__last_name', 'current_job')
     if database == "reviews":
         vector = review_vector
-        entry = Review.objects.annotate(search=vector).filter(search=query)
+        entry = Review.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     elif database == "interviews":
         vector = application_vector
-        entry = Application.objects.annotate(search=vector).filter(search=query)
+        entry = Application.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     elif database == "companies":
         vector = company_vector
-        entry = Company.objects.annotate(search=vector).filter(search=query)
+        entry = Company.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     elif database == "users":
         vector = profile_vector
-        entry = Profile.objects.annotate(search=vector).filter(search=query)
+        entry = Profile.objects.annotate(search=vector, rank=SearchRank(vector, query)).filter(search=query).order_by('-rank')
     n = len(entry)
-    paginator = Paginator(entry, 1)
+    paginator = Paginator(entry, RESULTS_PER_PAGE)
     page = request.GET.get('page', 1)
 
     def pagination(paginator, page):

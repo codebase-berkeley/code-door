@@ -71,7 +71,7 @@ def view_company_reviews(request):
         review_list = paginator1.page(paginator1.num_pages)
 
     return render(request, "codedoor/viewcompanyreviews.html",
-        {"company": companies, "reviews": review_list})
+        {"companies": companies, "reviews": review_list})
 
 @login_required
 def edit_review(request, pk):
