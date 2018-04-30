@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from codedoor.models import Review, Company, Profile, ReviewComment
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def create_review(request):
@@ -55,6 +56,22 @@ def view_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     comments = ReviewComment.objects.filter(review=review)
     return render(request, "codedoor/viewreview.html", {"review": review, "comments":comments})
+
+@login_required
+def view_company_reviews(request):
+    reviews = Review.objects.all().order_by('-id')
+    companies = Company.objects.all()
+    paginator_1 = Paginator(reviews, 3)
+    page = request.GET.get('page', 1)
+    try:
+        review_list = paginator1.page(page)
+    except PageNotAnInteger:
+        review_list = paginator1.page(1)
+    except EmptyPage:
+        review_list = paginator1.page(paginator1.num_pages)
+
+    return render(request, "codedoor/viewcompanyreviews.html",
+        {"company": company, "reviews": review_list})
 
 @login_required
 def edit_review(request, pk):
