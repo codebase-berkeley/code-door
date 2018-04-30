@@ -23,7 +23,7 @@ def search(request, database):
                                  'title')
     application_vector = SearchVector('company__name', 'profile__user__first_name', 'profile__user__last_name',
                                       'position')
-    company_vector = SearchVector('name', 'industry')
+    company_vector = SearchVector('name')
     profile_vector = SearchVector('user__first_name', 'user__last_name', 'current_job')
     if database == "reviews":
         vector = review_vector
