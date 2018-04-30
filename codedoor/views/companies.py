@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from codedoor.models import Company, Review, Profile, Application, ReviewComment, ApplicationComment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
@@ -30,7 +30,7 @@ def create_company(request):
         url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
         company.logo = url
         company.save()
-        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo})
+        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo, "pk": company.pk})
     else:
         return HttpResponse("failed to create a company!")
 
