@@ -7,18 +7,38 @@
 <body>
 <div id="databases">
   <div>
+    {% if database != "reviews" %}
     <a class="data" href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
+    {% endif %}
   </div>
   <div>
+    {% if database != "interviews" %}
     <a class="data" href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
+    {% endif %}
   </div>
   <div>
+    {% if database != "companies" %}
     <a class="data" href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
+    {% endif %}
   </div>
   <div>
+    {% if database != "users" %}
     <a class="data" href="{% url 'codedoor:search' database='users' %}?query={{ query }}">Users</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='users' %}?query={{ query }}">Users</a>
+    {% endif %}
   </div>
 </div>
+
+<span>
+{{ number }} {{ database }} found for "{{ query }}":
+</span>
 <div id="results">
   {% if database == "reviews" %}
     {% for review in data %}
