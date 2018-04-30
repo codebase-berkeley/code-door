@@ -41,6 +41,8 @@ qBtn.onclick = function() {
 span.onclick = function() {
 
 modal.style.display = 'none';
+document.getElementById("addtitle").value="";
+document.getElementById("addbody").value="";
 };
 
 console.log('Do somethings');
@@ -50,6 +52,8 @@ document.getElementById('submit').addEventListener('click', function() {
 
   var title = document.getElementById('addtitle').value;
   var content = document.getElementById('addbody').value;
+  document.getElementById("addtitle").value="";
+  document.getElementById("addbody").value="";
 
   var commentData = new FormData();
   commentData.append('title', title);

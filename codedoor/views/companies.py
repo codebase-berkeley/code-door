@@ -40,6 +40,7 @@ def view_company(request, pk, database):
     company = get_object_or_404(Company, pk=pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
 
+
     if request.method == "GET":
         page = request.GET.get('page', 1)
         if database == "reviews":
