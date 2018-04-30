@@ -44,7 +44,7 @@ def view_company(request, pk, database):
     if request.method == "GET":
         page = request.GET.get('page', 1)
         if database == "reviews":
-            reviews = Review.objects.filter(company=company)
+            reviews = Review.objects.filter(company=company).order_by("-pk")
             rating = request.GET.get('rating')
             recommend = request.GET.get('recommend')
             if rating and rating != 'None':
@@ -68,7 +68,7 @@ def view_company(request, pk, database):
             return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "review_comments": review_comments, "review": True})
 
         elif database == "applications":
-            applications = Application.objects.filter(company=company)
+            applications = Application.objects.filter(company=company).order_by("-pk")
             year = request.GET.get('year')
             season = request.GET.get('season')
             received_offer = request.GET.get('received_offer')
