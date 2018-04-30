@@ -104,7 +104,7 @@
       </div><br>
       <div class="space">
         Company <br>
-        <div class="border">
+        <div class="border" class="companies">
           <select name="company" class="select-style" id="reviewcompany">
             {% for company in companies %}
                 <option value={{company.pk}}>{{company.name}}</option>
@@ -311,7 +311,7 @@
         <div class="entry">
           <h4>Company:</h4><br>
           <p id="error1" class="error"></p>
-          <select id="company" name="company" class="menu" required>
+          <select id="company" name="company" class="menu" class="companies"required>
             {% for entry in companies %}
               <option value="{{ entry.id }}">{{ entry.name }}</option>
             {% endfor %}
