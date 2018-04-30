@@ -10,7 +10,7 @@
 }
 .nav-left {
     flex: 1;
-    display: flex;
+    display: inline-block;
     align-items: left;
     justify-content: flex-start;
 }
