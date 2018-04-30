@@ -26,7 +26,7 @@ document.getElementById("blackout").style.display = "none";
         document.getElementById("blackout").style.display = "none";
         var myEle = document.getElementById("init");
             if(myEle){
-                sdocument.getElementById("init").style.display = "none";
+                document.getElementById("init").style.display = "none";
             }
 
 
