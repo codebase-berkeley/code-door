@@ -4,20 +4,10 @@ function getCookie(name) {
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-document.getElementById("addcomment").addEventListener("click", function(){
-
-document.getElementById("blackout").style.display = "block";
-console.log("debugged");
-});
-
 console.log("Do somethings");
 
   document.getElementById("cancel").addEventListener("click", function() {
-
-  document.getElementById("addtitle").value="";
         document.getElementById("addbody").value="";
-
-document.getElementById("blackout").style.display = "none";
 
 });
 
@@ -26,7 +16,6 @@ document.getElementById("blackout").style.display = "none";
 
     document.getElementById("submit").addEventListener("click", function() {
         console.log("In the addEventListener");
-        document.getElementById("blackout").style.display = "none";
         var myEle = document.getElementById("init");
             if(myEle){
                document.getElementById("init").style.display = "none";
@@ -35,9 +24,8 @@ document.getElementById("blackout").style.display = "none";
 
 
 
-        var title = document.getElementById("addtitle").value;
+        var title = "";
         var content = document.getElementById("addbody").value;
-        document.getElementById("addtitle").value="";
         document.getElementById("addbody").value="";
 
 
