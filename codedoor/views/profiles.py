@@ -9,9 +9,9 @@ import requests
 from requests.auth import HTTPBasicAuth
 import datetime
 import boto3
-from api_keys import s3_access_keys
-from api_keys import slack_access_keys
-from api_keys import absolute_url
+from api_keys_prod import s3_access_keys
+from api_keys_prod import slack_access_keys
+from api_keys_prod import absolute_url
 
 profile_pic_bucket = 'codedoor-profile-pictures'
 
