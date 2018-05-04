@@ -9,23 +9,6 @@
 
 <body>
   <div class="companyportion">
-    <div id="commentmodal" class="modal">
-      <div class="modal-content" style="width:40%;">
-        <span id="close" class="close">&times;</span>
-        <h1 style="color:#484848;">Add comment</h1><br>
-
-        <h4>Title </h4>
-        <div class="border-text">
-          <input id="addtitle" type="text" name="title">
-        </div><br><br>
-        <h4>Comment </h4><br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
-        <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}"><br><br>
-
-        <button class="sub" id="submit">Submit</button>
-      </div>
-
-    </div>
-
     <div class="company-logo">
 
     <img src="{{review.company.logo}}" alt="Company logo" width="150" height="150">
@@ -49,7 +32,6 @@
     {% else %}
       <p></p>
     {% endif %}
-    <a class="sub" id="addcomment" href="#">Add Comment</a>
   </div>
   <div id="reviews">
     <table>
@@ -67,7 +49,9 @@
           <a href="{% url 'codedoor:viewcompany' pk=review.company.pk database='reviews'%}">
             <h2 class="link-text">{{ review.company }}</h2>
           </a>
-          <span class="applicant-name">{{ review.reviewer }}</span>
+          <span class="applicant-name">
+              <a href="{% url 'codedoor:viewprofile' pk=review.reviewer.id %}">{{ review.reviewer }}</a>
+          </span>
         </td>
       </tr>
       <tr>
@@ -160,28 +144,28 @@
           </div>
         </td>
       </tr>
-      <tr>
-        <td></td>
-        <td id="comments">
-          <br><p class="commentbase"> Comments: </p>
-          <div id ="comment">
-          </div>
-          {% for comment in comments %}
-            <div id="comment">
-              <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
-              </div>
-              <p id="commenter"> {{comment.commenter}} </p>
-              <p class="commentcontents"> {{comment.content}} </p>
-              <br>
-            </div>
-          {% endfor %}
-        </td>
-      </tr>
     </table>
     <br>
   </div>
+  <br><br>
+  <h4 class="commentbase"> Comments: </h4>
+  <textarea id="addbody" name="body" placeholder="Review here"></textarea>
+  <p id="display-error"></p>
+  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}">
 
+  <button class="sub" id="submit">Submit</button>
+  <button class="sub" id="cancel">Cancel</button>
 
+  <div id ="comment"></div>
+  {% for comment in comments %}
+    <div id="comment">
+      <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
+      </div>
+      <p id="commenter"> {{comment.commenter}} </p>
+      <p class="commentcontents"> {{comment.content}} </p>
+      <br>
+    </div>
+  {% endfor %}
 
 
 </div>

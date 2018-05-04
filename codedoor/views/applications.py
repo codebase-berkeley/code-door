@@ -9,10 +9,13 @@ import ast
 import json
 
 def create_application(request,companypk):
-    print("reached here")
+    print("in create application (no company)")
     profilepk = request.user.profile.pk
+    companies = Company.objects.filter()
     if request.method == 'POST':
+        print("inside the if")
         try:
+            print(request.POST)
             description = request.POST['description']
             season = request.POST['season']
             position = request.POST['position']
@@ -26,14 +29,17 @@ def create_application(request,companypk):
             difficulty = request.POST['difficulty']
         except Exception as e:
             traceback.print_exc()
-            return HttpResponse("You did not fill out the form correctly")
+            return JsonResponse({})
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
         # return redirect("codedoor:view_application", pk=a.id)
-        return JsonResponse({"application": a})
+        return JsonResponse({"a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
+                             "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
+                             "p": serializers.serialize('json', Profile.objects.filter(pk=a.profile.pk)),
+                             "u": serializers.serialize('json', User.objects.filter(pk=a.profile.user.pk))}, safe=False)
     else:
         return HttpResponse("created an application")
-        # return render(request, 'codedoor/createapplication.html', {"companypk": companypk})
+        # return render(request, 'codedoor/createapplicationcomp.html', {'companies' : companies})
 
 
 def create_application_company(request):
@@ -118,6 +124,7 @@ def list_applications(request, pk, pg=1):
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
 def list_all_applications(request, pg=1):
+    companies = Company.objects.all()
     applications = Application.objects.order_by("-pk")
     paginator = Paginator(applications, 10) 
     page = request.GET.get('page', 1)
@@ -128,7 +135,7 @@ def list_all_applications(request, pg=1):
     except EmptyPage:
         applications_list = paginator.page(paginator.num_pages)
         
-    return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
+    return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list, "companies": companies})
     
 def created_question(request):
     if request.method == "POST":

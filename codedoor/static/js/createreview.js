@@ -100,7 +100,7 @@ document.getElementById("submit_button_review").addEventListener("click", functi
         second = "<td rowspan='3' width='7%'> <img src='/static/images/temp.png' width='100' height='100'> </td> ";
       } 
       
-      var third = " <td width='93%'> <a href='/codedoor/viewcompany/"+json.companypk+"'> <h2 class='link-text'>  " + json.companyname + " </h2></a> <span class='applicant-name'>  " + json.reviewername + " </span> </td> </tr> <tr> <td> ";
+      var third = " <td width='93%'> <a href='/codedoor/viewcompany/"+json.companypk+"/reviews'> <h2 class='link-text'>  " + json.companyname + " </h2></a> <span class='applicant-name'>  " + json.reviewername + " </span> </td> </tr> <tr> <td> ";
       
       var fourth = "";
       if (json.companylogo != null){

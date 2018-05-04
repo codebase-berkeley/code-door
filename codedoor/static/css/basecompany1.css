@@ -186,5 +186,34 @@ ul li {
 .comment{
 color:black;
 font-weight:bold;
+}
+.dropdown{
+    float:right;
+    margin-right: 200px;
+}
 
+.indent {
+  margin-top: 1%;
+  margin-bottom: 1%;
+  position: relative;
+  left: 5%;
+}
+select {
+    box-sizing: border-box;
+	background-color: transparent;
+	text-decoration: none;
+	user-select: none;
+	list-style: none;
+	font-family: 'Roboto';
+	color: #7F7F7F;
+}
+option {
+    box-sizing: border-box;
+	background-color: transparent;
+	border: none;
+	text-decoration: none;
+	user-select: none;
+	list-style: none;
+	font-family: 'Roboto';
+	color: #7F7F7F;
 }

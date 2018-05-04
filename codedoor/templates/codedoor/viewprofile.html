@@ -50,15 +50,16 @@
                 <!--<img src={% static 'images/cvicon.png' %} width="30px" height="30px">-->
                 <!--resume.pdf &lt;!&ndash;</a>&ndash;&gt;-->
             <!--</p>-->
-        </div>
-    </div>
-    {% if request.user.profile == profile %}
+            {% if request.user.profile == profile %}
         <p id = "edit-profile">
-            <a href="/codedoor/editprofile/{{ profile.id }}"><!--add pk?-->
+            <a href="/codedoor/editprofile/{{ profile.id }}">
             (edit profile)
             </a>
         </p>
     {% endif %}
+        </div>
+    </div>
+
 </body>
 </html>
 {% endblock content %}

@@ -40,10 +40,11 @@ def view_company(request, pk, database):
     company = get_object_or_404(Company, pk=pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
 
+
     if request.method == "GET":
         page = request.GET.get('page', 1)
         if database == "reviews":
-            reviews = Review.objects.filter(company=company)
+            reviews = Review.objects.filter(company=company).order_by("-pk")
             rating = request.GET.get('rating')
             recommend = request.GET.get('recommend')
             if rating and rating != 'None':
@@ -64,10 +65,10 @@ def view_company(request, pk, database):
             except EmptyPage:
                 review_list = paginator1.page(paginator1.num_pages)
 
-            return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "review_comments": review_comments})
+            return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "review_comments": review_comments, "review": True})
 
         elif database == "applications":
-            applications = Application.objects.filter(company=company)
+            applications = Application.objects.filter(company=company).order_by("-pk")
             year = request.GET.get('year')
             season = request.GET.get('season')
             received_offer = request.GET.get('received_offer')
@@ -93,10 +94,10 @@ def view_company(request, pk, database):
 
             print([app for app in application_list])
 
-            return render(request, "codedoor/viewcompany.html", {"company": company, "profile": profile, "applications": application_list, "app_comments": app_comments})
+            return render(request, "codedoor/viewcompany.html", {"company": company, "profile": profile, "applications": application_list, "app_comments": app_comments, "review": False})
 
         else:
-            HttpResponse("Invalid url")
+            return HttpResponse("Invalid url")
 
 
 @login_required
@@ -114,7 +115,7 @@ def edit_company(request, pk):
 
         company.save()
 
-        return redirect('/codedoor/viewcompany/' + str(company.pk))
+        return redirect('/codedoor/viewcompany/' + str(company.pk) + '/reviews')
 
     return render(request, "codedoor/editcompany.html", {"company": company, "type": type })
 
