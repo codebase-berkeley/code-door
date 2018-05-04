@@ -150,6 +150,7 @@ def logout(request):
 
 def slack_info(request):
     params = slack_callback(request)
+    return params
     # insert if/else statement
     # if user is already in database, return redirect(url)
     # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
