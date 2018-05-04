@@ -178,6 +178,7 @@ def slack_callback(request):
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code"})
 
+        print("Slack", slack_access_keys)
         access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
