@@ -4,7 +4,7 @@ from codedoor.models import Company, Review, Profile, Application, ReviewComment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 import boto3
-from api_keys import s3_access_keys
+from api_keys_prod import s3_access_keys
 
 company_logos_bucket = 'codedoor-companies-logos'
 
