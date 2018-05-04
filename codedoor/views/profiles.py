@@ -166,7 +166,7 @@ def slack_info(request):
 
 
 def slack_callback(request):
-    client_id = "44822465026.357676068113"
+    client_id = "44822465026.357676068113"    
     client_secret = "03d2ad7902495ad8813f98f3340d8d3e"
 
     if request.method == 'GET':
