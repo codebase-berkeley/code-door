@@ -41,11 +41,12 @@ spanR.onclick = function() {
 //     }
 // }
 
+var pk=0;
+//going to be set by dropdown.js
 
 document.getElementById("submit_button_review").addEventListener("click", function(e) {
   var error_exists = validate_review();
   var reviewtitle = document.getElementById("title1").value;
-  var pk = document.getElementById("reviewcompany").value;
   var rating = document.getElementById("rating").value;
   var recommend = document.getElementsByName("recommend");
   var review = document.getElementById("review").value;
