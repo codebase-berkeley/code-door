@@ -9,26 +9,36 @@ button.big {
   font-size: 16px;
   border-radius: 4px;
 }
-.commentcontents{
-  padding-left:40px;
+.commentcontents {
+  padding-left: 40px;
 }
 
-
-#blackout{
-
+#blackout {
+  display: none;
   position: fixed;
-  opacity: 0.7;
-  left:0%;
-  top:0%;
-  width:100%;
-  height:100%;
-  background-color: black;
-  z-index: 1;
+  background: rgba(0, 0, 0, 0.7);
+  left: 0%;
+  top: 0%;
+  width: 100%;
+  height: 100%;
 
+  z-index: 1;
+}
+
+#commentsection {
+  position: absolute;
+  left: 40%;
+  top: 50px;
+  width: 200px;
+  height: 300px;
+  opacity: 1;
+  background-color: white;
+  z-index: 2;
+  padding: 50px;
 }
 
 button.small {
-  background-color: #FF9B71; /* Orange */
+  background-color: #ff9b71; /* Orange */
   border: none;
   color: white;
   padding: 10px 27px;
@@ -40,8 +50,8 @@ button.small {
 }
 
 textarea {
-  width: 70%;
-  height: 150px;
+  width: 60%;
+  height: 90px;
   padding: 12px 20px;
   box-sizing: border-box;
   border: 2px solid #ccc;
@@ -60,7 +70,7 @@ input.text {
 }
 
 input.select-num {
-  width: 10%;
+  width: 30%;
   height: 35px;
   padding: 15px 10px;
   box-sizing: border-box;
@@ -120,7 +130,7 @@ div.post {
 }
 
 rect.red-rect {
-  fill: #F45B69; /* Reddish */
+  fill: #f45b69; /* Reddish */
 }
 
 rect.teal-rect {
@@ -128,41 +138,40 @@ rect.teal-rect {
 }
 
 rect.orange-rect {
-  fill: #FF9B71; /* Orange */
+  fill: #ff9b71; /* Orange */
 }
 
 .sub {
-    background-color: #008489;
-    color: White;
-    border: none;
-    border-radius: 2px;
-    padding: 10px 20px;
-    outline: none;
-
+  background-color: #008489;
+  color: White;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+  outline: none;
 }
 
 .applicant-name {
   font-size: 12px;
   font-family: 'Roboto';
-  color: #7F7F7F;
+  color: #7f7f7f;
   margin-left: 20px;
 }
 
 .menu {
   height: 30px;
-  width: 10%;
+  width: 30%;
 }
 
 .error {
   font-size: 10px;
-  color: #F45B69; /*reddish*/
+  color: #f45b69; /*reddish*/
 }
 
 p.description_small_text {
   font-size: 14px;
   line-height: 1.2em;
   height: 3.6em;
-  overflow:hidden;
+  overflow: hidden;
   word-wrap: break-word;
   white-space: pre-line;
 }
@@ -175,25 +184,26 @@ p.description_small_text {
 #reviews {
   display: block;
   position: relative;
-  left:5%;
+  left: 5%;
 }
 
 #applications {
-  display: none;
   position: relative;
-  left:5%;
+  left: 5%;
 }
 
 #comments {
-  padding-top:10px;
-
+  padding-top: 10px;
 }
 
 #comment {
-  padding-top:5px;
-  padding-bottom:5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
-
+#buffer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 #profile-img {
   height: 30px;
   width: 30px;
@@ -204,8 +214,12 @@ p.description_small_text {
 }
 
 #commenter {
-  display:inline-block;
-  position:absolute;
-  padding:10px;
-  color:black;
+  display: inline-block;
+  position: absolute;
+  padding: 10px;
+  color: black;
+}
+
+.hidden {
+  display: none;
 }

@@ -1,3 +1,37 @@
+.nav {
+    height: 40px;
+
+}
+.nav > .container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.nav-left {
+    flex: 1;
+    display: inline-block;
+    align-items: left;
+    justify-content: flex-start;
+}
+.nav-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+#logo {
+    margin-top: 160px;
+    width: 100px;
+}
+#profile-circle {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+}
+
 body {
     font-family: Roboto;
 }
@@ -7,11 +41,21 @@ body {
 }
 
 h1 {
-    margin-top: 80px;
+    margin-top: 30px;
     margin-left: 80px;
+    margin-bottom: 20px;
     font-weight: bold;
-    color: Black;
+    color: #008489;
 }
+
+h2 {
+    font-family: Roboto-Light;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: lighter;
+    color: #008489;
+}
+
 
 form {
     width: 30%;
@@ -60,3 +104,4 @@ form {
 #submit input:hover {
     transition-duration: 0.3s;
     background-color: #01959b;
+}

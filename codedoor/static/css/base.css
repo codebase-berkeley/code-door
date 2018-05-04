@@ -76,7 +76,7 @@ canvas {
 }
 
 .content {
-    margin: 40px 0 80px;
+    margin: 15px 0 80px;
 }
 
 h1, h2 {
@@ -90,4 +90,34 @@ h3, h4 {
 
 input {
     color: #484848;
+}
+
+.display {
+    display: block !important;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #01696d;
+}
+
+
+.item{
+    display: inline-block;
+    padding: 1px;
+}
+
+.bar{
+    width: 80%;
+
+}
+
+#topsearch {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#topsearch > .item {
+    margin-right: 1em;
 }

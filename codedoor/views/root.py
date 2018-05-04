@@ -7,28 +7,18 @@ from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
+
 
 @login_required
 def home(request):
-    reviews = Review.objects.all().order_by('-id')
-    applications = Application.objects.all().order_by('-id')
-    paginator_1 = Paginator(reviews, 3)
-    paginator_2 = Paginator(applications, 3)
-    page = request.GET.get('page', 1)
-    try:
-        review_list = paginator_1.page(page)
-    except PageNotAnInteger:
-        review_list = paginator_1.page(1)
-    except EmptyPage:
-        review_list = paginator_1.page(paginator_1.num_pages)
+    reviews = Review.objects.all().order_by('-pk')[:3]
+    applications = Application.objects.all().order_by('-id')[:3]
+    num_reviews = Review.objects.all().count()
+    num_apps = Application.objects.all().count()
+    companies = [Company.objects.get(id=review.company.id) for review in reviews]
+    companies += [Company.objects.get(id=application.company.id) for application in applications]
+    actual_companies = Company.objects.all()
 
-    try:
-        application_list = paginator_2.page(page)
-    except PageNotAnInteger:
-        application_list = paginator_2.page(1)
-    except EmptyPage:
-        application_list = paginator_2.page(paginator_2.num_pages)
-
-
-    return render(request, "codedoor/home.html", {"reviews": review_list, "applications": application_list})
+    return render(request, "codedoor/home.html", {"actual_companies": actual_companies, "companies": companies, "reviews": reviews, "applications": applications, "num_reviews": num_reviews, "num_apps": num_apps, "is_home": True})
 

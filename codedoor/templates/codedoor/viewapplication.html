@@ -4,17 +4,15 @@
 <head>
     <link rel="stylesheet" href="{% static 'css/application.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 <body>
+  <textarea id="pk" style="display: none;">{{ a.pk }}</textarea>
+  <textarea id="logo" style="display: none;">{{ a.company.logo }}</textarea>
+  <textarea id="company" style="display: none;">{{ a.company }}</textarea>
+  <textarea id="profile" style="display: none;">{{ a.profile }}</textarea>
   <div class="entry">
-    <div id="blackout">
-
-     </div>
-    <table>
+    <table id="app">
       <tr>
         {% if a.company.logo != null %}
           <td rowspan="3" width="7%">
@@ -26,10 +24,12 @@
           </td>
         {% endif %}
         <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=a.company.pk %}">
+          <a href="{% url 'codedoor:viewcompany' pk=a.company.pk database='reviews' %}">
             <h2 class="link-text">{{ a.company }}</h2>
           </a>
-          <span class="applicant-name">{{ a.profile }}</span>
+          <span class="applicant-name">
+              <a href="{% url 'codedoor:viewprofile' pk=a.profile.id %}">{{ a.profile }}</a>
+          </span>
         </td>
       </tr>
       <tr>
@@ -98,16 +98,116 @@
         </td>
       </tr>
     </table>
+      <br>
     <br><br>
-        <a class="sub" id="addcomment" href="#">Add Comment</a>
         {% if request.user.profile == profile %}
-          <a class="sub" href="{% url 'codedoor:create_question' pk=a.pk %}">Create Question</a>
-          <a class="sub" href="{% url 'codedoor:edit_application' pk=a.pk %}">Edit Application</a>
+          <button id="qBtn" class="sub">Create Question</button>
+          <button id="aBtn" class="sub">Edit Application</button>
         {% endif %}
+    <br><br>
+
+
+
+
+    <div id="myModal2" class="modal">
+      <div class="modal-content">
+        <span id="closeModal2" class="close">&times;</span>
+        <div class="entry">
+          <h4>Position:</h4><br>
+          <input name="position" value="{{a.position}}" class="text" id="position"></input><br><br>
+        </div>
+        <div class="entry">
+            <h4>Season:</h4><br>
+            {% if a.season == "Fall" %}
+            <select name="season" class="menu" required>
+                <option value="Fall" selected="selected">Fall</option>
+                <option value="Winter">Winter</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+            {% elif a.season == "Winter" %}
+            <select name="season" class="menu" required>
+                <option value="Fall">Fall</option>
+                <option value="Winter" selected="selected">Winter</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+            {% elif a.season == "Spring" %}
+            <select name="season" class="menu" required>
+                <option value="Fall">Fall</option>
+                <option value="Winter">Winter</option>
+                <option value="Spring" selected="selected">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+            {% elif a.season == "Summer" %}
+            <select name="season" class="menu" required>
+                <option value="Fall">Fall</option>
+                <option value="Winter">Winter</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer" selected="selected">Summer</option>
+            </select>
+            {% endif %}
+        </div>
+        <div class="entry">
+            <h4>Year:</h4><br>
+            <input type="number" name="year" value="{{a.year}}" class="select-num" id="year"><br><br>
+        </div>
+        <div class="entry">
+            <h4>Difficulty:</h4><br>
+            <input type = "number" step="0.1" name="difficulty" value="{{ a.difficult }}" class="select-num" id="difficulty"></input><br><br>
+        </div>
+        <div class="entry">
+            <h4>Description:</h4><br>
+            <textarea id="description">{{ a.description }}</textarea><br>
+        </div>
+        <div class="entry">
+            <h4>Received Offer:</h4><br>
+            {% if a.received_offer %}
+              <p><input id="received_offer" type="radio" name="received_offer" value="Yes" checked> Yes</p><br>
+              <p><input type="radio" name="received_offer" value="No"> No</p><br><br>
+            {% else %}
+              <p><input id="received_offer" class="received_offer" type="radio" name="received_offer" value="Yes"> Yes</p><br>
+              <p><input class="received_offer" type="radio" name="received_offer" value="No" checked> No</p><br><br>
+            {% endif %}
+        </div>
+        <div class="entry">
+            <h4>Offer details:</h4><br>
+            <textarea id="offer_details">{{ a.offer_details }}</textarea><br><br>
+        </div>
+        <div class="entry">
+              <button id="submit_button_edit" type="submit" class="big" onclick="displayEditApplicationForm()">Submit</button>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    <div id="myModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeModal1">&times;</span>
+        <div class="entry">
+            <h4>Question:</h4><br>
+            <textarea id="question" name="question" placeholder="Question here"></textarea><br>
+        </div>
+        <div class="entry">
+            <h4>Applicant Answer:</h4><br>
+            <textarea id="applicant_answer" name="applicant answer" placeholder="Your answer"></textarea><br>
+        </div>
+        <div class="entry">
+            <h4>Company Answer:</h4><br>
+            <textarea id="company_answer" name="company answer" placeholder="Company answer"></textarea><br><br>
+        </div>
+        <div class="entry">
+            <button id="submit_button" type="submit" class="big" onclick="displayQuestionForm()">Submit</button>
+        </div>
+      </div>
+  </div>
     <br><br><br>
     <h2>Questions</h2>
     {% if questions %}
-        <div class="questList">
+        <div id="questList">
         {% for q in questions %}
             <div class="post">
                 <h4 class="blue-text">Question</h4>
@@ -121,134 +221,32 @@
         {% endfor %}
         </div>
     {% else %}
-        <p>No questions yet!</p>
+        <p id="buffer">No questions yet!</p>
     {% endif %}
-    <br><br>
-    <h2> Comments </h2>
+    <h2> Comments </h2><br>
+    <textarea id="addbody" name="body" placeholder="Review here"></textarea><p id="display-error"></p>
+    <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}">
+    <button class="sub" id="submit">Submit</button>
+    <button class="sub" id="cancel">Cancel</button>
     {% if comments %}
       {% for comment in comments %}
           <div id="comment">
             <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">
             </div>
             <p id="commenter"> {{comment.commenter}} </p>
-            <p class="commentcontents"> {{comment.content}} </p><br>
+            <p style="padding-left:40px;"> {{comment.content}} </p><br>
           </div>
       {% endfor %}
     {% else %}
-      <p> No comments yet! </p>
+     <div id ="comment"></div>
+      <div id ="init"><p>No comments yet!</p></div>
     {% endif %}
+
+
   </div>
-  <div id="commentsection">
-  <h2>Add comment</h2><br>
 
-  Title <input id="addtitle" type="text" name="title"> <br><br>
-  Comment <br><textarea id="addbody" name="body" placeholder="Review here"></textarea><br><br>
-
-  <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}"><br><br>
-  <button class="sub" id="submit">Submit</button>
-  <button class="sub" id="cancel">Cancel</button>
-</div>
-
-<script type="text/javascript">
-document.getElementById("blackout").style.display = "none";
-function myFunction() {
-    alert("Hello! I am an alert box!");
-}
-
-function getCookie(name) {
-  var regexp = new RegExp("(?:^" + name + "|;\s*"+ name + ")=(.*?)(?:;|$)", "g");
-  var result = regexp.exec(document.cookie);
-  return (result === null) ? null : result[1];
-}
-
-function displayCommentSection() {
-    var x = document.getElementById("commentsection");
-    if (x.style.display != "block") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
-    }
-}
-
-$( function() {
-    $( "#commentsection" ).dialog({
-      autoOpen: false,
-      show: {
-        effect: "fade",
-        duration: 300
-      },
-      hide: {
-        effect: "close",
-        duration: 1000
-      }
-    });
-
-    $(".ui-dialog-titlebar").hide();
-    $( "#commentsection" ).dialog({ closeOnEscape: false });
-
-    $( "#addcomment" ).on( "click", function() {
-     document.getElementById("blackout").style.display = "block";
-      $( "#commentsection" ).dialog( "open" );
-    });
-  } );
-
-console.log("Do somethings");
-
-  document.getElementById("cancel").addEventListener("click", function() {
-
-document.getElementById("blackout").style.display = "none";
-$( "#commentsection" ).dialog( "close" );
-});
-
-
-
-
-    document.getElementById("submit").addEventListener("click", function() {
-
-        document.getElementById("blackout").style.display = "none";
-
-
-        var title = document.getElementById("addtitle").value;
-        var content = document.getElementById("addbody").value;
-
-        var commentData = new FormData();
-        commentData.append("title", title);
-        commentData.append("content", content);
-        var application = document.getElementById("applicationpk").value;
-        commentData.append("application", application )
-        var headers = new Headers();
-
-        var csrftoken = getCookie("csrftoken")
-        headers.append('X-CSRFToken', csrftoken);
-        console.log("did not error out");
-        fetch("/codedoor/addac/", {
-            method: "POST",
-            body: commentData,
-            headers: headers,
-            credentials: "include"
-        }).then(function(response) {
-            return response.json();
-        }).then(function(json) {
-            if (json.success) {
-                document.getElementById("comment").innerHTML =
-
-
-                "<div id=\"comment\"><div id=\"profile-img\" style=\"background-image: url(" +json.profile_url+ ");\">"
-                  +"</div><p id='commenter'>"+json.name+"</p>"
-                  +"<p class='commentcontents'>"+json.content+"</p><br></div>"
-                   + document.getElementById("comment").innerHTML;
-            }
-        })
-
-
-        $( "#commentsection" ).dialog( "close" );
-
-
-    }
-
-
-
-  );
-</script>
 </body>
+    <script src="{% static 'js/application.js' %}"></script>
+    <script src="{% static 'js/showcommentsap.js' %}"></script>
+    <script src="{% static 'js/createquestion.js' %}" type="text/javascript"></script>
 {% endblock %}

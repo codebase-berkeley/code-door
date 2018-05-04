@@ -6,4 +6,6 @@ import codedoor.views as views
 
 urlpatterns = [
     path('home', views.home, name="home"),
+    path('search/<str:database>', views.search, name="search")
 ]
+

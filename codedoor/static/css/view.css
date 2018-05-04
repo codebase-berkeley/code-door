@@ -1,12 +1,4 @@
 
-body{
-    font-family: roboto;
-    padding: 80px;
-    margin: auto;
-    width: 90%;
-
-}
-
 a {
     text-decoration: none;
     color: black;
@@ -14,7 +6,8 @@ a {
 
 .block{
     display: inline-block;
-    padding: 23px 10px 0px 23px;
+    padding: 10px 10px 0px 23px;
+    margin-left: 5%;
 }
 
 body #edit-profile{

@@ -107,3 +107,4 @@ class ApplicationComment(models.Model):
 
     def __str__(self):
         return "{} comment on {}".format(self.commenter.user, self.application.company.name)
+

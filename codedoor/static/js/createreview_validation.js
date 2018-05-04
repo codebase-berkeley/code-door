@@ -1,5 +1,3 @@
-function validate() {
-  var form = document.getElementsByTagName('form')[0];
 
   form.addEventListener('submit', function(event) {
     var title = document.getElementById('title1').value;
