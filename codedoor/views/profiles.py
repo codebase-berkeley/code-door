@@ -150,7 +150,6 @@ def logout(request):
 
 def slack_info(request):
     params = slack_callback(request)
-    return params
     # insert if/else statement
     # if user is already in database, return redirect(url)
     # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
@@ -180,11 +179,7 @@ def slack_callback(request):
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code"})
         
-        print(r.json())
-        try:
-            access_token = r.json()['access_token']
-        except:
-            return JsonResponse(r.json())
+        access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
         r = requests.post(get_activity_url,
