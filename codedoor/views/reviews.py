@@ -4,6 +4,7 @@ from codedoor.models import Review, Company, Profile, ReviewComment
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 
 @login_required
 def create_review(request):
@@ -114,3 +115,15 @@ def created_review(request):
 
         return JsonResponse({"reviewername": review.reviewer.user.get_full_name(), "companypk": review.company.pk, "companyname": review.company.name, "companylogo": review.company.logo, "rating": review.rating, "recommend": review.recommend, "review": review.review, "title": review.title, "success": True})
     return HttpResponse("created a question!")
+
+def company_search_suggestion(request, searchstring):
+    def companytodict(company):
+        return {
+            "id": company.id,
+            "name": company.name,
+        }
+    companies = list(Company.objects.filter(name__istartswith=searchstring))[:5]
+    response = JsonResponse({"companies": [companytodict(company) for company in companies]})
+    print(response)
+    return response
+
