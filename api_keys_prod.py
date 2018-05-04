@@ -14,7 +14,7 @@ if config("production"):
         "client_secret": config("slack_secret")
     }
 
-    absolute_url = config("absolute_url")
+    absolute_url = "codedoordev.herokuapp.com"
 else:
     from api_keys import s3_access_keys as s3, slack_access_keys as slack, absolute_url as url
     s3_access_keys = s3
