@@ -170,14 +170,15 @@ def slack_callback(request):
 
     if request.method == 'GET':
         code = request.GET.get('code')
-        get_token_url = "https://slack.com/api/oauth.access?client_id={}&client_secret={}&code={}".format(client_id,
+        get_token_url = "https://slack.com/api/oauth.access?client_id={}&client_secret={}&code={}&redirect_url={}".format(client_id,
                                                                                                           client_secret,
-                                                                                                          code)
+                                                                                                          code, "{}/codedoor/slack_info".format("codedoordev.herokuapp.com"))
         r = requests.post(get_token_url,
                           auth=HTTPBasicAuth(client_id, client_secret),
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code",
                                   "redirect_uri": "{}/codedoor/slack_info".format("codedoordev.herokuapp.com")})
+
         access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
