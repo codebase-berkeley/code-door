@@ -1,7 +1,7 @@
 import os
 
 def config(var):
-    return os.environ[var]
+    return os.environ.get([var], False)
 
 if config("production"):
     s3_access_keys = {
