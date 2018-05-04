@@ -181,7 +181,10 @@ def slack_callback(request):
                           params={"code": code, "grant_type": "authorization_code"})
         
         print(r.json())
-        access_token = r.json()['access_token']
+        try:
+            access_token = r.json()['access_token']
+        except:
+            return JsonResponse(r.json())
 
         get_activity_url = "https://slack.com/api/users.identity"
         r = requests.post(get_activity_url,
