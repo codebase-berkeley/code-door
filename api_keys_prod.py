@@ -3,7 +3,7 @@ import os
 def config(var):
     return os.environ[var]
 
-if config("Production"):
+if config("production"):
     s3_access_keys = {
         "id": config("s3_id"),
         "secret": config("s3_secret")
