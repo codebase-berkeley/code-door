@@ -17,7 +17,7 @@
 					<img src="{% static 'images/logo.svg' %}" width="41px" height="58px" />
 				</a>
 			</div>
-			{% if not is_home and request.user.is_authenticated %}
+			{% if not is_home %}
 			<div class="nav-left">
 				<div id = topsearch>
 					<img class="item" src="{% static 'images/search_icon.png' %}" width="25px" height="25px" />

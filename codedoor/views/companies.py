@@ -118,3 +118,5 @@ def edit_company(request, pk):
         return redirect('/codedoor/viewcompany/' + str(company.pk) + '/reviews')
 
     return render(request, "codedoor/editcompany.html", {"company": company, "type": type })
+
+

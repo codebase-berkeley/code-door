@@ -4,7 +4,6 @@ def config(var):
     return os.environ.get(var, False)
 
 if config("production"):
-    print("In here")
     s3_access_keys = {
         "id": config("s3_id"),
         "secret": config("s3_secret")

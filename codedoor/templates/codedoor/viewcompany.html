@@ -532,6 +532,7 @@
               <li><a href="?page={{ i }}">{{ i }}</a></li>
             {% endif %}
           {% endfor %}
+
           {% if applications.has_next %}
             <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
           {% else %}

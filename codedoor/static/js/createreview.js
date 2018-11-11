@@ -34,18 +34,12 @@ spanR.onclick = function() {
   modalR.style.display = "none";
 }
 
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//     if (event.target == modalR) {
-//         modalR.style.display = "none";
-//     }
-// }
-
+var pk=0;
+//going to be set by dropdown.js
 
 document.getElementById("submit_button_review").addEventListener("click", function(e) {
   var error_exists = validate_review();
   var reviewtitle = document.getElementById("title1").value;
-  var pk = document.getElementById("reviewcompany").value;
   var rating = document.getElementById("rating").value;
   var recommend = document.getElementsByName("recommend");
   var review = document.getElementById("review").value;
@@ -56,9 +50,6 @@ document.getElementById("submit_button_review").addEventListener("click", functi
   else if(recommend[1].checked) {
     recommend = "False";
   }
-  // document.getElementById("question").value = "";
-  // document.getElementById("applicant_answer").value = "";
-  // document.getElementById("company_answer").value = "";
 
   var formData = new FormData();
 

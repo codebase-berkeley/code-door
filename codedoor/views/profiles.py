@@ -165,12 +165,11 @@ def slack_info(request):
 
 
 def slack_callback(request):
-    client_id = "44822465026.357676068113"    
-    client_secret = "03d2ad7902495ad8813f98f3340d8d3e"
+    client_id = slack_access_keys["client_id"]
+    client_secret = slack_access_keys["client_secret"]
 
     if request.method == 'GET':
         code = request.GET.get('code')
-        print("Code", code)
         get_token_url = "https://slack.com/api/oauth.access?client_id={}&client_secret={}&code={}".format(client_id,
                                                                                                           client_secret,
                                                                                                           code)
@@ -178,7 +177,6 @@ def slack_callback(request):
                           auth=HTTPBasicAuth(client_id, client_secret),
                           headers={"content-type": "application/x-www-form-urlencoded"},
                           params={"code": code, "grant_type": "authorization_code"})
-        
         access_token = r.json()['access_token']
 
         get_activity_url = "https://slack.com/api/users.identity"
