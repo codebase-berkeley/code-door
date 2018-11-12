@@ -1,5 +1,4 @@
 function listCompanies(inputID, divID){
-    console.log("hello");
     var searchbar = document.getElementById(inputID);
     searchbar.addEventListener("keydown", function(){
             document.getElementById(divID).innerHTML = "";

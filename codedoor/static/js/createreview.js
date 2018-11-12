@@ -24,7 +24,7 @@ var qBtn = document.getElementById("createreviewbutton");
 // var span2 = document.getElementsByClassName("close")[1];
 var spanR = document.getElementById("closeR");
 
-// When the user clicks on the button, open the modal 
+// When the user clicks on the button, open the modal
 qBtn.onclick = function() {
     modalR.style.display = "block";
 }
@@ -61,7 +61,7 @@ document.getElementById("submit_button_review").addEventListener("click", functi
 
 
   var headers = new Headers();
-  var csrftoken = getCookie("csrftoken")  
+  var csrftoken = getCookie("csrftoken")
   headers.append('X-CSRFToken', csrftoken);
 
   console.log(error_exists);
@@ -84,14 +84,14 @@ document.getElementById("submit_button_review").addEventListener("click", functi
       var first = "<table> <tr>";
       var second = "";
       if (json.companylogo) {
-        second = " <td rowspan='3' width='7%'> <img src='" + json.companylogo + "' width='100' height='100'> </td> "
+        second = " <td rowspan='3' width='7%'> <img class='company-logo' src='" + json.companylogo + "' width='100' height='100'> </td> "
       }
       else {
         second = "<td rowspan='3' width='7%'> <img src='/static/images/temp.png' width='100' height='100'> </td> ";
-      } 
-      
+      }
+
       var third = " <td width='93%'> <a href='/codedoor/viewcompany/"+json.companypk+"/reviews'> <h2 class='link-text'>  " + json.companyname + " </h2></a> <span class='applicant-name'>  " + json.reviewername + " </span> </td> </tr> <tr> <td> ";
-      
+
       var fourth = "";
       if (json.companylogo != null){
        fourth = "<a class='button' id='reviewtitle' href='{% url 'codedoor:viewreview' pk=" + review.pk + " %}'> " + json.title +" </a> ";
@@ -99,7 +99,7 @@ document.getElementById("submit_button_review").addEventListener("click", functi
       else {
           fourth = "<p></p> "
       }
-      
+
       var fifth = "</td> </tr> <tr> <td> <p><span class='info colorful-boxy'> ";
 
       var sixth = "";
@@ -114,7 +114,7 @@ document.getElementById("submit_button_review").addEventListener("click", functi
       var eighth = "";
       if (json.rating < 1) {
         eighth = "<span> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
-      } 
+      }
       else if (json.rating < 2) {
         eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
       }
@@ -130,8 +130,8 @@ document.getElementById("submit_button_review").addEventListener("click", functi
       else {
         eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> </span> ";
       }
-      var ninth = "</span></p> </td> </tr> <tr> <td></td> <td> <div> <h4>Description:</h4> <p class='description_small_text'> " + json.review + " </p> </div> </td> </tr> </table> <br> ";     
-      
+      var ninth = "</span></p> </td> </tr> <tr> <td></td> <td> <div> <h4>Description:</h4> <p class='description_small_text'> " + json.review + " </p> </div> </td> </tr> </table> <br> ";
+
       document.getElementById("reviews").innerHTML = first + second + third + fourth + fifth + sixth + seventh + eighth + ninth + document.getElementById("reviews").innerHTML;
       console.log("we made it");
     }
