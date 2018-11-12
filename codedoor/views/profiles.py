@@ -201,8 +201,6 @@ def slack_callback(request):
             # Authorization failed.
             return None
 
-
-
 def upload_picture(input_profile_pic, profile):
     s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
                         aws_secret_access_key=s3_access_keys["secret"])
