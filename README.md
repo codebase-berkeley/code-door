@@ -33,6 +33,8 @@ For static files like profile pictures, we currently use Amazon S3 as a backing 
 The production server is deployed on Heroku at (http://codedoordev.herokuapp.com).
 Please message Brian or Andrew on Slack for more details about credentials or deployment.
 
+[The original CodeDoor design can be viewed on Figma](https://www.figma.com/file/LXlfHxd8cLK4RFJ7yHP0tuFI/Codor-Prototype).
+
 ## Contributing
 
 There is a lot to fix! If you would like to contribute, please work using feature branches forked from `staging`.
@@ -86,4 +88,4 @@ slack_id=<SLACK_ID>
 slack_secret=<SLACK_SECRET>
 ```
 
-Automatic deploys have not been set up. 
+Automatic deploys have not been set up.
