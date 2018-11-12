@@ -19,7 +19,7 @@
       <div class="modal-content">
         <span id="closeC" class="close">&times;</span>
         <h1> Create Company </h1><br>
-        
+
           {% csrf_token %}
           <p class="error" id="display-error"></p>
           <div class="space">
@@ -134,118 +134,8 @@
 
 <div id="reviews">
     {% for review in reviews %}
-    <table>
-      <tr>
-        {% if review.company.logo %}
-          <td rowspan="3" width="7%">
-            <img src="{{review.company.logo}}" width="100" height="100">
-          </td>
-        {% else %}
-          <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" width="100" height="100">
-          </td>
-        {% endif %}
-        <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=review.company.pk database='reviews' %}">
-            <h2 class="link-text">{{ review.company }}</h2>
-          </a>
-          <span class="applicant-name">
-              <a href="{% url 'codedoor:viewprofile' pk=review.reviewer.id %}">{{ review.reviewer }}</a>
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {% if review.title != null %}
-            <a class="button" id="reviewtitle" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
-          {% else %}
-            <p></p>
-          {% endif %}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info colorful-boxy">
-            {% if review.recommend %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg> Recommends
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg> Doesn't Recommend
-              </span>
-            {% endif %}
-          </span>
-          <span class="info colorful-boxy">
-            {% if review.rating < 1 %}
-              <span>
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-              </span>
-            {% elif review.rating < 2 %}
-              <span>
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-              </span>
-            {% elif review.rating < 3 %}
-              <span>
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-              </span>
-            {% elif review.rating < 4 %}
-              <span>
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-              </span>
-            {% elif review.rating < 5 %}
-              <span>
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/whitestar.png" height="20" width="20">
-              </span>
-            {% else %}
-              <span>
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-                <img src="/static/images/blackstar.png" height="20" width="20">
-              </span>
-            {% endif %}
-          </span></p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <div>
-            <h4>Description:</h4>
-            <p class="description_small_text">{{review.review}}</p>
-          </div>
-        </td>
-      </tr>
-    </table>
-    <br>
+      {% include "components/review.html" with review=review only %}
+      <br>
     {% endfor %}
 
     <!-- Source: Vitor Freitas -->
@@ -276,7 +166,7 @@
 
   </div>
 
-  
+
 </body>
 <script src="{% static 'js/createreview.js' %}"></script>
 <script src="{% static 'js/company.js' %}"></script>

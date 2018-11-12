@@ -123,6 +123,8 @@ def editprofile(request, pk):
 
 
 def login(request):
+    TEMPLATE_PATH = "codedoor/login.html"
+    client_id = slack_access_keys["client_id"]
     if request.method == 'POST':
         uname = request.POST['uname']
         pwd = request.POST['pwd']
@@ -135,12 +137,12 @@ def login(request):
             else:
                 return redirect("codedoor:home")
         else:
-            return render(request, "codedoor/login.html", {"failed": True})
+            return render(request, TEMPLATE_PATH, {"failed": True, "client_id": client_id})
     else:
         if not request.GET:
-            return render(request, 'codedoor/login.html')
+            return render(request, TEMPLATE_PATH, {"client_id": client_id})
         else:
-            return render(request, 'codedoor/login.html', {"next": request.GET['next']})
+            return render(request, TEMPLATE_PATH, {"next": request.GET['next'], "client_id": client_id})
 
 
 def logout(request):
@@ -149,15 +151,25 @@ def logout(request):
 
 
 def slack_info(request):
+    """
+    After a user logs into Slack, they are redirected to this view with several
+    parameters added to the request if the Slack login was successful.
+
+    See (https://api.slack.com/docs/oauth) for more.
+    """
     params = slack_callback(request)
-    # insert if/else statement
+
+    if not params:
+        # Authorization failed.
+        return redirect("codedoor:login")
+
     # if user is already in database, return redirect(url)
     # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
     user = authenticate(params["user"]["email"])
     if user is None:
         print("Profile is None")
         first_name, last_name = params["user"]['name'].split(" ")
-        return render(request, 'codedoor/finishprofile.html', {"id": params['user']['email'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
+        return render(request, 'codedoor:finishprofile', {"id": params['user']['email'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
     else:
         print("nani the fuck")
         auth_login(request, user)
@@ -174,17 +186,20 @@ def slack_callback(request):
                                                                                                           client_secret,
                                                                                                           code)
         r = requests.post(get_token_url,
-                          auth=HTTPBasicAuth(client_id, client_secret),
-                          headers={"content-type": "application/x-www-form-urlencoded"},
-                          params={"code": code, "grant_type": "authorization_code"})
-        access_token = r.json()['access_token']
+                auth=HTTPBasicAuth(client_id, client_secret),
+                headers={"content-type": "application/x-www-form-urlencoded"},
+                params={"code": code, "grant_type": "authorization_code"})
 
-        get_activity_url = "https://slack.com/api/users.identity"
-        r = requests.post(get_activity_url,
-                          headers={"Authorization": "Bearer " + access_token})
-        
-        return r.json()
+        try:
+            access_token = r.json()['access_token']
 
+            get_activity_url = "https://slack.com/api/users.identity"
+            r = requests.post(get_activity_url,
+                              headers={"Authorization": "Bearer " + access_token})
+            return r.json()
+        except Exception as e:
+            # Authorization failed.
+            return None
 
 def upload_picture(input_profile_pic, profile):
     s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],

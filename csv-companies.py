@@ -16,10 +16,12 @@ with open('companies.csv', newline='', encoding='utf-8') as f:
     for row in reader:
         websites = row[2].split(';')
         website = websites[0]
-        if website[0:5] == 'https':
-            url = website[8:-1]
+        if website.startswith("http://"):
+            url = website[len("http://"):]
+        elif website.startswith("https://"):
+            url = website[len("https://"):]
         else:
-            url = website[7:-1]
+            url = website
 
         logo = None
         keep_trying = True
