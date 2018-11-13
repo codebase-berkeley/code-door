@@ -9,6 +9,9 @@ company_logos_bucket = 'codedoor-companies-logos'
 
 lst = []
 
+def log(stuff):
+    print("TSTAMP: {} LOG: {}".format(time.time(), stuff))
+
 with open('companies.csv', newline='', encoding='utf-8') as f:
     next(f)
     reader = csv.reader(f)
@@ -36,18 +39,17 @@ with open('companies.csv', newline='', encoding='utf-8') as f:
                 s3.Bucket(company_logos_bucket).put_object(Key=str(pk), Body=img_data, ACL='public-read')
 
                 url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(pk)
-                print("Got logo for pk {} at: {}".format(pk, url))
+                log("Got logo for pk {} at: {}".format(pk, url))
                 logo = url
 
                 # NEEDS TO UPLOAD TO S3
                 # with open('static/images/logos/' + name + '.png', 'wb') as handler:
                 #     handler.write(img_data)
-            elif img.status_code in [400, 404]:
-                print("Error {} for pk {}".format(img.status_code, pk), img.content)
+            elif img.status_code in [400, 404, 504]:
+                log("Error code {}, content {} for pk {}".format(img.content, img.status_code, pk))
                 keep_trying = False
             else:
-                print(img.status_code, img.content)
-                print("API timeout on pk: {}, sleep 1 minute and retry...".format(pk))
+                log("API error {}: {} on pk: {}, sleep 1 minute and retry...".format(img.content, img.status_code, pk))
                 time.sleep(60)
 
         name = row[1][:100]

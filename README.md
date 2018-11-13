@@ -80,7 +80,7 @@ using environment variables. The following variables need to be set:
 
 ```
 absolute_url=https://codedoordev.herokuapp.com/
-DATABASE_URL=postgres://<DATABASE_PATH>
+DATABASE_URL=postgres://<DATABASE_USER>:<DATABASE_PASSWORD>@<DATABASE_HOST>
 production=True
 s3_id=<S3_ID>
 s3_secret=<S3_SECRET>
