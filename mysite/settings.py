@@ -75,7 +75,7 @@ DATABASES = {
     }
 }
 
-# if in production get the heroku creds
+# if in production get the heroku creds ($DATABASE_URL)
 if os.environ.get('production', False):
     db_from_env = dj_database_url.config()
     DATABASES['default'].update(db_from_env)

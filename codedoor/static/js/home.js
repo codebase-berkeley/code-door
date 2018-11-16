@@ -1,5 +1,5 @@
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.addEventListener("click", function(event) {
     var appModal = document.getElementById('application-modal');
     var reviewModal = document.getElementById('reviewmodal');
     var companyModal = document.getElementById('companyModal');
@@ -16,4 +16,4 @@ window.onclick = function(event) {
         console.log("clicked outside the window");
         companyModal.style.display = "none";
     }
-}
+});

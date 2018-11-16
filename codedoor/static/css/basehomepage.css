@@ -143,32 +143,34 @@ span {
   color: black;
 }
 
-ul {
+ul.company-suggestions {
   list-style-type: none;
-  margin: 0;
-  padding: 0;
+  position: absolute;
   overflow: hidden;
+  box-shadow:  0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.12);
+  background-color: #fff;
+  width: 40%;
+  display: none;
+}
+
+div.active ul.company-suggestions {
+  display: block;
+}
+
+ul.company-suggestions li {
+  display: block;
+  padding: 1.0em 1.0em;
+}
+
+ul.company-suggestions li:hover:not(.active) {
+  cursor: pointer;
+  background-color: #ddd;
+  transition: 0.3s;
 }
 
 .active {
   background-color: #01959b;
   color: white;
-  border-radius: 5px;
-}
-
-li:hover:not(.active) {
-  display: inline;
-  background-color: #ddd;
-  border-radius: 0px;
-  transition: 0.3s;
-}
-
-ul li {
-  width: auto;
-  display: inline-block;
-  color: black;
-  padding: 8px 16px;
-  border: 1px solid #ddd;
 }
 
 #recommend {
