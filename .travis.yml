@@ -4,4 +4,5 @@ python: "3.6"
 services:
   - postgresql
 script:
+  - echo 's3_access_keys, slack_access_keys = {"id": "id", "secret": "secret"}, {"client_id": "client_id", "client_secret": "client_secret"}' > api_keys.py
   - python manage.py test
