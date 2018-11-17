@@ -1,5 +1,7 @@
 language: python
 python: "3.6"
 
+services:
+  - postgresql
 script:
-  - python -m unittest
+  - python manage.py test
