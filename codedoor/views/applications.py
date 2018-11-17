@@ -112,7 +112,7 @@ def view_application(request, pk):
 
 def list_applications(request, pk, pg=1):
     applications = Application.objects.filter(company=pk).order_by("-pk")
-    paginator = Paginator(applications, 5) 
+    paginator = Paginator(applications, 5)
     page = request.GET.get('page', 1)
     try:
         applications_list = paginator.page(page)
@@ -120,13 +120,13 @@ def list_applications(request, pk, pg=1):
         applications_list = paginator.page(1)
     except EmptyPage:
         applications_list = paginator.page(paginator.num_pages)
-        
+
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
 
 def list_all_applications(request, pg=1):
     companies = Company.objects.all()
     applications = Application.objects.order_by("-pk")
-    paginator = Paginator(applications, 10) 
+    paginator = Paginator(applications, 10)
     page = request.GET.get('page', 1)
     try:
         applications_list = paginator.page(page)
@@ -134,9 +134,9 @@ def list_all_applications(request, pg=1):
         applications_list = paginator.page(1)
     except EmptyPage:
         applications_list = paginator.page(paginator.num_pages)
-        
+
     return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list, "companies": companies})
-    
+
 def created_question(request):
     if request.method == "POST":
 
