@@ -10,5 +10,4 @@ urlpatterns = [
     path('viewquestion/<int:pk>', views.view_question, name="view_question"),
     path('listquestions', views.list_questions, name="list_questions"),
     path('createdquestion', views.created_question, name="created_question"),
-
 ]
