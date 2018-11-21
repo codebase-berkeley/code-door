@@ -37,7 +37,7 @@ Please message Brian or Andrew on Slack for more details about credentials or de
 
 ## Contributing
 
-There is a lot to fix! If you would like to contribute, please work using feature branches forked from `staging`.
+There is a lot to fix! If you would like to contribute, please work using feature branches forked from `master`.
 Suggested workflow:
 
 1. Fork a branch from `master`.
