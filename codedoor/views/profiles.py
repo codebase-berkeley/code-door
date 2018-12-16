@@ -169,7 +169,7 @@ def slack_info(request):
     if user is None:
         print("Profile is None")
         first_name, last_name = params["user"]['name'].split(" ")
-        return render(request, 'codedoor:finishprofile', {"id": params['user']['email'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
+        return render(request, 'codedoor/finishprofile.html', {"id": params['user']['email'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
     else:
         print("nani the fuck")
         auth_login(request, user)
