@@ -8,30 +8,31 @@
 </h1>
 <form enctype="multipart/form-data" action="/codedoor/finishprofile/" method="POST"> {% csrf_token %}
     <div class="entry">
-        Graduation Year:
-        <input type="number" name="graduation_year" placeholder="e.g. 2020" required>
-    <div class="entry">
-        <input type="hidden" name="first_name" value= {{ first_name }} required>
+        <p class="profile-form-label">Graduation Year:</p>
+        <input type="number" name="graduation_year" placeholder="e.g. 2020" class="profile-form-input" required>
     </div>
     <div class="entry">
-        <input type="hidden" name = "last_name" value = {{ last_name }} required>
+        <input type="hidden" name="first_name" value={{ first_name }} required>
     </div>
     <div class="entry">
-        Profile Picture:
-        <input type="file" name="profile_pic" accept="image/*">
+        <input type="hidden" name="last_name" value={{ last_name }} required>
     </div>
     <div class="entry">
-        <input type = "hidden" name="email" value = {{ email }} required>
+        <p class="profile-form-label">Profile Picture:</p>
+        <input type="file" name="profile_pic" accept="image/*" class="profile-form-input">
+    </div>
+    <div class="entry">
+        <input type="hidden" name="email" value={{ email }} required>
     </div>
 
     <div class="entry">
-        Current Job:
-        <input type="text" name="current_job" placeholder="e.g. Member at Codebase">
+        <p class="profile-form-label">Current Job:</p>
+        <input type="text" name="current_job" placeholder="e.g. Member at Codebase" class="profile-form-input">
     </div>
     <div class="entry">
-        LinkedIn:
+        <p class="profile-form-label">LinkedIn:</p>
         <!--<input type="url"  name="linkedin" value = "https://">-->
-        <input type = "text" name = "linkedin" placeholder="e.g. www.google.com">
+        <input type="text" name="linkedin" placeholder="e.g. www.linkedin.com/in/janedoe" class="profile-form-input">
     </div>
     <!--
     <div class="entry">
@@ -43,4 +44,3 @@
         <input type="submit" value="Submit">
     </div>
 </form>
-
