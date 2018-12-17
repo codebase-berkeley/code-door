@@ -1,0 +1,63 @@
+a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  margin: 50px;
+}
+
+.profile-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 30px;
+}
+
+#profile-pic {
+  width: 300px;
+  height: 300px;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+#name {
+  font-weight: 1000;
+  font-size: 200%;
+  color: black;
+}
+
+#job {
+  font-style: italic;
+  font-weight: lighter;
+  font-size: 100%;
+}
+
+#classof {
+  font-weight: 100;
+  font-size: 80%;
+  color: grey;
+}
+
+.link {
+  margin: 10px 0;
+}
+
+.icon {
+  margin-right: 10px;
+  height: 40px;
+  width: 40px;
+}
+
+#edit-profile {
+  font-style: italic;
+  font-size: 80%;
+  color: grey;
+  margin: 10px 0;
+}

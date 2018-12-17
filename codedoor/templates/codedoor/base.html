@@ -7,14 +7,14 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
 	<link href="https://fonts.googleapis.com/css?family=Anton|Bree+Serif|Julius+Sans+One|Magra" rel="stylesheet">
-
+	<link rel="icon" type="image/png" href="{% static 'images/logo.svg' %}">
 </head>
 <body>
 	<div class="nav">
 		<div class="container">
 			<div id="logo" class="nav-item">
 				<a href="{% url 'codedoor:home' %}">
-					<img src="{% static 'images/logo.svg' %}" width="41px" height="58px" />
+					<img src="{% static 'images/logo.svg' %}" />
 				</a>
 			</div>
 			{% if not is_home %}
