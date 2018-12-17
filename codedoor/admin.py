@@ -8,4 +8,3 @@ admin.site.register(Review)
 admin.site.register(Question)
 admin.site.register(ReviewComment)
 admin.site.register(ApplicationComment)
-

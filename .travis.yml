@@ -1,5 +1,9 @@
 language: python
-python: "3.6"
-
+python: '3.6'
+services:
+- postgresql
 script:
-  - python -m unittest
+- python manage.py test
+before_install:
+- openssl aes-256-cbc -K $encrypted_ab209df43420_key -iv $encrypted_ab209df43420_iv
+  -in api_keys.py.enc -out ./api_keys.py -d

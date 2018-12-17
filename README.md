@@ -37,12 +37,12 @@ Please message Brian or Andrew on Slack for more details about credentials or de
 
 ## Contributing
 
-There is a lot to fix! If you would like to contribute, please work using feature branches forked from `staging`.
+There is a lot to fix! If you would like to contribute, please work using feature branches forked from `master`.
 Suggested workflow:
 
-1. Fork a branch from `staging`.
+1. Fork a branch from `master`.
 2. Make and commit your changes. There is no style guide currently.
-3. Submit a pull request on GitHub from your branch into `staging`, putting Andrew Chan is your reviewer.
+3. Submit a pull request on GitHub from your branch into `master`, putting Andrew Chan as your reviewer.
 4. Andrew will review your change and merge it.
 
 Please message Andrew on Slack if you have any questions about the contribution process.
