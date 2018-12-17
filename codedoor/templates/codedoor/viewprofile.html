@@ -29,13 +29,6 @@
         </p>
       </div>
       <div id="profile-links">
-        <!--{{ profile.website }}-->
-        <!--<p>-->
-            <!--<a href = "https://lausophia.github.io">-->
-                <!--<img src= {% static 'images/linkicon.png' %} width="30px" height="30px">-->
-                <!--lausophia.github.io-->
-            <!--</a>-->
-        <!--</p>-->
         {% if profile.linkedin %}
           <div class="link">
             <a href={{ profile.linkedin }}>
@@ -50,11 +43,6 @@
             <span>{{ profile.user.email }}</span>
           </a>
         </div>
-        <!--<a href={{ profile.resume }}>-->
-        <!--<p>-->
-            <!--<img src={% static 'images/cvicon.png' %} width="30px" height="30px">-->
-            <!--resume.pdf &lt;!&ndash;</a>&ndash;&gt;-->
-        <!--</p>-->
       </div>
     </div>
   </div>

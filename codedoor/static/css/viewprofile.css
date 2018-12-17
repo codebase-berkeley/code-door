@@ -3,7 +3,7 @@ a {
   flex-direction: row;
   align-items: center;
   text-decoration: none;
-  color: black;
+  color: #000;
 }
 
 .profile {
@@ -30,7 +30,7 @@ a {
 #name {
   font-weight: 1000;
   font-size: 200%;
-  color: black;
+  color: #000;
 }
 
 #job {
@@ -42,7 +42,7 @@ a {
 #classof {
   font-weight: 100;
   font-size: 80%;
-  color: grey;
+  color: #808080;
 }
 
 .link {
@@ -58,6 +58,6 @@ a {
 #edit-profile {
   font-style: italic;
   font-size: 80%;
-  color: grey;
+  color: #808080;
   margin: 10px 0;
 }
