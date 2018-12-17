@@ -1,59 +1,61 @@
-body {
-    font-family: Roboto;
+.profile-header {
+  margin: 50px;
 }
 
-h1 {
-    margin-top: 80px;
-    margin-left: 80px;
-    font-weight: bold;
-    color: Black;
+.profile-form {
+  width: 45%;
+  margin: 50px auto;
 }
 
-form {
-    width: 30%;
-    margin: 50px auto;
+.profile-form .entry {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 40px;
 }
 
-.entry {
-    font-style: italic;
-    margin-top: 40px;
+.profile-form .label {
+  width: 35%;
+  padding: 0 16px;
 }
 
-.entry input {
-    margin-left: 20px;
-    border-radius: 2px;
-    padding: 6px 6px;
-    border: 1px solid #cccccc;
-    outline: none;
+.profile-form input {
+  border-radius: 2px;
+  padding: 8px 8px;
+  border: 1px solid #cccccc;
+  outline: none;
+  width: 100%;
+  height: 36px;
 }
 
-.entry input:hover {
-    transition-duration: 0.3s;
-    border: 1px solid #008489;
+.profile-form input:hover {
+  transition-duration: 0.3s;
+  border: 1px solid #008489;
 }
 
-.entry input:focus {
-    border: 1px solid #008489;
+.profile-form input:focus {
+  border: 1px solid #008489;
 }
 
 #submit {
-    width: 50%;
-    margin: 50px auto;
-    text-align: center;
+  width: 50%;
+  margin: 50px auto;
+  text-align: center;
 }
 
 #submit input {
-    width: 80%;
-    background-color: #008489;
-    color: White;
-    border: none;
-    border-radius: 2px;
-    padding: 10px 20px;
-    outline: none;
-    font-family: Roboto;
+  width: 80%;
+  background-color: #008489;
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  padding: 10px 20px;
+  outline: none;
+  font-family: Roboto;
 }
 
 #submit input:hover {
-    transition-duration: 0.3s;
-    background-color: #01959b;
+  transition-duration: 0.3s;
+  background-color: #01959b;
 }

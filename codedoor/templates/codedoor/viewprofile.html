@@ -3,63 +3,49 @@
 {% block content %}
 <html>
 <head>
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/view.css' %}">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/viewprofile.css' %}">
 </head>
 <body>
-    <div class="block" id="profile-pic" style="background-image: url('{{ profile.profile_pic }}');">
+  <div class="profile">
+    <div>
+      <div id="profile-pic" style="background-image: url('{{ profile.profile_pic }}');"></div>
+      {% if request.user.profile == profile %}
+        <a href="/codedoor/editprofile/{{ profile.id }}">
+          <p id="edit-profile">(edit profile)</p>
+        </a>
+      {% endif %}
     </div>
-    <div class="block">
-         <div>
-             <p id = "name">
-                 {{ profile.user.get_full_name }}
-             </p>
-             <p id = "job">
-                 {{ profile.current_job }}
-             </p>
-             <p id = "classof">
-                 Class of {{ profile.graduation_year }}
-             </p>
-        </div>
-
-        <div id="info">
-            <!--{{ profile.website }}-->
-            <!--<p>-->
-                <!--<a href = "https://lausophia.github.io">-->
-                    <!--<img src= {% static 'images/linkicon.png' %} width="30px" height="30px">-->
-                    <!--lausophia.github.io-->
-                <!--</a>-->
-            <!--</p>-->
-            {% if profile.linkedin %}
-            <p>
-                <a href = {{ profile.linkedin }}>
-                    <img src={% static 'images/linkedinlogo.png' %} width="30px" height="30px">
-                    {{ profile.linkedin }}
-                </a>
-            </p>
-            {% endif %}
-            <!--{{profile.email}}-->
-            <p>
-                <a href = "mailto:{{ profile.user.email }}">
-                    <img src={% static 'images/emailicon.png' %} width="30px" height="30px">
-                    {{ profile.user.email }}
-                </a>
-            </p>
-            <!--<a href={{ profile.resume }}>-->
-            <!--<p>-->
-                <!--<img src={% static 'images/cvicon.png' %} width="30px" height="30px">-->
-                <!--resume.pdf &lt;!&ndash;</a>&ndash;&gt;-->
-            <!--</p>-->
-            {% if request.user.profile == profile %}
-        <p id = "edit-profile">
-            <a href="/codedoor/editprofile/{{ profile.id }}">
-            (edit profile)
-            </a>
+    <div class="profile-information">
+      <div class="basic-info">
+        <p id="name">
+          {{ profile.user.get_full_name }}
         </p>
-    {% endif %}
+        <p id="job">
+          {{ profile.current_job }}
+        </p>
+        <p id="classof">
+          Class of {{ profile.graduation_year }}
+        </p>
+      </div>
+      <div id="profile-links">
+        {% if profile.linkedin %}
+          <div class="link">
+            <a href={{ profile.linkedin }}>
+              <img class="icon" src={% static 'images/linkedinlogo.png' %}>
+              <span>{{ profile.linkedin }}</span>
+            </a>
+          </div>
+        {% endif %}
+        <div class="link">
+          <a href="mailto:{{ profile.user.email }}">
+            <img class="icon" src={% static 'images/emailicon.png' %}>
+            <span>{{ profile.user.email }}</span>
+          </a>
         </div>
+      </div>
     </div>
-
+  </div>
 </body>
 </html>
 {% endblock content %}
