@@ -1,33 +1,40 @@
-form {
-  width: 30%;
+.profile-header {
+  margin: 50px;
+}
+
+.profile-form {
+  width: 45%;
   margin: 50px auto;
 }
 
-.profile-form-entry {
+.profile-form .entry {
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: flex-start;
-  margin: 20px;
+  margin: 40px;
 }
 
-.profile-form-label {
-  font-style: italic;
+.profile-form .label {
+  width: 35%;
+  padding: 0 16px;
 }
 
-.profile-form-input {
+.profile-form input {
   border-radius: 2px;
-  padding: 6px 6px;
+  padding: 8px 8px;
   border: 1px solid #cccccc;
   outline: none;
   width: 100%;
+  height: 36px;
 }
 
-.profile-form-input:hover {
+.profile-form input:hover {
   transition-duration: 0.3s;
   border: 1px solid #008489;
 }
 
-.profile-form-input:focus {
+.profile-form input:focus {
   border: 1px solid #008489;
 }
 
