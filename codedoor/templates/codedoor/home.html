@@ -154,28 +154,21 @@
     <div class="modal-content">
       <span id="closeA" class="close">&times;</span>
       <h1> Create Application</h1>
-      <div id="hidden-application" class="indent">
-
+      <div id="hidden-application">
         <br>
-
         <div class="entry">
-          <h4>Position:</h4><br>
+          <p>Position:</p>
           <p id="error0"></p>
-          <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
+          <input id="position" name="position" placeholder="Job title" type="text" required></input><br>
         </div>
         <div class="entry">
-          <h4>Company:</h4><br>
-          <div class="border-text">
-            <input id="companysearch2" type="text"/>
-            <div id="suggestions2">
-
-            </div>
-          </div>
+          <p>Company:</p>
+          <input id="companysearch2" type="text"/>
+          <div id="suggestions2"></div>
           <p id="error1" class="error"></p>
-
-
+        </div>
         <div class="entry">
-          <h4>Season:</h4><br>
+          <p>Season:</p>
           <p id="error1" class="error"></p>
           <select id="season" name="season" class="menu" required>
             <option value="Fall">Fall</option>
@@ -185,30 +178,32 @@
           </select>
         </div>
         <div class="entry">
-          <h4>Year:</h4><br>
+          <p>Year:</p>
           <p id="error2" class="error"></p>
           <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
         </div>
         <div class="entry">
-          <h4>Difficulty:</h4><br>
+          <p>Difficulty:</p>
           <p id="error3" class="error"></p>
           <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
         </div>
         <div class="entry">
-          <h4>Description:</h4><br>
+          <p>Description:</p>
           <p id="error4" class="error"></p>
-          <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
+          <textarea id="description" name="description" placeholder="Description of application" required></textarea>
         </div>
         <div class="entry">
-          <h4>Received Offer:</h4><br>
+          <p>Received Offer:</p>
           <p id="error5" class="error"></p>
-          <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
-          <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
+          <input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble">
+          <label for="Yes">Yes&nbsp;</label>
+          <input id="received_offer" type="radio" name="received_offer" value="No" class="bubble">
+          <label for="No">No</label>
         </div>
         <div class="entry">
-          <h4>Offer details:</h4><br>
+          <p>Offer details:</p>
           <p id="error6" class="error"></p>
-          <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
+          <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea>
         </div>
         <div class="entry">
           <button id="submit_button" type="submit" class="small-teal">Submit</button>
