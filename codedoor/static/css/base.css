@@ -1,18 +1,18 @@
 @font-face {
-  font-family: 'Roboto';
-  src: url('/static/fonts/Roboto-Regular.ttf');
+  font-family: "Roboto";
+  src: url("/static/fonts/Roboto-Regular.ttf");
 }
 @font-face {
-  font-family: 'Roboto-Light';
-  src: url('/static/fonts/Roboto-Light.ttf');
+  font-family: "Roboto-Light";
+  src: url("/static/fonts/Roboto-Light.ttf");
 }
 @font-face {
-  font-family: 'Roboto-Medium';
-  src: url('/static/fonts/Roboto-Medium.ttf');
+  font-family: "Roboto-Medium";
+  src: url("/static/fonts/Roboto-Medium.ttf");
 }
 @font-face {
-  font-family: 'Roboto-Bold';
-  src: url('/static/fonts/Roboto-Bold.ttf');
+  font-family: "Roboto-Bold";
+  src: url("/static/fonts/Roboto-Bold.ttf");
 }
 
 .menu {
@@ -38,86 +38,86 @@ image,
 svg,
 path,
 g,
-canvas {
-	box-sizing: border-box;
-	background-color: transparent;
-	border: none;
-	text-decoration: none;
-	user-select: none;
-	list-style: none;
-	font-family: 'Roboto';
-	color: #7F7F7F;
+canvas,
+label {
+  box-sizing: border-box;
+  background-color: transparent;
+  border: none;
+  text-decoration: none;
+  user-select: none;
+  list-style: none;
+  font-family: "Roboto";
 }
 
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .container {
-    width: 600px;
-    margin: 0 auto;
+  width: 600px;
+  margin: 0 auto;
 }
 
 @media (min-width: 768px) {
-    .container {
-        width: 768px;
-    }
+  .container {
+    width: 768px;
+  }
 }
 @media (min-width: 992px) {
-    .container {
-        width: 992px;
-    }
+  .container {
+    width: 992px;
+  }
 }
 @media (min-width: 1200px) {
-    .container {
-        width: 1170px;
-    }
+  .container {
+    width: 1170px;
+  }
 }
 
 .content {
-    margin: 15px 0 80px;
+  margin: 15px 0 80px;
 }
 
-h1, h2 {
-    font-family: 'Roboto-Bold';
-    color: #484848;
+h1,
+h2 {
+  font-family: "Roboto-Bold";
+  color: #484848;
 }
-h3, h4 {
-    font-family: 'Roboto-Medium';
-    color: #484848;
+h3,
+h4 {
+  font-family: "Roboto-Medium";
+  color: #484848;
 }
 
 input {
-    color: #484848;
+  color: #484848;
 }
 
 .display {
-    display: block !important;
+  display: block !important;
 }
 
 button:hover {
-    cursor: pointer;
-    background-color: #01696d;
+  cursor: pointer;
+  background-color: #01696d;
 }
 
-
-.item{
-    display: inline-block;
-    padding: 1px;
+.item {
+  display: inline-block;
+  padding: 1px;
 }
 
-.bar{
-    width: 80%;
-
+.bar {
+  width: 80%;
 }
 
 #topsearch {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 #topsearch > .item {
-    margin-right: 1em;
+  margin-right: 1em;
 }
