@@ -15,8 +15,8 @@
     <div id="searchbar">
 
       <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-       <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
-        <button class="sub" id="search" type="submit">Search</button>
+      <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
+      <button id="search" type="submit">Search</button>
       </form>
     </div>
   </div><br>
@@ -155,20 +155,19 @@
       <span id="closeA" class="close">&times;</span>
       <h1> Create Application</h1>
       <div id="hidden-application">
-        <br>
         <div class="entry">
-          <p>Position:</p>
+          <p>Position</p>
           <p id="error0"></p>
           <input id="position" name="position" placeholder="Job title" type="text" required></input><br>
         </div>
         <div class="entry">
-          <p>Company:</p>
+          <p>Company</p>
           <input id="companysearch2" type="text"/>
           <div id="suggestions2"></div>
           <p id="error1" class="error"></p>
         </div>
         <div class="entry">
-          <p>Season:</p>
+          <p>Season</p>
           <p id="error1" class="error"></p>
           <select id="season" name="season" class="menu" required>
             <option value="Fall">Fall</option>
@@ -178,22 +177,22 @@
           </select>
         </div>
         <div class="entry">
-          <p>Year:</p>
+          <p>Year</p>
           <p id="error2" class="error"></p>
           <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
         </div>
         <div class="entry">
-          <p>Difficulty:</p>
+          <p>Difficulty</p>
           <p id="error3" class="error"></p>
           <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
         </div>
         <div class="entry">
-          <p>Description:</p>
+          <p>Description</p>
           <p id="error4" class="error"></p>
           <textarea id="description" name="description" placeholder="Description of application" required></textarea>
         </div>
         <div class="entry">
-          <p>Received Offer:</p>
+          <p>Received Offer</p>
           <p id="error5" class="error"></p>
           <input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble">
           <label for="Yes">Yes&nbsp;</label>
@@ -201,7 +200,7 @@
           <label for="No">No</label>
         </div>
         <div class="entry">
-          <p>Offer details:</p>
+          <p>Offer details</p>
           <p id="error6" class="error"></p>
           <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea>
         </div>
