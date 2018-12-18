@@ -1,41 +1,41 @@
 {% load static %}
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/profileform.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/createprofile.css' %}">
 <h1>
     Create Profile
 </h1>
-<form class="profile-form" enctype="multipart/form-data" action="/codedoor/createprofile" method="POST"> {% csrf_token %}
+<form enctype="multipart/form-data" action="/codedoor/createprofile" method="POST"> {% csrf_token %}
     <div class="entry">
-        <p class="label">Email:</p>
+        Email:
         <input type="email" name="email" placeholder = "bobsmith@gmail.com" required>
     </div>
     <div class="entry">
-        <p class="label">Password:</p>
+        Password:
         <input type="password" name="password" placeholder="e.g. Bob Smith" required>
     </div>
     <div class="entry">
-        <p class="label">First Name:</p>
+        First Name:
         <input type="text" name="first_name" placeholder="Bob" required>
     </div>
     <div class="entry">
-        <p class="label">Last Name:</p>
+        Last Name:
         <input type="text" name="last_name" placeholder="Smith" required>
     </div>
     <div class="entry">
-        <p class="label">Profile Picture:</p>
+        Profile Picture:
         <input type="file" name="profile_pic" accept="image/*">
     </div>
     <div class="entry">
-        <p class="label">Graduation Year:</p>
+        Graduation Year:
         <input type="number" name="graduation_year" placeholder="e.g. 2020" required>
     </div>
     <div class="entry">
-        <p class="label">Current Job:</p>
+        Current Job:
         <input type="text" name="current_job" placeholder="e.g. Member at Codebase">
     </div>
     <div class="entry">
-        <p class="label">LinkedIn:</p>
+        LinkedIn:
         <!--<input type="url"  name="linkedin" value = "https://">-->
         <input type = "text" name = "linkedin" placeholder="e.g. www.google.com">
     </div>

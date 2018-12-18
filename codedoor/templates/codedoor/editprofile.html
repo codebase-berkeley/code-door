@@ -4,21 +4,21 @@
 {% block content %}
 <html>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="{% static 'css/profileform.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/editprofile.css' %}">
 <h1>
     Edit Profile: {{ profile.user.get_full_name }}
 </h1>
-<form class="profile-form" enctype="multipart/form-data" action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
+<form enctype="multipart/form-data" action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
     <div class="entry">
-        <p class="label">First Name:</p>
+        First Name:
         <input type="text" name="first_name" value="{{ profile.user.first_name }}" required>
     </div>
     <div class="entry">
-        <p class="label">Last Name:</p>
+        Last Name:
         <input type="text" name="last_name" value="{{ profile.user.last_name }}" required>
     </div>
     <div class="entry">
-        <p class="label">Profile Picture:</p>
+        Profile Picture:
         {% if profile.profile_pic %}
             <input type="file" name="profile_pic" accept="image/*" id="pfpchanger">
             <script language="JavaScript">
@@ -34,15 +34,15 @@
         {%  endif %}
     </div>
     <div class="entry">
-        <p class="label">Graduation Year:</p>
+        Graduation Year:
         <input type="number" name="graduation_year" value="{{ profile.graduation_year }}" required>
     </div>
     <div class="entry">
-        <p class="label">Current Job:</p>
+        Current Job:
         <input type="text" name="current_job" value="{{ profile.current_job }}">
     </div>
     <div class="entry">
-        <p class="label">LinkedIn:</p>
+        LinkedIn:
         <input type="text" name="linkedin" value="{{ profile.linkedin }}">
     </div>
     <div id="submit">
