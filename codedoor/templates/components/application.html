@@ -28,14 +28,15 @@ Renders a single application element.
     <td>
       <p><span class="info job-position">{{a.position}}</span>
       {% if a.season == 1 %}
-        <span class="info job-season">Fall {{a.year}}</span></p>
+        <span class="info job-season">Fall {{a.year}}</span>
       {% elif a.season == 2 %}
-        <span class="info job-season">Winter {{a.year}}</span></p>
+        <span class="info job-season">Winter {{a.year}}</span>
       {% elif a.season == 3 %}
-        <span class="info job-season">Spring {{a.year}}</span></p>
+        <span class="info job-season">Spring {{a.year}}</span>
       {% else %}
-        <span class="info job-season">Summer {{a.year}}</span></p>
+        <span class="info job-season">Summer {{a.year}}</span>
       {% endif %}
+      </p>
     </td>
   </tr>
   <tr>

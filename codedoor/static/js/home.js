@@ -17,3 +17,11 @@ window.addEventListener("click", function(event) {
         companyModal.style.display = "none";
     }
 });
+
+LibDropdown.createCompanyDropdown(
+  "companysearch",
+  "suggestions",
+  function (pk) {
+    reviewData.pk = pk;
+  },
+);

@@ -97,39 +97,40 @@
 
 
 <div id="bottom-half" class="indent">
-
-  <div id="reviews">
-    <div id="reviews-dropdown" class="dropdown">
-      <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
-          <span class="filter">Rating:
-          <select name = "rating">
-            <option value = None>All</option>
-            <option value = 1>1 star</option>
-            <option value = 2>2 stars</option>
-            <option value = 3>3 stars</option>
-            <option value = 4>4 stars</option>
-            <option value = 5>5 stars</option>
-          </select>
-          </span>
+  <div id="reviews-dropdown" class="dropdown">
+    <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
+        <span class="filter">Rating:
+        <select name = "rating">
+          <option value = None>All</option>
+          <option value = 1>1 star</option>
+          <option value = 2>2 stars</option>
+          <option value = 3>3 stars</option>
+          <option value = 4>4 stars</option>
+          <option value = 5>5 stars</option>
+        </select>
+        </span>
 
 
 
-          <span class="filter">Recommend:
-          <select name = "recommend">
-            <option value = None>All</option>
-            <option value = True>Yes</option>
-            <option value = False>No</option>
-          </select>
-          </span>
+        <span class="filter">Recommend:
+        <select name = "recommend">
+          <option value = None>All</option>
+          <option value = True>Yes</option>
+          <option value = False>No</option>
+        </select>
+        </span>
 
-        <button class="sub" id="search" type="submit">Filter</button>
-      </form>
-    </div>
+      <button class="sub" id="search" type="submit">Filter</button>
+    </form>
   </div>
 
   <br>
 
-  <div id="reviewsnew">
+  <div id="reviews">
+    {% comment %}
+      We add an invisible "dummy" review to the HTML to provide a template for review creation in clientside code.
+    {% endcomment %}
+    {% include "components/review.html" with review=reviews.0 dummy=True only %}
     {% for review in reviews %}
       {% include "components/review.html" with review=review display_profile_pic=True only %}
     <br>
@@ -337,5 +338,8 @@
 </body>
 <script src="{% static 'js/createApplicationFromCompany.js' %}"></script>
 <script src="{% static 'js/viewcompany_tabs.js' %}"></script>
-<script src="{% static 'js/createreviewwc.js' %}"></script>
+<script src="{% static 'js/createreview.js' %}"></script>
+<script>
+  reviewData.pk = {{ company.pk }};
+</script>
 {% endblock %}

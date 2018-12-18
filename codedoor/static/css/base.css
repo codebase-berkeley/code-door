@@ -109,7 +109,10 @@ button:hover {
 
 .bar{
     width: 80%;
+}
 
+.hidden {
+    display: None;
 }
 
 #topsearch {

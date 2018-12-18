@@ -1,56 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse
-from codedoor.models import Review, Company, Profile, ReviewComment
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 
-@login_required
-def create_review(request):
-    if request.method == "POST":
-        try:
-            company = Company.objects.get(pk=request.POST["company"])
-            reviewer = Profile.objects.get(user=request.user)
-            rating = request.POST["rating"]
-            recommend = request.POST["recommend"]
-            review = request.POST["review"]
-            title = request.POST["title"]
-        except Exception as e:
-            return HttpResponse("You did not fill out the form correctly!")
-
-        review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
-        review.save()
-
-        return redirect('viewreview/' + str(review.pk))
-    else:
-        companies = Company.objects.all()
-        reviewer = request.user
-        return render(request, "codedoor/createreview.html", {"companies": companies, "reviewer": reviewer})
-
-@login_required
-def create_review_wc(request, pk):
-    currentcompany = get_object_or_404(Company, pk=pk)
-    if request.method == "POST":
-        try:
-            print(request.user)
-            company = Company.objects.get(pk=request.POST["company"])
-            reviewer = Profile.objects.get(user=request.user)
-            rating = request.POST["rating"]
-            recommend = request.POST["recommend"]
-            review = request.POST["review"]
-            title = request.POST["title"]
-        except Exception as e:
-            return HttpResponse("You did not fill out the form correctly!")
-
-        review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
-        review.save()
-
-        return redirect('viewreview/' + str(review.pk))
-    else:
-        companies = Company.objects.all()
-        reviewer = request.user
-        return render(request, "codedoor/createreviewwc.html", {"companies": companies, "reviewer": reviewer, "currentcompany": currentcompany})
+from codedoor.models import Review, Company, Profile, ReviewComment
 
 @login_required
 def view_review(request, pk):
@@ -111,10 +64,9 @@ def created_review(request):
 
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
         review.save()
-        print("saved a revieww")
 
         return JsonResponse({"reviewername": review.reviewer.user.get_full_name(), "companypk": review.company.pk, "companyname": review.company.name, "companylogo": review.company.logo, "rating": review.rating, "recommend": review.recommend, "review": review.review, "title": review.title, "success": True})
-    return HttpResponse("created a question!")
+    return Http404("Page does not exist")
 
 def company_search_suggestion(request, searchstring):
     def companytodict(company):

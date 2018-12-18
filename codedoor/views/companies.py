@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from codedoor.models import Company, Review, Profile, Application, ReviewComment, ApplicationComment
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
@@ -30,13 +30,28 @@ def create_company(request):
         url = "https://s3-us-west-1.amazonaws.com/" + company_logos_bucket + "/" + str(company.id)
         company.logo = url
         company.save()
-        return JsonResponse({"name": company.name, "industry": company.industry, "website": company.website, "structure": structure,  "success": True, "logo": company.logo, "pk": company.pk})
+        return JsonResponse({
+            "name": company.name,
+            "industry": company.industry,
+            "website": company.website,
+            "structure": structure,
+            "success": True,
+            "logo": company.logo,
+            "pk": company.pk
+        })
     else:
         return HttpResponse("failed to create a company!")
 
 
 @login_required
 def view_company(request, pk, database):
+    """
+    Returns the view for an individual company.
+    :param request: Django Request Object
+    :param pk: PK of the company to view.
+    :param database: String, either "applications" or "reviews" indicating the view tab.
+    :return:
+    """
     company = get_object_or_404(Company, pk=pk)
     profile = get_object_or_404(Profile, pk=request.user.profile.pk)
 
@@ -44,6 +59,7 @@ def view_company(request, pk, database):
     if request.method == "GET":
         page = request.GET.get('page', 1)
         if database == "reviews":
+            # user is on the reviews tab.
             reviews = Review.objects.filter(company=company).order_by("-pk")
             rating = request.GET.get('rating')
             recommend = request.GET.get('recommend')
@@ -65,9 +81,20 @@ def view_company(request, pk, database):
             except EmptyPage:
                 review_list = paginator1.page(paginator1.num_pages)
 
-            return render(request, "codedoor/viewcompany.html", {"company": company, "reviews": review_list, "profile": profile, "review_comments": review_comments, "review": True})
+            return render(
+                request,
+                "codedoor/viewcompany.html",
+                {
+                    "company": company,
+                    "reviews": review_list,
+                    "profile": profile,
+                    "review_comments": review_comments,
+                    "review": True
+                }
+            )
 
         elif database == "applications":
+            # user is on the applications tab.
             applications = Application.objects.filter(company=company).order_by("-pk")
             year = request.GET.get('year')
             season = request.GET.get('season')
@@ -94,10 +121,20 @@ def view_company(request, pk, database):
 
             print([app for app in application_list])
 
-            return render(request, "codedoor/viewcompany.html", {"company": company, "profile": profile, "applications": application_list, "app_comments": app_comments, "review": False})
+            return render(
+                request,
+                "codedoor/viewcompany.html",
+                {
+                    "company": company,
+                    "profile": profile,
+                    "applications": application_list,
+                    "app_comments": app_comments,
+                    "review": False
+                }
+            )
 
         else:
-            return HttpResponse("Invalid url")
+            return Http404("Invalid url")
 
 
 @login_required

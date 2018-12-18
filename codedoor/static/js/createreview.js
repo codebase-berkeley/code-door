@@ -4,143 +4,119 @@ function getCookie(name) {
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-
-function displayReviewForm() {
-    console.log("displaying review form")
-    var x = document.getElementById("reviewmodal");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-    } else {
-        x.style.display = "none";
+// Modal relies on a single global object, reviewData.
+// Setup the modal and initialize reviewData.
+// reviewData is returned as a global variable to allow for an escape hatch for other functions to manipulate it.
+// reviewData represents the state of the form and is set and used by the modal form on submission.
+var reviewData = (function () {
+    var displayReviewForm = function () {
+        console.log("displaying review form")
+        var x = document.getElementById("reviewmodal");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    };
+    var modalR = document.getElementById('reviewmodal');
+    // Get the button that opens the modal
+    var qBtn = document.getElementById("createreviewbutton");
+    // Get the <span> element that closes the modal
+    var spanR = document.getElementById("closeR");
+    // When the user clicks on the button, open the modal
+    qBtn.onclick = function() {
+      modalR.style.display = "block";
     }
-}
-
-var modalR = document.getElementById('reviewmodal');
-
-// Get the button that opens the modal
-var qBtn = document.getElementById("createreviewbutton");
-
-// Get the <span> element that closes the modal
-// var span2 = document.getElementsByClassName("close")[1];
-var spanR = document.getElementById("closeR");
-
-// When the user clicks on the button, open the modal
-qBtn.onclick = function() {
-    modalR.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-spanR.onclick = function() {
-  modalR.style.display = "none";
-}
-
-var pk=0;
-//going to be set by dropdown.js
-
-document.getElementById("submit_button_review").addEventListener("click", function(e) {
-  var error_exists = validate_review();
-  var reviewtitle = document.getElementById("title1").value;
-  var rating = document.getElementById("rating").value;
-  var recommend = document.getElementsByName("recommend");
-  var review = document.getElementById("review").value;
-
-  if(recommend[0].checked) {
-    recommend = "True";
-  }
-  else if(recommend[1].checked) {
-    recommend = "False";
-  }
-
-  var formData = new FormData();
-
-  formData.append("reviewtitle", reviewtitle);
-  formData.append("pk", pk);
-  formData.append("rating", rating);
-  formData.append("recommend", recommend);
-  formData.append("review", review);
-
-
-  var headers = new Headers();
-  var csrftoken = getCookie("csrftoken")
-  headers.append('X-CSRFToken', csrftoken);
-
-  console.log(error_exists);
-  if(!error_exists) {
-  document.getElementById("title1").value = "";
-  document.getElementById("rating").value = "";
-  document.getElementsByName("recommend")[0].checked = false;
-  document.getElementsByName("recommend")[1].checked = false;
-  document.getElementById("review").value = "";
-    displayReviewForm();
-  fetch("/codedoor/createdreview", {
-    method: "POST",
-    body: formData,
-    headers: headers,
-    credentials: "include"
-  }).then(function(response) {
-    return response.json();
-  }).then(function(json) {
-    if (json.success) {
-      var first = "<table> <tr>";
-      var second = "";
-      if (json.companylogo) {
-        second = " <td rowspan='3' width='7%'> <img class='company-logo' src='" + json.companylogo + "' width='100' height='100'> </td> "
-      }
-      else {
-        second = "<td rowspan='3' width='7%'> <img src='/static/images/temp.png' width='100' height='100'> </td> ";
-      }
-
-      var third = " <td width='93%'> <a href='/codedoor/viewcompany/"+json.companypk+"/reviews'> <h2 class='link-text'>  " + json.companyname + " </h2></a> <span class='applicant-name'>  " + json.reviewername + " </span> </td> </tr> <tr> <td> ";
-
-      var fourth = "";
-      if (json.companylogo != null){
-       fourth = "<a class='button' id='reviewtitle' href='{% url 'codedoor:viewreview' pk=" + review.pk + " %}'> " + json.title +" </a> ";
-      }
-      else {
-          fourth = "<p></p> "
-      }
-
-      var fifth = "</td> </tr> <tr> <td> <p><span class='info colorful-boxy'> ";
-
-      var sixth = "";
-
-      if (json.recommend) {
-        sixth = "<span> <svg width='15' height='15'> <rect x='0' y='0' rx='3' ry='3' width='15' height='15' style='fill:#01959b' /> </svg> Recommends </span> ";
-      }
-      else {
-        sixth = "<span> <svg width='15' height='15'> <rect x='0' y='0' rx='3' ry='3' width='15' height='15' style='fill:#ff4d4d' /> </svg> Doesn't Recommend </span> ";
-      }
-      var seventh = "</span> <span class='info colorful-boxy'> "
-      var eighth = "";
-      if (json.rating < 1) {
-        eighth = "<span> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
-      }
-      else if (json.rating < 2) {
-        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
-      }
-      else if (json.rating < 3) {
-        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
-      }
-      else if (json.rating < 4) {
-        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
-      }
-      else if (json.rating < 5) {
-        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/whitestar.png' height='20' width='20'> </span> ";
-      }
-      else {
-        eighth = "<span> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> <img src='/static/images/blackstar.png' height='20' width='20'> </span> ";
-      }
-      var ninth = "</span></p> </td> </tr> <tr> <td></td> <td> <div> <h4>Description:</h4> <p class='description_small_text'> " + json.review + " </p> </div> </td> </tr> </table> <br> ";
-
-      document.getElementById("reviews").innerHTML = first + second + third + fourth + fifth + sixth + seventh + eighth + ninth + document.getElementById("reviews").innerHTML;
-      console.log("we made it");
+    // When the user clicks on <span> (x), close the modal
+    spanR.onclick = function() {
+      modalR.style.display = "none";
     }
-  })
-}
-});
+
+    document.getElementById("submit_button_review").addEventListener("click", function(e) {
+      var err = validate_review();
+      recommendCheckbox = document.getElementsByName("recommend");
+
+      reviewData.reviewTitle = document.getElementById("title1").value;
+      reviewData.rating = document.getElementById("rating").value;
+      if(recommendCheckbox[0].checked) {
+        reviewData.recommend = "True";
+      }
+      else if(recommendCheckbox[1].checked) {
+        reviewData.recommend = "False";
+      }
+      reviewData.review = document.getElementById("review").value;
+
+      var formData = new FormData();
+
+      formData.append("reviewtitle", reviewData.reviewTitle);
+      formData.append("pk", reviewData.pk);
+      formData.append("rating", reviewData.rating);
+      formData.append("recommend", reviewData.recommend);
+      formData.append("review", reviewData.review);
+
+      var headers = new Headers();
+      var csrftoken = getCookie("csrftoken")
+      headers.append('X-CSRFToken', csrftoken);
+
+      console.log(err);
+      if(!err) {
+          document.getElementById("title1").value = "";
+          document.getElementById("rating").value = "";
+          document.getElementsByName("recommend")[0].checked = false;
+          document.getElementsByName("recommend")[1].checked = false;
+          document.getElementById("review").value = "";
+          displayReviewForm();
+          fetch("/codedoor/createdreview", {
+            method: "POST",
+            body: formData,
+            headers: headers,
+            credentials: "include"
+          }).then(function(response) {
+            return response.json();
+          }).then(function(json) {
+            if (json.success) {
+              // Create a new review element.
+              var reviewEl = document.getElementById("dummy-review").cloneNode(true);
+              reviewEl.getElementsByClassName("review-company-logo")[0].src = json.companyLogo;
+              reviewEl.getElementsByClassName("review-company-link")[0].href = `/codedoor/viewcompany/${json.companypk}/reviews`;
+              reviewEl.getElementsByClassName("review-link-text")[0].innerHTML = json.companyname;
+              reviewEl.getElementsByClassName("review-applicant-name")[0].innerHTML = json.reviewername;
+              reviewEl.getElementsByClassName("review-title")[0].href = "#"; // FIXME to point to review.
+              reviewEl.getElementsByClassName("review-title")[0].innerHTML = json.title;
+              reviewEl.getElementsByClassName("review-recommend-icon")[0].style = json.recommend ? "fill:#01959b" : "fill:#ff4d4d";
+              reviewEl.getElementsByClassName("review-recommend-text")[0].innerHTML = json.recommend ? "Recommends" : "Doesn't recommend";
+
+              var reviewStarsEl = reviewEl.getElementsByClassName("review-stars")[0];
+              reviewStarsEl.innerHTML = "";
+              for (var i = 0; i < 5; i++) {
+                if (i < json.rating) {
+                  reviewStarsEl.innerHTML += "<img src='/static/images/blackstar.png' height='20' width='20'>";
+                } else {
+                  reviewStarsEl.innerHTML += "<img src='/static/images/whitestar.png' height='20' width='20'>";
+                }
+              }
+              reviewEl.getElementsByClassName("review-desc")[0].innerHTML = json.review;
+
+              reviewEl.className = ""; // clear the hidden class from the review element
+              document.getElementById("reviews").prepend(reviewEl);
+            }
+          });
+        }
+    });
+
+    var reviewData = {
+      reviewTitle: "",
+      rating: 1,
+      recommend: "False",
+      review: "",
+      pk: "0",
+    };
+
+    return reviewData;
+})();
 
 function validate_review() {
-  var error_exists = false;
+  var err = false;
 
     var title = document.getElementById('title1').value;
     var rating = document.getElementById('rating').value;
@@ -152,40 +128,34 @@ function validate_review() {
     var rating_error = document.getElementById('rating-error');
     var review_error = document.getElementById('review-error');
     var recommend_error = document.getElementById('recommend-error');
-    var display_error = document.getElementById('display-error');
-    display_error.innerHTML = '';
 
     if (!title || title.trim().length == 0 || title === 'None') {
-      error_exists = true;
-      display_error.innerHTML += 'You must provide a title <br>';
+      err = true;
       title_error.innerHTML = 'You must provide a title';
       event.preventDefault();
     } else {
       title_error.innerHTML = '';
     }
     if (!rating || rating > 5 || rating < 0) {
-      error_exists = true;
-      display_error.innerHTML += 'You must provide a valid rating<br>';
+      err = true;
       rating_error.innerHTML = 'You must provide a valid rating';
       event.preventDefault();
     } else {
       rating_error.innerHTML = '';
     }
     if (!review || review.trim().length == 0 || review === 'None') {
-      error_exists = true;
-      display_error.innerHTML += 'You must provide a review <br>';
+      err = true;
       review_error.innerHTML = 'You must provide a review';
       event.preventDefault();
     } else {
       review_error.innerHTML = '';
     }
     if (!yes && !no) {
-      error_exists = true;
-      display_error.innerHTML += 'You must provide a recommendation <br>';
+      err = true;
       recommend_error.innerHTML = 'You must provide a recommendation';
       event.preventDefault();
     } else {
       recommend_error.innerHTML = '';
     }
-    return error_exists;
+    return err;
 }

@@ -154,11 +154,3 @@ cBtn.onclick = function() {
 spanC.onclick = function() {
   modalC.style.display = "none";
 }
-
-
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//     if (event.target == modalC) {
-//         modalC.style.display = "none";
-//     }
-// }

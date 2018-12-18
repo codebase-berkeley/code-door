@@ -147,6 +147,10 @@
 
 
 <div id="reviews">
+    {% comment %}
+      We add an invisible "dummy" review to the HTML to provide a template for review creation in clientside code.
+    {% endcomment %}
+    {% include "components/review.html" with review=reviews.0 dummy=True only %}
     {% for review in reviews %}
       {% include "components/review.html" with review=review only %}
       <br>
@@ -334,9 +338,10 @@
   </div>
 
 </body>
+<script src="{% static 'js/LibDropdown.js' %}"></script>
 <script src="{% static 'js/createreview.js' %}"></script>
 <script src="{% static 'js/company.js' %}"></script>
 <script src="{% static 'js/application.js' %}"></script>
 <script src="{% static 'js/home.js' %}"></script>
-<script src="{% static 'js/dropdown.js' %}"></script>
+
 {% endblock %}
