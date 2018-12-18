@@ -5,7 +5,7 @@ input[type="number"] {
   height: fit-content;
   overflow-x: scroll;
   font-size: 12px;
-  padding: 5px;
+  padding: 0 5px;
 }
 
 textarea {
@@ -51,7 +51,7 @@ textarea {
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
-.entry {
+.modal-content .entry {
   margin: 20px 0;
 }
 
