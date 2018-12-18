@@ -33,56 +33,47 @@
     <div id="companyModal" class="modal">
       <div class="modal-content">
         <span id="closeC" class="close">&times;</span>
-        <h1> Create Company </h1><br>
-
+        <h1>Create Company</h1>
           {% csrf_token %}
           <p class="error" id="display-error"></p>
-          <div class="space">
-            <h4>Logo</h4>
-            <div class="border">
-              <input type="file" name="logo" id="logo1">
+          <div class="entry">
+            <p>Logo</p>
+            <input type="file" name="logo" id="logo1">
+            <p class="error" id="logo-error"></p>
+          </div>
+          <div class="entry">
+            <p>Company name</p>
+            <input type="text" name="name" id="name">
+            <p class="error" id="name-error"></p>
+          </div>
+          <div class="entry">
+            <p>Industry</p>
+            <input type="text" name="industry" id='industry'>
+            <p class="error" id="industry-error"></p>
+          </div>
+          <div class="entry">
+            <p>Website</p>
+            <input type="url" name="website" id='website'>
+            <p class="error" id="website-error"></p>
+          </div>
+          <div class="entry">
+            <p>Type of company</p>
+              <div class="company-types">
+                <input class="type" type="radio" name="structure" value="Startup" id="startup">
+                <label for="Startup">Startup</label><br />
+                <input class="type" type="radio" name="structure" value="Boutique" id="boutique">
+                <label for="Boutique">Boutique</label><br />
+                <input class="type" type="radio" name="structure" value="Medium" id="medium">
+                <label for="Medium">Medium</label><br />
+                <input class="type" type="radio" name="structure" value="Small" id="small">
+                <label for="Small">Small</label><br />
+                <input class="type" type="radio" name="structure" value="Large" id="large">
+                <label for="Large">Large</label><br />
+              </div>
             </div>
-            <p class="error" id="logo-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Company name</h4>
-            <div class="border-text">
-              <input type="text" name="name" id="name">
-            </div>
-            <p class="error" id="name-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Industry</h4>
-            <div class="border-text">
-              <input type="text" name="industry" id='industry'>
-            </div>
-            <p class="error" id="industry-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Website</h4>
-            <div class="border-text">
-              <input type="url" name="website" id='website'>
-            </div>
-            <p class="error" id="website-error">
-            </p>
-          </div><br>
-
-          <div class="space">
-            <h4>Type of company</h4>
-            <div class="border">
-              <input class="type" type="radio" name="structure" value="Startup" id="startup">Startup<br>
-              <input class="type" type="radio" name="structure" value="Boutique" id="boutique">Boutique<br>
-              <input class="type" type="radio" name="structure" value="Medium" id="medium">Medium<br>
-              <input class="type" type="radio" name="structure" value="Small" id="small">Small<br>
-              <input class="type" type="radio" name="structure" value="Large" id="large">Large<br>
-            </div>
-            <p class="error" id="type-error">
-            </p>
-          </div><br>
-          <button id="submit" type="submit" class="small-teal">Submit</button>
+            <p class="error" id="type-error"></p>
+            <button id="submit" type="submit" class="small-teal">Submit</button>
+          </div>
       </div>
 
   </div>
@@ -97,30 +88,21 @@
   <h1>Create Review</h1>
     <div class="entry">
       <p>Review Title</p>
-      <div class="border-text">
-        <div id="title">
-          <input type="text" name="title" id="title1">
-        </div>
-        <p class="error" id="title-error">
-        </p>
+      <div id="title">
+        <input type="text" name="title" id="title1">
       </div>
+      <p class="error" id="title-error"></p>
     </div>
     <div class="entry">
       <p>Company</p>
-      <div class="border-text">
-        <input id="companysearch" type="text"/>
-        <div id="suggestions">
-        </div>
-      </div>
-      <p class="error" id="company-error">
-      </p>
+      <input id="companysearch" type="text"/>
+      <div id="suggestions"></div>
+      <p class="error" id="company-error"></p>
     </div>
     <div class="entry">
       <p>Rating (0 - 5)</p>
-      <div class="border-text">
-        <div id="number">
-          <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
-        </div>
+      <div id="number">
+        <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
       </div>
       <p class="error" id="rating-error">
       </p>
@@ -133,16 +115,12 @@
         <input type="radio" name="recommend" value=False id="no">
         <label for="no">No</label>
       </div>
-      <p class="error" id="recommend-error">
-      </p>
+      <p class="error" id="recommend-error"></p>
     </div>
     <div class="entry">
       <p>Review</p>
-      <div class="border">
-        <textarea type="text" name="review" id="review"></textarea>
-      </div>
-      <p class="error" id="review-error">
-      </p>
+      <textarea type="text" name="review" id="review"></textarea>
+      <p class="error" id="review-error"></p>
     </div><br>
       <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
     </div>
@@ -166,16 +144,11 @@
   </div>
   <br>
 
-
-
   <div class="indent" >
     <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
     <button id="create-application-btn" class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
   </div>
   <hr id="break">
-
-
-
 
   <div id="application-modal" class="modal">
     <div class="modal-content">
