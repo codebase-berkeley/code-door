@@ -1,5 +1,5 @@
 /*
- * dropdown.js
+ * LibDropdown.js
  * A utility JS file containing functions for creating a company dropdown.
  */
 

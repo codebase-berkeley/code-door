@@ -1,0 +1,73 @@
+{% extends 'codedoor/viewcompany.html' %}
+{% load static %}
+{% block tabcontent %}
+<div id="applications" class="indent">
+    <div id="applications-dropdown" class="dropdown">
+      <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
+          <span class="filter">Year:
+          <select name = "year">
+            <option value = None>All</option>
+            <option value = 2018>2018</option>
+            <option value = 2017>2017</option>
+            <option value = 2016>2016</option>
+            <option value = 2015>2015</option>
+            <option value = 2014>Older</option>
+          </select>
+          </span>
+
+          <span class="filter">Season:
+          <select name = "season">
+            <option value = None>All</option>
+            <option value = "Fall">Fall</option>
+            <option value = "Spring">Spring</option>
+            <option value = "Summer">Summer</option>
+            <option value = "Winter">Winter</option>
+          </select>
+          </span>
+
+          <span class="filter">Received Offer:
+          <select name = "received_offer">
+            <option value = None>All</option>
+            <option value = True>Yes</option>
+            <option value = False>No</option>
+          </select>
+          </span>
+
+          <button class="sub" id="search" type="submit">Filter</button>
+      </form>
+    </div>
+
+    <div id="application-list">
+
+      {% include "components/application.html" with a=applications.0 dummy=True only %}
+      {% for a in applications %}
+        {% include "components/application.html" with a=a only %}
+      {% endfor %}
+
+      <!-- Source: Vitor Freitas -->
+      {% if applications.has_other_pages %}
+        <ul class="pagination">
+          {% if applications.has_previous %}
+            <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
+          {% else %}
+            <li>&laquo;</li>
+          {% endif %}
+          {% for i in applications.paginator.page_range %}
+            {% if applications.number == i %}
+              <li class="active">{{ i }}</li>
+            {% else %}
+              <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+          {% endfor %}
+
+          {% if applications.has_next %}
+            <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
+          {% else %}
+            <li>&raquo;</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+      <br>
+    </div>
+</div>
+{% endblock %}

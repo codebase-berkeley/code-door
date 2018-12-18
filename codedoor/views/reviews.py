@@ -13,6 +13,12 @@ def view_review(request, pk):
 
 @login_required
 def view_company_reviews(request):
+    """
+    View a list of all recent reviews.
+    Slow af atm. FIXME.
+    :param request: Django request Object.
+    :return: Template response.
+    """
     reviews = Review.objects.all().order_by('-id')
     companies = Company.objects.all()
     paginator1 = Paginator(reviews, 6)
@@ -24,7 +30,7 @@ def view_company_reviews(request):
     except EmptyPage:
         review_list = paginator1.page(paginator1.num_pages)
 
-    return render(request, "codedoor/viewcompanyreviews.html",
+    return render(request, "codedoor/viewallreviews.html",
         {"companies": companies, "reviews": review_list})
 
 @login_required

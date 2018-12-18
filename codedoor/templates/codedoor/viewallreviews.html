@@ -1,0 +1,173 @@
+{% extends 'codedoor/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
+  <link rel="stylesheet" href="{% static 'css/application.css' %}">
+  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
+</head>
+<body>
+
+  <div class="indent">
+    <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
+      <button class="inline-block small-teal" id="createreviewbutton">Create Review</button>
+    </a>&nbsp;
+    <button class="inline-block small-teal" id="create_company">Create Company</button>
+
+    <!--This is the create company form-->
+    <div id="companyModal" class="modal">
+      <div class="modal-content">
+        <span id="closeC" class="close">&times;</span>
+        <h1> Create Company </h1><br>
+
+          {% csrf_token %}
+          <p class="error" id="display-error"></p>
+          <div class="space">
+            <h4>Logo</h4>
+            <div class="border">
+              <input type="file" name="logo" id="logo1">
+            </div>
+            <p class="error" id="logo-error">
+            </p>
+          </div><br>
+          <div class="space">
+            <h4>Company name</h4>
+            <div class="border-text">
+              <input type="text" name="name" id="name">
+            </div>
+            <p class="error" id="name-error">
+            </p>
+          </div><br>
+          <div class="space">
+            <h4>Industry</h4>
+            <div class="border-text">
+              <input type="text" name="industry" id='industry'>
+            </div>
+            <p class="error" id="industry-error">
+            </p>
+          </div><br>
+          <div class="space">
+            <h4>Website</h4>
+            <div class="border-text">
+              <input type="url" name="website" id='website'>
+            </div>
+            <p class="error" id="website-error">
+            </p>
+          </div><br>
+
+          <div class="space">
+            <h4>Type of company</h4>
+            <div class="border">
+              <input class="type" type="radio" name="structure" value="Startup" id="startup">Startup<br>
+              <input class="type" type="radio" name="structure" value="Boutique" id="boutique">Boutique<br>
+              <input class="type" type="radio" name="structure" value="Medium" id="medium">Medium<br>
+              <input class="type" type="radio" name="structure" value="Small" id="small">Small<br>
+              <input class="type"type="radio" name="structure" value="Large" id="large">Large<br>
+            </div>
+            <p class="error" id="type-error">
+            </p>
+          </div><br>
+          <button id="submit" type="submit" class="small-teal">Submit</button>
+      </div>
+
+  </div>
+</div>
+  <hr id="break">
+</br>
+
+
+<div id="reviewmodal" class="modal">
+  <div class="modal-content">
+  <span id="closeR" class="close">&times;</span>
+  <h1> Create Review </h1><br>
+      <div class="space">
+        <h4>Review Title</h4>
+        <div class="border-text">
+          <div id="title">
+            <input type="text" name="title" id="title1">
+          </div>
+          <p class="error" id="title-error">
+          </p>
+        </div>
+      </div><br>
+      <div class="space">
+        Company <br>
+        <div class="border">
+          <select name="company" class="select-style" id="reviewcompany">
+            {% for company in companies %}
+                <option value={{company.pk}}>{{company.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <p class="error" id="company-error">
+        </p>
+      </div><br>
+        <div class="space">
+        Rating <br>
+        <div class="border-text">
+          <div id="number">
+            <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
+          </div>
+        </div>
+        <p class="error" id="rating-error">
+        </p>
+      </div><br>
+      <div class="space">Recommend
+        <div class="border">
+          <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
+          <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
+        </div>
+        <p class="error" id="recommend-error">
+        </p>
+      </div><br>
+      <div class="space">Review <br>
+        <div class="border">
+          <textarea type="text" name="review" id="review"></textarea>
+        </div>
+        <p class="error" id="review-error">
+        </p>
+      </div><br>
+      <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
+    </div>
+  </div>
+
+
+<div id="reviews">
+    {% for review in reviews %}
+      {% include "components/review.html" with review=review only %}
+      <br>
+    {% endfor %}
+
+    <!-- Source: Vitor Freitas -->
+    {% if reviews.has_other_pages %}
+      <ul class="pagination">
+        {% if reviews.has_previous %}
+          <li class="clickable"><a href="?page={{ reviews.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in reviews.paginator.page_range %}
+          {% if reviews.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <a href="?page={{ i }}"><li>{{ i }}</li></a>
+          {% endif %}
+        {% endfor %}
+        {% if reviews.has_next %}
+          <li><a href="?page={{ reviews.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
+    {% endif %}
+    <br>
+  </div>
+  <br>
+
+  </div>
+
+
+</body>
+<script src="{% static 'js/createreview.js' %}"></script>
+<script src="{% static 'js/company.js' %}"></script>
+{% endblock %}

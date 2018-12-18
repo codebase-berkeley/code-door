@@ -78,8 +78,6 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
   formData.append("received_offer", received_offer);
   formData.append("offer_details", offer_details);
 
-  console.log("hi brian");
-
   var headers = new Headers();
   var csrftoken = getCookie("csrftoken");  
   var url = window.location.href.split("/")[5];
@@ -96,96 +94,42 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
     return response.json();
   }).then(function(json) {
     createApplicationElement(json);
-  })
   });
+});
 // a is an Application object
 function createApplicationElement(a) {
   console.log(a);
-  // console.log(a["c"][0]);
-  // console.log("IMPORTANT");
   var cFields = JSON.parse(a["c"])[0]["fields"];
   var aFields = JSON.parse(a["a"])[0]["fields"];
   var uFields = JSON.parse(a["u"])[0]["fields"];
-  console.log(cFields);
-  console.log(aFields);
-  console.log(uFields);
-  // console.log(a["c"])
-  // a["c"] = JSON.parse(a["c"][0]);
-  var entry = document.getElementById("hidden-element").cloneNode(true);
-  var parent = document.getElementById("hidden-element");
-  // document.getElementById("hidden-logo").src = cFields["logo"];
-  // document.getElementById("hidden-company-name").innerHTML = cFields["name"];
-  // document.getElementById("hidden-profile-name").innerHTML = uFields["first_name"] + " " + uFields["last_name"];
-  // document.getElementById("hidden-position").innerHTML = aFields["position"];
-  parent.getElementsByClassName("hidden-logo")[0].src = cFields["logo"];
-  parent.getElementsByClassName("hidden-company-name")[0].innerHTML = cFields["name"];
-  parent.getElementsByClassName("hidden-profile-name")[0].innerHTML = uFields["first_name"] + " " + uFields["last_name"];
-  parent.getElementsByClassName("hidden-position")[0].innerHTML = aFields["position"];
+  var entry = document.getElementById("dummy-application").cloneNode(true);
+  entry.getElementsByClassName("application-company-logo")[0].src = cFields["logo"];
+  entry.getElementsByClassName("application-link-text")[0].innerHTML = cFields["name"];
+  entry.getElementsByClassName("application-applicant-name")[0].innerHTML = uFields["first_name"] + " " + uFields["last_name"];
+  entry.getElementsByClassName("job-position")[0].innerHTML = aFields["position"];
 
-  console.log("LOGO SRC: " + parent.getElementsByClassName("hidden-logo").src);
-  console.log("company name class list: " + parent.getElementsByClassName("hidden-company-name").classList);
-  console.log("HIDDEN COMPANY NAME: " + parent.getElementsByClassName("hidden-company-name").innerHTML);  
+  var season = { 1: "Fall", 2: "Winter", 3: "Spring", 4: "Summer" }[aFields.season] + aFields.year;
+  entry.getElementsByClassName("job-season")[0].innerHTML = season;
 
-  if (aFields["season"] == 1) {
-    console.log("going in here");
-    document.getElementById("hidden-season").innerHTML = "Fall";
-    parent.getElementsByClassName("hidden-season").innerHTML = "Fall";
-  }
-  else if (aFields["season"] == 2) {
-    document.getElementById("hidden-season").innerHTML = "Winter";
-    parent.getElementsByClassName("hidden-season").innerHTML = "Winter";
-  }
-  else if (aFields["season"] == 3) {
-    document.getElementById("hidden-season").innerHTML = "Spring";
-    parent.getElementsByClassName("hidden-season").innerHTML = "Spring";
-  }
-  else {
-    document.getElementById("hidden-season").innerHTML = "Summer";
-    parent.getElementsByClassName("hidden-season").innerHTML = "Summer";
-  }
+  entry.getElementsByClassName("application-offer-icon")[0].style = aFields["received_offer"] ? "fill:#01959b" : "fill:#ff4d4d";
+  entry.getElementsByClassName("application-offer-text")[0].innerHTML = aFields["received_offer"] ? "Received Offer" : "No Offer";
 
-  console.log("YEAR:")
-  console.log(document.getElementById("hidden-year"));
-  document.getElementById("hidden-year").innerHTML = aFields["year"];
-
-  if (aFields["received_offer"]) {
-    document.getElementById("hidden-square").style = "fill:#01959b";
-    document.getElementById("hidden-offer-text").innerHTML = "Received Offer";
-  }
-  else { //no offer
-    document.getElementById("hidden-square").style = "fill:#ff4d4d";
-    document.getElementById("hidden-offer-text").innerHTML = "No Offer";
-  } 
   // evaluating difficulty of interview
+  var difficultyIcon = entry.getElementsByClassName("application-difficulty-icon")[0];
+  var difficultyText = entry.getElementsByClassName("application-difficulty-text")[0];
   if (aFields["difficult"] > 7) {
-    document.getElementById("hidden-difficulty-square").style = "fill:#ff4d4d";
-    document.getElementById("hidden-difficulty-text").innerHTML = "Difficult Interview: " + aFields["difficult"] + "/10";
+    difficultyIcon.style = "fill:#ff4d4d";
+    difficultyText.innerHTML = "Difficult Interview: " + aFields["difficult"] + "/10";
   }
   else if (aFields["difficult"] < 4) {
-    document.getElementById("hidden-difficulty-square").style = "fill:#01959b";
-    document.getElementById("hidden-difficulty-text").innerHTML = "Easy Interview: " + aFields["difficult"] + "/10";
+    difficultyIcon.style = "fill:#01959b";
+    difficultyText.innerHTML = "Easy Interview: " + aFields["difficult"] + "/10";
   }
   else {
-    document.getElementById("hidden-difficulty-square").style = "fill:#FF9B71;";
-    document.getElementById("hidden-difficulty-text").innerHTML = "Average Interview: " + aFields["difficult"] + "/10";
+    difficultyIcon.style = "fill:#FF9B71;";
+    difficultyText.innerHTML = "Average Interview: " + aFields["difficult"] + "/10";
   }
-  document.getElementById("hidden-description").innerHTML = aFields["description"];
-
-  console.log("made it here");
-  
-  console.log("hidden element before: " + document.getElementById("hidden-element"));
-
-  document.getElementById("hidden-element").classList.add("display");
-  document.getElementById("hidden-element").id = "";
-  entry.id = "hidden-element";
-
-  console.log("hidden element after: " + document.getElementById("hidden-element"));
-  console.log("entry: " + entry);
-  console.log("entry id: " + entry.id);
-
-  console.log("entry: " + entry);
-
-  var p = document.getElementById("application-list");
-  p.insertBefore(parent, p.children[0]);
-  p.insertBefore(entry, parent);
+  entry.getElementsByClassName("application-desc")[0].innerHTML = aFields["description"];
+  entry.className = "";
+  document.getElementById("application-list").prepend(entry);
 }
