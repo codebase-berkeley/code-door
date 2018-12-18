@@ -1,7 +1,7 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"> -->
 
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
@@ -10,7 +10,7 @@
 </head>
 <body>
   <div id="home-search" class="indent">
-    <h1 id="codor"> Codor </h1>
+    <h1 id="codor"> CodeDoor </h1>
     <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
     <div id="searchbar">
 
@@ -94,53 +94,56 @@
 <div id="reviewmodal" class="modal">
   <div class="modal-content">
   <span id="closeR" class="close">&times;</span>
-  <h1> Create Review </h1><br>
-      <div class="space">
-        <h4>Review Title</h4>
-        <div class="border-text">
-          <div id="title">
-            <input type="text" name="title" id="title1">
-          </div>
-          <p class="error" id="title-error">
-          </p>
+  <h1>Create Review</h1><br />
+    <div class="entry">
+      <p>Review Title</p>
+      <div class="border-text">
+        <div id="title">
+          <input type="text" name="title" id="title1">
         </div>
-      </div><br>
-      <div class="space">
-        Company <br>
-        <div class="border-text">
-          <input id="companysearch" type="text"/>
-          <div id="suggestions">
-
-          </div>
-        </div>
-        <p class="error" id="company-error">
+        <p class="error" id="title-error">
         </p>
-      </div><br>
-        <div class="space">
-        Rating (0 - 5)<br>
-        <div class="border-text">
-          <div id="number">
-            <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
-          </div>
+      </div>
+    </div>
+    <div class="entry">
+      <p>Company</p>
+      <div class="border-text">
+        <input id="companysearch" type="text"/>
+        <div id="suggestions">
         </div>
-        <p class="error" id="rating-error">
-        </p>
-      </div><br>
-      <div class="space">Recommend
-        <div class="border">
-          <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
-          <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
+      </div>
+      <p class="error" id="company-error">
+      </p>
+    </div>
+    <div class="entry">
+      <p>Rating (0 - 5)</p>
+      <div class="border-text">
+        <div id="number">
+          <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
         </div>
-        <p class="error" id="recommend-error">
-        </p>
-      </div><br>
-      <div class="space">Review <br>
-        <div class="border">
-          <textarea type="text" name="review" id="review"></textarea>
-        </div>
-        <p class="error" id="review-error">
-        </p>
-      </div><br>
+      </div>
+      <p class="error" id="rating-error">
+      </p>
+    </div>
+    <div class="entry">
+      <p>Recommend</p>
+      <div class="recommend">
+        <input type="radio" name="recommend" value=True id="yes">
+        <label for="yes">Yes</label>
+        <input type="radio" name="recommend" value=False id="no">
+        <label for="no">No</label>
+      </div>
+      <p class="error" id="recommend-error">
+      </p>
+    </div>
+    <div class="entry">
+      <p>Review</p>
+      <div class="border">
+        <textarea type="text" name="review" id="review"></textarea>
+      </div>
+      <p class="error" id="review-error">
+      </p>
+    </div><br>
       <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
     </div>
   </div>
