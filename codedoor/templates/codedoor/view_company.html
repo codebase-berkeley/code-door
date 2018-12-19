@@ -31,69 +31,12 @@
     <span style="float:right;position:absolute;right:10%;">
       <a class="sub" id="createreviewbutton">Add Review</a>
       <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
-      <a id="create-application-btn" class="sub" onclick="displayApplicationForm()">Add Application</a>
+      <a id="create-application-btn" class="sub">Add Application</a>
     </span>
   </div>
 
 
-<div id="reviewmodal" class="modal">
-  <div class="modal-content">
-    <span id="closeR" class="close">&times;</span>
-    <h1> Create Review </h1><br>
-    <div class="space">
-      <h4>Review Title</h4>
-      <div class="border-text">
-        <div id="title">
-          <input type="text" name="title" id="title1">
-        </div>
-        <p class="error" id="title-error">
-        </p>
-      </div>
-    </div><br>
-    <div class="space">
-      <h4>Companies</h4> <br>
-      <div class="border">
-        <select name="company" class="menu companies" id="reviewcompany">
-                <option value={{company.pk}} selected>{{company.name}}</option>
-          {% for c in companies %}
-              {% if c.pk != company.pk %}
-                <option value={{c.pk}}><p>{{c.name}}</p></option>
-              {% endif %}
-          {% endfor %}
-        </select>
-      </div>
-      <p class="error" id="company-error">
-      </p>
-    </div><br>
-      <div class="space">
-      <h4>Rating</h4> <br>
-      <div class="border-text">
-        <div id="number">
-          <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
-        </div>
-      </div>
-      <p class="error" id="rating-error">
-      </p>
-    </div><br>
-    <div class="space"><h4>Recommend</h4>
-      <div class="border">
-        <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
-        <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
-      </div>
-      <p class="error" id="recommend-error">
-      </p>
-    </div><br>
-    <div class="space"><h4>Review</h4> <br>
-      <div class="border">
-        <textarea type="text" name="review" id="review"></textarea>
-      </div>
-      <p class="error" id="review-error">
-      </p>
-    </div><br>
-    <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
-  </div>
-</div>
-
+{% include "components/review_modal.html" with id="review-modal" on_submit_list_id="reviews" company=company only %}
 {% include "components/application_modal.html" with id="application-modal" on_submit_list_id="application-list" company=company only %}
 
 
@@ -102,9 +45,4 @@
   {% endblock %}
 </div>
 </body>
-<script src="{% static 'js/createApplicationFromCompany.js' %}"></script>
-<script src="{% static 'js/createreview.js' %}"></script>
-<script>
-  reviewData.pk = {{ company.pk }};
-</script>
 {% endblock %}

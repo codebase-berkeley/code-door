@@ -7,6 +7,7 @@ To give a modal template submit functionality, create a new ApplicationModal obj
 @param {Object} formInitialState - The initial state of the form, ie. add in pre-populated fields here.
 @param {String} onSubmitPostUrl - The URL that the form data will be submitted to.
 @param {String} onSubmitListId - On form submission, a new application entry will be added to the element with this HTML Id.
+@param {String} modalId - The HTML ID of the application modal.
 
 Example Usage:
 
@@ -28,8 +29,9 @@ function getCookie(name) {
   if (parts.length == 2) return parts.pop().split(";").shift();
 }
 
-var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitListId) {
+var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, modalId) {
     var self = this;
+    self.modalId = modalId;
     self.formInitialState = formInitialState | {
         position: "",
         season: "",
@@ -43,7 +45,7 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
     self.onSubmitListId = onSubmitListId | "application-list";
 
     // Get the modal
-    self.modalA = document.getElementById('application-modal');
+    self.modalA = document.getElementById(self.modalId);
 
     // Get the button that opens the modal
     self.createAppBtn = document.getElementById("create-application-btn");

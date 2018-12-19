@@ -1,0 +1,92 @@
+{% comment %}
+ReviewModal Component.
+
+Includes all the HTML code and JS libraries needed to render an review form modal.
+
+:param: id - (String) The HTML ID of the modal element. (required)
+:param: on_submit_list_id - (String) On submission, the modal will append an entry to this HTML element. (required)
+:param: company - (Object) A company object to prefill the form. If omitted, the modal will have a search box to select the company.
+{% endcomment %}
+
+{% load static %}
+
+<div id={{ id }} class="modal">
+  <div class="modal-content">
+    <span id="closeR" class="close">&times;</span>
+    <h1> Create Review </h1><br>
+    <div class="space">
+      <h4>Review Title</h4>
+      <div class="border-text">
+        <div id="title">
+          <input type="text" name="title" id="title1">
+        </div>
+        <p class="error" id="title-error">
+        </p>
+      </div>
+    </div><br>
+    {% if not company %}
+    <div class="space">
+        Company
+        <div class="border-text">
+          <input id="review-modal-companysearch" type="text"/>
+          <div id="review-modal-suggestions">
+
+          </div>
+        </div>
+        <p class="error" id="company-error">
+        </p>
+      </div>
+      {% endif %}
+      <div class="space">
+      <h4>Rating</h4> <br>
+      <div class="border-text">
+        <div id="number">
+          <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
+        </div>
+      </div>
+      <p class="error" id="rating-error">
+      </p>
+    </div><br>
+    <div class="space"><h4>Recommend</h4>
+      <div class="border">
+        <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
+        <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
+      </div>
+      <p class="error" id="recommend-error">
+      </p>
+    </div><br>
+    <div class="space"><h4>Review</h4> <br>
+      <div class="border">
+        <textarea type="text" name="review" id="review"></textarea>
+      </div>
+      <p class="error" id="review-error">
+      </p>
+    </div><br>
+    <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
+  </div>
+</div>
+
+<script src="{% static 'js/LibDropdown.js' %}"></script>
+<script src="{% static 'js/components/ReviewModal.js' %}"></script>
+<script>
+    var reviewData = {
+      reviewTitle: "",
+      rating: 1,
+      recommend: "False",
+      review: "",
+      pk: "0",
+    };
+    {% if not company %}
+    LibDropdown.createCompanyDropdown(
+        "review-modal-companysearch",
+        "review-modal-suggestions",
+        (pk) => { reviewData.company = pk; },
+    );
+    {% endif %}
+    var reviewModal = new ReviewModal(
+        reviewData,
+        "/codedoor/createreview/",
+        "{{ on_submit_list_id }}",
+        "{{ id }}",
+    );
+</script>

@@ -87,7 +87,7 @@ Includes all the HTML code and JS libraries needed to render an application form
         description: "",
         received_offer: false,
         offer_details: "",
-        company: {% if company %} company.pk {% else %} null {% endif %},
+        company: {% if company %} {{company.pk}} {% else %} null {% endif %},
     };
     {% if not company %}
     LibDropdown.createCompanyDropdown("companysearch2", "suggestions2", (pk) => { formInitialState.company = pk; } );
@@ -95,6 +95,7 @@ Includes all the HTML code and JS libraries needed to render an application form
     var applicationModal = new ApplicationModal(
         formInitialState,
         "/codedoor/createapplication/",
-        {{ on_submit_list_id }},
+        "{{ on_submit_list_id }}",
+        "{{ id }}",
     );
 </script>
