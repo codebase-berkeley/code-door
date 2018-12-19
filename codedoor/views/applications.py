@@ -1,17 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
-from codedoor.models import Profile, Company, Question, Application, ApplicationComment, User
+from django.http import HttpResponse, JsonResponse, Http404
 from django.core.paginator import Paginator
 from django.core import serializers
 
-import traceback
-import ast
-import json
+from codedoor.models import Profile, Company, Question, Application, ApplicationComment, User
 
-def create_application(request,companypk):
-    print("in create application (no company)")
+import traceback
+
+def create_application(request, companypk):
     profilepk = request.user.profile.pk
-    companies = Company.objects.filter()
     if request.method == 'POST':
         print("inside the if")
         try:
@@ -30,16 +27,25 @@ def create_application(request,companypk):
         except Exception as e:
             traceback.print_exc()
             return JsonResponse({})
-        a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
+        a = Application(
+            company=Company.objects.get(pk=companypk),
+            profile=Profile.objects.get(pk=profilepk),
+            description=description,
+            season=season,
+            position=position,
+            received_offer=received_offer,
+            offer_details=offer_details,
+            difficult=difficulty,
+            year=year
+        )
         a.save()
-        # return redirect("codedoor:view_application", pk=a.id)
-        return JsonResponse({"a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
-                             "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
-                             "p": serializers.serialize('json', Profile.objects.filter(pk=a.profile.pk)),
-                             "u": serializers.serialize('json', User.objects.filter(pk=a.profile.user.pk))}, safe=False)
-    else:
-        return HttpResponse("created an application")
-        # return render(request, 'codedoor/createapplicationcomp.html', {'companies' : companies})
+        return JsonResponse({
+            "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
+            "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
+            "p": serializers.serialize('json', Profile.objects.filter(pk=a.profile.pk)),
+            "u": serializers.serialize('json', User.objects.filter(pk=a.profile.user.pk))
+        }, safe=False)
+    return Http404("No such page exists")
 
 
 def create_application_company(request):
@@ -68,14 +74,13 @@ def create_application_company(request):
         a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
         a.save()
         # return redirect("codedoor:view_application", pk=a.id)
-        return JsonResponse({"a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
-                             "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
-                             "p": serializers.serialize('json', Profile.objects.filter(pk=a.profile.pk)),
-                             "u": serializers.serialize('json', User.objects.filter(pk=a.profile.user.pk))}, safe=False)
-    else:
-        return HttpResponse("created an application")
-        # return render(request, 'codedoor/createapplicationcomp.html', {'companies' : companies})
-
+        return JsonResponse({
+            "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
+            "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
+            "p": serializers.serialize('json', Profile.objects.filter(pk=a.profile.pk)),
+            "u": serializers.serialize('json', User.objects.filter(pk=a.profile.user.pk))
+        }, safe=False)
+    return Http404("No such page exists")
 
 def edit_application(request):
     print("Are we here ma dude")
@@ -99,15 +104,14 @@ def edit_application(request):
             return HttpResponse("You did not fill out the form correctly")
         a.save()
         return JsonResponse({})
-    else:
-        return HttpResponse("couldn't edit the application")
+    return HttpResponse("couldn't edit the application")
 
 
 def view_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     profile = get_object_or_404(Profile, id=a.profile.pk)
     questions = Question.objects.filter(application=pk).order_by("-pk")
-    return render(request, "codedoor/viewapplication.html", {"a": a, "profile" : profile, "questions": questions})
+    return render(request, "codedoor/view_application.html", {"a": a, "profile" : profile, "questions": questions})
 
 
 def list_applications(request, pk, pg=1):
@@ -121,7 +125,14 @@ def list_applications(request, pk, pg=1):
     except EmptyPage:
         applications_list = paginator.page(paginator.num_pages)
 
-    return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list})
+    return render(
+        request,
+        "codedoor/list_applications.html",
+        {
+            "applications": applications,
+            "page": applications_list
+        }
+    )
 
 def list_all_applications(request, pg=1):
     companies = Company.objects.all()
@@ -135,7 +146,15 @@ def list_all_applications(request, pg=1):
     except EmptyPage:
         applications_list = paginator.page(paginator.num_pages)
 
-    return render(request, "codedoor/listapplications.html", {"applications": applications, "page": applications_list, "companies": companies})
+    return render(
+        request,
+        "codedoor/list_applications.html",
+        {
+            "applications": applications,
+            "page": applications_list,
+            "companies": companies
+        }
+    )
 
 def created_question(request):
     if request.method == "POST":
@@ -149,7 +168,12 @@ def created_question(request):
         new_question = Question(question=question, applicant_answer=app_answer, actual_answer=company_answer, application=app)
         new_question.save()
 
-        return JsonResponse({"question": new_question.question, "company_answer": new_question.actual_answer, "applicant_answer": new_question.applicant_answer, "success": True})
+        return JsonResponse({
+            "question": new_question.question,
+            "company_answer": new_question.actual_answer,
+            "applicant_answer": new_question.applicant_answer,
+            "success": True
+        })
 
     return HttpResponse("failed to create a question!")
 

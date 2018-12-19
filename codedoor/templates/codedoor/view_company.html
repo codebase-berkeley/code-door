@@ -94,59 +94,7 @@
   </div>
 </div>
 
-<div id="application-modal" class="modal">
-  <div class="modal-content">
-    <span id="closeA" class="close">&times;</span>
-    <div id="hidden-application" class="indent">
-      <h1> Create Application</h1><br>
-      {% csrf_token %}
-      <div class="entry">
-        <h4>Position:</h4><br>
-        <p id="error0"></p>
-        <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
-      </div>
-      <div class="entry">
-        <h4>Season:</h4><br>
-        <p id="error1" class="error"></p>
-        <select id="season" name="season" class="menu" required>
-          <option value="Fall">Fall</option>
-          <option value="Winter">Winter</option>
-          <option value="Spring">Spring</option>
-          <option value="Summer">Summer</option>
-        </select>
-      </div>
-      <div class="entry">
-        <h4>Year:</h4><br>
-        <p id="error2" class="error"></p>
-        <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
-      </div>
-      <div class="entry">
-        <h4>Difficulty:</h4><br>
-        <p id="error3" class="error"></p>
-        <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
-      </div>
-      <div class="entry">
-        <h4>Description:</h4><br>
-        <p id="error4" class="error"></p>
-        <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
-      </div>
-      <div class="entry">
-        <h4>Received Offer:</h4><br>
-        <p id="error5" class="error"></p>
-        <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
-        <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
-      </div>
-      <div class="entry">
-        <h4>Offer details:</h4><br>
-        <p id="error6" class="error"></p>
-        <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
-      </div>
-      <div class="entry">
-        <button id="submit_button" type="submit" class="small-teal">Submit</button>
-      </div>
-    </div>
-  </div>
-</div>
+{% include "components/application_modal.html" with id="application-modal" on_submit_list_id="application-list" company=company only %}
 
 
 <div id="bottom-half" class="indent">
@@ -155,7 +103,6 @@
 </div>
 </body>
 <script src="{% static 'js/createApplicationFromCompany.js' %}"></script>
-<script src="{% static 'js/viewcompany_tabs.js' %}"></script>
 <script src="{% static 'js/createreview.js' %}"></script>
 <script>
   reviewData.pk = {{ company.pk }};

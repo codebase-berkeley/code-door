@@ -83,7 +83,7 @@ def view_company(request, pk, database):
 
             return render(
                 request,
-                "codedoor/viewcompanyreviews.html",
+                "codedoor/view_company_reviews.html",
                 {
                     "company": company,
                     "reviews": review_list,
@@ -123,7 +123,7 @@ def view_company(request, pk, database):
 
             return render(
                 request,
-                "codedoor/viewcompanyapplications.html",
+                "codedoor/view_company_applications.html",
                 {
                     "company": company,
                     "profile": profile,
@@ -154,6 +154,6 @@ def edit_company(request, pk):
 
         return redirect('/codedoor/viewcompany/' + str(company.pk) + '/reviews')
 
-    return render(request, "codedoor/editcompany.html", {"company": company, "type": type })
+    return render(request, "codedoor/edit_company.html", {"company": company, "type": type })
 
 

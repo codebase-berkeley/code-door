@@ -98,7 +98,6 @@ document.getElementById("submit_button").addEventListener("click", function(e) {
 });
 // a is an Application object
 function createApplicationElement(a) {
-  console.log(a);
   var cFields = JSON.parse(a["c"])[0]["fields"];
   var aFields = JSON.parse(a["a"])[0]["fields"];
   var uFields = JSON.parse(a["u"])[0]["fields"];

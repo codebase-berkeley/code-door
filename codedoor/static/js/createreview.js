@@ -66,7 +66,7 @@ var reviewData = (function () {
           document.getElementsByName("recommend")[1].checked = false;
           document.getElementById("review").value = "";
           displayReviewForm();
-          fetch("/codedoor/createdreview", {
+          fetch("/codedoor/createreview", {
             method: "POST",
             body: formData,
             headers: headers,

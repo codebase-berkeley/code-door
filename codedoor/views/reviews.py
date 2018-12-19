@@ -9,7 +9,7 @@ from codedoor.models import Review, Company, Profile, ReviewComment
 def view_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
     comments = ReviewComment.objects.filter(review=review)
-    return render(request, "codedoor/viewreview.html", {"review": review, "comments":comments})
+    return render(request, "codedoor/view_review.html", {"review": review, "comments":comments})
 
 @login_required
 def view_company_reviews(request):
@@ -30,7 +30,7 @@ def view_company_reviews(request):
     except EmptyPage:
         review_list = paginator1.page(paginator1.num_pages)
 
-    return render(request, "codedoor/viewallreviews.html",
+    return render(request, "codedoor/view_all_reviews.html",
         {"companies": companies, "reviews": review_list})
 
 @login_required
@@ -52,7 +52,7 @@ def edit_review(request, pk):
         return redirect('/codedoor/viewreview/' + str(review.pk))
     else:
         companies = Company.objects.all()
-        return render(request, "codedoor/editreview.html", {"review": review, "companies": companies})
+        return render(request, "codedoor/edit_review.html", {"review": review, "companies": companies})
 
 
 @login_required

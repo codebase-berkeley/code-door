@@ -1,0 +1,100 @@
+{% comment %}
+ApplicationModal Component.
+
+Includes all the HTML code and JS libraries needed to render an application form modal.
+
+:param: id - (String) The HTML ID of the modal element. (required)
+:param: on_submit_list_id - (String) On submission, the modal will append an entry to this HTML element. (required)
+:param: company - (Object) A company object to prefill the form. If omitted, the modal will have a search box to select the company.
+{% endcomment %}
+
+{% load static %}
+
+<div id={{ id }} class="modal">
+  <div class="modal-content">
+    <span id="closeA" class="close">&times;</span>
+    <div id="hidden-application" class="indent">
+      <h1> Create Application</h1><br>
+      {% csrf_token %}
+      <div class="entry">
+        <h4>Position:</h4><br>
+        <p id="error0"></p>
+        <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
+      </div>
+      {% if not company %}
+      <div class="entry">
+        <h4>Company:</h4><br>
+        <div class="border-text">
+          <input id="companysearch2" type="text"/>
+          <div id="suggestions2">
+
+          </div>
+        </div>
+        <p id="error1" class="error"></p>
+      </div>
+      {% endif %}
+      <div class="entry">
+        <h4>Season:</h4><br>
+        <p id="error1" class="error"></p>
+        <select id="season" name="season" class="menu" required>
+          <option value="Fall">Fall</option>
+          <option value="Winter">Winter</option>
+          <option value="Spring">Spring</option>
+          <option value="Summer">Summer</option>
+        </select>
+      </div>
+      <div class="entry">
+        <h4>Year:</h4><br>
+        <p id="error2" class="error"></p>
+        <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
+      </div>
+      <div class="entry">
+        <h4>Difficulty:</h4><br>
+        <p id="error3" class="error"></p>
+        <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
+      </div>
+      <div class="entry">
+        <h4>Description:</h4><br>
+        <p id="error4" class="error"></p>
+        <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
+      </div>
+      <div class="entry">
+        <h4>Received Offer:</h4><br>
+        <p id="error5" class="error"></p>
+        <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
+        <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
+      </div>
+      <div class="entry">
+        <h4>Offer details:</h4><br>
+        <p id="error6" class="error"></p>
+        <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
+      </div>
+      <div class="entry">
+        <button id="submit_button" type="submit" class="small-teal">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{% static 'js/LibDropdown.js' %}"></script>
+<script src="{% static 'js/components/ApplicationModal.js' %}"></script>
+<script>
+    var formInitialState = {
+        position: "",
+        season: "",
+        year: "",
+        difficulty: "",
+        description: "",
+        received_offer: false,
+        offer_details: "",
+        company: {% if company %} company.pk {% else %} null {% endif %},
+    };
+    {% if not company %}
+    LibDropdown.createCompanyDropdown("companysearch2", "suggestions2", (pk) => { formInitialState.company = pk; } );
+    {% endif %}
+    var applicationModal = new ApplicationModal(
+        formInitialState,
+        "/codedoor/createapplication/",
+        {{ on_submit_list_id }},
+    );
+</script>
