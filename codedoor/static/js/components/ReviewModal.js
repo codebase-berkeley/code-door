@@ -13,7 +13,7 @@ Example Usage:
 
 var reviewModal = new ReviewModal({
     reviewTitle: "Very bad",
-    pk: "456789",
+    company: "456789",
     rating: "4",
     recommend: false,
     review: "fucc zucc",
@@ -30,15 +30,15 @@ function getCookie(name) {
 var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, modalId) {
     var self = this;
     self.modalId = modalId;
-    self.formInitialState = formInitialState | {
+    self.formInitialState = formInitialState || {
       reviewTitle: "",
       rating: 1,
       recommend: "False",
       review: "",
-      pk: "0",
+      company: "0",
     };
-    self.onSubmitPostUrl = onSubmitPostUrl | "/codedoor/createreview";
-    self.onSubmitListId = onSubmitListId | "reviews";
+    self.onSubmitPostUrl = onSubmitPostUrl;
+    self.onSubmitListId = onSubmitListId;
 
     function validate_review() {
       var err = false;
@@ -124,7 +124,7 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
       var formData = new FormData();
 
       formData.append("reviewtitle", self.formInitialState.reviewTitle);
-      formData.append("pk", self.formInitialState.pk);
+      formData.append("pk", self.formInitialState.company);
       formData.append("rating", self.formInitialState.rating);
       formData.append("recommend", self.formInitialState.recommend);
       formData.append("review", self.formInitialState.review);

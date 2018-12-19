@@ -32,7 +32,7 @@ function getCookie(name) {
 var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, modalId) {
     var self = this;
     self.modalId = modalId;
-    self.formInitialState = formInitialState | {
+    self.formInitialState = formInitialState || {
         position: "",
         season: "",
         year: "",
@@ -41,8 +41,8 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
         received_offer: false,
         offer_details: "",
     };
-    self.onSubmitPostUrl = onSubmitPostUrl | "/codedoor/createapplication/";
-    self.onSubmitListId = onSubmitListId | "application-list";
+    self.onSubmitPostUrl = onSubmitPostUrl;
+    self.onSubmitListId = onSubmitListId;
 
     // Get the modal
     self.modalA = document.getElementById(self.modalId);

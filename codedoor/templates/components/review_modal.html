@@ -74,7 +74,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
       rating: 1,
       recommend: "False",
       review: "",
-      pk: "0",
+      company: "0",
     };
     {% if not company %}
     LibDropdown.createCompanyDropdown(
@@ -85,7 +85,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
     {% endif %}
     var reviewModal = new ReviewModal(
         reviewData,
-        "/codedoor/createreview/",
+        "/codedoor/createreview",
         "{{ on_submit_list_id }}",
         "{{ id }}",
     );
