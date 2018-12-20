@@ -1,0 +1,95 @@
+{% extends 'codedoor/view_company.html' %}
+{% load static %}
+{% block tabcontent %}
+<div id="nav">
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" id="reviews_tab" class="nav_items">Reviews</a>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" id="applications_tab" class="active_item nav_items">Applications</a>
+    <span style="float:right;position:absolute;right:10%;">
+      <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
+      <a id="create-application-btn" class="sub">Add Application</a>
+    </span>
+</div>
+
+<div id="applications" class="indent">
+    <div id="applications-dropdown" class="dropdown">
+      <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
+          <span class="filter">Year:
+          <select name = "year">
+            <option value = None>All</option>
+            <option value = 2018>2018</option>
+            <option value = 2017>2017</option>
+            <option value = 2016>2016</option>
+            <option value = 2015>2015</option>
+            <option value = 2014>Older</option>
+          </select>
+          </span>
+
+          <span class="filter">Season:
+          <select name = "season">
+            <option value = None>All</option>
+            <option value = "Fall">Fall</option>
+            <option value = "Spring">Spring</option>
+            <option value = "Summer">Summer</option>
+            <option value = "Winter">Winter</option>
+          </select>
+          </span>
+
+          <span class="filter">Received Offer:
+          <select name = "received_offer">
+            <option value = None>All</option>
+            <option value = True>Yes</option>
+            <option value = False>No</option>
+          </select>
+          </span>
+
+          <button class="sub" id="search" type="submit">Filter</button>
+      </form>
+    </div>
+
+    <div id="application-list">
+
+      {% include "components/application.html" with a=applications.0 dummy=True only %}
+      {% for a in applications %}
+        {% include "components/application.html" with a=a only %}
+      {% endfor %}
+
+      <!-- Source: Vitor Freitas -->
+      {% if applications.has_other_pages %}
+        <ul class="pagination">
+          {% if applications.has_previous %}
+            <a href="?page={{ applications.previous_page_number }}"><li class="clickable">&laquo;</li></a>
+          {% else %}
+            <li>&laquo;</li>
+          {% endif %}
+          {% for i in applications.paginator.page_range %}
+            {% if applications.number == i %}
+              <li class="active">{{ i }}</li>
+            {% else %}
+              <a href="?page={{ i }}"><li>{{ i }}</li></a>
+            {% endif %}
+          {% endfor %}
+
+          {% if applications.has_next %}
+            <a href="?page={{ applications.next_page_number }}"><li>&raquo;</li></a>
+          {% else %}
+            <li>&raquo;</li>
+          {% endif %}
+        </ul>
+      {% endif %}
+      <br>
+    </div>
+</div>
+
+{% include "components/application_modal.html" with id="application-modal" on_submit_list_id="application-list" company=company only %}
+
+<script>
+(function() {
+    // Get the button that opens the modal
+    var createAppBtn = document.getElementById("create-application-btn");
+    // When the user clicks on the button, open the modal
+    createAppBtn.addEventListener("click", function() {
+        document.getElementById("application-modal").style.display = "block";
+    });
+})();
+</script>
+{% endblock %}

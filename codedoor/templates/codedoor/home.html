@@ -1,7 +1,6 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
-  <!-- <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}"> -->
 
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
@@ -90,66 +89,11 @@
   <hr id="break">
 </br>
 
-
-<div id="reviewmodal" class="modal">
-  <div class="modal-content">
-  <span id="closeR" class="close">&times;</span>
-  <h1>Create Review</h1>
-    <div class="entry">
-      <p>Review Title</p>
-      <div class="border-text">
-        <div id="title">
-          <input type="text" name="title" id="title1">
-        </div>
-        <p class="error" id="title-error">
-        </p>
-      </div>
-    </div>
-    <div class="entry">
-      <p>Company</p>
-      <div class="border-text">
-        <input id="companysearch" type="text"/>
-        <div id="suggestions">
-        </div>
-      </div>
-      <p class="error" id="company-error">
-      </p>
-    </div>
-    <div class="entry">
-      <p>Rating (0 - 5)</p>
-      <div class="border-text">
-        <div id="number">
-          <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
-        </div>
-      </div>
-      <p class="error" id="rating-error">
-      </p>
-    </div>
-    <div class="entry">
-      <p>Recommend</p>
-      <div class="recommend">
-        <input type="radio" name="recommend" value=True id="yes">
-        <label for="yes">Yes</label>
-        <input type="radio" name="recommend" value=False id="no">
-        <label for="no">No</label>
-      </div>
-      <p class="error" id="recommend-error">
-      </p>
-    </div>
-    <div class="entry">
-      <p>Review</p>
-      <div class="border">
-        <textarea type="text" name="review" id="review"></textarea>
-      </div>
-      <p class="error" id="review-error">
-      </p>
-    </div><br>
-      <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
-    </div>
-  </div>
-
-
 <div id="reviews">
+    {% comment %}
+      We add an invisible "dummy" review to the HTML to provide a template for review creation in clientside code.
+    {% endcomment %}
+    {% include "components/review.html" with review=reviews.0 dummy=True only %}
     {% for review in reviews %}
       {% include "components/review.html" with review=review only %}
       <br>
@@ -158,8 +102,6 @@
 
     {% if num_reviews > 3 %}
     <a href="{% url 'codedoor:view_company_reviews' %}">Show More >>></a>
-    {% else %}
-    <div></div>
     {% endif %}
 
     <br>
@@ -174,133 +116,7 @@
   </div>
   <hr id="break">
 
-
-
-
-  <div id="application-modal" class="modal">
-    <div class="modal-content">
-      <span id="closeA" class="close">&times;</span>
-      <h1> Create Application</h1>
-      <div id="hidden-application" class="indent">
-
-        <br>
-
-        <div class="entry">
-          <h4>Position:</h4><br>
-          <p id="error0"></p>
-          <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
-        </div>
-        <div class="entry">
-          <h4>Company:</h4><br>
-          <div class="border-text">
-            <input id="companysearch2" type="text"/>
-            <div id="suggestions2">
-
-            </div>
-          </div>
-          <p id="error1" class="error"></p>
-
-
-        <div class="entry">
-          <h4>Season:</h4><br>
-          <p id="error1" class="error"></p>
-          <select id="season" name="season" class="menu" required>
-            <option value="Fall">Fall</option>
-            <option value="Winter">Winter</option>
-            <option value="Spring">Spring</option>
-            <option value="Summer">Summer</option>
-          </select>
-        </div>
-        <div class="entry">
-          <h4>Year:</h4><br>
-          <p id="error2" class="error"></p>
-          <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
-        </div>
-        <div class="entry">
-          <h4>Difficulty:</h4><br>
-          <p id="error3" class="error"></p>
-          <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
-        </div>
-        <div class="entry">
-          <h4>Description:</h4><br>
-          <p id="error4" class="error"></p>
-          <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
-        </div>
-        <div class="entry">
-          <h4>Received Offer:</h4><br>
-          <p id="error5" class="error"></p>
-          <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
-          <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
-        </div>
-        <div class="entry">
-          <h4>Offer details:</h4><br>
-          <p id="error6" class="error"></p>
-          <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
-        </div>
-        <div class="entry">
-          <button id="submit_button" type="submit" class="small-teal">Submit</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
   <div id="application-list" class="indent">
-    <div id="hidden-element" class="hidden">
-      <table>
-        <tr>
-          <td rowspan="3" width="7%">
-            <img id="hidden-logo" class="hidden-logo" width="100" height="100">
-          </td>
-          <td width="93%">
-            <a id="company-link">
-              <h2 id="hidden-company-name" class="link-text hidden-company-name"></h2>
-            </a>
-            <span id="hidden-profile-name" class="applicant-name hidden-profile-name"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span id="hidden-position" class="info job-position hidden-position"></span>
-            <span id="hidden-season" class="info job-season hidden-season"></span><span id="hidden-year" class="info job-season hidden-year"></span></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>
-            <span class="info colorful-boxy">
-              <svg width="15" height="15">
-                <rect id="hidden-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg><span id="hidden-offer-text" class="hidden-offer-text"></span>
-            </span>
-            <span class="info colorful-boxy">
-              <svg width="15" height="15">
-                <rect id="hidden-difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg>&nbsp;&nbsp;<span id="hidden-difficulty-text" class="hidden-difficulty-text"></span>
-            </span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <h4>Description:</h4>
-            <p id="hidden-description" class="description_small_text hidden-description"></p>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-
     <div id="existing-applications">
       {% for a in applications %}
         {% include "components/application.html" with a=a only %}
@@ -336,10 +152,11 @@
     <br>
   </div>
 
+{% include "components/review_modal.html" with id="review-modal" on_submit_list_id="reviews" only %}
+{% include "components/application_modal.html" with id="application-modal" on_submit_list_id="application-list" only %}
+
 </body>
-<script src="{% static 'js/createreview.js' %}"></script>
 <script src="{% static 'js/company.js' %}"></script>
-<script src="{% static 'js/application.js' %}"></script>
 <script src="{% static 'js/home.js' %}"></script>
-<script src="{% static 'js/dropdown.js' %}"></script>
+
 {% endblock %}

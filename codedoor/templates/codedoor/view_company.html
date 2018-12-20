@@ -1,0 +1,34 @@
+{% extends 'codedoor/base.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany1.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/modal.css' %}">
+</head>
+<body>
+  <div class="companyportion">
+    <div class="company-logo">
+      {% if company.logo %}
+        <img src="{{company.logo}}" alt="Company logo" width="150" height="150">
+      {% else %}
+        <img src="/static/images/temp.png" alt="Company logo" width="150" height="150">
+      {% endif %}
+
+      <div class='sub1'><h1>{{company.name}}</h1><br>
+        <p>{{ company.industry }}, {{company.structure}}</p><br>
+        <img src="{% static 'images/linklogo.png' %}" class='logo' width="20px" height="20px" /> <span>{{company.website}}</span>
+        <img src="{% static 'images/locationlogo.png' %}" class='logo' width="20px" height="20px" /> <span>Mountain View</span>
+      </div>
+
+    </div>
+  </div>
+
+  <hr id="break">
+
+<div id="bottom-half">
+  {% block tabcontent %}
+  {% endblock %}
+</div>
+</body>
+{% endblock %}
