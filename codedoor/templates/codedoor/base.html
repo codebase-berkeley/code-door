@@ -22,9 +22,6 @@
 				<div id = topsearch>
 					<img class="item" src="{% static 'images/search_icon.png' %}" width="25px" height="25px" />
 					<form class = "item bar" action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-						<!--<button id="search" type="submit">-->
-							<!--<img src="{% static 'images/search_icon.png' %}" width="25px" height="25px" />-->
-						<!--</button>-->
 					<input id="searchtype" name="query" type="text" placeholder='Search'>
 					</form>
 				</div>

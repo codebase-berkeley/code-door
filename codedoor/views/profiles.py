@@ -18,7 +18,7 @@ profile_pic_bucket = 'codedoor-profile-pictures'
 
 def createprofile(request):
     if request.method == "GET":
-        return render(request, 'codedoor/createprofile.html')
+        return render(request, 'codedoor/create_profile.html')
     else:
         try:
             input_username = request.POST['email']
@@ -52,7 +52,7 @@ def createprofile(request):
 
 def finishprofile(request):
     if request.method == "GET":
-        return render(request, 'codedoor/finishprofile.html')
+        return render(request, 'codedoor/finish_profile.html')
     else:
         try:
             # not sure how to extract these the info commented before from the slack API to save as a user
@@ -87,7 +87,7 @@ def finishprofile(request):
 @login_required
 def viewprofile(request, pk):
     profile = get_object_or_404(Profile, id=pk)
-    return render(request, 'codedoor/viewprofile.html', {"profile": profile})
+    return render(request, 'codedoor/view_profile.html', {"profile": profile})
 
 
 @login_required
@@ -97,7 +97,7 @@ def editprofile(request, pk):
     profile = get_object_or_404(Profile, pk=pk)
     user = profile.user
     if request.method == "GET":
-        return render(request, 'codedoor/editprofile.html', {"profile": profile})
+        return render(request, 'codedoor/edit_profile.html', {"profile": profile})
     else:
         try:
             input_profile_pic = False
@@ -169,7 +169,7 @@ def slack_info(request):
     if user is None:
         print("Profile is None")
         first_name, last_name = params["user"]['name'].split(" ")
-        return render(request, 'codedoor/finishprofile.html', {"id": params['user']['email'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
+        return render(request, 'codedoor/finish_profile.html', {"id": params['user']['email'], "first_name": first_name, "last_name": last_name, "email": params["user"]["email"], "pic": params["user"]['image_512']})
     else:
         print("nani the fuck")
         auth_login(request, user)

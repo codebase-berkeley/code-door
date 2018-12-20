@@ -15,7 +15,7 @@ def create_question(request, pk):
         q.save()
         return redirect("codedoor:view_application", pk=pk)
     else:
-        return render(request, 'codedoor/createQuestion.html', {"pk": pk})
+        return render(request, 'codedoor/create_question.html', {"pk": pk})
 
 def edit_question(request, pk):
     q = get_object_or_404(Question, pk=pk)
@@ -29,7 +29,7 @@ def edit_question(request, pk):
         q.save()
         return redirect("codedoor:view_question", pk=q.id)
     else:
-        return render(request, 'codedoor/editQuestion.html',
+        return render(request, 'codedoor/edit_question.html',
                       {
                           "question": q.question,
                           "applicant_answer": q.applicant_answer,
@@ -40,8 +40,8 @@ def edit_question(request, pk):
 
 def view_question(request, pk):
     q = get_object_or_404(Question, pk=pk)
-    return render(request, "codedoor/viewQuestion.html", {"q": q})
+    return render(request, "codedoor/view_question.html", {"q": q})
 
 def list_questions(request):
     questions = Question.objects.order_by("-pk")
-    return render(request, 'codedoor/viewQuestions.html', {"questions": questions})
+    return render(request, 'codedoor/view_questions.html', {"questions": questions})

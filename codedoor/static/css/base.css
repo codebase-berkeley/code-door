@@ -108,8 +108,12 @@ button:hover {
   padding: 1px;
 }
 
-.bar {
-  width: 80%;
+.bar{
+    width: 80%;
+}
+
+.hidden {
+    display: None;
 }
 
 #topsearch {
