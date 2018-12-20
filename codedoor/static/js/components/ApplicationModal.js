@@ -41,25 +41,17 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
         received_offer: false,
         offer_details: "",
     };
+    console.log(self.formInitialState);
     self.onSubmitPostUrl = onSubmitPostUrl;
     self.onSubmitListId = onSubmitListId;
 
     // Get the modal
     self.modalA = document.getElementById(self.modalId);
 
-    // Get the button that opens the modal
-    self.createAppBtn = document.getElementById("create-application-btn");
-
     // Get the <span> element that closes the modal
-    self.spanA = document.getElementById("closeA");
-
+    self.spanA = self.modalA.getElementsByClassName("modal-close-btn")[0];
     // Get the submit button at the end of the form
-    self.submitBtnA = document.getElementById("submit_button");
-
-    // When the user clicks on the button, open the modal
-    self.createAppBtn.addEventListener("click", function() {
-        self.modalA.style.display = "block";
-    });
+    self.submitBtnA = self.modalA.getElementsByClassName("modal-submit-btn")[0];
 
     // When the user clicks on <span> (x), close the modal
     self.spanA.addEventListener("click", function() {
@@ -67,7 +59,6 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
     });
     // When the user submits the form, close the modal
     self.submitBtnA.addEventListener("click", function(event) {
-      console.log("clicked submit button");
         self.modalA.style.display = "none";
     });
 
@@ -78,31 +69,40 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
         }
     });
 
-    document.getElementById("submit_button").addEventListener("click", function(e) {
-      formInitialState.position = document.getElementById("position").value;
-      formInitialState.season = document.getElementsByClassName("menu")[0].value;
-      formInitialState.year = document.getElementById("year").value;
-      formInitialState.difficulty = document.getElementById("difficulty").value;
-      formInitialState.description = document.getElementById("description").value;
-      formInitialState.received_offer = document.getElementById("received_offer").checked;
-      formInitialState.offer_details = document.getElementById("offer_details").value;
+    self.submitBtnA.addEventListener("click", function(e) {
+      var positionInput = self.modalA.getElementsByClassName("modal-input-position")[0];
+      var seasonInput = self.modalA.getElementsByClassName("modal-input-season")[0];
+      var yearInput = self.modalA.getElementsByClassName("modal-input-year")[0];
+      var difficultyInput = self.modalA.getElementsByClassName("modal-input-difficulty")[0];
+      var descriptionInput = self.modalA.getElementsByClassName("modal-input-description")[0];
+      var offerCheckboxInput = self.modalA.getElementsByClassName("modal-input-offer-check")[0];
+      var offerInput = self.modalA.getElementsByClassName("modal-input-offer")[0];
 
-      document.getElementById("position").value = "";
-      document.getElementById("year").value = "";
-      document.getElementById("difficulty").value = "";
-      document.getElementById("description").value = "";
-      document.getElementById("received_offer").value = "";
-      document.getElementById("offer_details").value = "";
+      self.formInitialState.position = positionInput.value;
+      self.formInitialState.season = seasonInput.value;
+      self.formInitialState.year = yearInput.value;
+      self.formInitialState.difficulty = difficultyInput.value;
+      self.formInitialState.description = descriptionInput.value;
+      self.formInitialState.received_offer = offerCheckboxInput.checked;
+      self.formInitialState.offer_details = offerInput.value;
+
+      positionInput.value = "";
+      yearInput.value = "";
+      difficultyInput.value = "";
+      descriptionInput.value = "";
+      offerCheckboxInput.value = "";
+      offerInput.value = "";
 
       var formData = new FormData();
 
-      formData.append("position", position);
-      formData.append("season", season);
-      formData.append("year", year);
-      formData.append("difficulty", difficulty);
-      formData.append("description", description);
-      formData.append("received_offer", received_offer);
-      formData.append("offer_details", offer_details);
+      formData.append("company", self.formInitialState.company);
+      formData.append("position", self.formInitialState.position);
+      formData.append("season", self.formInitialState.season);
+      formData.append("year", self.formInitialState.year);
+      formData.append("difficulty", self.formInitialState.difficulty);
+      formData.append("description", self.formInitialState.description);
+      formData.append("received_offer", self.formInitialState.received_offer);
+      formData.append("offer_details", self.formInitialState.offer_details);
 
       var headers = new Headers();
       var csrftoken = getCookie("csrftoken");
@@ -121,6 +121,7 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
 
     // a is an Application object returned from the server.
     function createApplicationElement(a) {
+      console.log(a);
       var cFields = JSON.parse(a["c"])[0]["fields"];
       var aFields = JSON.parse(a["a"])[0]["fields"];
       var uFields = JSON.parse(a["u"])[0]["fields"];
@@ -130,7 +131,7 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
       entry.getElementsByClassName("application-applicant-name")[0].innerHTML = uFields["first_name"] + " " + uFields["last_name"];
       entry.getElementsByClassName("job-position")[0].innerHTML = aFields["position"];
 
-      var season = { 1: "Fall", 2: "Winter", 3: "Spring", 4: "Summer" }[aFields.season] + aFields.year;
+      var season = `${aFields.season} ${aFields.year}`;
       entry.getElementsByClassName("job-season")[0].innerHTML = season;
 
       entry.getElementsByClassName("application-offer-icon")[0].style = aFields["received_offer"] ? "fill:#01959b" : "fill:#ff4d4d";
@@ -154,14 +155,5 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
       entry.getElementsByClassName("application-desc")[0].innerHTML = aFields["description"];
       entry.className = "";
       document.getElementById(self.onSubmitListId).prepend(entry);
-    }
-
-    function displayApplicationForm() {
-        var x = document.getElementById("hidden-application");
-        if (x.style.display != "block") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
     }
 }

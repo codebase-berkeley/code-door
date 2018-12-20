@@ -40,19 +40,24 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
     self.onSubmitPostUrl = onSubmitPostUrl;
     self.onSubmitListId = onSubmitListId;
 
+    self.modalR = document.getElementById(self.modalId);
+    // all input elements.
+    self.titleInput = self.modalR.getElementsByClassName("modal-input-title")[0];
+    self.ratingInput = self.modalR.getElementsByClassName("modal-input-rating")[0];
+    self.recommendCheckboxInput = self.modalR.getElementsByClassName("modal-input-recommend-check")[0];
+    self.reviewInput = self.modalR.getElementsByClassName("modal-input-review")[0];
+
     function validate_review() {
       var err = false;
 
-        var title = document.getElementById('title1').value;
-        var rating = document.getElementById('rating').value;
-        var yes = document.getElementById('yes').checked;
-        var no = document.getElementById('no').checked;
-        var review = document.getElementById('review').value;
+        var title = self.titleInput.value;
+        var rating = self.ratingInput.value;
+        var review = self.reviewInput.value;
 
-        var title_error = document.getElementById('title-error');
-        var rating_error = document.getElementById('rating-error');
-        var review_error = document.getElementById('review-error');
-        var recommend_error = document.getElementById('recommend-error');
+        var title_error = document.getElementsByClassName('modal-title-error')[0];
+        var rating_error = document.getElementsByClassName('modal-rating-error')[0];
+        var review_error = document.getElementsByClassName('modal-review-error')[0];
+        var recommend_error = document.getElementsByClassName('modal-recommend-error')[0];
 
         if (!title || title.trim().length == 0 || title === 'None') {
           err = true;
@@ -75,13 +80,6 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
         } else {
           review_error.innerHTML = '';
         }
-        if (!yes && !no) {
-          err = true;
-          recommend_error.innerHTML = 'You must provide a recommendation';
-          event.preventDefault();
-        } else {
-          recommend_error.innerHTML = '';
-        }
         return err;
     }
 
@@ -93,33 +91,31 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
             x.style.display = "none";
         }
     };
-    var modalR = document.getElementById(self.modalId);
-    // Get the button that opens the modal
-    var qBtn = document.getElementById("createreviewbutton");
     // Get the <span> element that closes the modal
-    var spanR = document.getElementById("closeR");
-    // When the user clicks on the button, open the modal
-    qBtn.onclick = function() {
-      modalR.style.display = "block";
-    }
+    self.spanR = self.modalR.getElementsByClassName("modal-close-btn")[0];
     // When the user clicks on <span> (x), close the modal
-    spanR.onclick = function() {
-      modalR.style.display = "none";
-    }
+    self.spanR.addEventListener("click", function() {
+      self.modalR.style.display = "none";
+    });
 
-    document.getElementById("submit_button_review").addEventListener("click", function(e) {
+    // When the user clicks anywhere outside of the modal, close it
+    window.addEventListener("click", function(event) {
+        if (event.target == self.modalR) {
+            self.modalR.style.display = "none";
+        }
+    });
+
+    self.modalR.getElementsByClassName("modal-submit-btn")[0].addEventListener("click", function(e) {
       var err = validate_review();
-      recommendCheckbox = document.getElementsByName("recommend");
 
-      self.formInitialState.reviewTitle = document.getElementById("title1").value;
-      self.formInitialState.rating = document.getElementById("rating").value;
-      if(recommendCheckbox[0].checked) {
+      self.formInitialState.reviewTitle = self.titleInput.value;
+      self.formInitialState.rating = self.ratingInput.value;
+      if(self.recommendCheckboxInput.checked) {
         self.formInitialState.recommend = "True";
-      }
-      else if(recommendCheckbox[1].checked) {
+      } else {
         self.formInitialState.recommend = "False";
       }
-      self.formInitialState.review = document.getElementById("review").value;
+      self.formInitialState.review = self.reviewInput.value;
 
       var formData = new FormData();
 
@@ -135,11 +131,10 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
 
       console.log(err);
       if(!err) {
-          document.getElementById("title1").value = "";
-          document.getElementById("rating").value = "";
-          document.getElementsByName("recommend")[0].checked = false;
-          document.getElementsByName("recommend")[1].checked = false;
-          document.getElementById("review").value = "";
+          self.titleInput.value = "";
+          self.ratingInput.value = "";
+          self.recommendCheckboxInput.checked = false;
+          self.reviewInput.value = "";
           displayReviewForm();
           fetch(self.onSubmitPostUrl, {
             method: "POST",

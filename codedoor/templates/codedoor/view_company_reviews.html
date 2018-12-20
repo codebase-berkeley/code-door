@@ -1,6 +1,15 @@
 {% extends 'codedoor/view_company.html' %}
 {% load static %}
 {% block tabcontent %}
+<div id="nav">
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" id="reviews_tab" class="active_item nav_items">Reviews</a>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" id="applications_tab" class="nav_items">Applications</a>
+    <span style="float:right;position:absolute;right:10%;">
+      <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
+      <a class="sub" id="create-review-btn">Add Review</a>
+    </span>
+</div>
+
 <div id="reviews-dropdown" class="dropdown">
     <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
         <span class="filter">Rating:
@@ -42,7 +51,7 @@
 {% if reviews.has_other_pages %}
   <ul class="pagination">
     {% if reviews.has_previous %}
-      <li class="clickable"><a href="?page={{ reviews.previous_page_number }}">&laquo;</a></li>
+      <a href="?page={{ reviews.previous_page_number }}"><li class="clickable">&laquo;</li></a>
     {% else %}
       <li>&laquo;</li>
     {% endif %}
@@ -50,15 +59,28 @@
       {% if reviews.number == i %}
         <li class="active">{{ i }}</li>
       {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
+        <a href="?page={{ i }}"><li>{{ i }}</li></a>
       {% endif %}
     {% endfor %}
     {% if reviews.has_next %}
-      <li><a href="?page={{ reviews.next_page_number }}">&raquo;</a></li>
+      <a href="?page={{ reviews.next_page_number }}"><li>&raquo;</li></a>
     {% else %}
       <li>&raquo;</li>
     {% endif %}
   </ul>
 {% endif %}
 </div>
+
+{% include "components/review_modal.html" with id="review-modal" on_submit_list_id="reviews" company=company only %}
+
+<script>
+    (function() {
+    // Get the button that opens the modal
+    var createReviewBtn = document.getElementById("create-review-btn");
+    // When the user clicks on the button, open the modal
+    createReviewBtn.addEventListener("click", function() {
+        document.getElementById("review-modal").style.display = "block";
+    });
+})();
+</script>
 {% endblock %}

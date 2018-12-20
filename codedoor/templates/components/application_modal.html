@@ -12,14 +12,14 @@ Includes all the HTML code and JS libraries needed to render an application form
 
 <div id={{ id }} class="modal">
   <div class="modal-content">
-    <span id="closeA" class="close">&times;</span>
+    <span class="close modal-close-btn">&times;</span>
     <div id="hidden-application" class="indent">
       <h1> Create Application</h1><br>
       {% csrf_token %}
       <div class="entry">
         <h4>Position:</h4><br>
         <p id="error0"></p>
-        <input id="position" name="position" placeholder="Job title" class="text" required></input><br>
+        <input class="modal-input-position" name="position" placeholder="Job title" class="text" required></input><br>
       </div>
       {% if not company %}
       <div class="entry">
@@ -36,7 +36,7 @@ Includes all the HTML code and JS libraries needed to render an application form
       <div class="entry">
         <h4>Season:</h4><br>
         <p id="error1" class="error"></p>
-        <select id="season" name="season" class="menu" required>
+        <select id="season" name="season" class="menu modal-input-season" required>
           <option value="Fall">Fall</option>
           <option value="Winter">Winter</option>
           <option value="Spring">Spring</option>
@@ -46,31 +46,27 @@ Includes all the HTML code and JS libraries needed to render an application form
       <div class="entry">
         <h4>Year:</h4><br>
         <p id="error2" class="error"></p>
-        <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
+        <input class="modal-input-year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required></input><br>
       </div>
       <div class="entry">
         <h4>Difficulty:</h4><br>
         <p id="error3" class="error"></p>
-        <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
+        <input class="modal-input-difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required></input><br>
       </div>
       <div class="entry">
         <h4>Description:</h4><br>
         <p id="error4" class="error"></p>
-        <textarea id="description" name="description" placeholder="Description of application" required></textarea><br>
-      </div>
-      <div class="entry">
-        <h4>Received Offer:</h4><br>
-        <p id="error5" class="error"></p>
-        <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble"> Yes</p>
-        <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble"> No</p><br>
+        <textarea class="modal-input-description" name="description" placeholder="Description of application" required></textarea><br>
       </div>
       <div class="entry">
         <h4>Offer details:</h4><br>
+        <p id="error5" class="error"></p>
         <p id="error6" class="error"></p>
-        <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea><br>
+        <p><input class="modal-input-offer-check" type="checkbox" name="received_offer"> Received offer</p>
+        <textarea class="modal-input-offer" name="offer_details" placeholder="Offer details if applicable (pay, perks, etc.)"></textarea><br>
       </div>
       <div class="entry">
-        <button id="submit_button" type="submit" class="small-teal">Submit</button>
+        <button type="submit" class="small-teal modal-submit-btn">Submit</button>
       </div>
     </div>
   </div>

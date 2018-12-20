@@ -12,15 +12,15 @@ Includes all the HTML code and JS libraries needed to render an review form moda
 
 <div id={{ id }} class="modal">
   <div class="modal-content">
-    <span id="closeR" class="close">&times;</span>
+    <span class="close modal-close-btn">&times;</span>
     <h1> Create Review </h1><br>
     <div class="space">
       <h4>Review Title</h4>
       <div class="border-text">
         <div id="title">
-          <input type="text" name="title" id="title1">
+          <input type="text" name="title" class="modal-input-title">
         </div>
-        <p class="error" id="title-error">
+        <p class="error modal-title-error">
         </p>
       </div>
     </div><br>
@@ -33,7 +33,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
 
           </div>
         </div>
-        <p class="error" id="company-error">
+        <p class="error modal-company-error">
         </p>
       </div>
       {% endif %}
@@ -41,28 +41,25 @@ Includes all the HTML code and JS libraries needed to render an review form moda
       <h4>Rating</h4> <br>
       <div class="border-text">
         <div id="number">
-          <input type="number" name="rating" min="0" max="5" step="0.5" id="rating">
+          <input type="number" name="rating" min="0" max="5" step="0.5" class="modal-input-rating">
         </div>
       </div>
-      <p class="error" id="rating-error">
+      <p class="error modal-rating-error">
       </p>
     </div><br>
     <div class="space"><h4>Recommend</h4>
-      <div class="border">
-        <span><input type="radio" name="recommend" value=True id="yes">  Yes</span>
-        <span><input type="radio" name="recommend" value=False id="no">  No</span><br>
-      </div>
-      <p class="error" id="recommend-error">
+      <input type="checkbox" name="recommend" class="modal-input-recommend-check" /> Recommend this company
+      <p class="error" class="modal-recommend-error">
       </p>
     </div><br>
     <div class="space"><h4>Review</h4> <br>
       <div class="border">
-        <textarea type="text" name="review" id="review"></textarea>
+        <textarea type="text" name="review" class="modal-input-review"></textarea>
       </div>
-      <p class="error" id="review-error">
+      <p class="error modal-review-error">
       </p>
     </div><br>
-    <button id="submit_button_review" class="inline-block small-teal">Submit Review</button>
+    <button class="modal-submit-btn inline-block small-teal">Submit Review</button>
   </div>
 </div>
 
@@ -74,7 +71,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
       rating: 1,
       recommend: "False",
       review: "",
-      company: "0",
+      company: {% if company %} {{ company.pk }} {% else %} "0" {% endif %},
     };
     {% if not company %}
     LibDropdown.createCompanyDropdown(
