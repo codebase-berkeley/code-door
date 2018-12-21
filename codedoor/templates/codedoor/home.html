@@ -14,8 +14,8 @@
     <div id="searchbar">
 
       <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-       <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
-        <button class="sub" id="search" type="submit">Search</button>
+      <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
+      <button id="search" type="submit">Search</button>
       </form>
     </div>
   </div><br>
@@ -27,10 +27,8 @@
       <button class="inline-block small-teal" id="create-review-btn">Create Review</button>
     </a>&nbsp;
     <button class="inline-block small-teal" id="create-company-btn">Create Company</button>
-
 </div>
   <hr id="break">
-</br>
 
 <div id="reviews">
     {% comment %}
@@ -51,9 +49,7 @@
   </div>
   <br>
 
-
-
-  <div class="indent" >
+  <div class="interviews" >
     <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
     <button id="create-application-btn" class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
   </div>
