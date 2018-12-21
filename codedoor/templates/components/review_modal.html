@@ -14,7 +14,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
   <div class="modal-content">
     <span class="close modal-close-btn">&times;</span>
     <h1> Create Review </h1><br>
-    <div class="space">
+    <div class="entry">
       <h4>Review Title</h4>
       <div class="border-text">
         <div id="title">
@@ -23,10 +23,10 @@ Includes all the HTML code and JS libraries needed to render an review form moda
         <p class="error modal-title-error">
         </p>
       </div>
-    </div><br>
+    </div>
     {% if not company %}
-    <div class="space">
-        <h4>Company</h4><br>
+    <div class="entry">
+        <h4>Company</h4>
         <div class="border-text">
           <input id="review-modal-companysearch" type="text"/>
           <div id="review-modal-suggestions">
@@ -37,8 +37,8 @@ Includes all the HTML code and JS libraries needed to render an review form moda
         </p>
       </div>
       {% endif %}
-      <div class="space">
-      <h4>Rating</h4> <br>
+      <div class="entry">
+      <h4>Rating</h4>
       <div class="border-text">
         <div id="number">
           <input type="number" name="rating" min="0" max="5" step="0.5" class="modal-input-rating">
@@ -46,14 +46,14 @@ Includes all the HTML code and JS libraries needed to render an review form moda
       </div>
       <p class="error modal-rating-error">
       </p>
-    </div><br>
-    <div class="space"><h4>Recommend</h4>
+    </div>
+    <div class="entry"><h4>Recommend</h4>
       <input type="checkbox" name="recommend" class="modal-input-recommend-check" />
       <label class="recommend">Recommend this company</label>
       <p class="error" class="modal-recommend-error">
       </p>
-    </div><br>
-    <div class="space">
+    </div>
+    <div class="entry">
       <h4>Review</h4>
       <div class="border">
         <textarea type="text" name="review" class="modal-input-review"></textarea>

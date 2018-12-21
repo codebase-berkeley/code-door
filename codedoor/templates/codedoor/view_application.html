@@ -113,11 +113,11 @@
       <div class="modal-content">
         <span id="closeModal2" class="close">&times;</span>
         <div class="entry">
-          <h4>Position:</h4><br>
-          <input name="position" value="{{a.position}}" class="text" id="position"></input><br><br>
+          <h4>Position:</h4>
+          <input name="position" value="{{a.position}}" class="text" id="position" />
         </div>
         <div class="entry">
-            <h4>Season:</h4><br>
+            <h4>Season:</h4>
             {% if a.season == "Fall" %}
             <select name="season" class="menu" required>
                 <option value="Fall" selected="selected">Fall</option>
@@ -149,19 +149,19 @@
             {% endif %}
         </div>
         <div class="entry">
-            <h4>Year:</h4><br>
-            <input type="number" name="year" value="{{a.year}}" class="select-num" id="year"><br><br>
+            <h4>Year:</h4>
+            <input type="number" name="year" value="{{a.year}}" class="select-num" id="year" />
         </div>
         <div class="entry">
-            <h4>Difficulty:</h4><br>
-            <input type = "number" step="0.1" name="difficulty" value="{{ a.difficult }}" class="select-num" id="difficulty"></input><br><br>
+            <h4>Difficulty:</h4>
+            <input type = "number" step="0.1" name="difficulty" value="{{ a.difficult }}" class="select-num" id="difficulty" />
         </div>
         <div class="entry">
-            <h4>Description:</h4><br>
-            <textarea id="description">{{ a.description }}</textarea><br>
+            <h4>Description:</h4>
+            <textarea id="description">{{ a.description }}</textarea>
         </div>
         <div class="entry">
-            <h4>Received Offer:</h4><br>
+            <h4>Received Offer:</h4>
             {% if a.received_offer %}
               <p><input id="received_offer" type="radio" name="received_offer" value="Yes" checked> Yes</p><br>
               <p><input type="radio" name="received_offer" value="No"> No</p><br><br>
@@ -171,8 +171,8 @@
             {% endif %}
         </div>
         <div class="entry">
-            <h4>Offer details:</h4><br>
-            <textarea id="offer_details">{{ a.offer_details }}</textarea><br><br>
+            <h4>Offer details:</h4>
+            <textarea id="offer_details">{{ a.offer_details }}</textarea>
         </div>
         <div class="entry">
               <button id="submit_button_edit" type="submit" class="big" onclick="displayEditApplicationForm()">Submit</button>
