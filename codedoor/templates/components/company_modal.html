@@ -1,0 +1,76 @@
+{% comment %}
+CompanyModal Component.
+
+Includes all the HTML code and JS libraries needed to render an company form modal.
+
+:param: id - (String) The HTML ID of the modal element. (required)
+{% endcomment %}
+
+{% load static %}
+
+<div id="{{ id }}" class="modal">
+  <div class="modal-content">
+    <span class="close modal-close-btn">&times;</span>
+    <h1> Create Company </h1><br>
+
+      <p class="error modal-error-display"></p>
+      <div class="space">
+        <h4>Logo</h4>
+        <div class="border">
+          <input type="file" name="logo" class="modal-input-logo">
+        </div>
+        <p class="error" id="logo-error">
+        </p>
+      </div><br>
+      <div class="space">
+        <h4>Company name</h4>
+        <div class="border-text">
+          <input type="text" name="name" class="modal-input-name">
+        </div>
+        <p class="error modal-error-name"></p>
+      </div><br>
+      <div class="space">
+        <h4>Industry</h4>
+        <div class="border-text">
+          <input type="text" name="industry" class='modal-input-industry'>
+        </div>
+        <p class="error modal-error-industry"></p>
+      </div><br>
+      <div class="space">
+        <h4>Website</h4>
+        <div class="border-text">
+          <input type="url" name="website" class="modal-input-website">
+        </div>
+        <p class="error modal-error-website"></p>
+      </div><br>
+
+      <div class="space">
+        <h4>Type of company</h4>
+        <select class="modal-input-structure">
+          <option class="type" value="Startup">Startup<br>
+          <option class="type" value="Boutique">Boutique<br>
+          <option class="type" value="Medium">Medium<br>
+          <option class="type" value="Small">Small<br>
+          <option class="type" value="Large">Large<br>
+        </select>
+        <p class="error modal-error-structure"></p>
+      </div><br>
+      <button type="submit" class="small-teal modal-submit-btn">Submit</button>
+  </div>
+</div>
+
+<script src="{% static 'js/components/CompanyModal.js' %}"></script>
+<script>
+    var companyData = {
+        logo: null,
+        name: "",
+        industry: "",
+        website: "",
+        structure: "",
+    };
+    var companyModal = new CompanyModal(
+        companyData,
+        "/codedoor/createcompany",
+        "{{ id }}",
+    );
+</script>

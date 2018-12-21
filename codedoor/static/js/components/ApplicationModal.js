@@ -19,7 +19,8 @@ var applicationModal = new ApplicationModal({
     description: "Very hard interview.",
     received_offer: true,
     offer_details: "100k salary",
-}, "/codedoor/createapplication/456789", "application-list");
+    company: 456789,
+}, "/codedoor/createapplication/", "application-list");
 
 */
 

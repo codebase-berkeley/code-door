@@ -26,65 +26,8 @@
     <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
       <button class="inline-block small-teal" id="create-review-btn">Create Review</button>
     </a>&nbsp;
-    <button class="inline-block small-teal" id="create_company">Create Company</button>
+    <button class="inline-block small-teal" id="create-company-btn">Create Company</button>
 
-    <!--This is the create company form-->
-    <div id="companyModal" class="modal">
-      <div class="modal-content">
-        <span id="closeC" class="close">&times;</span>
-        <h1> Create Company </h1><br>
-
-          {% csrf_token %}
-          <p class="error" id="display-error"></p>
-          <div class="space">
-            <h4>Logo</h4>
-            <div class="border">
-              <input type="file" name="logo" id="logo1">
-            </div>
-            <p class="error" id="logo-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Company name</h4>
-            <div class="border-text">
-              <input type="text" name="name" id="name">
-            </div>
-            <p class="error" id="name-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Industry</h4>
-            <div class="border-text">
-              <input type="text" name="industry" id='industry'>
-            </div>
-            <p class="error" id="industry-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Website</h4>
-            <div class="border-text">
-              <input type="url" name="website" id='website'>
-            </div>
-            <p class="error" id="website-error">
-            </p>
-          </div><br>
-
-          <div class="space">
-            <h4>Type of company</h4>
-            <div class="border">
-              <input class="type" type="radio" name="structure" value="Startup" id="startup">Startup<br>
-              <input class="type" type="radio" name="structure" value="Boutique" id="boutique">Boutique<br>
-              <input class="type" type="radio" name="structure" value="Medium" id="medium">Medium<br>
-              <input class="type" type="radio" name="structure" value="Small" id="small">Small<br>
-              <input class="type" type="radio" name="structure" value="Large" id="large">Large<br>
-            </div>
-            <p class="error" id="type-error">
-            </p>
-          </div><br>
-          <button id="submit" type="submit" class="small-teal">Submit</button>
-      </div>
-
-  </div>
 </div>
   <hr id="break">
 </br>
@@ -154,6 +97,7 @@
 
 {% include "components/review_modal.html" with id="review-modal" on_submit_list_id="reviews" only %}
 {% include "components/application_modal.html" with id="application-modal" on_submit_list_id="application-list" only %}
+{% include "components/company_modal.html" with id="company-modal" only %}
 
 </body>
 <script src="{% static 'js/home.js' %}"></script>

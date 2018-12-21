@@ -22,12 +22,14 @@ window.addEventListener("click", function(event) {
     // Get the buttons that open the modals
     var createAppBtn = document.getElementById("create-application-btn");
     var createReviewBtn = document.getElementById("create-review-btn");
-    // When the user clicks on the button, open the modal
+    var createCompanyBtn = document.getElementById("create-company-btn");
     createAppBtn.addEventListener("click", function() {
         document.getElementById("application-modal").style.display = "block";
     });
-    // When the user clicks on the button, open the modal
     createReviewBtn.addEventListener("click", function() {
         document.getElementById("review-modal").style.display = "block";
+    });
+    createCompanyBtn.addEventListener("click", function() {
+        document.getElementById("company-modal").style.display = "block";
     });
 })();
