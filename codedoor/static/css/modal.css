@@ -1,11 +1,16 @@
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="url"] {
   display: block;
   width: 100%;
   height: fit-content;
   overflow-x: scroll;
   font-size: 12px;
+  margin-top: 5px;
   padding: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f8f8f8;
 }
 
 textarea {
@@ -13,6 +18,10 @@ textarea {
   font-size: 12px;
   overflow-y: scroll;
   padding: 5px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f8f8f8;
 }
 
 /* The Close Button */
@@ -73,6 +82,10 @@ textarea {
 #yes,
 #no {
   margin: 10px 10px 0 0;
+}
+
+.company-types {
+  margin: 5px 0 0 10px;
 }
 
 button.small-teal {

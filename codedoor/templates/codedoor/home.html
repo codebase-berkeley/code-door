@@ -14,8 +14,8 @@
     <div id="searchbar">
 
       <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-       <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
-        <button class="sub" id="search" type="submit">Search</button>
+      <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
+      <button id="search" type="submit">Search</button>
       </form>
     </div>
   </div><br>
@@ -32,56 +32,47 @@
     <div id="companyModal" class="modal">
       <div class="modal-content">
         <span id="closeC" class="close">&times;</span>
-        <h1> Create Company </h1><br>
-
+        <h1>Create Company</h1>
           {% csrf_token %}
           <p class="error" id="display-error"></p>
-          <div class="space">
-            <h4>Logo</h4>
-            <div class="border">
-              <input type="file" name="logo" id="logo1">
+          <div class="entry">
+            <p>Logo</p>
+            <input type="file" name="logo" id="logo1">
+            <p class="error" id="logo-error"></p>
+          </div>
+          <div class="entry">
+            <p>Company name</p>
+            <input type="text" name="name" id="name">
+            <p class="error" id="name-error"></p>
+          </div>
+          <div class="entry">
+            <p>Industry</p>
+            <input type="text" name="industry" id='industry'>
+            <p class="error" id="industry-error"></p>
+          </div>
+          <div class="entry">
+            <p>Website</p>
+            <input type="url" name="website" id='website'>
+            <p class="error" id="website-error"></p>
+          </div>
+          <div class="entry">
+            <p>Type of company</p>
+              <div class="company-types">
+                <input class="type" type="radio" name="structure" value="Startup" id="startup">
+                <label for="Startup">Startup</label><br />
+                <input class="type" type="radio" name="structure" value="Boutique" id="boutique">
+                <label for="Boutique">Boutique</label><br />
+                <input class="type" type="radio" name="structure" value="Medium" id="medium">
+                <label for="Medium">Medium</label><br />
+                <input class="type" type="radio" name="structure" value="Small" id="small">
+                <label for="Small">Small</label><br />
+                <input class="type" type="radio" name="structure" value="Large" id="large">
+                <label for="Large">Large</label><br />
+              </div>
             </div>
-            <p class="error" id="logo-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Company name</h4>
-            <div class="border-text">
-              <input type="text" name="name" id="name">
-            </div>
-            <p class="error" id="name-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Industry</h4>
-            <div class="border-text">
-              <input type="text" name="industry" id='industry'>
-            </div>
-            <p class="error" id="industry-error">
-            </p>
-          </div><br>
-          <div class="space">
-            <h4>Website</h4>
-            <div class="border-text">
-              <input type="url" name="website" id='website'>
-            </div>
-            <p class="error" id="website-error">
-            </p>
-          </div><br>
-
-          <div class="space">
-            <h4>Type of company</h4>
-            <div class="border">
-              <input class="type" type="radio" name="structure" value="Startup" id="startup">Startup<br>
-              <input class="type" type="radio" name="structure" value="Boutique" id="boutique">Boutique<br>
-              <input class="type" type="radio" name="structure" value="Medium" id="medium">Medium<br>
-              <input class="type" type="radio" name="structure" value="Small" id="small">Small<br>
-              <input class="type" type="radio" name="structure" value="Large" id="large">Large<br>
-            </div>
-            <p class="error" id="type-error">
-            </p>
-          </div><br>
-          <button id="submit" type="submit" class="small-teal">Submit</button>
+            <p class="error" id="type-error"></p>
+            <button id="submit" type="submit" class="small-teal">Submit</button>
+          </div>
       </div>
 
   </div>
@@ -108,9 +99,7 @@
   </div>
   <br>
 
-
-
-  <div class="indent" >
+  <div class="interviews" >
     <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
     <button id="create-application-btn" class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
   </div>
