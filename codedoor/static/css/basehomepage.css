@@ -163,6 +163,7 @@ ul.company-suggestions {
 
 div.active ul.company-suggestions {
   display: block;
+  color: #000;
 }
 
 ul.company-suggestions li {
