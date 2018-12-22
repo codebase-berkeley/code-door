@@ -22,6 +22,15 @@ See the [first time setup guide](https://github.com/codebase-berkeley-mentored-p
 9. Run `python manage.py runserver` to run the server.
 10. Go to `localhost:8000` to see it in action!
 
+### Quick Start
+
+After installation of dependencies, to run a development server:
+
+1. Activate the virtual environment with `source env/bin/activate`.
+2. Start a Postgres server with `service postgresql start`.
+3. Run `python manage.py runserver` to run the server.
+4. Go to `localhost:8000` to see it in action!
+
 ## Overview
 
 CodeDoor runs on top of the [Django web framework](https://www.djangoproject.com/)

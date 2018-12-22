@@ -1,10 +1,11 @@
 {% load static %}
+{% load sass_tags %}
 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>{% block titletext %} {% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% sass_src 'css/base.scss' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
 	<link href="https://fonts.googleapis.com/css?family=Anton|Bree+Serif|Julius+Sans+One|Magra" rel="stylesheet">
 	<link rel="icon" type="image/png" href="{% static 'images/logo.svg' %}">

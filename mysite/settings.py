@@ -24,6 +24,7 @@ ALLOWED_HOSTS = ['*']  # Fix later
 # Application definition
 
 INSTALLED_APPS = [
+    'sass_processor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
