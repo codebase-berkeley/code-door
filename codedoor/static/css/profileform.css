@@ -8,34 +8,7 @@
 }
 
 .profile-form .entry {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
   margin: 40px;
-}
-
-.profile-form .label {
-  width: 35%;
-  padding: 0 16px;
-}
-
-.profile-form input {
-  border-radius: 2px;
-  padding: 8px 8px;
-  border: 1px solid #cccccc;
-  outline: none;
-  width: 100%;
-  height: 36px;
-}
-
-.profile-form input:hover {
-  transition-duration: 0.3s;
-  border: 1px solid #008489;
-}
-
-.profile-form input:focus {
-  border: 1px solid #008489;
 }
 
 #submit {

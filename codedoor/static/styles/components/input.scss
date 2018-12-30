@@ -1,0 +1,73 @@
+.input {
+  &-text {
+    display: block;
+    width: 100%;
+    height: fit-content;
+    overflow-x: scroll;
+    font-size: 14px;
+    margin-top: 5px;
+    padding: 0 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #484848;
+    outline: none;
+    transition: border-color 0.1s ease-in-out;
+
+    &:hover, &:focus {
+      border-color: $teal;
+    }
+
+    &-area {
+      font-family: 'Roboto';
+      font-size: 14px;
+      color: #484848;
+      display: block;
+      width: 50em;
+      height: 5em;
+      overflow: auto;
+      padding: 5px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      outline: none;
+      transition: border-color 0.1s ease-in-out;
+
+      &:hover, &:focus {
+        border-color: $teal;
+      }
+    }
+  }
+  &-checkbox {
+    cursor: pointer;
+    &-label {
+      margin-top: 5px;
+      cursor: pointer;
+      display: inline-block;
+      border: 1px solid $grey-off-white;
+      padding: 10px;
+      border-radius: 3px;
+      transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out;
+
+      &:hover {
+        background-color: $grey-off-white;
+        border-color: $teal;
+      }
+    }
+  }
+}
+
+.input-xs {
+  width: 8em;
+}
+.input-sm {
+  width: 12em;
+}
+.input-md {
+  width: 20em;
+}
+.input-lg {
+  width: 50em;
+}
+.input-fl {
+  width: 100%;
+}

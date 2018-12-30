@@ -1,19 +1,14 @@
-@font-face {
-  font-family: "Roboto";
-  src: url("/static/fonts/Roboto-Regular.ttf");
-}
-@font-face {
-  font-family: "Roboto-Light";
-  src: url("/static/fonts/Roboto-Light.ttf");
-}
-@font-face {
-  font-family: "Roboto-Medium";
-  src: url("/static/fonts/Roboto-Medium.ttf");
-}
-@font-face {
-  font-family: "Roboto-Bold";
-  src: url("/static/fonts/Roboto-Bold.ttf");
-}
+@import 'fonts/fonts';
+@import 'constants/constants';
+@import 'utils/utils';
+
+@import 'components/button';
+@import 'components/card-list';
+@import 'components/input';
+@import 'components/link';
+@import 'components/modal';
+@import 'components/nav';
+@import 'components/search-jumbotron';
 
 .menu {
   height: 30px;
@@ -59,24 +54,24 @@ label {
   margin: 0 auto;
 }
 
-@media (min-width: 768px) {
+@media (min-width: $screen-sm-min) {
   .container {
-    width: 768px;
+    width: $screen-sm-min;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: $screen-md-mid) {
   .container {
-    width: 992px;
+    width: $screen-md-mid;
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: $screen-lg-min) {
   .container {
-    width: 1170px;
+    width: $screen-lg-min;
   }
 }
 
 .content {
-  margin: 15px 0 80px;
+  margin: 0 auto;
 }
 
 h1,
@@ -90,17 +85,8 @@ h4 {
   color: #484848;
 }
 
-input {
-  color: #484848;
-}
-
 .display {
   display: block !important;
-}
-
-button:hover {
-  cursor: pointer;
-  background-color: #01696d;
 }
 
 .item {
@@ -117,6 +103,7 @@ button:hover {
 }
 
 #topsearch {
+  @include flex(center, flex-start);
   display: flex;
   align-items: center;
   justify-content: flex-start;

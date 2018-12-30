@@ -1,31 +1,5 @@
-input[type="text"],
-input[type="number"],
-input[type="url"] {
-  display: block;
-  width: 100%;
-  height: fit-content;
-  overflow-x: scroll;
-  font-size: 12px;
-  margin-top: 5px;
-  padding: 0 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background-color: #f8f8f8;
-}
-
-textarea {
-  width: 100%;
-  font-size: 12px;
-  overflow-y: scroll;
-  padding: 5px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  background-color: #f8f8f8;
-}
-
 /* The Close Button */
-.close {
+.modal-close-btn {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -77,11 +51,6 @@ textarea {
   float: left;
   line-height: 2.2;
   margin-right: 20px;
-}
-
-#yes,
-#no {
-  margin: 10px 10px 0 0;
 }
 
 .company-types {

@@ -8,29 +8,23 @@
   <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 <body>
-  <div id="home-search" class="indent">
-    <h1 id="codor"> CodeDoor </h1>
-    <p id="subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
-    <div id="searchbar">
-
+  <div class="search-jumbotron">
+    <h1 class="search-jumbotron-header"> CodeDoor </h1>
+    <p class="search-jumbotron-subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
+    <div class="search-jumbotron-searchbar">
       <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
-      <input id="searchtype" name="query" type="text" placeholder='Try "Google"'>
-      <button class="sub" id="search" type="submit">Search</button>
+      <input class="search-jumbotron-searchtype" name="query" type="text" placeholder='Try "Google"'>
+      <button class="btn btn-sm search-jumbotron-searchbar-submit" type="submit">Search</button>
       </form>
     </div>
-  </div><br>
-
-
-  <div id="recent-activity" class="indent">
-    <h3>Recent Activity</h3><br>
+  </div>
+  <div class="card-list-header">
+    <h3>Recent Activity</h3>
     <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
-      <button class="inline-block small-teal" id="create-review-btn">Create Review</button>
-    </a>&nbsp;
-    <button class="inline-block small-teal" id="create-company-btn">Create Company</button>
-</div>
-  <hr id="break">
-
-<div id="reviews">
+      <button class="btn btn-sm" id="create-review-btn">Create Review</button>
+    <button class="btn btn-sm" id="create-company-btn">Create Company</button>
+  </div>
+  <div class="card-list">
     {% comment %}
       We add an invisible "dummy" review to the HTML to provide a template for review creation in clientside code.
     {% endcomment %}
@@ -49,13 +43,11 @@
   </div>
   <br>
 
-  <div class="interviews" >
+  <div class="card-list-header" >
     <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
-    <button id="create-application-btn" class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
+    <button id="create-application-btn" class="btn btn-sm">Create New Application</button>
   </div>
-  <hr id="break">
-
-  <div id="application-list" class="indent">
+  <div class="card-list">
     <div id="existing-applications">
       {% for a in applications %}
         {% include "components/application.html" with a=a only %}
@@ -65,30 +57,6 @@
           <a href="{% url 'codedoor:list_all_applications' %}">Show More >>></a>
       {% endif %}
     </div>
-
-    <!-- Source: Vitor Freitas -->
-    {% if applications.has_other_pages %}
-      <ul class="pagination">
-        {% if applications.has_previous %}
-          <li class="clickable"><a href="?page={{ applications.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in applications.paginator.page_range %}
-          {% if applications.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if applications.has_next %}
-          <li><a href="?page={{ applications.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
-    {% endif %}
-    <br>
   </div>
 
 {% include "components/review_modal.html" with id="review-modal" on_submit_list_id="reviews" only %}
