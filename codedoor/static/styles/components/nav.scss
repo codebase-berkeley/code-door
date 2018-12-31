@@ -1,0 +1,45 @@
+.nav {
+  height: 110px;
+  .container {
+    height: 100%;
+    @include flex(center, space-between);
+  }
+  &-left {
+    flex: 1;
+    @include flex(center, flex-start);
+  }
+  &-right {
+    margin: 0 15px;
+    @include flex(center, flex-end);
+  }
+  &-search {
+    flex: 1;
+    border-left: 2px solid $grey-off-white;
+    padding: 0 25px;
+    @include flex(center, flex-start);
+    &-icon {
+      margin-right: 15px;
+    }
+    &-bar {
+      flex: 1;
+    }
+    &-text {
+      font-size: 18px;
+      padding: 10px;
+      width: 100%;
+    }
+  }
+  &-logo {
+    margin: 0 25px;
+  }
+  &-profile-circle {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-position: center;
+    background-size: cover;
+  }
+  &-logout {
+    margin: 0 10px;
+  }
+}

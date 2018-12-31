@@ -1,0 +1,8 @@
+a {
+    color: $teal;
+    text-decoration: none;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

@@ -1,0 +1,27 @@
+.btn {
+  background-color: $teal;
+  border: none;
+  color: #fff;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.1s ease-in-out;
+
+  &:hover {
+    background-color: $teal-dark;
+  }
+}
+
+.btn-sm {
+  font-size: 14px;
+}
+.btn-xs {
+  font-size: 12px;
+}
+.btn-md {
+  font-size: 16px;
+}

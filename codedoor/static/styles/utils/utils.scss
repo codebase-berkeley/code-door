@@ -1,0 +1,18 @@
+@mixin size($width: inherit, $height: inherit) {
+  width: $width;
+  height: $height;
+}
+
+@mixin flex($align, $justify, $direction: row) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+  flex-direction: $direction;
+}
+
+@mixin border-radius($topLeft:50%, $topRight:50%, $botLeft:50%, $botRight:50%) {
+  border-top-left-radius: $topLeft;
+  border-top-right-radius: $topRight;
+  border-bottom-left-radius: $botLeft;
+  border-bottom-right-radius: $botRight;
+}

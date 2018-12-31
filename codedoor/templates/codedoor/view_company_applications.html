@@ -1,20 +1,16 @@
 {% extends 'codedoor/view_company.html' %}
 {% load static %}
 {% block tabcontent %}
-<div id="nav">
-    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" id="reviews_tab" class="nav_items">Reviews</a>
-    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" id="applications_tab" class="active_item nav_items">Applications</a>
-    <span style="float:right;position:absolute;right:10%;">
-      <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
-      <a id="create-application-btn" class="sub">Add Application</a>
-    </span>
+<div class="company-tabs">
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" class="company-tabs-tab">Reviews</a>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" class="active company-tabs-tab">Applications</a>
 </div>
 
-<div id="applications" class="indent">
-    <div id="applications-dropdown" class="dropdown">
+<div class="card-list-container">
+    <div class="card-list-filters">
       <form action="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" method="GET">
           <span class="filter">Year:
-          <select name = "year">
+          <select name="year" class="input-dropdown">
             <option value = None>All</option>
             <option value = 2018>2018</option>
             <option value = 2017>2017</option>
@@ -25,7 +21,7 @@
           </span>
 
           <span class="filter">Season:
-          <select name = "season">
+          <select name = "season" class="input-dropdown">
             <option value = None>All</option>
             <option value = "Fall">Fall</option>
             <option value = "Spring">Spring</option>
@@ -35,25 +31,28 @@
           </span>
 
           <span class="filter">Received Offer:
-          <select name = "received_offer">
+          <select name = "received_offer" class="input-dropdown">
             <option value = None>All</option>
             <option value = True>Yes</option>
             <option value = False>No</option>
           </select>
           </span>
 
-          <button class="sub" id="search" type="submit">Filter</button>
+          <button class="btn btn-md" type="submit">Filter</button>
       </form>
+      <span>
+        <a class="btn btn-md" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
+        <a id="create-application-btn" class="btn btn-md">Add Application</a>
+      </span>
     </div>
-
-    <div id="application-list">
+    <div id="application-list" class="card-list">
 
       {% include "components/application.html" with a=applications.0 dummy=True only %}
       {% for a in applications %}
         {% include "components/application.html" with a=a only %}
       {% endfor %}
-
-      <!-- Source: Vitor Freitas -->
+    </div>
+    <!-- Source: Vitor Freitas -->
       {% if applications.has_other_pages %}
         <ul class="pagination">
           {% if applications.has_previous %}
@@ -76,8 +75,6 @@
           {% endif %}
         </ul>
       {% endif %}
-      <br>
-    </div>
 </div>
 
 {% include "components/application_modal.html" with id="application-modal" on_submit_list_id="application-list" company=company only %}

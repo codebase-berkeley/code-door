@@ -10,43 +10,43 @@
 </h1>
 <form class="profile-form" enctype="multipart/form-data" action="{% url 'codedoor:editprofile' pk=profile.id %}" method="POST"> {% csrf_token %}
     <div class="entry">
-        <p class="label">First Name:</p>
-        <input type="text" name="first_name" value="{{ profile.user.first_name }}" required>
+        <h4>First Name:</h4>
+        <div>
+            <input type="text" name="first_name" value="{{ profile.user.first_name }}" class="input-text input-md" required>
+        </div>
     </div>
     <div class="entry">
-        <p class="label">Last Name:</p>
-        <input type="text" name="last_name" value="{{ profile.user.last_name }}" required>
+        <h4>Last Name:</h4>
+        <div>
+            <input type="text" name="last_name" value="{{ profile.user.last_name }}" class="input-text input-md" required>
+        </div>
     </div>
     <div class="entry">
-        <p class="label">Profile Picture:</p>
-        {% if profile.profile_pic %}
-            <input type="file" name="profile_pic" accept="image/*" id="pfpchanger">
-            <script language="JavaScript">
-                document.getElementById("pfpchanger").style.visibility="hidden";
-                var displaypfpswap = function() {
-                    document.getElementById("pfpchangeboton").style.visibility="hidden"
-                    document.getElementById("pfpchanger").style.visibility="visible"
-                }
-            </script>
-            <input type="button" onclick="displaypfpswap()" value="Change Profile Picture" id="pfpchangeboton" >
-        {% else %}
-            <input type="file" name="profile_pic" accept="image/*">
-        {%  endif %}
+        <h4>Profile Picture:<h4>
+        <div>
+            <input type="file" name="profile_pic" accept="image/*" class="input-file">
+        </div>
     </div>
     <div class="entry">
-        <p class="label">Graduation Year:</p>
-        <input type="number" name="graduation_year" value="{{ profile.graduation_year }}" required>
+        <h4>Graduation Year:</h4>
+        <div>
+            <input type="number" name="graduation_year" value="{{ profile.graduation_year }}" class="input-text input-xs" required>
+        </div>
     </div>
     <div class="entry">
-        <p class="label">Current Job:</p>
-        <input type="text" name="current_job" value="{{ profile.current_job }}">
+        <h4>Current Job:</h4>
+        <div>
+            <input type="text" name="current_job" value="{{ profile.current_job }}" class="input-text input-md">
+        </div>
     </div>
     <div class="entry">
-        <p class="label">LinkedIn:</p>
-        <input type="text" name="linkedin" value="{{ profile.linkedin }}">
+        <h4>LinkedIn:<h4>
+        <div>
+            <input type="text" name="linkedin" value="{{ profile.linkedin }}" class="input-text input-md">
+        </div>
     </div>
     <div id="submit">
-        <input type="submit" value="Save Changes">
+        <input type="submit" value="Save Changes" class="btn btn-lg">
     </div>
 </form>
 </html>

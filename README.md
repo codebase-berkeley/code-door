@@ -19,8 +19,34 @@ See the [first time setup guide](https://github.com/codebase-berkeley-mentored-p
 6. Build migration scripts with `python manage.py makemigrations codedoor`.
 7. Run `python manage.py migrate` to create the CodeDoor database and schema in the postgres DB backend.
 8. Create a file called `api_keys.py` in the root directory with the correct credentials (see: "Developing Locally" for local credentials).
-9. Run `python manage.py runserver` to run the server.
-10. Go to `localhost:8000` to see it in action!
+9. To setup automatic SASS compilation, add the following to `settings.py`:
+```python
+from django.conf import settings
+
+...
+
+INSTALLED_APPS = [
+    …
+    'sass_processor',
+    …
+]
+
+...
+
+STATICFILES_FINDERS = settings.STATICFILES_FINDERS + ['sass_processor.finders.CssFinder']
+
+```
+10. Run `python manage.py runserver` to run the server.
+11. Go to `localhost:8000` to see it in action!
+
+### Quick Start
+
+After installation of dependencies, to run a development server:
+
+1. Activate the virtual environment with `source env/bin/activate`.
+2. Start a Postgres server with `service postgresql start`.
+3. Run `python manage.py runserver` to run the server.
+4. Go to `localhost:8000` to see it in action!
 
 ## Overview
 
@@ -70,6 +96,28 @@ slack_access_keys = {
 
 absolute_url = "http://localhost:8000"
 ```
+
+Styling is done using SASS compiled on-the-fly. Instead of running a daemon to watch our SCSS files for changes, we use
+[django-sass-processor](https://github.com/jrief/django-sass-processor). This means that instead of using
+
+```html
+<link rel="stylesheet" href="{% static '/styles/example.css' %}" />
+```
+
+to import stylesheets, we use a new templatetag
+
+```html
+{% sass_src 'styles/example.scss' %}
+```
+
+which will compile the given `*.scss` file into `*.css` and render the final template code as the HTML:
+
+```html
+<link href="/static/styles/example.css" rel="stylesheet" />
+```
+
+Note that because we are using a new templatetag, we must load this tag in the base template (already done).
+Since most pages will extend the base template, no further action is needed.
 
 You are now ready to run a local instance of CodeDoor.
 

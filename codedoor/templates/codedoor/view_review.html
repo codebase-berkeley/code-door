@@ -3,50 +3,31 @@
 {% block content %}
 
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany2.css' %}">
   <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 
 <body>
-  <div class="companyportion">
-    <div class="company-logo">
-
-    <img src="{{review.company.logo}}" alt="Company logo" width="150" height="150">
-
-    <div class='sub1'><h1>{{review.company.name}}</h1><br>
-      <p>{{review.company.industry }}, {{review.company.structure}}</p><br>
-      <img src="{% static 'images/linklogo.png' %}" class='logo' width="20px" height="20px" /> <span>{{review.company.website}}</span>
-      <img src="{% static 'images/locationlogo.png' %}" class='logo' width="20px" height="20px" /> <span>Mountain View</span>
-    </div>
-
-    </div>
-  </div>
-
-  <hr id="break">
-  <br>
+  {% include "components/company_header.html" with company=review.company only %}
 
 <div id="bottom-half">
   <div style="float:right;position:absolute;right:10%;">
     {% if review.reviewer.user == request.user %}
-      <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
-    {% else %}
-      <p></p>
+      <a class="btn btn-sm" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
     {% endif %}
   </div>
   <div id="reviews">
     {% include "components/review.html" with review=review only %}
-    <br>
   </div>
   <br><br>
   <h4 class="commentbase"> Comments: </h4>
-  <textarea id="addbody" name="body" placeholder="Review here"></textarea>
+  <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>
   <p id="display-error"></p>
-  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}">
+  <input id="reviewpk" type="hidden" name="review" value="{{ review.pk }}">
 
-  <button class="sub" id="submit">Submit</button>
-  <button class="sub" id="cancel">Cancel</button>
+  <button class="btn btn-sm" id="submit">Submit</button>
+  <button class="btn btn-sm" id="cancel">Cancel</button>
 
-  <div id ="comment"></div>
+  <div id="comment"></div>
   {% for comment in comments %}
     <div id="comment">
       <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">

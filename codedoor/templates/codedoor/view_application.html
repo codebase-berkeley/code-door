@@ -1,113 +1,20 @@
 {% extends 'codedoor/base.html' %}
 {% load static from staticfiles %}
 {% block content %}
-<head>
-    <link rel="stylesheet" href="{% static 'css/application.css' %}">
-    <link rel="stylesheet" href="{% static 'css/question.css' %}">
-    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
-</head>
 <body>
+  {% include "components/company_header.html" with company=a.company only %}
+
   <textarea id="pk" style="display: none;">{{ a.pk }}</textarea>
   <textarea id="logo" style="display: none;">{{ a.company.logo }}</textarea>
   <textarea id="company" style="display: none;">{{ a.company }}</textarea>
   <textarea id="profile" style="display: none;">{{ a.profile }}</textarea>
   <div class="entry">
-    <table id="app">
-      <tr>
-        {% if a.company.logo != null %}
-          <td rowspan="3" width="7%">
-            <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
-          </td>
-        {% else %}
-          <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
-          </td>
-        {% endif %}
-        <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=a.company.pk database='reviews' %}">
-            <h2 class="link-text">{{ a.company }}</h2>
-          </a>
-          <span class="applicant-name">
-              <a href="{% url 'codedoor:viewprofile' pk=a.profile.id %}">{{ a.profile }}</a>
-          </span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info job-position">{{a.position}}</span>
-          <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <p><span class="info colorful-boxy">
-            {% if a.received_offer %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg> Received Offer
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg> No Offer
-              </span>
-            {% endif %}
-          </span>
-          <span class="info colorful-boxy">
-            {% if a.difficult > 7 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#ff4d4d" />
-                </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-              </span>
-            {% elif a.difficult < 4 %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#01959b" />
-                </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
-              </span>
-            {% else %}
-              <span>
-                <svg width="15" height="15">
-                <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                style="fill:#FF9B71;" />
-                </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
-              </span>
-            {% endif %}
-          </span></p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <h4>Description:</h4>
-          <p>{{a.description}}</p>
-        </td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>
-          <h4>Offer details:</h4>
-          <p>{{a.offer_details}}</p>
-        </td>
-      </tr>
-    </table>
-      <br>
-    <br><br>
-        {% if request.user.profile == profile %}
-          <button id="qBtn" class="sub">Create Question</button>
-          <button id="aBtn" class="sub">Edit Application</button>
-        {% endif %}
-    <br><br>
+    {% include "components/application.html" with a=a only %}
 
-
-
+    {% if request.user.profile == profile %}
+      <button id="qBtn" class="btn btn-sm">Create Question</button>
+      <button id="aBtn" class="btn btn-sm">Edit Application</button>
+    {% endif %}
 
     <div id="myModal2" class="modal">
       <div class="modal-content">
@@ -175,14 +82,10 @@
             <textarea id="offer_details">{{ a.offer_details }}</textarea>
         </div>
         <div class="entry">
-              <button id="submit_button_edit" type="submit" class="big" onclick="displayEditApplicationForm()">Submit</button>
+              <button id="submit_button_edit" type="submit" class="btn btn-sm" onclick="displayEditApplicationForm()">Submit</button>
         </div>
       </div>
     </div>
-
-
-
-
 
     <div id="myModal" class="modal">
       <div class="modal-content">
@@ -200,7 +103,7 @@
             <textarea id="company_answer" name="company answer" placeholder="Company answer"></textarea><br><br>
         </div>
         <div class="entry">
-            <button id="submit_button" type="submit" class="big" onclick="displayQuestionForm()">Submit</button>
+            <button id="submit_button" type="submit" class="btn btn-md" onclick="displayQuestionForm()">Submit</button>
         </div>
       </div>
   </div>
@@ -224,10 +127,11 @@
         <p id="buffer">No questions yet!</p>
     {% endif %}
     <h2> Comments </h2><br>
-    <textarea id="addbody" name="body" placeholder="Review here"></textarea><p id="display-error"></p>
+    <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>
+    <p id="display-error"></p>
     <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}">
-    <button class="sub" id="submit">Submit</button>
-    <button class="sub" id="cancel">Cancel</button>
+    <button class="btn btn-sm" id="submit">Submit</button>
+    <button class="btn btn-sm" id="cancel">Cancel</button>
     {% if comments %}
       {% for comment in comments %}
           <div id="comment">

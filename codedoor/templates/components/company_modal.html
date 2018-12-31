@@ -10,14 +10,14 @@ Includes all the HTML code and JS libraries needed to render an company form mod
 
 <div id="{{ id }}" class="modal">
   <div class="modal-content">
-    <span class="close modal-close-btn">&times;</span>
+    <span class="modal-close-btn">&times;</span>
     <h1> Create Company </h1><br>
 
       <p class="error modal-error-display"></p>
       <div class="space">
         <h4>Logo</h4>
         <div class="border">
-          <input type="file" name="logo" class="modal-input-logo">
+          <input type="file" name="logo" class="modal-input-logo input-file">
         </div>
         <p class="error" id="logo-error">
         </p>
@@ -25,21 +25,21 @@ Includes all the HTML code and JS libraries needed to render an company form mod
       <div class="space">
         <h4>Company name</h4>
         <div class="border-text">
-          <input type="text" name="name" class="modal-input-name">
+          <input type="text" name="name" class="modal-input-name input-text input-md">
         </div>
         <p class="error modal-error-name"></p>
       </div><br>
       <div class="space">
         <h4>Industry</h4>
         <div class="border-text">
-          <input type="text" name="industry" class='modal-input-industry'>
+          <input type="text" name="industry" class="modal-input-industry input-text input-md">
         </div>
         <p class="error modal-error-industry"></p>
       </div><br>
       <div class="space">
         <h4>Website</h4>
         <div class="border-text">
-          <input type="url" name="website" class="modal-input-website">
+          <input type="url" name="website" class="modal-input-website input-text input-md">
         </div>
         <p class="error modal-error-website"></p>
       </div><br>
@@ -55,7 +55,7 @@ Includes all the HTML code and JS libraries needed to render an company form mod
         </select>
         <p class="error modal-error-structure"></p>
       </div><br>
-      <button type="submit" class="small-teal modal-submit-btn">Submit</button>
+      <button type="submit" class="btn btn-sm modal-submit-btn">Submit</button>
   </div>
 </div>
 

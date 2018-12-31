@@ -1,51 +1,37 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
-<html>
-<head>
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/viewprofile.css' %}">
-</head>
-<body>
-  <div class="profile">
-    <div>
-      <div id="profile-pic" style="background-image: url('{{ profile.profile_pic }}');"></div>
-      {% if request.user.profile == profile %}
-        <a href="/codedoor/editprofile/{{ profile.id }}">
-          <p id="edit-profile">(edit profile)</p>
+<div class="profile-header">
+  <div>
+    <div class="profile-header-pic" style="background-image: url('{{ profile.profile_pic }}');"></div>
+  </div>
+  <div class="profile-header-body">
+    <h1 class="profile-header-body-name">
+      {{ profile.user.get_full_name }}
+    </h1>
+    <p class="profile-header-body-job">
+      {{ profile.current_job }}
+    </p>
+    <p class="profile-header-body-year">
+      Class of {{ profile.graduation_year }}
+    </p>
+    <div id="profile-header-body-links">
+      {% if profile.linkedin %}
+        <a class="profile-header-body-links-li" href="{{ profile.linkedin }}">
+          <img class="profile-header-body-links-li-icon" src="{% static 'images/linkedinlogo.png' %}">
+          <span>{{ profile.linkedin }}</span>
         </a>
       {% endif %}
+        <a class="profile-header-body-links-li" href="mailto:{{ profile.user.email }}">
+          <img class="profile-header-body-links-li-icon" src="{% static 'images/emailicon.png' %}">
+          <span>{{ profile.user.email }}</span>
+        </a>
     </div>
-    <div class="profile-information">
-      <div class="basic-info">
-        <p id="name">
-          {{ profile.user.get_full_name }}
-        </p>
-        <p id="job">
-          {{ profile.current_job }}
-        </p>
-        <p id="classof">
-          Class of {{ profile.graduation_year }}
-        </p>
-      </div>
-      <div id="profile-links">
-        {% if profile.linkedin %}
-          <div class="link">
-            <a href={{ profile.linkedin }}>
-              <img class="icon" src={% static 'images/linkedinlogo.png' %}>
-              <span>{{ profile.linkedin }}</span>
-            </a>
-          </div>
-        {% endif %}
-        <div class="link">
-          <a href="mailto:{{ profile.user.email }}">
-            <img class="icon" src={% static 'images/emailicon.png' %}>
-            <span>{{ profile.user.email }}</span>
-          </a>
-        </div>
-      </div>
-    </div>
+    {% if request.user.profile == profile %}
+      <a href="/codedoor/editprofile/{{ profile.id }}">
+        <p class="btn btn-sm edit-profile">Edit Profile</p>
+      </a>
+    {% endif %}
   </div>
-</body>
-</html>
+</div>
 {% endblock content %}
