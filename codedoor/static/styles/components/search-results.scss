@@ -1,0 +1,27 @@
+.search-results {
+    display: inline-block;
+    width: 75%;
+    float: right;
+
+    &-number {
+        margin-bottom: 10px;
+        font-family: 'Roboto';
+        color: #7F7F7F;
+    }
+
+    &-types {
+        display: inline-block;
+        border: 1px solid $grey-off-white;
+        border-radius: 5px;
+        width: 20%;
+        float: left;
+        &-type {
+            margin: 15px;
+            font-weight: bold;
+            font-size: 16px;
+            .active {
+                font-weight: normal;
+            }
+        }
+    }
+}

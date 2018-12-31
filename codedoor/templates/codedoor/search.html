@@ -1,35 +1,32 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
 {% block content %}
-<head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/search.css' %}">
-</head>
 <body>
-<div id="databases">
-  <div>
-    {% if database != "reviews" %}
-    <a class="data" href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
+<div class="search-results-types">
+  <div class="search-results-types-type">
+    {% if database == "reviews" %}
+    <a class="active" href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
     {% else %}
     <a href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
     {% endif %}
   </div>
-  <div>
-    {% if database != "interviews" %}
-    <a class="data" href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
+  <div class="search-results-types-type">
+    {% if database == "interviews" %}
+    <a class="active" href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
     {% else %}
     <a href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
     {% endif %}
   </div>
-  <div>
-    {% if database != "companies" %}
-    <a class="data" href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
+  <div class="search-results-types-type">
+    {% if database == "companies" %}
+    <a class="active" href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
     {% else %}
     <a href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
     {% endif %}
   </div>
-  <div>
-    {% if database != "users" %}
-    <a class="data" href="{% url 'codedoor:search' database='users' %}?query={{ query }}">Users</a>
+  <div class="search-results-types-type">
+    {% if database == "users" %}
+    <a class="active" href="{% url 'codedoor:search' database='users' %}?query={{ query }}">Users</a>
     {% else %}
     <a href="{% url 'codedoor:search' database='users' %}?query={{ query }}">Users</a>
     {% endif %}
@@ -37,70 +34,70 @@
 </div>
 
 
-<div id="results">
-  <div id="number">
+<div class="search-results card-list-container">
+  <div class="search-results-number">
   {{ number }} {{ database }} found for "{{ query }}":
   </div>
 
-  {% if database == "reviews" %}
-    {% for review in data %}
-      {% include "components/review.html" with review=review only %}
-    {% endfor %}
+  <div class="card-list">
+    {% if database == "reviews" %}
+      {% for review in data %}
+        {% include "components/review.html" with review=review only %}
+      {% endfor %}
+    {% elif database == "interviews" %}
+      {% for a in data %}
+        {% include "components/application.html" with a=a only %}
+      {% endfor %}
+    {% elif database == "companies" %}
+        {% for company in data %}
+      <table>
+        <tr>
+          {% if company.logo %}
+            <td rowspan="3" width="7%">
+              <img src="{{company.logo}}" width="100" height="100">
+            </td>
+          {% else %}
+            <td rowspan="3" width="7%">
+              <img src="/static/images/temp.png" width="100" height="100">
+            </td>
+          {% endif %}
+          <td width="93%">
+            <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}">
+              <h2 class="link-text">{{ company.name }}</h2>
+            </a>
+            <span class="applicant-name">{{ company.industry }}, {{company.structure}}</span>
+          </td>
+        </tr>
+      </table>
+      <br>
+      {% endfor %}
+    {% elif database == "users" %}
+      {% for profile in data %}
+      <table>
+        <tr>
+          {% if profile.profile_pic %}
+            <td rowspan="3" width="7%">
+              <img src="{{profile.profile_pic}}" width="100" height="100">
+            </td>
+          {% else %}
+            <td rowspan="3" width="7%">
+              <img src="/static/images/temp.png" width="100" height="100">
+            </td>
+          {% endif %}
+          <td width="93%">
+            <a href="{% url 'codedoor:viewprofile' pk=profile.pk %}">
+              <h2 class="link-text">{{ profile.user.get_full_name }}</h2>
+            </a>
+            <div class="applicant-name"> {{ profile.current_job }} </div>
+            <div class="applicant-name"> Class of {{ profile.graduation_year }} </div>
+          </td>
+        </tr>
+      </table>
+      <br>
+      {% endfor %}
+    {% endif %}
+  </div>
 
-  {% elif database == "interviews" %}
-    {% for a in data %}
-      {% include "components/application.html" with a=a only %}
-    {% endfor %}
-
-  {% elif database == "companies" %}
-      {% for company in data %}
-    <table>
-      <tr>
-        {% if company.logo %}
-          <td rowspan="3" width="7%">
-            <img src="{{company.logo}}" width="100" height="100">
-          </td>
-        {% else %}
-          <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" width="100" height="100">
-          </td>
-        {% endif %}
-        <td width="93%">
-          <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}">
-            <h2 class="link-text">{{ company.name }}</h2>
-          </a>
-          <span class="applicant-name">{{ company.industry }}, {{company.structure}}</span>
-        </td>
-      </tr>
-    </table>
-    <br>
-    {% endfor %}
-  {% elif database == "users" %}
-    {% for profile in data %}
-    <table>
-      <tr>
-        {% if profile.profile_pic %}
-          <td rowspan="3" width="7%">
-            <img src="{{profile.profile_pic}}" width="100" height="100">
-          </td>
-        {% else %}
-          <td rowspan="3" width="7%">
-            <img src="/static/images/temp.png" width="100" height="100">
-          </td>
-        {% endif %}
-        <td width="93%">
-          <a href="{% url 'codedoor:viewprofile' pk=profile.pk %}">
-            <h2 class="link-text">{{ profile.user.get_full_name }}</h2>
-          </a>
-          <div class="applicant-name"> {{ profile.current_job }} </div>
-          <div class="applicant-name"> Class of {{ profile.graduation_year }} </div>
-        </td>
-      </tr>
-    </table>
-    <br>
-    {% endfor %}
-
-  {% endif %}
     <!-- Source: Vitor Freitas -->
  {% if data.has_other_pages %}
       <ul class="pagination">
