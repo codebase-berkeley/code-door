@@ -1,0 +1,31 @@
+{% comment %}
+CompanyHeader Component.
+
+Renders a header containing basic company information.
+
+:param: company - A company dictionary.
+{% endcomment %}
+{% load static %}
+
+<div class="company-header">
+    {% if company.logo %}
+      <img class="company-header-logo" src="{{company.logo}}" alt="Company logo" width="150" height="150">
+    {% else %}
+      <img class="company-header-logo" src="/static/images/temp.png" alt="Company logo" width="150" height="150">
+    {% endif %}
+
+    <div class="company-header-body">
+      <h1 class="company-header-body-name">{{company.name}}</h1>
+      <p class="company-header-body-subtitle">{{ company.industry }}, {{company.structure}}</p>
+      <div class="company-header-body-links">
+        <a href="{{company.website}}" class="company-header-body-links-li">
+          <img src="{% static 'images/linklogo.png' %}" class="company-header-body-links-li-icon" width="20px" height="20px" />
+          <span>{{company.website}}</span>
+        </a>
+        <a href="https://www.google.com/maps/search/?api=1&query={{company.name|urlencode}}" class="company-header-body-links-li">
+          <img src="{% static 'images/locationlogo.png' %}" class="company-header-body-links-li-icon" width="20px" height="20px" />
+          <span>Location</span>
+        </a>
+      </div>
+    </div>
+</div>

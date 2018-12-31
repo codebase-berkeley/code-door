@@ -1,74 +1,68 @@
 {% extends 'codedoor/view_company.html' %}
 {% load static %}
 {% block tabcontent %}
-<div id="nav">
-    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" id="reviews_tab" class="active_item nav_items">Reviews</a>
-    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" id="applications_tab" class="nav_items">Applications</a>
-    <span style="float:right;position:absolute;right:10%;">
-      <a class="sub" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
-      <a class="sub" id="create-review-btn">Add Review</a>
-    </span>
+<div class="company-tabs">
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='reviews' %}" class="active company-tabs-tab">Reviews</a>
+    <a href="{% url 'codedoor:viewcompany' pk=company.pk database='applications' %}" class="company-tabs-tab">Applications</a>
 </div>
 
-<div id="reviews-dropdown" class="dropdown">
-    <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
-        <span class="filter">Rating:
-        <select name = "rating">
-          <option value = None>All</option>
-          <option value = 1>1 star</option>
-          <option value = 2>2 stars</option>
-          <option value = 3>3 stars</option>
-          <option value = 4>4 stars</option>
-          <option value = 5>5 stars</option>
-        </select>
+<div class="card-list-container">
+    <div class="card-list-filters">
+        <form action="{% url 'codedoor:viewcompany' pk=company.pk database='reviews'%}" method="GET">
+            <span class="filter">Rating:
+            <select name = "rating" class="input-dropdown">
+              <option value = None>All</option>
+              <option value = 1>1 star</option>
+              <option value = 2>2 stars</option>
+              <option value = 3>3 stars</option>
+              <option value = 4>4 stars</option>
+              <option value = 5>5 stars</option>
+            </select>
+            </span>
+
+            <span class="filter">Recommend:
+            <select name = "recommend" class="input-dropdown">
+              <option value = None>All</option>
+              <option value = True>Yes</option>
+              <option value = False>No</option>
+            </select>
+            </span>
+
+          <button class="btn btn-md" type="submit">Filter</button>
+        </form>
+        <span>
+          <a class="btn btn-md" href="{% url 'codedoor:editcompany' pk=company.pk %}">Edit Company Info</a>
+          <a class="btn btn-md" id="create-review-btn">Add Review</a>
         </span>
-
-
-
-        <span class="filter">Recommend:
-        <select name = "recommend">
-          <option value = None>All</option>
-          <option value = True>Yes</option>
-          <option value = False>No</option>
-        </select>
-        </span>
-
-      <button class="sub" id="search" type="submit">Filter</button>
-    </form>
-</div>
-
-<div id="reviews">
-{% comment %}
-  We add an invisible "dummy" review to the HTML to provide a template for review creation in clientside code.
-{% endcomment %}
-{% include "components/review.html" with review=reviews.0 dummy=True only %}
-{% for review in reviews %}
-  {% include "components/review.html" with review=review display_profile_pic=True only %}
-<br>
-{% endfor %}
-
-<!-- Source: Vitor Freitas -->
-{% if reviews.has_other_pages %}
-  <ul class="pagination">
-    {% if reviews.has_previous %}
-      <a href="?page={{ reviews.previous_page_number }}"><li class="clickable">&laquo;</li></a>
-    {% else %}
-      <li>&laquo;</li>
-    {% endif %}
-    {% for i in reviews.paginator.page_range %}
-      {% if reviews.number == i %}
-        <li class="active">{{ i }}</li>
-      {% else %}
-        <a href="?page={{ i }}"><li>{{ i }}</li></a>
-      {% endif %}
+    </div>
+    <div id="reviews" class="card-list">
+    {% include "components/review.html" with review=reviews.0 dummy=True only %}
+    {% for review in reviews %}
+      {% include "components/review.html" with review=review display_profile_pic=True only %}
     {% endfor %}
-    {% if reviews.has_next %}
-      <a href="?page={{ reviews.next_page_number }}"><li>&raquo;</li></a>
-    {% else %}
-      <li>&raquo;</li>
+    </div>
+    <!-- Source: Vitor Freitas -->
+    {% if reviews.has_other_pages %}
+      <ul class="pagination">
+        {% if reviews.has_previous %}
+          <a href="?page={{ reviews.previous_page_number }}"><li class="clickable">&laquo;</li></a>
+        {% else %}
+          <li>&laquo;</li>
+        {% endif %}
+        {% for i in reviews.paginator.page_range %}
+          {% if reviews.number == i %}
+            <li class="active">{{ i }}</li>
+          {% else %}
+            <a href="?page={{ i }}"><li>{{ i }}</li></a>
+          {% endif %}
+        {% endfor %}
+        {% if reviews.has_next %}
+          <a href="?page={{ reviews.next_page_number }}"><li>&raquo;</li></a>
+        {% else %}
+          <li>&raquo;</li>
+        {% endif %}
+      </ul>
     {% endif %}
-  </ul>
-{% endif %}
 </div>
 
 {% include "components/review_modal.html" with id="review-modal" on_submit_list_id="reviews" company=company only %}

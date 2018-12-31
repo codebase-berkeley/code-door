@@ -2,11 +2,12 @@
 {% load static from staticfiles %}
 {% block content %}
 <head>
-    <link rel="stylesheet" href="{% static 'css/application.css' %}">
     <link rel="stylesheet" href="{% static 'css/question.css' %}">
     <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 <body>
+  {% include "components/company_header.html" with company=a.company only %}
+
   <textarea id="pk" style="display: none;">{{ a.pk }}</textarea>
   <textarea id="logo" style="display: none;">{{ a.company.logo }}</textarea>
   <textarea id="company" style="display: none;">{{ a.company }}</textarea>
@@ -15,8 +16,8 @@
     {% include "components/application.html" with a=a only %}
 
     {% if request.user.profile == profile %}
-      <button id="qBtn" class="sub">Create Question</button>
-      <button id="aBtn" class="sub">Edit Application</button>
+      <button id="qBtn" class="btn btn-sm">Create Question</button>
+      <button id="aBtn" class="btn btn-sm">Edit Application</button>
     {% endif %}
 
     <div id="myModal2" class="modal">
@@ -85,7 +86,7 @@
             <textarea id="offer_details">{{ a.offer_details }}</textarea>
         </div>
         <div class="entry">
-              <button id="submit_button_edit" type="submit" class="big" onclick="displayEditApplicationForm()">Submit</button>
+              <button id="submit_button_edit" type="submit" class="btn btn-sm" onclick="displayEditApplicationForm()">Submit</button>
         </div>
       </div>
     </div>
@@ -136,8 +137,8 @@
     <h2> Comments </h2><br>
     <textarea id="addbody" name="body" placeholder="Review here"></textarea><p id="display-error"></p>
     <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}">
-    <button class="sub" id="submit">Submit</button>
-    <button class="sub" id="cancel">Cancel</button>
+    <button class="btn btn-sm" id="submit">Submit</button>
+    <button class="btn btn-sm" id="cancel">Cancel</button>
     {% if comments %}
       {% for comment in comments %}
           <div id="comment">

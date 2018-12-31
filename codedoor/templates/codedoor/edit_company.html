@@ -1,53 +1,49 @@
 {% extends 'codedoor/base.html' %}
 {% load static from staticfiles %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/basecompany.css' %}">
-<script src="{% static 'js/createcompany_validation.js' %}">
-</script>
 <div class="centered">
 	<h1> Edit Company Information </h1><br>
 	<form action="{% url 'codedoor:editcompany' pk=company.pk %}" method="POST">
 		{% csrf_token %}
 		<div class="space">
-			Company name <br>
+			<h4>Company name</h4>
 			<div class="border-text">
-				<input type="text" name="name" value="{{company.name}}" id="name">
+				<input type="text" name="name" value="{{company.name}}" id="name" class="input-text input-md">
 			</div>
 			<p class="error" id="name-error">
       </p>
 		</div><br>
 		<div class="space">
-			Industry <br>
+			<h4>Industry</h4>
 			<div class="border-text">
-				<input type="text" name="industry" value="{{company.industry}}" id="industry">
+				<input type="text" name="industry" value="{{company.industry}}" id="industry" class="input-text input-md">
 			</div>
 			<p class="error" id="industry-error">
       </p>
 		</div><br>
 		<div class="space">
-			Website <br>
+			<h4>Website</h4>
 			<div class="border-text">
-				<input type="url" name="website" value="{{company.website}}" id="website">
+				<input type="url" name="website" value="{{company.website}}" id="website" class="input-text input-md">
 			</div>
-			<p class="error" id="website-error">
-      </p>
-		</div><br><br>
-		Type of company <br>
+			<p class="error" id="website-error"></p>
+		</div>
+		<h4>Type of company</h4>
 
+		<select name="structure" class="input-dropdown">
 		{% for x in type %}
 			{% if x != company.structure %}
-				<input type="radio" name="structure" value= "{{x}}" id="{{x}}" > {{x}} <br>
+				<option value= "{{x}}"> {{x}} </option>
 			{% else %}
-				<input type="radio" name="structure" value="{{company.structure}}" id="{{company.structure}}" checked> {{company.structure}} <br>
+			<option value="{{company.structure}}" selected="selected"> {{company.structure}} </option>
 			{% endif %}
 		{% endfor %}
+		</select>
 		<p class="error" id="type-error">
 		</p>
 		<br>
-		<div id="submit"><input type="submit" value="Submit"></div>
+		<input type="submit" value="Submit" class="btn btn-md">
 	</form>
 </div>
 
 {% endblock %}
-
-<script src="{% static '/js/editcompany.js' %}"></script>

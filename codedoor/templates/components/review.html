@@ -8,7 +8,7 @@ Renders a single review element.
 :param: dummy - (Boolean) Whether the review is invisible or not.
 {% endcomment %}
 
-<table class="{% if dummy %}hidden{% endif %}" id="{% if dummy %}dummy-review{% endif %}">
+<table class="{% if dummy %}hidden{% endif %} card" id="{% if dummy %}dummy-review{% endif %}">
   <tr>
     {% if review.reviewer.profile_pic and display_profile_pic %}
       <td rowspan="3" width="7%">

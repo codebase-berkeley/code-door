@@ -1,0 +1,26 @@
+ul.pagination {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    li {
+        width: auto;
+        display: inline-block;
+        color: black;
+        padding: 8px 16px;
+        border: 1px solid #ddd;
+
+        &.active {
+            background-color: #01959b;
+            color: white;
+            border-radius: 5px;
+        }
+        &:hover:not(.active) {
+            display: inline;
+            background-color: #ddd;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+    }
+}

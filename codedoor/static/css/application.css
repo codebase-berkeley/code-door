@@ -49,12 +49,6 @@ button.small {
   border-radius: 4px;
 }
 
-td {
-  height: auto;
-  padding: 1px 5px;
-  vertical-align: center;
-}
-
 img {
   max-height: 100px;
   max-width: 100px;

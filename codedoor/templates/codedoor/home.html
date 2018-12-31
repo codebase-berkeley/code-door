@@ -4,8 +4,6 @@
 
 <head>
   <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
-  <link rel="stylesheet" href="{% static 'css/application.css' %}">
-  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 <body>
   <div class="search-jumbotron">
@@ -18,45 +16,40 @@
       </form>
     </div>
   </div>
-  <div class="card-list-header">
-    <h3>Recent Activity</h3>
-    <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
-      <button class="btn btn-sm" id="create-review-btn">Create Review</button>
-    <button class="btn btn-sm" id="create-company-btn">Create Company</button>
-  </div>
-  <div class="card-list">
-    {% comment %}
-      We add an invisible "dummy" review to the HTML to provide a template for review creation in clientside code.
-    {% endcomment %}
-    {% include "components/review.html" with review=reviews.0 dummy=True only %}
-    {% for review in reviews %}
-      {% include "components/review.html" with review=review only %}
-      <br>
-    {% endfor %}
-
-
+  <div class="card-list-container">
+    <div class="card-list-header">
+      <h3>Recent Activity</h3>
+      <h2 class="inline-block" >Company Reviews&nbsp;&nbsp;</h2>
+        <button class="btn btn-sm" id="create-review-btn">Create Review</button>
+      <button class="btn btn-sm" id="create-company-btn">Create Company</button>
+    </div>
+    <div class="card-list">
+      {% comment %}
+        We add an invisible "dummy" review to the HTML to provide a template for review creation in clientside code.
+      {% endcomment %}
+      {% include "components/review.html" with review=reviews.0 dummy=True only %}
+      {% for review in reviews %}
+        {% include "components/review.html" with review=review only %}
+      {% endfor %}
+    </div>
     {% if num_reviews > 3 %}
     <a href="{% url 'codedoor:view_company_reviews' %}">Show More >>></a>
     {% endif %}
-
-    <br>
   </div>
-  <br>
-
-  <div class="card-list-header" >
-    <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
-    <button id="create-application-btn" class="btn btn-sm">Create New Application</button>
-  </div>
-  <div class="card-list">
-    <div id="existing-applications">
-      {% for a in applications %}
-        {% include "components/application.html" with a=a only %}
-        <br>
-      {% endfor %}
-      {% if num_apps > 3 %}
-          <a href="{% url 'codedoor:list_all_applications' %}">Show More >>></a>
-      {% endif %}
+  <div class="card-list-container">
+    <div class="card-list-header" >
+      <h2 class="inline-block">Interviews&nbsp;&nbsp;</h2>
+      <button id="create-application-btn" class="btn btn-sm">Create New Application</button>
     </div>
+    <div class="card-list">
+        {% include "components/application.html" with a=applications.0 dummy=True only %}
+        {% for a in applications %}
+          {% include "components/application.html" with a=a only %}
+        {% endfor %}
+    </div>
+    {% if num_apps > 3 %}
+    <a href="{% url 'codedoor:list_all_applications' %}">Show More >>></a>
+    {% endif %}
   </div>
 
 {% include "components/review_modal.html" with id="review-modal" on_submit_list_id="reviews" only %}

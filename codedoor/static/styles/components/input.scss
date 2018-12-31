@@ -54,6 +54,13 @@
       }
     }
   }
+  &-dropdown {
+    font-size: 15px;
+    border: 1px solid $teal;
+    border-radius: 3px;
+    outline: none;
+    padding: 8px;
+  }
 }
 
 .input-xs {

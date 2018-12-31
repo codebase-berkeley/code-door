@@ -1,0 +1,29 @@
+.company-header {
+  padding-bottom: 2%;
+  @include flex(center, flex-start);
+
+  &-logo {
+    margin: 20px;
+  }
+  &-body {
+    min-height: 140px;
+    @include flex(flex-start, space-evenly, column);
+    &-links {
+        @include flex(flex-start, center);
+        &-li {
+            @include flex(flex-start, center);
+            padding: 8px;
+            margin: 0 2px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            transition: border-color 0.1s ease-in-out;
+            &-icon {
+                margin-right: 5px;
+            }
+            &:hover {
+                border-color: $teal;
+            }
+        }
+    }
+  }
+}

@@ -1,240 +1,53 @@
 {% extends 'codedoor/base.html' %}
 {% load static from staticfiles %}
 {% block content %}
-<head>
-  <link rel="stylesheet" href="{% static 'css/question.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/basehomepage.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/application.css' %}">
-  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
-</head>
-    <h2>Applications</h2> <br>
-    <button id="create-application-btn" class="inline-block small-teal" onclick="displayApplicationForm()">Create New Application</button>
+<div class="card-list-header">
+  <h2>Applications</h2> <br>
+  <button id="create-application-btn" class="btn btn-sm">Create New Application</button>
+</div>
 
-    <div id="application-modal" class="modal">
-        <div class="modal-content">
-          <span id="closeA" class="close">&times;</span>
-          <h1> Create Application</h1>
-          <div id="hidden-application">
-            <div class="entry">
-              <h4>Position:</h4>
-              <p id="error0"></p>
-              <input id="position" name="position" placeholder="Job title" class="text" required />
-            </div>
-            <div class="entry">
-              <h4>Company:</h4>
-              <p id="error1" class="error"></p>
-              <select id="company" name="company" class="menu companies" required>
-                {% for entry in companies %}
-                  <option value="{{ entry.id }}">{{ entry.name }}</option>
-                {% endfor %}
-              </select>
-            </div>
-            <div class="entry">
-              <h4>Season:</h4>
-              <p id="error1" class="error"></p>
-              <select id="season" name="season" class="menu" required>
-                <option value="Fall">Fall</option>
-                <option value="Winter">Winter</option>
-                <option value="Spring">Spring</option>
-                <option value="Summer">Summer</option>
-              </select>
-            </div>
-            <div class="entry">
-              <h4>Year:</h4>
-              <p id="error2" class="error"></p>
-              <input id="year" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" class="select-num" required />
-            </div>
-            <div class="entry">
-              <h4>Difficulty:</h4>
-              <p id="error3" class="error"></p>
-              <input id="difficulty" type="number" min="1" max="10" name="difficulty" placeholder="1-10" class="select-num" required  />
-            </div>
-            <div class="entry">
-              <h4>Description:</h4>
-              <p id="error4" class="error"></p>
-              <textarea id="description" name="description" placeholder="Description of application" required></textarea>
-            </div>
-            <div class="entry">
-              <h4>Received Offer:</h4>
-              <p id="error5" class="error"></p>
-              <p><input id="received_offer" type="radio" name="received_offer" value="Yes" class="bubble" /> Yes</p>
-              <p><input id="received_offer" type="radio" name="received_offer" value="No" class="bubble" /> No</p><br>
-            </div>
-            <div class="entry">
-              <h4>Offer details:</h4>
-              <p id="error6" class="error"></p>
-              <textarea id="offer_details" name="offer_details" placeholder="Offer details (pay, perks, etc.)"></textarea>
-            </div>
-            <div class="entry">
-              <button id="submit_button" type="submit" class="small-teal">Submit</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    <div id="application-list" class="indent">
-    <div id="hidden-element" class="hidden">
-      <table>
-        <tr>
-          <td rowspan="3" width="7%">
-            <img id="hidden-logo" class="hidden-logo" width="100" height="100">
-          </td>
-          <td width="93%">
-            <a id="company-link">
-              <h2 id="hidden-company-name" class="link-text hidden-company-name"></h2>
-            </a>
-            <span id="hidden-profile-name" class="applicant-name hidden-profile-name"></span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span id="hidden-position" class="info job-position hidden-position"></span>
-            <span id="hidden-season" class="info job-season hidden-season"></span><span id="hidden-year" class="info job-season hidden-year"></span></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p>
-            <span class="info colorful-boxy">
-              <svg width="15" height="15">
-                <rect id="hidden-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg><span id="hidden-offer-text" class="hidden-offer-text"></span>
-            </span>
-            <span class="info colorful-boxy">
-              <svg width="15" height="15">
-                <rect id="hidden-difficulty-square" x="0" y="0" rx="3" ry="3" width="15" height="15" />
-              </svg>&nbsp;&nbsp;<span id="hidden-difficulty-text" class="hidden-difficulty-text"></span>
-            </span>
-            </p>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <h4>Description:</h4>
-            <p id="hidden-description" class="description_small_text hidden-description"></p>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-
-
-
-  <div id="applications">
-    {% for a in page %}
-      <table>
-        <tr>
-          {% if a.company.logo != null %}
-            <td rowspan="3" width="7%">
-              <img src="{{ a.company.logo }}" alt="Company logo" width="100" height="100">
-            </td>
-          {% else %}
-            <td rowspan="3" width="7%">
-              <img src="/static/images/temp.png" alt="Company logo" width="100" height="100">
-            </td>
-          {% endif %}
-          <td width="93%">
-            <a href="{% url 'codedoor:viewcompany' pk=a.company.pk database='reviews' %}">
-              <h2 class="link-text">{{ a.company }}</h2>
-            </a>
-            <span class="applicant-name">{{ a.profile }}</span>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span class="info job-position">{{a.position}}</span>
-            <span class="info job-season">{{a.season}} {{a.year}}-San Francisco, CA</span></p>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <p><span class="info colorful-boxy">
-              {% if a.received_offer %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#01959b" />
-                  </svg> Received Offer
-                </span>
-              {% else %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#ff4d4d" />
-                  </svg> No Offer
-                </span>
-              {% endif %}
-            </span>
-            <span class="info colorful-boxy">
-              {% if a.difficult > 7 %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#ff4d4d" />
-                  </svg>&nbsp;&nbsp;Difficult Interview: {{a.difficult}}/10
-                </span>
-              {% elif a.difficult < 4 %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#01959b" />
-                  </svg>&nbsp;&nbsp;Easy Interview: {{a.difficult}}/10
-                </span>
-              {% else %}
-                <span>
-                  <svg width="15" height="15">
-                  <rect x="0" y="0" rx="3" ry="3" width="15" height="15"
-                  style="fill:#FF9B71;" />
-                  </svg>&nbsp;&nbsp;Average Interview: {{a.difficult}}/10
-                </span>
-              {% endif %}
-            </span></p>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <h4>Description:</h4>
-            <p>{{a.description}}</p>
-          </td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>
-            <h4>Offer details:</h4>
-            <p>{{a.offer_details}}</p>
-          </td>
-        </tr>
-      </table>
-      <br>
-    {% endfor %}
-  </div>
-
-
-    {% if page.has_other_pages %}
-      <ul class="pagination">
-        {% if page.has_previous %}
-          <li class="clickable"><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
-        {% else %}
-          <li>&laquo;</li>
-        {% endif %}
-        {% for i in page.paginator.page_range %}
-          {% if page.number == i %}
-            <li class="active">{{ i }}</li>
-          {% else %}
-            <li><a href="?page={{ i }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if page.has_next %}
-          <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
-        {% else %}
-          <li>&raquo;</li>
-        {% endif %}
-      </ul>
+<div class="card-list">
+  {% include "components/application.html" with a=applications.0 dummy=True only %}
+  {% for a in page %}
+    {% include "components/application.html" with a=a only %}
+  {% endfor %}
+</div>
+{% if page.has_other_pages %}
+  <ul class="pagination">
+    {% if page.has_previous %}
+      <li class="clickable"><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li>&laquo;</li>
     {% endif %}
-  </body>
-  <script src="{% static 'js/application.js' %}"></script>
-  <script src="{% static 'js/home.js' %}"></script>
-  </html>
+    {% for i in page.paginator.page_range %}
+      {% if page.number == i %}
+        <li class="active">{{ i }}</li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if page.has_next %}
+      <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li>&raquo;</li>
+    {% endif %}
+  </ul>
+{% endif %}
+<script>
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", function(event) {
+    var appModal = document.getElementById('application-modal');
+    if (event.target == appModal) {
+        appModal.style.display = "none";
+    }
+});
+
+(function() {
+    // Get the buttons that open the modals
+    var createAppBtn = document.getElementById("create-application-btn");
+    createAppBtn.addEventListener("click", function() {
+        document.getElementById("application-modal").style.display = "block";
+    });
+})();
+</script>
 {% endblock %}

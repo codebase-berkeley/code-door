@@ -7,7 +7,7 @@ Renders a single application element.
 :param: dummy - (Boolean) Whether the application is invisible or not.
 {% endcomment %}
 
-<table class="{% if dummy %}hidden{% endif %}" id="{% if dummy %}dummy-application{% endif %}">
+<table class="{% if dummy %}hidden{% endif %} card" id="{% if dummy %}dummy-application{% endif %}">
   <tr>
     {% if a and a.company.logo != null %}
       <td rowspan="3" width="7%">
@@ -20,7 +20,7 @@ Renders a single application element.
     {% endif %}
     <td width="93%">
       {% if a %}
-        <a class="application-company-link" href="{% url 'codedoor:view_application' pk=a.pk %}">
+        <a class="application-company-link" href="{% url 'codedoor:viewcompany' pk=a.company.pk database='applications' %}">
           <h2 class="application-link-text">{{ a.company }}</h2>
         </a>
         <span class="application-applicant-name">{{ a.profile }}</span>
@@ -35,7 +35,7 @@ Renders a single application element.
   <tr>
     <td>
       {% if a %}
-        <p><span class="info job-position">{{a.position}}</span>
+        <p><a class="info job-position" href="{% url 'codedoor:view_application' pk=a.pk %}">{{a.position}}</a>
         {% if a.season == 1 %}
           <span class="info job-season">Fall {{a.year}}</span>
         {% elif a.season == 2 %}
@@ -48,7 +48,7 @@ Renders a single application element.
         </p>
       {% else %}
       <p>
-        <span class="info job-position"></span>
+        <a class="info job-position" href="#"></a>
         <span class="info job-season"></span>
       </p>
       {% endif %}
