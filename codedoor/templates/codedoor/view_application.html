@@ -1,10 +1,6 @@
 {% extends 'codedoor/base.html' %}
 {% load static from staticfiles %}
 {% block content %}
-<head>
-    <link rel="stylesheet" href="{% static 'css/question.css' %}">
-    <link rel="stylesheet" href="{% static 'css/modal.css' %}">
-</head>
 <body>
   {% include "components/company_header.html" with company=a.company only %}
 
@@ -91,10 +87,6 @@
       </div>
     </div>
 
-
-
-
-
     <div id="myModal" class="modal">
       <div class="modal-content">
         <span class="close" id="closeModal1">&times;</span>
@@ -135,7 +127,8 @@
         <p id="buffer">No questions yet!</p>
     {% endif %}
     <h2> Comments </h2><br>
-    <textarea id="addbody" name="body" placeholder="Review here"></textarea><p id="display-error"></p>
+    <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>
+    <p id="display-error"></p>
     <input id ="applicationpk" type="hidden" name="application" value="{{ a.pk }}">
     <button class="btn btn-sm" id="submit">Submit</button>
     <button class="btn btn-sm" id="cancel">Cancel</button>

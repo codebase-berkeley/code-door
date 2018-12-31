@@ -3,7 +3,6 @@
 {% block content %}
 
 <head>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/basecompany2.css' %}">
   <link rel="stylesheet" href="{% static 'css/modal.css' %}">
 </head>
 
@@ -13,7 +12,7 @@
 <div id="bottom-half">
   <div style="float:right;position:absolute;right:10%;">
     {% if review.reviewer.user == request.user %}
-      <a class="sub" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
+      <a class="btn btn-sm" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
     {% endif %}
   </div>
   <div id="reviews">
@@ -21,14 +20,14 @@
   </div>
   <br><br>
   <h4 class="commentbase"> Comments: </h4>
-  <textarea id="addbody" name="body" placeholder="Review here"></textarea>
+  <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>
   <p id="display-error"></p>
-  <input id ="reviewpk" type="hidden" name="review" value="{{ review.pk }}">
+  <input id="reviewpk" type="hidden" name="review" value="{{ review.pk }}">
 
-  <button class="sub" id="submit">Submit</button>
-  <button class="sub" id="cancel">Cancel</button>
+  <button class="btn btn-sm" id="submit">Submit</button>
+  <button class="btn btn-sm" id="cancel">Cancel</button>
 
-  <div id ="comment"></div>
+  <div id="comment"></div>
   {% for comment in comments %}
     <div id="comment">
       <div id="profile-img" style="background-image: url('{{ comment.commenter.profile_pic }}');">

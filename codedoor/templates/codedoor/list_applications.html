@@ -1,38 +1,40 @@
 {% extends 'codedoor/base.html' %}
 {% load static from staticfiles %}
 {% block content %}
-<div class="card-list-header">
-  <h2>Applications</h2> <br>
-  <button id="create-application-btn" class="btn btn-sm">Create New Application</button>
-</div>
+<div class="card-list-container">
+  <div class="card-list-header">
+    <h2>Applications</h2> <br>
+    <button id="create-application-btn" class="btn btn-sm">Create New Application</button>
+  </div>
 
-<div class="card-list">
-  {% include "components/application.html" with a=applications.0 dummy=True only %}
-  {% for a in page %}
-    {% include "components/application.html" with a=a only %}
-  {% endfor %}
-</div>
-{% if page.has_other_pages %}
-  <ul class="pagination">
-    {% if page.has_previous %}
-      <li class="clickable"><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li>&laquo;</li>
-    {% endif %}
-    {% for i in page.paginator.page_range %}
-      {% if page.number == i %}
-        <li class="active">{{ i }}</li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
+  <div class="card-list">
+    {% include "components/application.html" with a=applications.0 dummy=True only %}
+    {% for a in page %}
+      {% include "components/application.html" with a=a only %}
     {% endfor %}
-    {% if page.has_next %}
-      <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li>&raquo;</li>
-    {% endif %}
-  </ul>
-{% endif %}
+  </div>
+  {% if page.has_other_pages %}
+    <ul class="pagination">
+      {% if page.has_previous %}
+        <li class="clickable"><a href="?page={{ page.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li>&laquo;</li>
+      {% endif %}
+      {% for i in page.paginator.page_range %}
+        {% if page.number == i %}
+          <li class="active">{{ i }}</li>
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if page.has_next %}
+        <li><a href="?page={{ page.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li>&raquo;</li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</div>
 <script>
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener("click", function(event) {

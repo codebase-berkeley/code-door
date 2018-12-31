@@ -3,10 +3,6 @@
 
 {% block content %}
 
-<head>
-  <link rel="stylesheet" href="{% static 'css/application.css' %}">
-  <link rel="stylesheet" href="{% static 'css/modal.css' %}">
-</head>
 <form action="{% url 'codedoor:edit_application' pk=pk %}" method="POST">
     {% csrf_token %}
     <div class="entry">

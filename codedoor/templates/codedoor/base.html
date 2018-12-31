@@ -20,7 +20,7 @@
 						<img src="{% static 'images/logo.svg' %}" />
 					</a>
 				</div>
-				{% if not is_home %}
+				{% if request.user.is_authenticated and not is_home %}
 				<div class="nav-search">
 					<img class="nav-search-icon" src="{% static 'images/search_icon.png' %}" width="25px" height="25px" />
 					<div class="nav-search-bar">
