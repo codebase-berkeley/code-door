@@ -12,120 +12,12 @@
     {% include "components/application.html" with a=a only %}
 
     {% if request.user.profile == profile %}
-      <button id="qBtn" class="btn btn-sm">Create Question</button>
-      <button id="aBtn" class="btn btn-sm">Edit Application</button>
+      <button id="edit-application-btn" class="btn btn-sm">Edit Application</button>
     {% endif %}
 
-    <div id="myModal2" class="modal">
-      <div class="modal-content">
-        <span id="closeModal2" class="close">&times;</span>
-        <div class="entry">
-          <h4>Position:</h4>
-          <input name="position" value="{{a.position}}" class="text" id="position" />
-        </div>
-        <div class="entry">
-            <h4>Season:</h4>
-            {% if a.season == "Fall" %}
-            <select name="season" class="menu" required>
-                <option value="Fall" selected="selected">Fall</option>
-                <option value="Winter">Winter</option>
-                <option value="Spring">Spring</option>
-                <option value="Summer">Summer</option>
-            </select>
-            {% elif a.season == "Winter" %}
-            <select name="season" class="menu" required>
-                <option value="Fall">Fall</option>
-                <option value="Winter" selected="selected">Winter</option>
-                <option value="Spring">Spring</option>
-                <option value="Summer">Summer</option>
-            </select>
-            {% elif a.season == "Spring" %}
-            <select name="season" class="menu" required>
-                <option value="Fall">Fall</option>
-                <option value="Winter">Winter</option>
-                <option value="Spring" selected="selected">Spring</option>
-                <option value="Summer">Summer</option>
-            </select>
-            {% elif a.season == "Summer" %}
-            <select name="season" class="menu" required>
-                <option value="Fall">Fall</option>
-                <option value="Winter">Winter</option>
-                <option value="Spring">Spring</option>
-                <option value="Summer" selected="selected">Summer</option>
-            </select>
-            {% endif %}
-        </div>
-        <div class="entry">
-            <h4>Year:</h4>
-            <input type="number" name="year" value="{{a.year}}" class="select-num" id="year" />
-        </div>
-        <div class="entry">
-            <h4>Difficulty:</h4>
-            <input type = "number" step="0.1" name="difficulty" value="{{ a.difficult }}" class="select-num" id="difficulty" />
-        </div>
-        <div class="entry">
-            <h4>Description:</h4>
-            <textarea id="description">{{ a.description }}</textarea>
-        </div>
-        <div class="entry">
-            <h4>Received Offer:</h4>
-            {% if a.received_offer %}
-              <p><input id="received_offer" type="radio" name="received_offer" value="Yes" checked> Yes</p><br>
-              <p><input type="radio" name="received_offer" value="No"> No</p><br><br>
-            {% else %}
-              <p><input id="received_offer" class="received_offer" type="radio" name="received_offer" value="Yes"> Yes</p><br>
-              <p><input class="received_offer" type="radio" name="received_offer" value="No" checked> No</p><br><br>
-            {% endif %}
-        </div>
-        <div class="entry">
-            <h4>Offer details:</h4>
-            <textarea id="offer_details">{{ a.offer_details }}</textarea>
-        </div>
-        <div class="entry">
-              <button id="submit_button_edit" type="submit" class="btn btn-sm" onclick="displayEditApplicationForm()">Submit</button>
-        </div>
-      </div>
-    </div>
+    {% url 'codedoor:edit_application' pk=a.pk as edit_url %}
+    {% include "components/application_modal.html" with id="application-modal" on_submit_post_url=edit_url company=a.company a=a only %}
 
-    <div id="myModal" class="modal">
-      <div class="modal-content">
-        <span class="close" id="closeModal1">&times;</span>
-        <div class="entry">
-            <h4>Question:</h4><br>
-            <textarea id="question" name="question" placeholder="Question here"></textarea><br>
-        </div>
-        <div class="entry">
-            <h4>Applicant Answer:</h4><br>
-            <textarea id="applicant_answer" name="applicant answer" placeholder="Your answer"></textarea><br>
-        </div>
-        <div class="entry">
-            <h4>Company Answer:</h4><br>
-            <textarea id="company_answer" name="company answer" placeholder="Company answer"></textarea><br><br>
-        </div>
-        <div class="entry">
-            <button id="submit_button" type="submit" class="btn btn-md" onclick="displayQuestionForm()">Submit</button>
-        </div>
-      </div>
-  </div>
-    <br><br><br>
-    <h2>Questions</h2>
-    {% if questions %}
-        <div id="questList">
-        {% for q in questions %}
-            <div class="post">
-                <h4 class="blue-text">Question</h4>
-                <p>{{ q.question }}</p>
-                <h4 class="blue-text">Applicant answer</h4>
-                <p>{{ q.applicant_answer }}</p>
-                <h4 class="blue-text">Company answer</h4>
-                <p>{{ q.actual_answer }}</p>
-                <br><br>
-            </div>
-        {% endfor %}
-        </div>
-    {% else %}
-        <p id="buffer">No questions yet!</p>
-    {% endif %}
     <h2> Comments </h2><br>
     <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>
     <p id="display-error"></p>
@@ -152,5 +44,15 @@
 </body>
     <script src="{% static 'js/application.js' %}"></script>
     <script src="{% static 'js/showcommentsap.js' %}"></script>
-    <script src="{% static 'js/createquestion.js' %}" type="text/javascript"></script>
+    {% if request.user.profile == profile %}
+    <script>
+        (function() {
+            // Get the buttons that open the edit application modal
+            var editApplicationBtn = document.getElementById("edit-application-btn");
+            editApplicationBtn.addEventListener("click", function() {
+                document.getElementById("application-modal").style.display = "block";
+            });
+        })();
+    </script>
+    {% endif %}
 {% endblock %}

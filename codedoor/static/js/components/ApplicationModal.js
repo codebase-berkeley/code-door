@@ -31,6 +31,7 @@ function getCookie(name) {
 }
 
 var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, modalId) {
+    console.log(onSubmitPostUrl);
     var self = this;
     self.modalId = modalId;
     self.formInitialState = formInitialState || {
@@ -42,7 +43,7 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
         received_offer: false,
         offer_details: "",
     };
-    console.log(self.formInitialState);
+
     self.onSubmitPostUrl = onSubmitPostUrl;
     self.onSubmitListId = onSubmitListId;
 
@@ -116,7 +117,9 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
       }).then(function(response) {
         return response.json();
       }).then(function(json) {
-        createApplicationElement(json);
+        if (self.onSubmitListId !== "") {
+          createApplicationElement(json);
+        }
       });
     });
 

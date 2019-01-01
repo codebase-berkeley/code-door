@@ -5,7 +5,9 @@ Includes all the HTML code and JS libraries needed to render an review form moda
 
 :param: id - (String) The HTML ID of the modal element. (required)
 :param: on_submit_list_id - (String) On submission, the modal will append an entry to this HTML element. (required)
-:param: company - (Object) A company object to prefill the form. If omitted, the modal will have a search box to select the company.
+:param: on_submit_post_url - (String) On submission, the modal POSTs data to this URL. (optional - default: "/codedoor/createreview")
+:param: company - (Object) A company object to prefill the form. If omitted, the modal will have a search box to select the company. (optional)
+:param: review - (Object) A review object to prefill the form. (optional)
 {% endcomment %}
 
 {% load static %}
@@ -18,7 +20,11 @@ Includes all the HTML code and JS libraries needed to render an review form moda
       <h4>Review Title</h4>
       <div class="border-text">
         <div id="title">
-          <input type="text" name="title" class="modal-input-title input-text input-md">
+          {% if review %}
+            <input type="text" name="title" class="modal-input-title input-text input-md" value="{{review.title}}">
+          {% else %}
+            <input type="text" name="title" class="modal-input-title input-text input-md">
+          {% endif %}
         </div>
         <p class="error modal-title-error">
         </p>
@@ -30,7 +36,6 @@ Includes all the HTML code and JS libraries needed to render an review form moda
         <div class="border-text">
           <input id="review-modal-companysearch" class="input-text input-md" type="text"/>
           <div id="review-modal-suggestions">
-
           </div>
         </div>
         <p class="error modal-company-error">
@@ -41,7 +46,11 @@ Includes all the HTML code and JS libraries needed to render an review form moda
       <h4>Rating</h4>
       <div class="border-text">
         <div id="number">
-          <input type="number" name="rating" min="0" max="5" step="0.5" class="modal-input-rating input-text input-xs">
+          {% if review %}
+            <input type="number" name="rating" min="0" max="5" step="1" class="modal-input-rating input-text input-xs" value={{review.rating}}>
+          {% else %}
+            <input type="number" name="rating" min="0" max="5" step="1" class="modal-input-rating input-text input-xs">
+          {% endif %}
         </div>
       </div>
       <p class="error modal-rating-error">
@@ -49,7 +58,11 @@ Includes all the HTML code and JS libraries needed to render an review form moda
     </div>
     <div class="entry"><h4>Recommend</h4>
       <label for="{{ id }}-recommend" class="input-checkbox-label">
-        <input type="checkbox" id="{{ id }}-recommend" class="modal-input-recommend-check input-checkbox" />
+        {% if review and review.recommend %}
+          <input type="checkbox" id="{{ id }}-recommend" class="modal-input-recommend-check input-checkbox" checked />
+        {% else %}
+          <input type="checkbox" id="{{ id }}-recommend" class="modal-input-recommend-check input-checkbox" />
+        {% endif %}
         Recommend this company
       </label>
       <p class="error" class="modal-recommend-error">
@@ -58,7 +71,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
     <div class="entry">
       <h4>Review</h4>
       <div class="border">
-        <textarea type="text" name="review" class="modal-input-review input-text-area"></textarea>
+        <textarea type="text" name="review" class="modal-input-review input-text-area">{{review.review}}</textarea>
       </div>
       <p class="error modal-review-error">
       </p>
@@ -86,7 +99,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
     {% endif %}
     var reviewModal = new ReviewModal(
         reviewData,
-        "/codedoor/createreview",
+        "{{ on_submit_post_url }}" || "/codedoor/createreview",
         "{{ on_submit_list_id }}",
         "{{ id }}",
     );

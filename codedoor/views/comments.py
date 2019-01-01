@@ -8,7 +8,6 @@ from django.urls import reverse
 
 
 def addrc(request):
-    print("Called")
     if request.method == "POST":
         review = Review.objects.get(pk=request.POST["review"])
         print(review)
@@ -24,7 +23,6 @@ def addrc(request):
 
 
 def addac(request):
-    print("Called")
     if request.method == "POST":
         x = request.POST["application"]
         applicatio = Application.objects.get(pk=x)

@@ -5,7 +5,9 @@ Includes all the HTML code and JS libraries needed to render an application form
 
 :param: id - (String) The HTML ID of the modal element. (required)
 :param: on_submit_list_id - (String) On submission, the modal will append an entry to this HTML element. (required)
+:param: on_submit_post_url - (String) On submission, the modal POSTs data to this URL. (optional - default: "/codedoor/createapplication")
 :param: company - (Object) A company object to prefill the form. If omitted, the modal will have a search box to select the company.
+:param: a - (Object) An application object to prefill the form. (optional)
 {% endcomment %}
 
 {% load static %}
@@ -18,7 +20,22 @@ Includes all the HTML code and JS libraries needed to render an application form
       <div class="entry">
         <h4>Position:</h4>
         <p id="error0"></p>
-        <input class="modal-input-position input-text input-md" name="position" placeholder="Job title" type="text" required />
+        {% if a %}
+        <input
+          class="modal-input-position input-text input-md"
+          name="position"
+          placeholder="Job title"
+          type="text"
+          value="{{a.position}}"
+          required />
+        {% else %}
+        <input
+          class="modal-input-position input-text input-md"
+          name="position"
+          placeholder="Job title"
+          type="text"
+          required />
+        {% endif %}
       </div>
       {% if not company %}
       <div class="entry">
@@ -45,26 +62,76 @@ Includes all the HTML code and JS libraries needed to render an application form
       <div class="entry">
         <h4>Year:</h4>
         <p id="error2" class="error"></p>
-        <input class="modal-input-year input-text input-xs" type="number" min="1990" max="2018" name="year" placeholder="e.g. 2015" required />
+        {% if a %}
+        <input
+          class="modal-input-year input-text input-xs"
+          type="number"
+          min="1990"
+          max="2018"
+          name="year"
+          placeholder="e.g. 2015"
+          value="{{a.year}}"
+          required />
+        {% else %}
+        <input
+          class="modal-input-year input-text input-xs"
+          type="number"
+          min="1990"
+          max="2018"
+          name="year"
+          placeholder="e.g. 2015"
+          required />
+        {% endif %}
       </div>
       <div class="entry">
         <h4>Difficulty:</h4>
         <p id="error3" class="error"></p>
-        <input class="modal-input-difficulty input-text input-xs" type="number" min="1" max="10" name="difficulty" placeholder="1-10" required />
+        {% if a %}
+        <input
+          class="modal-input-difficulty input-text input-xs"
+          type="number"
+          min="1"
+          max="10"
+          name="difficulty"
+          placeholder="1-10"
+          value="{{a.difficult}}"
+          required />
+        {% else %}
+        <input
+          class="modal-input-difficulty input-text input-xs"
+          type="number"
+          min="1"
+          max="10"
+          name="difficulty"
+          placeholder="1-10"
+          required />
+        {% endif %}
       </div>
       <div class="entry">
         <h4>Description:</h4>
         <p id="error4" class="error"></p>
-        <textarea class="modal-input-description input-text-area" name="description" placeholder="Description of application" required></textarea>
+        <textarea
+          class="modal-input-description input-text-area"
+          name="description"
+          placeholder="Description of application"
+          required>{{a.description}}</textarea>
       </div>
       <div class="entry">
         <h4>Offer details:</h4>
         <p id="error5" class="error"></p>
         <p id="error6" class="error"></p>
         <label for="{{ id }}-offer-checkbox" class="input-checkbox-label">
-          <input class="modal-input-offer-check input-checkbox" type="checkbox" id="{{ id }}-offer-checkbox"> Received offer
+          {% if a and a.received_offer %}
+          <input class="modal-input-offer-check input-checkbox" type="checkbox" id="{{ id }}-offer-checkbox" checked>
+          {% else %}
+          <input class="modal-input-offer-check input-checkbox" type="checkbox" id="{{ id }}-offer-checkbox">
+          {% endif %}
+          Received offer
         </label>
-        <textarea class="modal-input-offer input-text-area" name="offer_details" placeholder="Offer details if applicable (pay, perks, etc.)"></textarea>
+        <textarea
+          class="modal-input-offer input-text-area"
+          name="offer_details"
+          placeholder="Offer details if applicable (pay, perks, etc.)">{{a.offer_details}}</textarea>
       </div>
       <div class="entry">
         <button type="submit" class="btn btn-sm modal-submit-btn">Submit</button>
@@ -91,7 +158,7 @@ Includes all the HTML code and JS libraries needed to render an application form
     {% endif %}
     var applicationModal = new ApplicationModal(
         formInitialState,
-        "/codedoor/createapplication",
+        "{{ on_submit_post_url }}" || "/codedoor/createapplication",
         "{{ on_submit_list_id }}",
         "{{ id }}",
     );

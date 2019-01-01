@@ -82,9 +82,7 @@ def create_application_company(request):
         }, safe=False)
     return Http404("No such page exists")
 
-def edit_application(request):
-    print("Are we here ma dude")
-    pk = request.POST['pk']
+def edit_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     if request.method == 'POST':
         try:

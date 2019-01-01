@@ -1,5 +1,6 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
+{% load codedoor_extras %}
 {% block content %}
 
 <head>
@@ -12,14 +13,15 @@
 <div id="bottom-half">
   <div style="float:right;position:absolute;right:10%;">
     {% if review.reviewer.user == request.user %}
-      <a class="btn btn-sm" href="{% url 'codedoor:editreview' pk=review.pk %}">Edit Review</a>
+      <div class="btn btn-sm" id="edit-review-btn">Edit Review</div>
     {% endif %}
   </div>
-  <div id="reviews">
-    {% include "components/review.html" with review=review only %}
-  </div>
-  <br><br>
-  <h4 class="commentbase"> Comments: </h4>
+  {% include "components/review.html" with review=review only %}
+
+  {% url 'codedoor:editreview' pk=review.pk as edit_url %}
+  {% include "components/review_modal.html" with id="review-modal" on_submit_post_url=edit_url company=review.company review=review only %}
+
+  <h4>Comments</h4>
   <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>
   <p id="display-error"></p>
   <input id="reviewpk" type="hidden" name="review" value="{{ review.pk }}">

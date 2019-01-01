@@ -119,8 +119,8 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
 
       var formData = new FormData();
 
-      formData.append("reviewtitle", self.formInitialState.reviewTitle);
-      formData.append("pk", self.formInitialState.company);
+      formData.append("title", self.formInitialState.reviewTitle);
+      formData.append("company", self.formInitialState.company);
       formData.append("rating", self.formInitialState.rating);
       formData.append("recommend", self.formInitialState.recommend);
       formData.append("review", self.formInitialState.review);
@@ -144,7 +144,8 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
           }).then(function(response) {
             return response.json();
           }).then(function(json) {
-            if (json.success) {
+            console.log(json);
+            if (json.success && self.onSubmitListId !== "") {
               // Create a new review element.
               var reviewEl = document.getElementById("dummy-review").cloneNode(true);
               reviewEl.getElementsByClassName("review-company-logo")[0].src = json.companyLogo;

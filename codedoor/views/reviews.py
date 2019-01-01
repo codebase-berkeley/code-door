@@ -45,33 +45,60 @@ def edit_review(request, pk):
             review.review = request.POST["review"]
             review.title = request.POST["title"]
         except Exception as e:
-            return HttpResponse("You did not fill out the form correctly!")
+            return JsonResponse({
+                "reviewername": review.reviewer.user.get_full_name(),
+                "companypk": review.company.pk,
+                "companyname": review.company.name,
+                "companylogo": review.company.logo,
+                "rating": review.rating,
+                "recommend": review.recommend,
+                "review": review.review,
+                "title": review.title,
+                "success": False
+            })
 
         review.save()
 
-        return redirect('/codedoor/viewreview/' + str(review.pk))
-    else:
-        companies = Company.objects.all()
-        return render(request, "codedoor/edit_review.html", {"review": review, "companies": companies})
+        return JsonResponse({
+            "reviewername": review.reviewer.user.get_full_name(),
+            "companypk": review.company.pk,
+            "companyname": review.company.name,
+            "companylogo": review.company.logo,
+            "rating": review.rating,
+            "recommend": review.recommend,
+            "review": review.review,
+            "title": review.title,
+            "success": True
+        })
+    return HttpResponse("Bad request")
 
 
 @login_required
 def created_review(request):
     if request.method == "POST":
-        pk = request.POST['pk']
-        company = Company.objects.get(pk=pk)
+        company = Company.objects.get(pk=request.POST['company'])
         reviewer = Profile.objects.get(user=request.user)
         rating = request.POST["rating"]
         recommend = request.POST["recommend"]
         review = request.POST["review"]
-        title = request.POST["reviewtitle"]
+        title = request.POST["title"]
         recommend = recommend in ("True")
         print(recommend)
 
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
         review.save()
 
-        return JsonResponse({"reviewername": review.reviewer.user.get_full_name(), "companypk": review.company.pk, "companyname": review.company.name, "companylogo": review.company.logo, "rating": review.rating, "recommend": review.recommend, "review": review.review, "title": review.title, "success": True})
+        return JsonResponse({
+            "reviewername": review.reviewer.user.get_full_name(),
+            "companypk": review.company.pk,
+            "companyname": review.company.name,
+            "companylogo": review.company.logo,
+            "rating": review.rating,
+            "recommend": review.recommend,
+            "review": review.review,
+            "title": review.title,
+            "success": True
+        })
     return HttpResponse("Bad request")
 
 def company_search_suggestion(request, searchstring):

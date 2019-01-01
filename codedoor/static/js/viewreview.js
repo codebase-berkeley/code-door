@@ -73,3 +73,11 @@ function validate_comment() {
       event.preventDefault();
   }
 }
+
+(function() {
+    // Get the buttons that open the edit review
+    var editReviewBtn = document.getElementById("edit-review-btn");
+    editReviewBtn.addEventListener("click", function() {
+        document.getElementById("review-modal").style.display = "block";
+    });
+})();
