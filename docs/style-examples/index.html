@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CodeDoor Style Examples</title>
+    <link rel="stylesheet" href="./base.css" type="text/css" />
+</head>
+<body>
+    <div class="content">
+    <div class="container">
+        <h1>CodeDoor Style Examples</h1>
+
+        <p>
+            We now have a nice standardized style system where styles are broken down into classes corresponding to different components.
+            To understand how to use these classes, let's look at some examples.
+        </p>
+
+        <h2>Buttons</h2>
+
+        <pre>
+&lt;div class="btn btn-xs"&gt;X-Small Button&lt;/div&gt;
+&lt;div class="btn btn-sm"&gt;Small Button&lt;/div&gt;
+&lt;div class="btn btn-md"&gt;Medium Button&lt;/div&gt;
+        </pre>
+        <div class="btn btn-xs">X-Small Button</div>
+        <div class="btn btn-sm">Small Button</div>
+        <div class="btn btn-md">Medium Button</div>
+
+        <h2>Inputs</h2>
+
+        <h3>Text Inputs</h3>
+
+        <pre>
+&lt;input type="text" class="input-text input-xs" placeholder="X-Small Input" /&gt;
+&lt;input type="text" class="input-text input-sm" placeholder="Small Input" /&gt;
+&lt;input type="text" class="input-text input-md" placeholder="Medium Input" /&gt;
+&lt;input type="text" class="input-text input-lg" placeholder="Large Input" /&gt;
+&lt;input type="text" class="input-text input-fl" placeholder="Fill-Width Input" /&gt;
+&lt;textarea class="input-text-area"&gt;&lt;/textarea&gt;
+        </pre>
+        <input type="text" class="input-text input-xs" placeholder="X-Small Input" />
+        <input type="text" class="input-text input-sm" placeholder="Small Input" />
+        <input type="text" class="input-text input-md" placeholder="Medium Input" />
+        <input type="text" class="input-text input-lg" placeholder="Large Input" />
+        <input type="text" class="input-text input-fl" placeholder="Fill-Width Input" />
+        <textarea class="input-text-area">Text Area</textarea>
+
+        <h3>Checkbox Inputs</h3>
+
+        <pre>
+&lt;input type="checkbox" class="input-checkbox" /&gt; Naked Checkbox (Don't use this!!)
+&lt;label for="checkbox-id" class="input-checkbox-label"&gt;
+    &lt;input class="input-checkbox" type="checkbox" id="checkbox-id"&gt; Proper Checkbox
+&lt;/label&gt;
+        </pre>
+        <input type="checkbox" class="input-checkbox" /> Naked Checkbox (Don't use this!!)
+        <label for="checkbox-id" class="input-checkbox-label">
+            <input class="input-checkbox" type="checkbox" id="checkbox-id"> Proper Checkbox
+        </label>
+
+        <h3>Dropdown Menus</h3>
+
+        <pre>
+&lt;select class="input-dropdown" required&gt;
+  &lt;option value="1"&gt;Fall&lt;/option&gt;
+  &lt;option value="2"&gt;Winter&lt;/option&gt;
+  &lt;option value="3"&gt;Spring&lt;/option&gt;
+  &lt;option value="4"&gt;Summer&lt;/option&gt;
+&lt;/select&gt;
+        </pre>
+        <select class="input-dropdown" required>
+          <option value="1">Fall</option>
+          <option value="2">Winter</option>
+          <option value="3">Spring</option>
+          <option value="4">Summer</option>
+        </select>
+    </div>
+    </div>
+</body>
+</html>
