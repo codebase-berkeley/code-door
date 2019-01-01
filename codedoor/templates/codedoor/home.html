@@ -4,7 +4,7 @@
   <h1 class="search-jumbotron-header"> CodeDoor </h1>
   <p class="search-jumbotron-subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
   <div class="search-jumbotron-searchbar">
-    <form action="{% url 'codedoor:search' database='reviews' %}" method="GET">
+    <form action="{% url 'codedoor:search' database='companies' %}" method="GET">
     <input class="search-jumbotron-searchtype" name="query" type="text" placeholder='Try "Google"'>
     <button class="btn btn-sm search-jumbotron-searchbar-submit" type="submit">Search</button>
     </form>

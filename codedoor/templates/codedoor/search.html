@@ -4,6 +4,13 @@
 <body>
 <div class="search-results-types">
   <div class="search-results-types-type">
+    {% if database == "companies" %}
+    <a class="active" href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
+    {% else %}
+    <a href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
+    {% endif %}
+  </div>
+  <div class="search-results-types-type">
     {% if database == "reviews" %}
     <a class="active" href="{% url 'codedoor:search' database='reviews' %}?query={{ query }}">Company Reviews</a>
     {% else %}
@@ -15,13 +22,6 @@
     <a class="active" href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
     {% else %}
     <a href="{% url 'codedoor:search' database='interviews' %}?query={{ query }}">Interviews</a>
-    {% endif %}
-  </div>
-  <div class="search-results-types-type">
-    {% if database == "companies" %}
-    <a class="active" href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
-    {% else %}
-    <a href="{% url 'codedoor:search' database='companies' %}?query={{ query }}">Companies</a>
     {% endif %}
   </div>
   <div class="search-results-types-type">
