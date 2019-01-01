@@ -118,6 +118,7 @@ which will compile the given `*.scss` file into `*.css` and render the final tem
 
 Note that because we are using a new templatetag, we must load this tag in the base template (already done).
 Since most pages will extend the base template, no further action is needed.
+If you are working on the frontend, make sure to checkout the [style examples documentation](https://codebase-berkeley.github.io/CodeDoor/style-examples/).
 
 You are now ready to run a local instance of CodeDoor.
 
