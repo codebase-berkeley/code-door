@@ -16,7 +16,8 @@ class Company(models.Model):
     website = models.URLField(null=True, blank=True)
     logo = models.URLField(null=True, blank=True)
     structure = models.CharField(max_length=100, choices=STRUCTURES)
-
+    num_reviews = models.IntegerField(default = 0)
+    avg_rating = models.DecimalField(decimal_places=5, max_digits=10, default = -1)
     def __str__(self):
         return self.name
 
@@ -107,4 +108,3 @@ class ApplicationComment(models.Model):
 
     def __str__(self):
         return "{} comment on {}".format(self.commenter.user, self.application.company.name)
-

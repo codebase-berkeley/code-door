@@ -4,7 +4,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, Http40
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from codedoor.models import Review, Company, Profile, ReviewComment
-
+import decimal
 @login_required
 def view_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
@@ -39,8 +39,12 @@ def edit_review(request, pk):
     if request.method == "POST":
         try:
             company = Company.objects.get(pk=request.POST["company"])
+            old_rating = review.rating
+            new_rating = decimal.Decimal(request.POST["rating"])
+            # modify company rating
+            company.avg_rating = (company.avg_rating*company.num_reviews - old_rating + new_rating)/company.num_reviews
             review.company = company
-            review.rating = request.POST["rating"]
+            review.rating = new_rating
             review.recommend = request.POST["recommend"]
             review.review = request.POST["review"]
             review.title = request.POST["title"]
@@ -56,7 +60,7 @@ def edit_review(request, pk):
                 "title": review.title,
                 "success": False
             })
-
+        company.save()
         review.save()
 
         return JsonResponse({
@@ -83,8 +87,10 @@ def created_review(request):
         review = request.POST["review"]
         title = request.POST["title"]
         recommend = recommend in ("True")
-        print(recommend)
-
+        # update company rating
+        company.avg_rating = (company.avg_rating * company.num_reviews + decimal.Decimal(rating))/(company.num_reviews+1)
+        company.num_reviews = company.num_reviews + 1
+        company.save()
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
         review.save()
 
@@ -111,4 +117,3 @@ def company_search_suggestion(request, searchstring):
     response = JsonResponse({"companies": [companytodict(company) for company in companies]})
     print(response)
     return response
-
