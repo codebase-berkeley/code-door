@@ -15,7 +15,7 @@ Renders a header containing basic company information.
     {% endif %}
 
     <div class="company-header-body">
-      <h1 class="company-header-body-name">{{company.name}}</h1>
+      <h1 class="company-header-body-name">{{company.name}} ({{company.avg_rating}})</h1>
       <p class="company-header-body-subtitle">{{ company.industry }}, {{company.structure}}</p>
       <div class="company-header-body-links">
         <a href="{{company.website}}" class="company-header-body-links-li">
