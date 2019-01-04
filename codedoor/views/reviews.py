@@ -4,7 +4,7 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, Http40
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from codedoor.models import Review, Company, Profile, ReviewComment
-import decimal
+
 @login_required
 def view_review(request, pk):
     review = get_object_or_404(Review, pk=pk)
@@ -40,7 +40,7 @@ def edit_review(request, pk):
         try:
             company = Company.objects.get(pk=request.POST["company"])
             old_rating = review.rating
-            new_rating = decimal.Decimal(request.POST["rating"])
+            new_rating = float(request.POST["rating"])
             # modify company rating
             company.avg_rating = (company.avg_rating*company.num_reviews - old_rating + new_rating)/company.num_reviews
             review.company = company
@@ -88,7 +88,7 @@ def created_review(request):
         title = request.POST["title"]
         recommend = recommend in ("True")
         # update company rating
-        company.avg_rating = (company.avg_rating * company.num_reviews + decimal.Decimal(rating))/(company.num_reviews+1)
+        company.avg_rating = (company.avg_rating * company.num_reviews + float(rating))/(company.num_reviews+1)
         company.num_reviews = company.num_reviews + 1
         company.save()
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
