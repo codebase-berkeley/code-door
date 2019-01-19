@@ -16,7 +16,8 @@ class Company(models.Model):
     website = models.URLField(null=True, blank=True)
     logo = models.URLField(null=True, blank=True)
     structure = models.CharField(max_length=100, choices=STRUCTURES)
-
+    num_reviews = models.IntegerField(default = 0)
+    avg_rating = models.FloatField()
     def __str__(self):
         return self.name
 
@@ -58,7 +59,7 @@ class Application(models.Model):
     position = models.CharField(max_length=500)
     received_offer = models.BooleanField()
     offer_details = models.TextField(null=True, blank=True)
-    difficult = models.DecimalField(decimal_places=2, max_digits=10)
+    difficult = models.FloatField()
 
     def __str__(self):
         return "{}'s application to {}".format(self.profile.user.get_full_name(),
@@ -68,7 +69,7 @@ class Application(models.Model):
 class Review(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     reviewer = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    rating = models.DecimalField(decimal_places=2, max_digits=10)
+    rating = models.FloatField()
     recommend = models.BooleanField()
     review = models.TextField()
     title = models.CharField(max_length=200, null=True, blank=True)
@@ -107,4 +108,3 @@ class ApplicationComment(models.Model):
 
     def __str__(self):
         return "{} comment on {}".format(self.commenter.user, self.application.company.name)
-
