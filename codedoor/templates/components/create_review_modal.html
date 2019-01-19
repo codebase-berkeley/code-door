@@ -1,0 +1,11 @@
+{% comment %}
+CreateReviewModal Component.
+
+Includes all the HTML code and JS libraries needed to render a create review form modal.
+
+:param: id - (String) The HTML ID of the modal element. (required)
+:param: on_submit_list_id - (String) On submission, the modal will append an entry to this HTML element. (required)
+:param: company - (Object) A company object to prefill the form. If omitted, the modal will have a search box to select the company. (optional)
+{% endcomment %}
+
+{% include "components/review_modal.html" with form_title="Create Review" id=id on_submit_list_id=on_submit_list_id company=company only %}

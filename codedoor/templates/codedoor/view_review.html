@@ -18,8 +18,7 @@
   </div>
   {% include "components/review.html" with review=review only %}
 
-  {% url 'codedoor:editreview' pk=review.pk as edit_url %}
-  {% include "components/review_modal.html" with id="review-modal" on_submit_post_url=edit_url company=review.company review=review only %}
+  {% include "components/edit_review_modal.html" with id="review-modal" review=review only %}
 
   <h4>Comments</h4>
   <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>

@@ -2,26 +2,24 @@
 {% load static %}
 
 {% block content %}
-<form action="{% url 'codedoor:login' %}" method="POST"> {% csrf_token %}
-<input type="hidden" next= {{ next }}>
-
-<h1>
-    Login
-</h1>
-
-<h2>
-    Welcome to CodeDoor, a platform for sharing job and internship experiences with the premiere coding club at UC Berkeley!
-</h2>
-
-<div id="button">
-    <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id={{client_id}}">
-        <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
-    </a>
-</div>
-    {% if failed %}
+<form action="{% url 'codedoor:login' %}" method="POST" class="login-header">
+    {% csrf_token %}
+    <input type="hidden" next= {{ next }}>
+    <h1 class="login-header-item">
+        Login
+    </h1>
+    <div class="login-header-item">
+        Welcome to CodeDoor, a platform for sharing job and internship experiences with the premiere coding club at UC Berkeley!
+    </div>
+    <div class="login-header-item">
+        <a href="https://slack.com/oauth/authorize?scope=identity.basic,identity.email,identity.avatar&client_id={{client_id}}">
+            <img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" />
+        </a>
+        {% if failed %}
         <div id="failed">
             <p> LOGIN ATTEMPT FAILED. </p>
         </div>
-    {% endif %}
+        {% endif %}
+    </div>
 </form>
 {% endblock %}

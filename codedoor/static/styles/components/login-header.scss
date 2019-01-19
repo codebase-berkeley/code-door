@@ -1,0 +1,10 @@
+.login-header {
+  padding: 10px;
+  @include flex(center, flex-start, column);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+
+  &-item {
+    margin: 10px 0;
+  }
+}

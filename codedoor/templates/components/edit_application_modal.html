@@ -1,0 +1,11 @@
+{% comment %}
+EditApplicationModal Component.
+
+Includes all the HTML code and JS libraries needed to render an edit review form modal.
+
+:param: id - (String) The HTML ID of the modal element. (required)
+:param: a - (Object) An application object to prefill the form. (optional)
+{% endcomment %}
+
+{% url 'codedoor:edit_application' pk=a.pk as edit_url %}
+{% include "components/application_modal.html" with form_title="Edit Application" id=id on_submit_post_url=edit_url company=a.company a=a only %}

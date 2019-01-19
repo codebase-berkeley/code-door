@@ -3,6 +3,7 @@ ReviewModal Component.
 
 Includes all the HTML code and JS libraries needed to render an review form modal.
 
+:param: form_title - (String) The title of the form. (required)
 :param: id - (String) The HTML ID of the modal element. (required)
 :param: on_submit_list_id - (String) On submission, the modal will append an entry to this HTML element. (required)
 :param: on_submit_post_url - (String) On submission, the modal POSTs data to this URL. (optional - default: "/codedoor/createreview")
@@ -15,7 +16,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
 <div id={{ id }} class="modal">
   <div class="modal-content">
     <span class="modal-close-btn">&times;</span>
-    <h1> Create Review </h1><br>
+    <h1> {{ form_title }} </h1><br>
     <div class="entry">
       <h4>Review Title</h4>
       <div class="border-text">

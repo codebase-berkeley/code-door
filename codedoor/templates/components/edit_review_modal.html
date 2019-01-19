@@ -1,0 +1,11 @@
+{% comment %}
+EditReviewModal Component.
+
+Includes all the HTML code and JS libraries needed to render an edit review form modal.
+
+:param: id - (String) The HTML ID of the modal element. (required)
+:param: review - (Object) A review object to prefill the form. (optional)
+{% endcomment %}
+
+{% url 'codedoor:editreview' pk=review.pk as edit_url %}
+{% include "components/review_modal.html" with form_title="Edit Review" id=id on_submit_post_url=edit_url company=review.company review=review only %}

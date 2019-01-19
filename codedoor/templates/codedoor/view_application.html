@@ -15,8 +15,7 @@
       <button id="edit-application-btn" class="btn btn-sm">Edit Application</button>
     {% endif %}
 
-    {% url 'codedoor:edit_application' pk=a.pk as edit_url %}
-    {% include "components/application_modal.html" with id="application-modal" on_submit_post_url=edit_url company=a.company a=a only %}
+    {% include "components/edit_application_modal.html" with id="application-modal" a=a only %}
 
     <h2> Comments </h2><br>
     <textarea id="addbody" name="body" placeholder="Review here" class="input-text-area"></textarea>
