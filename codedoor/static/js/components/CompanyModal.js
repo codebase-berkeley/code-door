@@ -62,6 +62,7 @@ var CompanyModal = function (formInitialState, onSubmitPostUrl, modalId) {
     
     self.modalC.getElementsByClassName("modal-submit-btn")[0].addEventListener("click", function(e) {
         var errors_exist = validate();
+        console.log(errors_exist);
         var logo = self.logoInput.files[0];
         var name = self.nameInput.value;
         var industry = self.industryInput.value;
@@ -125,21 +126,18 @@ var CompanyModal = function (formInitialState, onSubmitPostUrl, modalId) {
         
         if (!name || name === 'None' || name.trim().length == 0) {
           errors_exist = true;
-          display_error.innerHTML += 'You must provide a company name';
           name_error.innerHTML = 'You must provide a company name';
         } else {
           name_error.innerHTML = '';
         }
         if (!industry || industry === 'None' || industry.trim().length == 0) {
           errors_exist = true;
-          display_error.innerHTML += 'You must provide an industry name';
           industry_error.innerHTML = 'You must provide an industry name';
         } else {
           industry_error.innerHTML = '';
         }
         if (!website) {
           errors_exist = true;
-          display_error.innerHTML += 'You must provide a company website';
           website_error.innerHTML = 'You must provide a company website';
         } else {
           website_error.innerHTML = '';

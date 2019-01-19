@@ -35,7 +35,7 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
       rating: 1,
       recommend: "False",
       review: "",
-      company: "0",
+      company: null,
     };
     self.onSubmitPostUrl = onSubmitPostUrl;
     self.onSubmitListId = onSubmitListId;
@@ -48,7 +48,7 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
     self.reviewInput = self.modalR.getElementsByClassName("modal-input-review")[0];
 
     function validate_review() {
-      var err = false;
+        var err = false;
 
         var title = self.titleInput.value;
         var rating = self.ratingInput.value;
@@ -58,6 +58,7 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
         var rating_error = document.getElementsByClassName('modal-rating-error')[0];
         var review_error = document.getElementsByClassName('modal-review-error')[0];
         var recommend_error = document.getElementsByClassName('modal-recommend-error')[0];
+        var company_error = document.getElementsByClassName("modal-company-error")[0];
 
         if (!title || title.trim().length == 0 || title === 'None') {
           err = true;
@@ -79,6 +80,15 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
           event.preventDefault();
         } else {
           review_error.innerHTML = '';
+        }
+        console.log(self.formInitialState);
+        // company input is handled by external dropdown code.
+        if (!self.formInitialState.company) {
+          err = true;
+          company_error.innerHTML = 'You must select a commpany';
+          event.preventDefault();
+        } else {
+          company_error.innerHTML = '';
         }
         return err;
     }

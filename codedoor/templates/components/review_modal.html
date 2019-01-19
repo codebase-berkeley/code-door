@@ -89,7 +89,7 @@ Includes all the HTML code and JS libraries needed to render an review form moda
       rating: 1,
       recommend: "False",
       review: "",
-      company: {% if company %} {{ company.pk }} {% else %} "0" {% endif %},
+      company: {% if company %} {{ company.pk }} {% else %} null {% endif %},
     };
     {% if not company %}
     LibDropdown.createCompanyDropdown(

@@ -20,7 +20,6 @@ Includes all the HTML code and JS libraries needed to render an application form
       <h1> {{ form_title }} </h1>
       <div class="entry">
         <h4>Position:</h4>
-        <p id="error0"></p>
         {% if a %}
         <input
           class="modal-input-position input-text input-md"
@@ -37,6 +36,7 @@ Includes all the HTML code and JS libraries needed to render an application form
           type="text"
           required />
         {% endif %}
+        <p class="modal-error-position"></p>
       </div>
       {% if not company %}
       <div class="entry">
@@ -47,22 +47,21 @@ Includes all the HTML code and JS libraries needed to render an application form
 
           </div>
         </div>
-        <p id="error1" class="error"></p>
+        <p class="modal-error-company"></p>
       </div>
       {% endif %}
       <div class="entry">
         <h4>Season:</h4>
-        <p id="error1" class="error"></p>
         <select id="season" name="season" class="modal-input-season" required>
           <option value="Fall">Fall</option>
           <option value="Winter">Winter</option>
           <option value="Spring">Spring</option>
           <option value="Summer">Summer</option>
         </select>
+        <p class="modal-error-season"></p>
       </div>
       <div class="entry">
         <h4>Year:</h4>
-        <p id="error2" class="error"></p>
         {% if a %}
         <input
           class="modal-input-year input-text input-xs"
@@ -83,10 +82,10 @@ Includes all the HTML code and JS libraries needed to render an application form
           placeholder="e.g. 2015"
           required />
         {% endif %}
+        <p class="modal-error-year"></p>
       </div>
       <div class="entry">
         <h4>Difficulty:</h4>
-        <p id="error3" class="error"></p>
         {% if a %}
         <input
           class="modal-input-difficulty input-text input-xs"
@@ -107,20 +106,19 @@ Includes all the HTML code and JS libraries needed to render an application form
           placeholder="1-10"
           required />
         {% endif %}
+        <p class="modal-error-difficulty"></p>
       </div>
       <div class="entry">
         <h4>Description:</h4>
-        <p id="error4" class="error"></p>
         <textarea
           class="modal-input-description input-text-area"
           name="description"
           placeholder="Description of application"
           required>{{a.description}}</textarea>
+        <p class="modal-error-description"></p>
       </div>
       <div class="entry">
         <h4>Offer details:</h4>
-        <p id="error5" class="error"></p>
-        <p id="error6" class="error"></p>
         <label for="{{ id }}-offer-checkbox" class="input-checkbox-label">
           {% if a and a.received_offer %}
           <input class="modal-input-offer-check input-checkbox" type="checkbox" id="{{ id }}-offer-checkbox" checked>

@@ -59,10 +59,6 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
     self.spanA.addEventListener("click", function() {
         self.modalA.style.display = "none";
     });
-    // When the user submits the form, close the modal
-    self.submitBtnA.addEventListener("click", function(event) {
-        self.modalA.style.display = "none";
-    });
 
     // When the user clicks anywhere outside of the modal, close it
     window.addEventListener("click", function(event) {
@@ -71,29 +67,34 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
         }
     });
 
+    self.positionInput = self.modalA.getElementsByClassName("modal-input-position")[0];
+    self.seasonInput = self.modalA.getElementsByClassName("modal-input-season")[0];
+    self.yearInput = self.modalA.getElementsByClassName("modal-input-year")[0];
+    self.difficultyInput = self.modalA.getElementsByClassName("modal-input-difficulty")[0];
+    self.descriptionInput = self.modalA.getElementsByClassName("modal-input-description")[0];
+    self.offerCheckboxInput = self.modalA.getElementsByClassName("modal-input-offer-check")[0];
+    self.offerInput = self.modalA.getElementsByClassName("modal-input-offer")[0];
+
     self.submitBtnA.addEventListener("click", function(e) {
-      var positionInput = self.modalA.getElementsByClassName("modal-input-position")[0];
-      var seasonInput = self.modalA.getElementsByClassName("modal-input-season")[0];
-      var yearInput = self.modalA.getElementsByClassName("modal-input-year")[0];
-      var difficultyInput = self.modalA.getElementsByClassName("modal-input-difficulty")[0];
-      var descriptionInput = self.modalA.getElementsByClassName("modal-input-description")[0];
-      var offerCheckboxInput = self.modalA.getElementsByClassName("modal-input-offer-check")[0];
-      var offerInput = self.modalA.getElementsByClassName("modal-input-offer")[0];
+      if (validate()) {
+        e.preventDefault();
+        return;
+      }
+      self.modalA.style.display = "none";
+      self.formInitialState.position = self.positionInput.value;
+      self.formInitialState.season = self.seasonInput.value;
+      self.formInitialState.year = self.yearInput.value;
+      self.formInitialState.difficulty = self.difficultyInput.value;
+      self.formInitialState.description = self.descriptionInput.value;
+      self.formInitialState.received_offer = self.offerCheckboxInput.checked;
+      self.formInitialState.offer_details = self.offerInput.value;
 
-      self.formInitialState.position = positionInput.value;
-      self.formInitialState.season = seasonInput.value;
-      self.formInitialState.year = yearInput.value;
-      self.formInitialState.difficulty = difficultyInput.value;
-      self.formInitialState.description = descriptionInput.value;
-      self.formInitialState.received_offer = offerCheckboxInput.checked;
-      self.formInitialState.offer_details = offerInput.value;
-
-      positionInput.value = "";
-      yearInput.value = "";
-      difficultyInput.value = "";
-      descriptionInput.value = "";
-      offerCheckboxInput.value = "";
-      offerInput.value = "";
+      self.positionInput.value = "";
+      self.yearInput.value = "";
+      self.difficultyInput.value = "";
+      self.descriptionInput.value = "";
+      self.offerCheckboxInput.value = "";
+      self.offerInput.value = "";
 
       var formData = new FormData();
 
@@ -159,5 +160,52 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
       entry.getElementsByClassName("application-desc")[0].innerHTML = aFields["description"];
       entry.className = "";
       document.getElementById(self.onSubmitListId).prepend(entry);
+    }
+
+    function validate() {
+        var positionError = self.modalA.getElementsByClassName('modal-error-position')[0];
+        var companyError = self.modalA.getElementsByClassName('modal-error-company')[0];
+        var seasonError = self.modalA.getElementsByClassName('modal-error-season')[0];
+        var yearError = self.modalA.getElementsByClassName('modal-error-year')[0];
+        var difficultyError = self.modalA.getElementsByClassName('modal-error-difficulty')[0];
+
+        var errors_exist = false;
+
+        var position = self.positionInput.value;
+        var season = self.seasonInput.value;
+        var year = self.yearInput.value;
+        var difficulty = self.difficultyInput.value;
+
+        if (!position) {
+          errors_exist = true;
+          positionError.innerHTML = 'You must provide a position';
+        } else {
+          positionError.innerHTML = '';
+        }
+        if (!season) {
+          errors_exist = true;
+          seasonError.innerHTML = 'You must provide a season';
+        } else {
+          seasonError.innerHTML = '';
+        }
+        if (!year) {
+          errors_exist = true;
+          yearError.innerHTML = 'You must provide a year';
+        } else {
+          yearError.innerHTML = '';
+        }
+        if (!difficulty) {
+          errors_exist = true;
+          difficultyError.innerHTML = 'You must provide a difficulty';
+        } else {
+          difficultyError.innerHTML = '';
+        }
+        if (!self.formInitialState.company) {
+          errors_exist = true;
+          companyError.innerHTML = 'You must provide a company';
+        } else {
+          companyError.innerHTML = '';
+        }
+        return errors_exist;
     }
 }
