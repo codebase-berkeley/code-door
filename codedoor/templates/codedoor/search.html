@@ -102,29 +102,37 @@
  {% if data.has_other_pages %}
       <ul class="pagination">
         {% if data.has_previous %}
-          <li class="clickable">
-            <li class="clickable"><a href="?query={{ query }}&page={{ data.previous_page_number }}">&laquo;</a></li>
-            </form>
-          </li>
+          <a href="?query={{ query }}&page={{ data.previous_page_number }}">
+            <li class="clickable">&laquo;</li>
+          </a>
         {% else %}
           <li>&laquo;</li>
         {% endif %}
+
+        {% if data.number|add:'-4' > 1 %}
+          <a href="?page={{ data.number|add:'-5' }}"><li>&hellip;</li></a>
+        {% endif %}
+
         {% for i in data.paginator.page_range %}
           {% if data.number == i %}
             <li class="active">{{ i }}</li>
-          {% else %}
-                <li class="clickable"><a href="?query={{ query }}&page={{ i }}">{{ i }}</a></li>
-            </form>
+          {% elif i > data.number|add:'-5' and i < data.number|add:'5' %}
+            <a href="?query={{ query }}&page={{ i }}"><li class="clickable">{{ i }}</li></a>
           {% endif %}
         {% endfor %}
+
+        {% if data.paginator.num_pages > data.number|add:'4' %}
+          <a href="?page={{ data.number|add:'5' }}"><li>&hellip;</li></a>
+        {% endif %}
+
         {% if data.has_next %}
-          <li><a href="?query={{ query }}&page={{ data.next_page_number }}">&raquo;</a></li>
+          <a href="?query={{ query }}&page={{ data.next_page_number }}"><li>&raquo;</li></a>
         {% else %}
           <li>&raquo;</li>
         {% endif %}
       </ul>
      {%  else %}
-    {% endif %}
+  {% endif %}
 
 </div>
 </body>
