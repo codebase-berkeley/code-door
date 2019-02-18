@@ -29,6 +29,7 @@ class Profile(models.Model):
     current_job = models.CharField(null=True, blank=True, max_length=1000)
     linkedin = models.URLField(null=True, blank=True)
     resume = models.FileField(null=True, blank=True)
+    codebucks = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.get_full_name()

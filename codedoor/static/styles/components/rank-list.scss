@@ -1,0 +1,31 @@
+.rank-list {
+    border: 1px solid $grey-off-white;
+    border-radius: 3px;
+    &-header {
+        margin-bottom: 1em;
+    }
+    &-li {
+        padding: 1em;
+        border-bottom: 1px solid $grey-off-white;
+        list-style: inside;
+        @include flex(center, space-between, row);
+        &-profile {
+            &-circle {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                background-position: center;
+                background-size: cover;
+            }
+        }
+        &-item {
+            @include flex(center, flex-start, row);
+        }
+        &-icon {
+            margin-right: 5px;
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

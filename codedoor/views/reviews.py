@@ -79,6 +79,10 @@ def edit_review(request, pk):
 
 @login_required
 def created_review(request):
+    """
+    POST route for when the user creates a review.
+    TODO replace with Django-REST-Framework API routes.
+    """
     if request.method == "POST":
         company = Company.objects.get(pk=request.POST['company'])
         reviewer = Profile.objects.get(user=request.user)
@@ -93,6 +97,11 @@ def created_review(request):
         company.save()
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
         review.save()
+        # add codebucks to the user's balance!
+        codebuck_value = max(100, 1000 - company.num_reviews * 100)
+        print("Add {} codebuck value to {}".format(codebuck_value, reviewer))
+        reviewer.codebucks = reviewer.codebucks + codebuck_value
+        reviewer.save()
 
         return JsonResponse({
             "reviewername": review.reviewer.user.get_full_name(),

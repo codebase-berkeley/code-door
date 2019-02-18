@@ -369,6 +369,36 @@ ul.pagination {
         .profile-header-body-links-li:hover {
           border-color: #008489; }
 
+.rank-list {
+  border: 1px solid #E6E6E6;
+  border-radius: 3px; }
+  .rank-list-header {
+    margin-bottom: 1em; }
+  .rank-list-li {
+    padding: 1em;
+    border-bottom: 1px solid #E6E6E6;
+    list-style: inside;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row; }
+    .rank-list-li-profile-circle {
+      display: inline-block;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-position: center;
+      background-size: cover; }
+    .rank-list-li-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: row; }
+    .rank-list-li-icon {
+      margin-right: 5px;
+      width: 20px;
+      height: 20px; }
+
 .search-jumbotron {
   padding: 80px 50px;
   margin-bottom: 20px; }

@@ -18,7 +18,19 @@ def home(request):
     num_apps = Application.objects.all().count()
     companies = [Company.objects.get(id=review.company.id) for review in reviews]
     companies += [Company.objects.get(id=application.company.id) for application in applications]
-    actual_companies = Company.objects.all()
+    top_profiles = Profile.objects.all().order_by('-codebucks')[:3]
 
-    return render(request, "codedoor/home.html", {"actual_companies": actual_companies, "companies": companies, "reviews": reviews, "applications": applications, "num_reviews": num_reviews, "num_apps": num_apps, "is_home": True})
+    return render(
+        request,
+        "codedoor/home.html",
+        {
+            "applications": applications,
+            "companies": companies,
+            "is_home": True,
+            "num_reviews": num_reviews,
+            "num_apps": num_apps,
+            "reviews": reviews,
+            "top_profiles": top_profiles
+        }
+    )
 

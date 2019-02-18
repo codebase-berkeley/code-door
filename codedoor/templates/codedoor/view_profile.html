@@ -15,7 +15,7 @@
     <p class="profile-header-body-year">
       Class of {{ profile.graduation_year }}
     </p>
-    <div id="profile-header-body-links">
+    <div class="profile-header-body-links">
       {% if profile.linkedin %}
         <a class="profile-header-body-links-li" href="{{ profile.linkedin }}">
           <img class="profile-header-body-links-li-icon" src="{% static 'images/linkedinlogo.png' %}">
@@ -26,6 +26,10 @@
           <img class="profile-header-body-links-li-icon" src="{% static 'images/emailicon.png' %}">
           <span>{{ profile.user.email }}</span>
         </a>
+      <a class="profile-header-body-links-li" href="#">
+        <img class="profile-header-body-links-li-icon" src="{% static 'images/codebank.png' %}" alt="Codebucks">
+        <span>{{ profile.codebucks }}</span>
+      </a>
     </div>
     {% if request.user.profile == profile %}
       <a href="/codedoor/editprofile/{{ profile.id }}">

@@ -1,6 +1,7 @@
 {% extends 'codedoor/base.html' %}
 {% load static %}
-{% block content %}<div class="search-jumbotron">
+{% block content %}
+<div class="search-jumbotron">
   <h1 class="search-jumbotron-header"> CodeDoor </h1>
   <p class="search-jumbotron-subtitle"> Find an interview, company, or work experience from a CodeBase member</p>
   <div class="search-jumbotron-searchbar">
@@ -9,6 +10,23 @@
     <button class="btn btn-sm search-jumbotron-searchbar-submit" type="submit">Search</button>
     </form>
   </div>
+</div>
+<div class="rank-list-container">
+  <div class="rank-list-header">
+    <h3>CodeBucks Top 3</h3>
+  </div>
+  <ol class="rank-list">
+    {% for profile in top_profiles %}
+      <li class="rank-list-li">
+        <div class="rank-list-li-profile-circle" style="background-image: url('{{ profile.profile_pic }}');"></div>
+        <a href="{% url 'codedoor:viewprofile' pk=profile.id %}" class="rank-list-li-name">{{ profile.user.get_full_name }}</a>
+        <span class="rank-list-li-item">
+          <img class="rank-list-li-icon" src="{% static 'images/codebank.png' %}" alt="Codebucks">
+          <span>{{ profile.codebucks }}</span>
+        </span>
+      </li>
+    {% endfor %}
+  </ol>
 </div>
 <div class="card-list-container">
   <div class="card-list-header">

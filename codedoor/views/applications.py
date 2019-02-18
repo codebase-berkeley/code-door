@@ -2,17 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse, Http404
 from django.core.paginator import Paginator
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
 from codedoor.models import Profile, Company, Question, Application, ApplicationComment, User
 
 import traceback
 
+@login_required
 def create_application(request, companypk):
-    profilepk = request.user.profile.pk
+    """
+    POST route for when the user creates an application.
+    This route contains the company PK in the route URL.
+    TODO replace with Django-REST-Framework API routes.
+    """
+    applicant_profile = request.user.profile
+    profilepk = applicant_profile.pk
     if request.method == 'POST':
-        print("inside the if")
         try:
-            print(request.POST)
             description = request.POST['description']
             season = request.POST['season']
             position = request.POST['position']
@@ -39,6 +45,11 @@ def create_application(request, companypk):
             year=year
         )
         a.save()
+        # add codebucks to the applicant profile.
+        codebucks_value = 150
+        applicant_profile.codebucks = applicant_profile.codebucks + codebucks_value
+        applicant_profile.save()
+
         return JsonResponse({
             "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
             "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
@@ -48,14 +59,18 @@ def create_application(request, companypk):
     return Http404("No such page exists")
 
 
+@login_required
 def create_application_company(request):
-    print("in create application company")
-    profilepk = request.user.profile.pk
+    """
+    POST route for when the user creates an application.
+    The company PK is included in the POST payload.
+    TODO replace with Django-REST-Framework API routes.
+    """
+    applicant_profile = request.user.profile
+    profilepk = applicant_profile.pk
     companies = Company.objects.filter()
     if request.method == 'POST':
-        print("inside the if")
         try:
-            print(request.POST)
             companypk = request.POST['company']
             description = request.POST['description']
             season = request.POST['season']
@@ -71,9 +86,23 @@ def create_application_company(request):
         except Exception as e:
             traceback.print_exc()
             return JsonResponse({})
-        a = Application(company=Company.objects.get(pk=companypk), profile=Profile.objects.get(pk=profilepk), description=description, season=season, position=position, received_offer=received_offer, offer_details=offer_details, difficult=difficulty, year=year)
+        a = Application(
+            company=Company.objects.get(pk=companypk),
+            profile=Profile.objects.get(pk=profilepk),
+            description=description,
+            season=season,
+            position=position,
+            received_offer=received_offer,
+            offer_details=offer_details,
+            difficult=difficulty,
+            year=year
+        )
         a.save()
-        # return redirect("codedoor:view_application", pk=a.id)
+        # add codebucks to the applicant profile.
+        codebucks_value = 150
+        applicant_profile.codebucks = applicant_profile.codebucks + codebucks_value
+        applicant_profile.save()
+
         return JsonResponse({
             "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
             "c": serializers.serialize('json', Company.objects.filter(pk=a.company.pk)),
@@ -82,6 +111,7 @@ def create_application_company(request):
         }, safe=False)
     return Http404("No such page exists")
 
+@login_required
 def edit_application(request, pk):
     a = get_object_or_404(Application, pk=pk)
     if request.method == 'POST':
