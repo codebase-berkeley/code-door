@@ -1,11 +1,7 @@
 # CodeDoor
 
-For testing purposes, please setup the superuser to use:
-
-* username: `development`
-* password: `codebase`
-
-The production server does **not** have a superuser configured.
+Welcome to CodeDoor! This repository holds everything needed to run an instance
+of the CodeDoor web application locally.
 
 ## Installation
 
