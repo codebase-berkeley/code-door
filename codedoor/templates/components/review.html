@@ -44,7 +44,7 @@ Renders a single review element.
   <tr>
     <td>
       {% if review and review.title != null %}
-        <a class="button review-title" href="{% url 'codedoor:viewreview' pk=review.pk  %}">{{review.title}}</a>
+        <a class="button review-title" href="{% url 'codedoor:viewreview' pk=review.pk  %}">"{{review.title}}"</a>
       {% else %}
         <a class="button review-title" href="#"></a>
       {% endif %}
