@@ -81,13 +81,13 @@ var ReviewModal = function (formInitialState, onSubmitPostUrl, onSubmitListId, m
         } else {
           review_error.innerHTML = '';
         }
-        console.log(self.formInitialState);
         // company input is handled by external dropdown code.
-        if (!self.formInitialState.company) {
+        // note if the modal company is prefilled, then company_error is null!
+        if (!self.formInitialState.company && company_error) {
           err = true;
           company_error.innerHTML = 'You must select a commpany';
           event.preventDefault();
-        } else {
+        } else if (company_error) {
           company_error.innerHTML = '';
         }
         return err;

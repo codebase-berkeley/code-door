@@ -155,8 +155,9 @@ def logout(request):
 
 def slack_info(request):
     """
-    After a user logs into Slack, they are redirected to this view with several
-    parameters added to the request if the Slack login was successful.
+    After a slack user logs into CodeDoor for the first time, they are redirected to this view with several
+    parameters added to the request if the Slack login was successful. This is used to create their
+    CodeDoor profile from their slack info.
 
     See (https://api.slack.com/docs/oauth) for more.
     """
@@ -170,7 +171,12 @@ def slack_info(request):
     # else, if it's a new user, redirect to the finishprofile page for the user to input the rest of their info
     user = authenticate(params["user"]["email"])
     if user is None:
-        first_name, last_name = params["user"]['name'].split(" ")
+        slack_name = params["user"]["name"].split(" ")
+        if len(slack_name) == 2:
+            first_name, last_name = slack_name
+        else:
+            first_name = slack_name[0]
+            last_name = ""
         return render(
             request,
             'codedoor/finish_profile.html',
@@ -188,6 +194,11 @@ def slack_info(request):
 
 
 def slack_callback(request):
+    """
+    Called every time an existing user logs into CodeDoor with Slack.
+    :param request:
+    :return:
+    """
     client_id = slack_access_keys["client_id"]
     client_secret = slack_access_keys["client_secret"]
 
@@ -293,7 +304,7 @@ def slackbot_callback(request):
             leaderboard_text = "The top 3 codebucks accounts are:"
             for i in range(len(top_profiles)):
                 p = top_profiles[i]
-                leaderboard_text += "\n{}. **{}** ({} CB)".format(i+1, p.user.get_full_name(), p.codebucks)
+                leaderboard_text += "\n{}. {} ({} CB)".format(i+1, p.user.get_full_name(), p.codebucks)
             return JsonResponse({
                 "text": "Welcome to Codebank, {}! Your balance is {} codebucks.".format(
                     user_profile.user.first_name, user_profile.codebucks),
