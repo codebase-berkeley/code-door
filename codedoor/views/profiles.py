@@ -1,17 +1,16 @@
+from api_keys_prod import s3_access_keys, slack_access_keys, absolute_url
+import boto3
+from codedoor.models import Profile
+import datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
-from codedoor.models import Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+import json
 import requests
 from requests.auth import HTTPBasicAuth
-import datetime
-import boto3
-from api_keys_prod import s3_access_keys
-from api_keys_prod import slack_access_keys
-from api_keys_prod import absolute_url
 
 profile_pic_bucket = 'codedoor-profile-pictures'
 
@@ -211,3 +210,22 @@ def upload_picture(input_profile_pic, profile):
           + timestamp
     profile.profile_pic = url
     profile.save()
+
+def slackbot_callback(request):
+    """
+    Slack callback for a codebucks bot event.
+    :param request:
+    :return:
+    """
+    body = json.loads(request.body.decode("utf-8"))
+    if body["event"]["type"] == "app_mention":
+        print(body["event"]["text"])
+    return HttpResponse(200)
+
+def send_codebucks(request):
+    """
+    Slack callback for a codebucks transaction.
+    :param request:
+    :return:
+    """
+    pass

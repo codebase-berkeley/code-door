@@ -200,10 +200,10 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
         } else {
           difficultyError.innerHTML = '';
         }
-        if (!self.formInitialState.company) {
+        if (!self.formInitialState.company && companyError) {
           errors_exist = true;
           companyError.innerHTML = 'You must provide a company';
-        } else {
+        } else if (companyError) {
           companyError.innerHTML = '';
         }
         return errors_exist;

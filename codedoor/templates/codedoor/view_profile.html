@@ -26,7 +26,7 @@
           <img class="profile-header-body-links-li-icon" src="{% static 'images/emailicon.png' %}">
           <span>{{ profile.user.email }}</span>
         </a>
-      <a class="profile-header-body-links-li" href="#">
+      <a class="profile-header-body-links-li" href="{% url 'codedoor:codebank' %}">
         <img class="profile-header-body-links-li-icon" src="{% static 'images/codebank.png' %}" alt="Codebucks">
         <span>{{ profile.codebucks }}</span>
       </a>
