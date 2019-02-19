@@ -327,8 +327,8 @@ def slackbot_callback(request):
                 amount = int(match.group(1))
                 if profile.codebucks < amount:
                     return HttpResponse("You don't have enough codebucks.")
-                elif amount < 1:
-                    return HttpResponse("Invalid amount.")
+                elif amount < 100:
+                    return HttpResponse("The gambling committee requires a minimum wager of at least 100 codebucks.")
                 if (random.random() < 0.5):
                     amount = amount * -1
                 with transaction.atomic():
