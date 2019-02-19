@@ -41,6 +41,6 @@ def codebank(request):
     :param request:
     :return:
     """
-    top_profiles = Profile.objects.all().order_by('-codebucks')[:3]
+    top_profiles = Profile.objects.all().order_by('-codebucks')
 
     return render(request, "codedoor/codebank.html", { "top_profiles": top_profiles })
