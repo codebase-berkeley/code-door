@@ -270,11 +270,25 @@ def slackbot_callback(request):
                 print("Attempting to send {} from {} to {}".format(amount, user_id, recipient_id))
                 success = send_codebucks(user_id, recipient_id, amount)
                 if success:
+                    r = requests.post(
+                        "https://slack.com/api/chat.postMessage",
+                        headers={
+                            "content-type": "application/x-www-form-urlencoded",
+                            "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
+                        },
+                        params={
+                            "text": "<@{}> sent {} codebucks to <@{}>".format(user_id, amount, recipient_id),
+                            "channel": "CGBHVU06T"
+                        }
+                    )
                     return HttpResponse("You sent {} codebucks to <@{}>".format(amount, recipient_id))
                 return HttpResponse("It looks like that transaction is invalid. Make sure you have enough codebucks and "
                                     "that your recipient has a codebank account!")
         elif command_qs["command"][0] == "/codebank":
             user_profile = get_profile(user_id)
+            if user_profile is None:
+                return HttpResponse("It looks like you don't have a Codebank account yet. "
+                                    "Visit https://codedoor-prod.herokuapp.com to create one!")
             top_profiles = Profile.objects.all().order_by('-codebucks')[:3]
             leaderboard_text = "The top 3 codebucks accounts are:"
             for i in range(len(top_profiles)):
