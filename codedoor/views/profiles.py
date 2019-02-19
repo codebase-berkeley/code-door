@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 import json
 import requests
 from requests.auth import HTTPBasicAuth
@@ -211,6 +212,7 @@ def upload_picture(input_profile_pic, profile):
     profile.profile_pic = url
     profile.save()
 
+@csrf_exempt
 def slackbot_callback(request):
     """
     Slack callback for a codebucks bot event.
