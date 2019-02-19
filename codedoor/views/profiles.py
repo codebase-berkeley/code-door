@@ -225,6 +225,7 @@ def slackbot_callback(request):
             print(body["event"]["text"])
     elif "challenge" in body:
         return JsonResponse({"challenge": body["challenge"]})
+    print("Slackbot messaged received:{}".format(body))
     return HttpResponse(200)
 
 def send_codebucks(request):
