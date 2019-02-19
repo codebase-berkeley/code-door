@@ -10,6 +10,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonRespons
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 import json
+import random
 import re
 import requests
 from requests.auth import HTTPBasicAuth
@@ -317,6 +318,39 @@ def slackbot_callback(request):
                     }
                 ]
             })
+        elif command_qs["command"][0] == "/coinflip":
+            match = re.match("(\d+)", command_qs["text"][0])
+            if match is None:
+                return HttpResponse("Command is /coinflip [amount]. Wagers [amount] on a fair coin flip.")
+            else:
+                profile = get_profile(user_id)
+                amount = int(match.group(1))
+                if profile.codebucks < amount:
+                    return HttpResponse("You don't have enough codebucks.")
+                elif amount < 1:
+                    return HttpResponse("Invalid amount.")
+                if (random.random() < 0.5):
+                    amount = amount * -1
+                with transaction.atomic():
+                    profile.codebucks += amount
+                    profile.save()
+                if amount < 0:
+                    msg = "lost"
+                else:
+                    msg = "gained"
+
+                r = requests.post(
+                    "https://slack.com/api/chat.postMessage",
+                    headers={
+                        "content-type": "application/x-www-form-urlencoded",
+                        "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
+                    },
+                    params={
+                        "text": "<@{}> has {} {} codebucks.>".format(user_id, msg, abs(amount)),
+                        "channel": "CGBHVU06T"
+                    }
+                )
+                return HttpResponse("<@{}> has {} {} codebucks.>".format(user_id, msg, abs(amount)))
     return HttpResponse(200)
 
 def send_codebucks(sender_uid, recipient_uid, amount):
