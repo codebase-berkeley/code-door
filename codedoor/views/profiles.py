@@ -220,8 +220,11 @@ def slackbot_callback(request):
     :return:
     """
     body = json.loads(request.body.decode("utf-8"))
-    if body["event"]["type"] == "app_mention":
-        print(body["event"]["text"])
+    if "event" in body:
+        if body["event"]["type"] == "app_mention":
+            print(body["event"]["text"])
+    elif "challenge" in body:
+        return JsonResponse({"challenge": body["challenge"]})
     return HttpResponse(200)
 
 def send_codebucks(request):
