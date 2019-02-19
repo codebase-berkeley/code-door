@@ -219,10 +219,24 @@ def slackbot_callback(request):
     :param request:
     :return:
     """
+    # TODO: Verify that the request is coming from slack by checking the verification token in the request
     body = json.loads(request.body.decode("utf-8"))
     if "event" in body:
-        if body["event"]["type"] == "app_mention":
-            print(body["event"]["text"])
+        e = body["event"]
+        if e["type"] == "app_mention":
+            channel = e["channel"]
+            r = requests.post(
+                "https://slack.com/api/chat.postMessage",
+                headers={
+                    "content-type": "application/x-www-form-urlencoded",
+                    "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
+                },
+                params={
+                    "text": "Hello!",
+                    "channel": channel
+                }
+            )
+            print(e["text"])
     elif "challenge" in body:
         return JsonResponse({"challenge": body["challenge"]})
     print("Slackbot messaged received:{}".format(body))
