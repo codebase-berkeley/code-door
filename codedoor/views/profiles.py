@@ -280,6 +280,8 @@ def slackbot_callback(request):
                 recipient_id = match.group(1).split("|")[0]
                 amount = int(match.group(2))
                 print("Attempting to send {} from {} to {}".format(amount, user_id, recipient_id))
+                if amount < 100:
+                    return HttpResponse("The minimum transaction is 100 codebucks.")
                 success = send_codebucks(user_id, recipient_id, amount)
                 if success:
                     r = requests.post(
