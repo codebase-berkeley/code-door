@@ -346,11 +346,10 @@ def slackbot_callback(request):
                         "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
                     },
                     params={
-                        "text": "<@{}> has {} {} codebucks.>".format(user_id, msg, abs(amount)),
+                        "text": "<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount)),
                         "channel": "CGBHVU06T"
                     }
                 )
-                return HttpResponse("<@{}> has {} {} codebucks.>".format(user_id, msg, abs(amount)))
     return HttpResponse(200)
 
 def send_codebucks(sender_uid, recipient_uid, amount):
