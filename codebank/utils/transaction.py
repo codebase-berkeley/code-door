@@ -48,7 +48,8 @@ def send_codebucks(sender_email, recipient_email, amount):
             recipient.codebucks += amount
             sender.save()
             recipient.save()
-    raise TransactionError()
+        else:
+            raise TransactionError()
 
 def coinflip(email, amount):
     with transaction.atomic():
