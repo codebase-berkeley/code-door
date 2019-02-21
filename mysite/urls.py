@@ -21,5 +21,6 @@ from django.shortcuts import redirect
 urlpatterns = [
     url(r'^$', lambda r: redirect('codedoor:home')),
     url(r'^admin/', admin.site.urls),
-    url(r'^codedoor/', include('codedoor.urls', namespace='codedoor'))
+    url(r'^codedoor/', include(('codedoor.urls', 'codedoor'), namespace='codedoor')),
+    url(r'^codebank/', include(('codebank.urls', 'codebank'), namespace='codebank'))
 ]

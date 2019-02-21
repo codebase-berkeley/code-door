@@ -6,7 +6,6 @@ import codedoor.views as views
 
 urlpatterns = [
     path('createprofile', views.createprofile, name='createprofile'),
-    path('slackbot_callback', views.slackbot_callback, name='slackbot_callback'),
     path('editprofile/<int:pk>', views.editprofile, name='editprofile'),
     path('finishprofile/', views.finishprofile, name='finishprofile'),
     path('login/', views.login, name="login"),
