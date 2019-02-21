@@ -4,16 +4,20 @@ from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from codebank.utils import get_profile, send_codebucks, coinflip, TransactionError
 from codedoor.models import Profile
 import json
 import random
 import re
 import requests
 from requests.auth import HTTPBasicAuth
+from slackclient import SlackClient
 import sys
 from urllib.parse import parse_qs
 
 # Create your views here.
+
+slack = SlackClient(slack_access_keys["slackbot_token"])
 
 @csrf_exempt
 def slackbot_callback(request):
@@ -52,32 +56,33 @@ def slackbot_callback(request):
         print(command_qs)
         user_id = command_qs["user_id"][0]
         if command_qs["command"][0] == "/send":
-            match = re.match("<@([\w+|]+)>\s+(\d+)", command_qs["text"][0])
+            match = re.match("<@([\w+|]+)>\s+(\d+)(\s+.*)?", command_qs["text"][0])
             if match is None:
                 # return help message
                 return HttpResponse("I don't recognize that command. Try `/codebank` to see a list of commands!")
             else:
                 recipient_id = match.group(1).split("|")[0]
                 amount = int(match.group(2))
+                note = match.group(3).strip() if match.group(3) else ""
                 print("Attempting to send {} from {} to {}".format(amount, user_id, recipient_id))
-                if amount < 100:
-                    return HttpResponse("The minimum transaction is 100 codebucks.")
-                success = send_codebucks(user_id, recipient_id, amount)
-                if success:
-                    r = requests.post(
-                        "https://slack.com/api/chat.postMessage",
-                        headers={
-                            "content-type": "application/x-www-form-urlencoded",
-                            "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
-                        },
-                        params={
+                try:
+                    send_codebucks(get_profile(user_id), get_profile(recipient_id), amount)
+                    blocks = [
+                        {
+                            "type": "section",
                             "text": "<@{}> sent {} codebucks to <@{}>".format(user_id, amount, recipient_id),
-                            "channel": "CGBHVU06T"
                         }
+                    ]
+                    if note != "":
+                        blocks.append({"type": "section", "text": "> {}".format(note)})
+                    slack.api_call(
+                        "chat.postMessage",
+                        channel="CGBHVU06T",
+                        blocks=blocks
                     )
                     return HttpResponse("You sent {} codebucks to <@{}>".format(amount, recipient_id))
-                return HttpResponse("It looks like that transaction is invalid. Make sure you have enough codebucks and "
-                                    "that your recipient has a codebank account!")
+                except TransactionError as e:
+                    return HttpResponse(e.msg)
         elif command_qs["command"][0] == "/codebank":
             user_profile = get_profile(user_id)
             if user_profile is None:
@@ -105,71 +110,26 @@ def slackbot_callback(request):
             if match is None:
                 return HttpResponse("Command is /coinflip [amount]. Wagers [amount] on a fair coin flip.")
             else:
-                profile = get_profile(user_id)
+                profile = get_profile(user_id, lock_row=True)
                 amount = int(match.group(1))
-                if profile.codebucks < amount:
-                    return HttpResponse("You don't have enough codebucks.")
-                elif amount < 100:
-                    return HttpResponse("The gambling committee requires a minimum wager of at least 100 codebucks.")
-                if (random.random() < 0.49):
-                    amount = amount * -1
-                with transaction.atomic():
-                    profile.codebucks += amount
-                    profile.save()
-                if amount < 0:
-                    msg = "lost"
-                else:
-                    msg = "gained"
-
-                r = requests.post(
-                    "https://slack.com/api/chat.postMessage",
-                    headers={
-                        "content-type": "application/x-www-form-urlencoded",
-                        "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
-                    },
-                    params={
-                        "text": "<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount)),
-                        "channel": "CGBHVU06T"
-                    }
-                )
-                return HttpResponse("<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount)))
+                try:
+                    amount = coinflip(profile, amount)
+                    if amount < 0:
+                        msg = "lost"
+                    else:
+                        msg = "gained"
+                    requests.post(
+                        "https://slack.com/api/chat.postMessage",
+                        headers={
+                            "content-type": "application/x-www-form-urlencoded",
+                            "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
+                        },
+                        params={
+                            "text": "<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount)),
+                            "channel": "CGBHVU06T"
+                        }
+                    )
+                    return HttpResponse("<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount)))
+                except TransactionError as e:
+                    return HttpResponse(e.msg)
     return HttpResponse(200)
-
-def send_codebucks(sender_uid, recipient_uid, amount):
-    """
-    :param sender_uid: Slack UID of the sender.
-    :param recipient_uid: Slack UID of the recipient.
-    :param amount: Positive integer amount to send.
-    :return: True if the transaction completed successfully, else False
-    """
-    sender = get_profile(sender_uid)
-    recipient = get_profile(recipient_uid)
-    if sender and recipient and sender != recipient:
-        if sender.codebucks < amount:
-            return False
-        with transaction.atomic():
-            sender.codebucks -= amount
-            recipient.codebucks += amount
-            sender.save()
-            recipient.save()
-        return True
-    return False
-
-def get_profile(slack_uid):
-    r = requests.post(
-        "https://slack.com/api/users.info",
-        headers={
-            "content-type": "application/x-www-form-urlencoded",
-        },
-        params={
-            "token": slack_access_keys["slackbot_token"],
-            "user": slack_uid
-        }
-    )
-    data = r.json()
-    try:
-        email = data["user"]["profile"]["email"]
-        profile = Profile.objects.get(user=User.objects.get(email=email))
-        return profile
-    except Exception:
-        return None
