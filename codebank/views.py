@@ -4,7 +4,7 @@ from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from codebank.utils import get_profile, send_codebucks, coinflip, TransactionError
+from codebank.utils import get_email, send_codebucks, coinflip, TransactionError
 from codedoor.models import Profile
 import json
 import random
@@ -66,7 +66,7 @@ def slackbot_callback(request):
                 note = match.group(3).strip() if match.group(3) else ""
                 print("Attempting to send {} from {} to {}".format(amount, user_id, recipient_id))
                 try:
-                    send_codebucks(get_profile(user_id), get_profile(recipient_id), amount)
+                    send_codebucks(get_email(user_id), get_email(recipient_id), amount)
                     blocks = [
                         {
                             "type": "section",
@@ -84,7 +84,7 @@ def slackbot_callback(request):
                 except TransactionError as e:
                     return HttpResponse(e.msg)
         elif command_qs["command"][0] == "/codebank":
-            user_profile = get_profile(user_id)
+            user_profile = Profile.objects.get(user=User.objects.get(email=get_email(user_id)))
             if user_profile is None:
                 return HttpResponse("It looks like you don't have a Codebank account yet. "
                                     "Visit https://codedoor-prod.herokuapp.com to create one!")
@@ -110,24 +110,17 @@ def slackbot_callback(request):
             if match is None:
                 return HttpResponse("Command is /coinflip [amount]. Wagers [amount] on a fair coin flip.")
             else:
-                profile = get_profile(user_id, lock_row=True)
                 amount = int(match.group(1))
                 try:
-                    amount = coinflip(profile, amount)
+                    amount = coinflip(get_email(user_id), amount)
                     if amount < 0:
                         msg = "lost"
                     else:
                         msg = "gained"
-                    requests.post(
-                        "https://slack.com/api/chat.postMessage",
-                        headers={
-                            "content-type": "application/x-www-form-urlencoded",
-                            "Authorization": "Bearer {}".format(slack_access_keys["slackbot_token"])
-                        },
-                        params={
-                            "text": "<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount)),
-                            "channel": "CGBHVU06T"
-                        }
+                    slack.api_call(
+                        "chat.postMessage",
+                        channel="CGBHVU06T",
+                        text="<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount))
                     )
                     return HttpResponse("<@{}> has {} {} codebucks.".format(user_id, msg, abs(amount)))
                 except TransactionError as e:
