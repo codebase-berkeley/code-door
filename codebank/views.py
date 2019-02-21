@@ -70,11 +70,20 @@ def slackbot_callback(request):
                     blocks = [
                         {
                             "type": "section",
-                            "text": "<@{}> sent {} codebucks to <@{}>".format(user_id, amount, recipient_id),
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "<@{}> sent {} codebucks to <@{}>".format(user_id, amount, recipient_id)
+                            }
                         }
                     ]
                     if note != "":
-                        blocks.append({"type": "section", "text": "> {}".format(note)})
+                        blocks.append({
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "> {}".format(note)
+                            }
+                        })
                     slack.api_call(
                         "chat.postMessage",
                         channel="CGBHVU06T",
