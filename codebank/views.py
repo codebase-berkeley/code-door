@@ -17,7 +17,7 @@ from urllib.parse import parse_qs
 
 # Create your views here.
 
-slack = SlackClient(slack_access_keys["slackbot_token"])
+slack = SlackClient(slack_access_keys["slackbot_token"] if "slackbot_token" in slack_access_keys else "")
 
 @csrf_exempt
 def slackbot_callback(request):
