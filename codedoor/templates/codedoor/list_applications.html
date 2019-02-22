@@ -7,6 +7,8 @@
     <button id="create-application-btn" class="btn btn-sm">Create New Application</button>
   </div>
 
+  {% include "components/create_application_modal.html" with id="application-modal" on_submit_list_id="applications" only %}
+
   <div class="card-list">
     {% include "components/application.html" with a=applications.0 dummy=True only %}
     {% for a in page %}
