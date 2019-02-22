@@ -17,7 +17,7 @@ class Company(models.Model):
     logo = models.URLField(null=True, blank=True)
     structure = models.CharField(max_length=100, choices=STRUCTURES)
     num_reviews = models.IntegerField(default = 0)
-    avg_rating = models.FloatField()
+    avg_rating = models.FloatField(default = 0.0)
     def __str__(self):
         return self.name
 

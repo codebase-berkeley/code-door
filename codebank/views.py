@@ -107,7 +107,7 @@ def slackbot_callback(request):
                     user_profile.user.first_name, user_profile.codebucks),
                 "attachments": [
                     {
-                        "text": "Type `/send [@user] [amount]` to send some codebucks to a friend."
+                        "text": "Type `/send [@user] [amount] [note]` to send some codebucks to a friend."
                     },
                     {
                         "text": leaderboard_text

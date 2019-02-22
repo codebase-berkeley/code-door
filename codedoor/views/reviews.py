@@ -98,7 +98,7 @@ def created_review(request):
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
         review.save()
         # add codebucks to the user's balance!
-        codebuck_value = max(100, 1000 - company.num_reviews * 100)
+        codebuck_value = 1000
         print("Add {} codebuck value to {}".format(codebuck_value, reviewer))
         reviewer.codebucks = reviewer.codebucks + codebuck_value
         reviewer.save()

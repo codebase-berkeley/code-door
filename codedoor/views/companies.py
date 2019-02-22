@@ -22,7 +22,7 @@ def create_company(request):
             print(e)
             return HttpResponse("You did not fill out the form correctly!")
 
-        company = Company(name=name, industry=industry, website=website, structure=structure)
+        company = Company(name=name, industry=industry, website=website, structure=structure, avg_rating=0.0)
         company.save()
         s3 = boto3.resource('s3', aws_access_key_id=s3_access_keys["id"],
                             aws_secret_access_key=s3_access_keys["secret"])
