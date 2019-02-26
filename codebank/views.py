@@ -30,7 +30,7 @@ def verify_slack_request(request):
     my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret,
                                                     sig_basestring).hexdigest()
     slack_signature = request.headers['X-Slack-Signature']
-    if not hmac.compare(my_signature, slack_signature):
+    if not hmac.compare_digest(my_signature, slack_signature):
         return False # request didn't originate from slack
     return True
 
