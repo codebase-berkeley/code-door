@@ -12,7 +12,8 @@ if config("production"):
     slack_access_keys = {
         "client_id" : config("slack_id"),
         "client_secret": config("slack_secret"),
-        "slackbot_token": config("slackbot_token")
+        "slackbot_token": config("slackbot_token"),
+        "signing_secret": config("signing_secret")
     }
 
     absolute_url = config("absolute_url")
