@@ -14,10 +14,25 @@ from requests.auth import HTTPBasicAuth
 from slackclient import SlackClient
 import sys
 from urllib.parse import parse_qs
+import hmac
 
 # Create your views here.
 
 slack = SlackClient(slack_access_keys["slackbot_token"] if "slackbot_token" in slack_access_keys else "")
+
+def verify_slack_request(request):
+    slack_signing_secret = slack_access_keys['signing_secret']
+    request_body = request.body()
+    timestamp = request.headers['X-Slack-Request-Timestamp']
+    if absolute_value(time.time() - timestamp) > 60 * 5:
+        return False # replay attack
+    sig_basestring = 'v0:' + timestamp + ':' + request_body
+    my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret,
+                                                    sig_basestring).hexdigest()
+    slack_signature = request.headers['X-Slack-Signature']
+    if not hmac.compare_digest(my_signature, slack_signature):
+        return False # request didn't originate from slack
+    return True
 
 @csrf_exempt
 def slackbot_callback(request):
@@ -26,7 +41,10 @@ def slackbot_callback(request):
     :param request:
     :return:
     """
-    # TODO: Verify that the request is coming from slack by checking the verification token in the request
+    # Verify that the request is coming from slack by checking the verification token in the request
+    if not verify_slack_request(request):
+        return
+
     if request.content_type == "application/json":
         body = json.loads(request.body.decode("utf-8"))
         print("Slackbot messaged received:{}".format(body))
