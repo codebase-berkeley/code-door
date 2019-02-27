@@ -22,7 +22,7 @@ slack = SlackClient(slack_access_keys["slackbot_token"] if "slackbot_token" in s
 
 def verify_slack_request(request):
     slack_signing_secret = slack_access_keys['signing_secret']
-    request_body = request.body()
+    request_body = request.body.decode("utf-8") 
     timestamp = request.headers['X-Slack-Request-Timestamp']
     if absolute_value(time.time() - timestamp) > 60 * 5:
         return False # replay attack
