@@ -24,14 +24,15 @@ from urllib.parse import parse_qs
 slack = SlackClient(slack_access_keys["slackbot_token"] if "slackbot_token" in slack_access_keys else "")
 
 def verify_slack_request(request):
+    print(request.META)
     slack_signing_secret = slack_access_keys['signing_secret']
     request_body = request.body.decode("utf-8")
     timestamp = request.META['HTTP_X_SLACK_REQUEST_TIMESTAMP']
-    if abs(datetime.now() - timestamp) > 60 * 5:
+    if abs(datetime.now().timestamp() - float(timestamp)) > 60.0 * 5.0:
         return False # replay attack
-    sig_basestring = str.encode('v0:' + timestamp + ':') + request_body
+    sig_basestring = str.encode('v0:' + timestamp + ':' + request_body)
     my_signature = 'v0=' + hmac.new(str.encode(slack_signing_secret), sig_basestring, hashlib.sha256).hexdigest()
-    slack_signature = request.headers['X_SLACK_SIGNATURE']
+    slack_signature = request.META['HTTP_X_SLACK_SIGNATURE']
     if not hmac.compare_digest(my_signature, slack_signature):
         return False # request didn't originate from slack
     return True
