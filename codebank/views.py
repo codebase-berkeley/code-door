@@ -27,12 +27,12 @@ def verify_slack_request(request):
     try:
         slack_signing_secret = slack_access_keys['signing_secret']
         request_body = request.body.decode("utf-8")
-        timestamp = request.META['HTTP_X-Slack-Request-Timestamp']
+        timestamp = request.META['HTTP_X_SLACK_REQUEST_TIMESTAMP']
         if abs(datetime.now() - timestamp) > 60 * 5:
             return False # replay attack
         sig_basestring = str.encode('v0:' + timestamp + ':') + request_body
         my_signature = 'v0=' + hmac.new(str.encode(slack_signing_secret), sig_basestring, hashlib.sha256).hexdigest()
-        slack_signature = request.headers['X-Slack-Signature']
+        slack_signature = request.headers['X_SLACK_SIGNATURE']
         if not hmac.compare_digest(my_signature, slack_signature):
             return False # request didn't originate from slack
         return True
