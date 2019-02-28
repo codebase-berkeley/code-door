@@ -1,11 +1,14 @@
 from api_keys_prod import s3_access_keys, slack_access_keys, absolute_url
+from codebank.utils import get_email, send_codebucks, coinflip, TransactionError
+from codedoor.models import Profile
+from datetime import datetime
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from codebank.utils import get_email, send_codebucks, coinflip, TransactionError
-from codedoor.models import Profile
+import hashlib
+import hmac
 import json
 import random
 import re
@@ -14,25 +17,28 @@ from requests.auth import HTTPBasicAuth
 from slackclient import SlackClient
 import sys
 from urllib.parse import parse_qs
-import hmac
+
 
 # Create your views here.
 
 slack = SlackClient(slack_access_keys["slackbot_token"] if "slackbot_token" in slack_access_keys else "")
 
 def verify_slack_request(request):
-    slack_signing_secret = slack_access_keys['signing_secret']
-    request_body = request.body.decode("utf-8") 
-    timestamp = request.META['HTTP_X-Slack-Request-Timestamp']
-    if absolute_value(time.time() - timestamp) > 60 * 5:
-        return False # replay attack
-    sig_basestring = 'v0:' + timestamp + ':' + request_body
-    my_signature = 'v0=' + hmac.compute_hash_sha256(slack_signing_secret,
-                                                    sig_basestring).hexdigest()
-    slack_signature = request.headers['X-Slack-Signature']
-    if not hmac.compare_digest(my_signature, slack_signature):
-        return False # request didn't originate from slack
-    return True
+    try:
+        slack_signing_secret = slack_access_keys['signing_secret']
+        request_body = request.body.decode("utf-8")
+        timestamp = request.META['HTTP_X-Slack-Request-Timestamp']
+        if abs(datetime.now() - timestamp) > 60 * 5:
+            return False # replay attack
+        sig_basestring = str.encode('v0:' + timestamp + ':') + request_body
+        my_signature = 'v0=' + hmac.new(str.encode(slack_signing_secret), sig_basestring, hashlib.sha256).hexdigest()
+        slack_signature = request.headers['X-Slack-Signature']
+        if not hmac.compare_digest(my_signature, slack_signature):
+            return False # request didn't originate from slack
+        return True
+    except Exception:
+        print("Verifying request failed with request headers {}".format(request.META))
+        return False
 
 @csrf_exempt
 def slackbot_callback(request):
