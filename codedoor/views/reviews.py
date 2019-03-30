@@ -1,3 +1,4 @@
+from codebank.utils import add_codebucks
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse, HttpResponseRedirect, Http404, JsonResponse
@@ -98,10 +99,7 @@ def created_review(request):
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
         review.save()
         # add codebucks to the user's balance!
-        codebuck_value = 1000
-        print("Add {} codebuck value to {}".format(codebuck_value, reviewer))
-        reviewer.codebucks = reviewer.codebucks + codebuck_value
-        reviewer.save()
+        add_codebucks(reviewer, 1000)
 
         return JsonResponse({
             "reviewername": review.reviewer.user.get_full_name(),

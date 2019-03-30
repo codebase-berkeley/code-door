@@ -1,3 +1,4 @@
+from codebank.utils import add_codebucks
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse, Http404
 from django.core.paginator import Paginator
@@ -46,9 +47,7 @@ def create_application(request, companypk):
         )
         a.save()
         # add codebucks to the applicant profile.
-        codebucks_value = 150
-        applicant_profile.codebucks = applicant_profile.codebucks + codebucks_value
-        applicant_profile.save()
+        add_codebucks(applicant_profile, 150)
 
         return JsonResponse({
             "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
@@ -99,9 +98,7 @@ def create_application_company(request):
         )
         a.save()
         # add codebucks to the applicant profile.
-        codebucks_value = 150
-        applicant_profile.codebucks = applicant_profile.codebucks + codebucks_value
-        applicant_profile.save()
+        add_codebucks(applicant_profile, 150)
 
         return JsonResponse({
             "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),

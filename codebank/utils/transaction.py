@@ -1,3 +1,4 @@
+from codebank.models import TransactionRecord
 from codedoor.models import Profile
 from django.contrib.auth.models import User
 from django.db import transaction
@@ -46,10 +47,28 @@ def send_codebucks(sender_email, recipient_email, amount):
                 raise OverdraftError("You don't have enough codebucks in your account to complete that transaction.")
             sender.codebucks -= amount
             recipient.codebucks += amount
+            txn = TransactionRecord(sender=sender, recipient=recipient, amount=amount)
+            txn.save()
             sender.save()
             recipient.save()
         else:
             raise TransactionError()
+
+
+def add_codebucks(profile, amount):
+    """
+    :param profile: Profile to add codebucks to.
+    :param amount: Positive integer amount to add.
+    :return: True if the transaction completed successfully, else False
+    """
+    with transaction.atomic():
+        profile.codebucks += amount
+        txn = TransactionRecord(sender=None, recipient=profile, amount=amount)
+        txn.save()
+        profile.save()
+        return True
+    return False
+
 
 def coinflip(email, amount):
     with transaction.atomic():
@@ -62,5 +81,7 @@ def coinflip(email, amount):
         if random.random() < 0.49:
             amount = amount * -1
         profile.codebucks += amount
+        txn = TransactionRecord(sender=None, recipient=profile, amount=amount)
+        txn.save()
         profile.save()
         return amount

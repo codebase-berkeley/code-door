@@ -3,9 +3,7 @@ from codebank.utils import get_email, send_codebucks, coinflip, TransactionError
 from codedoor.models import Profile
 from datetime import datetime
 from django.contrib.auth.models import User
-from django.db import transaction
 from django.http import HttpResponse, HttpResponseRedirect, Http404, JsonResponse
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import hashlib
 import hmac
@@ -13,7 +11,6 @@ import json
 import random
 import re
 import requests
-from requests.auth import HTTPBasicAuth
 from slackclient import SlackClient
 import sys
 from urllib.parse import parse_qs
@@ -75,7 +72,6 @@ def slackbot_callback(request):
     elif request.content_type == "application/x-www-form-urlencoded":
         # the request is a slash command, not a message to the bot.
         command_qs = parse_qs(request.body.decode("utf-8"))
-        print(command_qs)
         user_id = command_qs["user_id"][0]
         if command_qs["command"][0] == "/send":
             match = re.match("<@([\w+|]+)>\s+(\d+)(\s+.*)?", command_qs["text"][0])

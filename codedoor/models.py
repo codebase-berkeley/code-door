@@ -18,6 +18,10 @@ class Company(models.Model):
     structure = models.CharField(max_length=100, choices=STRUCTURES)
     num_reviews = models.IntegerField(default = 0)
     avg_rating = models.FloatField(default = 0.0)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.name
 
@@ -31,19 +35,11 @@ class Profile(models.Model):
     resume = models.FileField(null=True, blank=True)
     codebucks = models.IntegerField(default=0)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.user.get_full_name()
-
-
-#@receiver(post_save, sender=User)
-#def create_user_profile(sender, instance, created, **kwargs):
-#    if created:
-#        Profile.objects.create(user=instance)
-
-
-#@receiver(post_save, sender=User)
-#def save_user_profile(sender, instance, **kwargs):
-#    instance.profile.save()
 
 
 class Application(models.Model):
@@ -62,6 +58,9 @@ class Application(models.Model):
     offer_details = models.TextField(null=True, blank=True)
     difficult = models.FloatField()
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return "{}'s application to {}".format(self.profile.user.get_full_name(),
                                                self.company.name)
@@ -75,6 +74,9 @@ class Review(models.Model):
     review = models.TextField()
     title = models.CharField(max_length=200, null=True, blank=True)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return "{}'s review of {}".format(self.reviewer.user,
                                           self.company.name)
@@ -85,6 +87,9 @@ class Question(models.Model):
     question = models.TextField()
     applicant_answer = models.TextField(null=True, blank=True)
     actual_answer = models.TextField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "{}: {}".format(self.application.company.name,
@@ -97,6 +102,9 @@ class ReviewComment(models.Model):
     content = models.TextField()
     commenter = models.ForeignKey(Profile, on_delete=models.CASCADE)
 
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return "{} comment on {}".format(self.commenter.user, self.review.title)
 
@@ -106,6 +114,9 @@ class ApplicationComment(models.Model):
     title = models.CharField(max_length=200, null=True, blank=True)
     content = models.TextField()
     commenter = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "{} comment on {}".format(self.commenter.user, self.application.company.name)
