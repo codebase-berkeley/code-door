@@ -5,8 +5,8 @@ from codedoor.models import Profile
 
 
 class TransactionRecord(models.Model):
-    sender = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
-    recipient = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
+    sender = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL, related_name="sender_set")
+    recipient = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL, related_name="recipient_set")
     amount = models.IntegerField(default=0)
     note = models.TextField(null=True, blank=True)
 
