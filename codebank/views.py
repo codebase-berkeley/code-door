@@ -84,7 +84,7 @@ def slackbot_callback(request):
                 note = match.group(3).strip() if match.group(3) else ""
                 print("Attempting to send {} from {} to {}".format(amount, user_id, recipient_id))
                 try:
-                    send_codebucks(get_email(user_id), get_email(recipient_id), amount)
+                    send_codebucks(get_email(user_id), get_email(recipient_id), amount, note)
                     blocks = [
                         {
                             "type": "section",

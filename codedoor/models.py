@@ -33,6 +33,8 @@ class Profile(models.Model):
     current_job = models.CharField(null=True, blank=True, max_length=1000)
     linkedin = models.URLField(null=True, blank=True)
     resume = models.FileField(null=True, blank=True)
+
+    # NOTE: If you are adding to/from this field, use codebank transactions! See `codebank.utils.transaction`.
     codebucks = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)

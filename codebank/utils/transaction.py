@@ -28,7 +28,7 @@ class InvalidRecipientError(TransactionError):
     def __init__(self, msg):
         self.msg = msg
 
-def send_codebucks(sender_email, recipient_email, amount):
+def send_codebucks(sender_email, recipient_email, amount, note=None):
     """
     :param sender: Profile of the sender.
     :param recipient: Profile of the recipient.
@@ -47,7 +47,7 @@ def send_codebucks(sender_email, recipient_email, amount):
                 raise OverdraftError("You don't have enough codebucks in your account to complete that transaction.")
             sender.codebucks -= amount
             recipient.codebucks += amount
-            txn = TransactionRecord(sender=sender, recipient=recipient, amount=amount)
+            txn = TransactionRecord(sender=sender, recipient=recipient, amount=amount, note=note)
             txn.save()
             sender.save()
             recipient.save()

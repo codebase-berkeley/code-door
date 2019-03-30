@@ -5,13 +5,14 @@ from codedoor.models import Profile
 
 
 class TransactionRecord(models.Model):
-    sender = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
-    recipient = models.ForeignKey(Profile, null=True, on_delete=models.SET_NULL)
+    sender = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
+    recipient = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
     amount = models.IntegerField(default=0)
+    note = models.TextField(null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "<Transaction:{}: {} --> {} {} codebucks>".format(
-            self.created_at, self.sender, self.recipient, self.amount
+        return "<Transaction:{}: {} --> {} {} codebucks with note: {}>".format(
+            self.created_at, self.sender, self.recipient, self.amount, self.note
         )
