@@ -116,7 +116,7 @@ def slackbot_callback(request):
                 return HttpResponse("It looks like you don't have a Codebank account yet. "
                                     "Visit https://codedoor-prod.herokuapp.com to create one!")
             top_profiles = Profile.objects.all().order_by('-codebucks')[:3]
-            leaderboard_text = "The top 3 codebucks accounts are:"
+            leaderboard_text = "**Leaderboard: (https://codedoor-prod.herokuapp.com/codedoor/codebank)** The top 3 codebucks accounts are:"
             for i in range(len(top_profiles)):
                 p = top_profiles[i]
                 leaderboard_text += "\n{}. {} ({} CB)".format(i+1, p.user.get_full_name(), p.codebucks)
@@ -126,6 +126,9 @@ def slackbot_callback(request):
                 "attachments": [
                     {
                         "text": "Type `/send [@user] [amount] [note]` to send some codebucks to a friend."
+                    },
+                    {
+                        "text": "Short on codebucks? Write some reviews at https://codedoor-prod.herokuapp.com to earn some more!"
                     },
                     {
                         "text": leaderboard_text
