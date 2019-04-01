@@ -99,7 +99,7 @@ def created_review(request):
         review = Review(company=company, reviewer=reviewer, rating=rating, recommend=recommend, review=review, title=title)
         review.save()
         # add codebucks to the user's balance!
-        add_codebucks(reviewer, 1000)
+        add_codebucks(reviewer, 1000, "Wrote Review {}".format(review.pk))
 
         return JsonResponse({
             "reviewername": review.reviewer.user.get_full_name(),

@@ -55,15 +55,16 @@ def send_codebucks(sender_email, recipient_email, amount, note=None):
             raise TransactionError()
 
 
-def add_codebucks(profile, amount):
+def add_codebucks(profile, amount, note=""):
     """
     :param profile: Profile to add codebucks to.
     :param amount: Positive integer amount to add.
+    :param: note: Optional note.
     :return: True if the transaction completed successfully, else False
     """
     with transaction.atomic():
         profile.codebucks += amount
-        txn = TransactionRecord(sender=None, recipient=profile, amount=amount)
+        txn = TransactionRecord(sender=None, recipient=profile, amount=amount, note=note)
         txn.save()
         profile.save()
         return True

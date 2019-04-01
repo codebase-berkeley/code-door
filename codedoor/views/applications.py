@@ -47,7 +47,7 @@ def create_application(request, companypk):
         )
         a.save()
         # add codebucks to the applicant profile.
-        add_codebucks(applicant_profile, 150)
+        add_codebucks(applicant_profile, 150, "Wrote Application {}".format(a.pk))
 
         return JsonResponse({
             "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),
@@ -98,7 +98,7 @@ def create_application_company(request):
         )
         a.save()
         # add codebucks to the applicant profile.
-        add_codebucks(applicant_profile, 150)
+        add_codebucks(applicant_profile, 150, "Wrote Application {}".format(a.pk))
 
         return JsonResponse({
             "a": serializers.serialize('json', Application.objects.filter(pk=a.pk)),

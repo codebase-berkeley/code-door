@@ -1,5 +1,6 @@
 from api_keys_prod import s3_access_keys, slack_access_keys, absolute_url
 import boto3
+from codebank.utils.transaction import add_codebucks
 from codedoor.models import Profile
 import datetime
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
@@ -11,41 +12,6 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 profile_pic_bucket = 'codedoor-profile-pictures'
-
-
-def createprofile(request):
-    if request.method == "GET":
-        return render(request, 'codedoor/create_profile.html')
-    else:
-        try:
-            input_username = request.POST['email']
-            input_password = request.POST['password']
-            input_email = request.POST['email']
-            input_first_name = request.POST['first_name']
-            input_last_name = request.POST['last_name']
-            input_profile_pic = request.FILES['profile_pic'].read()
-            input_graduation_year = request.POST['graduation_year']
-            input_current_job = request.POST['current_job']
-            input_linkedin = request.POST['linkedin']
-            if "http://" not in input_linkedin and "https://" not in input_linkedin and input_linkedin:
-                input_linkedin = "http://" + input_linkedin
-            # input_resume = request.POST['resume']
-        except Exception as e:
-            return HttpResponse("You did not fill out the form correctly!")  # TODO: message displayed on form
-
-        user = User.objects.create_user(username=input_username, password=input_password, email=input_email,
-                                        first_name=input_first_name, last_name=input_last_name)
-        profile = Profile(user=user, graduation_year=input_graduation_year,
-                          current_job=input_current_job, linkedin=input_linkedin)
-
-        user.save()
-        profile.save()
-        upload_picture(input_profile_pic, profile)
-        profile.save()
-        user = authenticate(request, username=input_username, password=input_password)
-        auth_login(request, user)
-        return redirect("codedoor:viewprofile", pk=profile.id)
-
 
 def finishprofile(request):
     if request.method == "GET":
@@ -76,6 +42,8 @@ def finishprofile(request):
         profile.save()
         upload_picture(input_profile_pic, profile)
         profile.save()
+        add_codebucks(profile, 1000, "Created profile")
+
         user = authenticate(request, username=input_id)
         auth_login(request, user)
         return redirect("codedoor:viewprofile", pk=profile.id)  # Eventually redirect to home page
