@@ -23,7 +23,7 @@ def create_application(request, companypk):
             description = request.POST['description']
             season = request.POST['season']
             position = request.POST['position']
-            received_offer = request.POST['received_offer']
+            received_offer = bool(request.POST['received_offer'] == 'true')
             year = request.POST['year']
             offer_details = request.POST['offer_details']
             difficulty = request.POST['difficulty']
@@ -70,7 +70,7 @@ def create_application_company(request):
             description = request.POST['description']
             season = request.POST['season']
             position = request.POST['position']
-            received_offer = request.POST['received_offer']
+            received_offer = bool(request.POST['received_offer'] == 'true')
             year = request.POST['year']
             offer_details = request.POST['offer_details']
             difficulty = request.POST['difficulty']
