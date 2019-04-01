@@ -25,10 +25,6 @@ def create_application(request, companypk):
             position = request.POST['position']
             received_offer = request.POST['received_offer']
             year = request.POST['year']
-            if(received_offer == "Yes"):
-                received_offer = True
-            else:
-                received_offer = False
             offer_details = request.POST['offer_details']
             difficulty = request.POST['difficulty']
         except Exception as e:
@@ -76,10 +72,6 @@ def create_application_company(request):
             position = request.POST['position']
             received_offer = request.POST['received_offer']
             year = request.POST['year']
-            if(received_offer == "Yes"):
-                received_offer = True
-            else:
-                received_offer = False
             offer_details = request.POST['offer_details']
             difficulty = request.POST['difficulty']
         except Exception as e:

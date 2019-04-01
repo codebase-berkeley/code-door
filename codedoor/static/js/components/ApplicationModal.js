@@ -106,6 +106,7 @@ var ApplicationModal = function (formInitialState, onSubmitPostUrl, onSubmitList
       formData.append("description", self.formInitialState.description);
       formData.append("received_offer", self.formInitialState.received_offer);
       formData.append("offer_details", self.formInitialState.offer_details);
+      console.log(self.offerCheckboxInput.checked);
 
       var headers = new Headers();
       var csrftoken = getCookie("csrftoken");
